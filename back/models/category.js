@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             unique: true,
+            allowNull: false,
+            primaryKey: true,
             comment: "카테고리 고유 아이디",
         },
         name: {
@@ -23,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Category.associate = models => {
         Category.belongsToMany(models.Market, {through: 'market_category'});
+        Category.belongsToMany(models.Product, {through: 'product_category'})
     };
     return Category;
 };
