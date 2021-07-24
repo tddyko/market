@@ -17,6 +17,7 @@
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pug": "^3.0.2",
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0",
@@ -28,8 +29,8 @@
   "main": "app.js",
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "nodemon": "^2.0.12"
-  }
+  },
+  "description": ""
 }
