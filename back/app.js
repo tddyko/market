@@ -10,6 +10,8 @@ const passportConfing = require('./passport'); //페스포트 설정
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const user_loginRouter = require('./routes/user_login'); //로그인, 로그아웃
+const user_signupRouter = require('./routes/user_signup'); //회원가입
 const chageSotreinfoRouter = require('./routes/chageSotreinfo'); //가게 카테고리 업데이트
 const menuRouter = require('./routes/menu'); //메뉴 관련 라우터
 
@@ -61,6 +63,8 @@ app.use(passport.session());
 
 
 app.use('/', indexRouter);
+app.use('/',user_loginRouter);
+app.use('/', user_signupRouter);
 app.use('/users', usersRouter);
 app.use('/update',chageSotreinfoRouter); //추후 수정
 app.use('/menu',menuRouter);
