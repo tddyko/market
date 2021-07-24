@@ -1,6 +1,6 @@
 //로그인 관련 라우터 모음
 const passport = require('passport');
-const {Market,Category,Prodouct,Store_infrom,Member} = require('../models');
+const {Category,Prodouct,Store_infrom} = require('../models');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const express = require('express');
 const router = express.Router();  
