@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {v4: uuidv4} = require('uuid');
-const {Prodouct,Store_infrom} = require('../models');
+const {Product,Store_infrom} = require('../models');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 
 //localhost:3000/menu/addmenu
 //id 가 name , price인 곳에서 정보를 받음
 router.get('/addMenu', isLoggedIn, async(req,res)=>{
-    Prodouct.create({
+    Product.create({
         product_id : uuidv4(),
         market_id : req.user.market_id,
         name : req.body.name,

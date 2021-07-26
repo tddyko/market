@@ -1,6 +1,6 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const {Market} = require('../models');
+const {Market,Member} = require('../models');
 
 module.exports = () =>{
     passport.use(new localStrategy({
@@ -8,8 +8,11 @@ module.exports = () =>{
         passwordField : 'password',
         passReqToCallback : true,
     }, async (req,userId, password, done) => {
-        try{
+        try{ 
+          if(req.body.check =='market')
             var result = await Market.findOne({where : {id : userId, password : password}});
+            else
+              var result = await Member.findOne({where : {id : userId, password : password}});
             if(result){
               return done(null, result);
             }else{
@@ -17,7 +20,7 @@ module.exports = () =>{
             }
           }catch(error){
             console.log(error);
-            done(error, null, { message: 'Error'});
+            return done(error);
         }
     }));
 }

@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const passport = require('passport');  //페스포트
 const passportConfing = require('./passport'); //페스포트 설정
+const flash = require('connect-flash');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -14,9 +15,11 @@ const user_loginRouter = require('./routes/user_login'); //로그인, 로그아�
 const user_signupRouter = require('./routes/user_signup'); //회원가입
 const chageSotreinfoRouter = require('./routes/chageSotreinfo'); //가게 카테고리 업데이트
 const menuRouter = require('./routes/menu'); //메뉴 관련 라우터
-
+const reservationRouter = require('./routes/reservations'); //예약 관련 라우터
+const orderRouter = require('./routes/orders'); //주문
 
 const app = express();
+
 passportConfing(); //페스포트 설정
 // promise 버전
 /*sequelize.sync( {force: false} )
@@ -60,7 +63,7 @@ app.use(session({
 //passport 설정
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/',user_loginRouter);
@@ -68,6 +71,8 @@ app.use('/', user_signupRouter);
 app.use('/users', usersRouter);
 app.use('/update',chageSotreinfoRouter); //추후 수정
 app.use('/menu',menuRouter);
+app.use('/reservation', reservationRouter);
+app.use('/order',orderRouter);
 
 app.use( (req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
@@ -83,5 +88,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = {app, connDB};
