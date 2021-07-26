@@ -9,7 +9,7 @@ const router = express.Router();
   id의 id는 id
   비밀번호의 id 는 password
 */
-var login; 
+let login;
 router.get('/login',
 passport.authenticate('local', //로그인 방식
   { 

@@ -34,13 +34,12 @@ router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, 
         const {id, password, name, birthday, email, market_name, phonenumber, zipcode, address, dt_address} = req.body;
         try {
             const exMarketID = await Market.findOne({where: {id}});
-            if (exMarketID) {
+            if (exMarketID)
                 return res.redirect('/signup?error=exist');
-            }
             console.dir(req.file);
             console.log('가게 가입');
-            const hash = bcrypt.hash(password, 12);
-            Market.create({
+            const hash = await bcrypt.hash(password, 12);
+            await Market.create({
                 market_id: uuidv4(),
                 category: null,
                 profile_img: req.file.filename,
@@ -58,17 +57,20 @@ router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, 
         delete req.body.email2; //필요없는 값 삭제
         const {id, password, name, birthday, email, nickname, phonenumber, zipcode, address, dt_address} = req.body;
         try {
+            const exMemberID = await Member.findOne({where: {id}});
+            if (exMemberID)
+                return res.redirect('/signup?error=exist');
             console.log('멤버 가입');
-            //const hash = bcrypt.hash(password, 12);
-            Member.create({
+            const hash = await bcrypt.hash(password, 12);
+            await Member.create({
                 member_id: uuidv4(),
                 profile_img: "public/images/defaultProfile.jpg",
-                id,// password: hash, 
-                password, name, birthday, email,
+                id, password: hash, name, birthday,
+                email,
                 nickname, phonenumber,
                 zipcode, address, dt_address
             })
-        } catch (e){
+        } catch (e) {
             console.error(e);
             return next(e);
         }

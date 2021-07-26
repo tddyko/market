@@ -13,7 +13,7 @@ router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
     });
     console.log(find_Mid);
     
-    var {current_state, order_count} = req.body;
+    const {current_state, order_count} = req.body;
     Reservation.create({
         reservation_id : uuidv4(),
         current_state, order_count,
