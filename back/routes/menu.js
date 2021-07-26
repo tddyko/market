@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const {v4: uuidv4} = require('uuid');
 const {Product,Store_infrom} = require('../models');
-const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
+const { isLoggedInMarket, isNotLoggedIn } = require('./middlewares');
 
 //localhost:3000/menu/addmenu
 //id 가 name , price인 곳에서 정보를 받음
-router.get('/addMenu', isLoggedIn, async(req,res)=>{
+router.get('/addMenu', isLoggedInMarket, async(req,res)=>{
     Product.create({
         product_id : uuidv4(),
         market_id : req.user.market_id,
@@ -22,7 +22,7 @@ router.get('/addMenu', isLoggedIn, async(req,res)=>{
 
 //localhost:3000/menu/update
 //id 가 name , price인 곳에서 정보를 받음
-router.get('/update', isLoggedIn, async(req,res)=>{
+router.get('/update', isLoggedInMarket, async(req,res)=>{
     findId = req
     Prodouct.update({
         name : req.body.nalme,

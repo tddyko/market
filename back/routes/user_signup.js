@@ -28,7 +28,7 @@ const upload = multer({storage: storage});
   나머지는 db에 있는 이름이랑 동일
  */
 router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, next) => {
-    if (req.params.singUpState === 'store') {
+    if (req.params.singUpState === 'market') {
         req.body.email += req.body.email2;
         delete req.body.email2; //필요없는 값 삭제
         const {id, password, name, birthday, email, market_name, phonenumber, zipcode, address, dt_address} = req.body;
@@ -59,11 +59,12 @@ router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, 
         const {id, password, name, birthday, email, nickname, phonenumber, zipcode, address, dt_address} = req.body;
         try {
             console.log('멤버 가입');
-            const hash = bcrypt.hash(password, 12);
+            //const hash = bcrypt.hash(password, 12);
             Member.create({
                 member_id: uuidv4(),
                 profile_img: "public/images/defaultProfile.jpg",
-                id, password: hash, name, birthday, email,
+                id,// password: hash, 
+                password, name, birthday, email,
                 nickname, phonenumber,
                 zipcode, address, dt_address
             })

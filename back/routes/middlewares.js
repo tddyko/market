@@ -1,10 +1,19 @@
 
 //로그인을 했는지 알아보는 미들웨어
-exports.isLoggedIn= (req,res,next) =>{
-    if(req.isAuthenticated()){
+exports.isLoggedInMarket= (req,res,next) =>{
+    if(req.isAuthenticated() && req.user.market_id){
         next();
     }else{
-        res.send('로그인 필요');
+        res.send('가게 로그인 필요');
+    }
+};
+
+
+exports.isLoggedInMember= (req,res,next) =>{
+    if(req.isAuthenticated() && req.user.member_id){
+        next();
+    }else{
+        res.send('손님 로그인 필요');
     }
 };
 

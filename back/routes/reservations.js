@@ -1,11 +1,11 @@
 //예약 관련 라우터
 const {Member,Market,Reservation} = require('../models');
-const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
+const { isLoggedInMarket, isLoggedInMember, isNotLoggedIn } = require('./middlewares');
 const express = require('express');
 const router = express.Router(); 
 const {v4: uuidv4} = require('uuid'); 
 
-router.post('/in/:marketname',isLoggedIn, async(req,res)=>{
+router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
     find_Mid = await Market.findOne({
         attributes: ['market_id'],
         where: {market_name :  req.params.marketname},

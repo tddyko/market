@@ -1,10 +1,7 @@
 //로그인 관련 라우터 모음
 const passport = require('passport');
-const { Market, Member, Category,Prodouct,Store_infrom } = require('../models');
-const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const express = require('express');
-const router = express.Router();  
-
+const router = express.Router();   
 //로그인 
 /*
   로그인 하는 부분
@@ -13,15 +10,12 @@ const router = express.Router();
   비밀번호의 id 는 password
 */
 var login; 
-router.post('/login',isNotLoggedIn,function(req,res,next){
-    login = req.body.check || req.query.check;
-    next();
-  }, passport.authenticate('local', //로그인 방식
+router.get('/login',
+passport.authenticate('local', //로그인 방식
   { 
-    successRedirect: '/', //로그인 성공 시 갈 곳
-    failureRedirect: '/login', //로그인 실패 할 때 갈 곳
-    failureFlash: true
-  })
+    successRedirect: '/', 
+    failureRedirect: '/login',  
+    failureFlash : true })
 );
 /*
 localhost/users/logout로 접속
@@ -33,6 +27,10 @@ router.post('/logout', function(req,res){
       return;
    });
 });
+
+router.get('/login', function(req,res){
+  res.send(req.session.flash.error[0]);
+})
 
 module.exports = router;
   
