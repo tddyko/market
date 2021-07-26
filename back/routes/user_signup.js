@@ -25,6 +25,8 @@ const upload = multer({storage: storage});
   이메일 앞 부분(test)은 email
   이메일 뒷 부분(@naver.com)은 email2
   나머지는 db에 있는 이름이랑 동일
+  const hash는 패스워드를 암호화해서 hash값을 db에 저장하기 위함임
+  Market.create할때 password: hash를 하여 패스워드를 hash화시킨것을 볼 수 잇음
  */
 router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, next) => {
     if (req.params.singUpState === 'market') {

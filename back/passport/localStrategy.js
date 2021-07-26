@@ -10,7 +10,7 @@ module.exports = () => {
     }, async (req, userId, password, done) => {
         let result;
         try {
-            if (req.body.check == 'market') {
+            if (req.body.check === 'market') {
                 result = await Market.findOne({where: {id: userId, password: password}});
             } else {
                 result = await Member.findOne({where: {id: userId, password: password}});
