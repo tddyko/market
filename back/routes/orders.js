@@ -6,9 +6,8 @@ const {Market,Order,Product,Store_infrom,Market_category} = require('../models')
 const {v4: uuidv4} = require('uuid'); 
 
  
-router.post('/:marketNm',isLoggedInMarket, async(req,res)=>{
-
-    var {price} =  await Product.findOne({attributes : ['price'], where : {name: req.body.name}, raw : true});
+router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
+    var {price} =  await Product.findOne({attributes : ['price'], where : {name: req.body.name}, raw : true}).catch(err=>{console.dir(err)});
     var {market_id} = await Market.findOne({attributes : ['market_id'], where :{market_name: req.params.marketNm}, raw : true});
     var {current_state,order_count} = req.body;
     await Order.create({
@@ -24,8 +23,26 @@ router.post('/:marketNm',isLoggedInMarket, async(req,res)=>{
 });
 
 router.post('/myMarket/list',isLoggedInMarket, async(req,res)=>{
-    var market = await Market.findOne({where : {id : req.user.id}}).then(console.log('성공')).catch(err=> console.log(err));
-    var result = await market.getOrders().catch(err=> console.log(err));
-    console.log(result);
+     
+    var result = await Order.findAll({
+        include : [{ 
+            model : Product,
+            attributes: ['name']
+        }],
+        where : {market_id : req.user.market_id},
+    });
+    var results = await JSON.stringify(result);
+    var jData = await JSON.parse(results);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    for(idx in jData){
+        if(jData[idx].Products[0] != undefined){
+            console.log('find');
+            res.write(jData[idx].order_id + '  ' + jData[idx].createdAt + '  ' + jData[idx].Products[0].name + '  ' + 
+            jData[idx].order_count + '  ' + jData[idx].price + '  ' + jData[idx].current_state + '\n');
+        }
+        else
+            console.log('d')
+    }
+    res.end();
 });
 module.exports = router;
