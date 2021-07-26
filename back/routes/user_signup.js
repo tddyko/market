@@ -1,4 +1,3 @@
-const passport = require('passport');
 const {Market, Member} = require('../models');
 const express = require('express');
 const router = express.Router();
@@ -74,6 +73,5 @@ router.post('/signup/:singUpState', upload.single('userfile'), async (req, res, 
         }
     }
 });
-
 
 module.exports = router;
