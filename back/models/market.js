@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "마켓 로그인 아이디",
         },
         password: {
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING(100),
             allowNull: false,
             comment: "마켓 로그인 비밀번호",
         },

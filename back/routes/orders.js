@@ -22,7 +22,7 @@ router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
 
 });
 
-router.post('/myMarket/list',isLoggedInMarket, async(req,res)=>{
+router.get('/myMarket/list',isLoggedInMarket, async(req,res)=>{
      
     const result = await Order.findAll({
         include : [{ 

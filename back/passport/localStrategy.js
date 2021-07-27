@@ -1,7 +1,7 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const {Market, Member} = require('../models');
-
+const bcrypt = require('bcrypt');
 module.exports = () => {
     passport.use(new localStrategy({
         usernameField: 'id',
@@ -11,14 +11,20 @@ module.exports = () => {
         let result;
         try {
             if (req.body.check === 'market') {
-                result = await Market.findOne({where: {id: userId, password: password}});
+                exUser = await Market.findOne({where: {id: userId}});
             } else {
-                result = await Member.findOne({where: {id: userId, password: password}});
+                exUser = await Member.findOne({where: {id: userId}});
             }
-            if (result) {
-                return done(null, result);
-            } else {
-                return done(null, false, {message: 'Incorrect'});
+            if(exUser){
+                const result = await bcrypt.compare(password,exUser.password);
+                if (result) {
+                    console.log('로그인 성공');
+                    done(null, exUser);
+                } else {
+                    done(null, false, {message: '비밀번호가 일치하지 않습니다'});
+                }
+            }else{
+                done(null,false,{message : '가입되지 않은 회원입니다. '});
             }
         } catch (error) {
             console.log(error);
