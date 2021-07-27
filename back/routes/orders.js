@@ -10,15 +10,17 @@ router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
     const {price} =  await Product.findOne({attributes : ['price'], where : {name: req.body.name}, raw : true}).catch(err=>{console.dir(err)});
     const {market_id} = await Market.findOne({attributes : ['market_id'], where :{market_name: req.params.marketNm}, raw : true});
     const {current_state,order_count} = req.body;
-    await Order.create({
+    const orders = await Order.create({
         order_id: uuidv4(),
         price,current_state,order_count,
         member_id : req.user.member_id,
         market_id
     }).catch(err=>{console.log(err)});
-    const orders = await Order.findOne({where : {member_id : req.user.member_id}});
     const findProduct = await Product.findOne({where : {name : req.body.name}});
-    await orders.addProduct(findProduct).then(r=>{if(r)console.log('성공')}).catch(err=>{console.error(err)});
+    console.log(findProduct.product_id);
+ 
+    await orders.addProduct(findProduct).then(r=>{if(r)console.log('성공'); else console.log('실패    ') })
+  
 
 });
 
@@ -39,9 +41,7 @@ router.get('/myMarket/list',isLoggedInMarket, async(req,res)=>{
             console.log('find');
             res.write(jData[idx].order_id + '  ' + jData[idx].createdAt + '  ' + jData[idx].Products[0].name + '  ' + 
             jData[idx].order_count + '  ' + jData[idx].price + '  ' + jData[idx].current_state + '\n');
-        }
-        else
-            console.log('d')
+        } 
     }
     res.end();
 });
