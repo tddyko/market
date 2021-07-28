@@ -7,6 +7,16 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             unique: true,
         },
+        reserve_date: {
+            type: DataTypes.DATE,
+            comment : "예약 시간",
+            allowNull: false,
+        },
+        reserve_time: {
+            type: DataTypes.TIME,
+            comment : "예약 시간",
+            allowNull: false,
+        },
         current_state: {
             type: DataTypes.STRING(20),
             allowNull: false,
