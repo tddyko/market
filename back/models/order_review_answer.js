@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "고유 아이디값",
         },
         answer: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(1000),
             comment: "답변내용",
         },
     }, {

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true,
             unique: true,
-            comment: "마켓정보 이름",
+            comment: "마켓정보 아이디값",
         },
         market_phone: {
             type: DataTypes.STRING(20),
@@ -19,10 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         end_time: {
             type: DataTypes.TIME,
             comment: "영업 종료시간",
-        },
-        week_holiday: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            comment: "휴무일",
         },
        market_coment: {
             type: DataTypes.STRING(50),
@@ -44,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Market_inform.associate = models => {
         Market_inform.hasMany(models.Market_inform_img, {foreignKey: 'market_inform_id', sourceKey: 'market_inform_id'});
+        Market_inform.hasMany(models.Market_inform_holiday, {foreignKey: 'market_inform_id', sourceKey: 'market_inform_id'});
         Market_inform.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
     };
     return Market_inform;

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
     });
     Product.associate = models => {
+        Product.hasMany(models.Product_img, {foreignKey: 'product_id', sourceKey: 'product_id'});
         Product.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
         Product.belongsToMany(models.Order, {through: 'order_product'});
         Product.belongsToMany(models.Category, {through: 'product_category'});

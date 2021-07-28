@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "공지사항 이미지 고유아이디값",
         },
         market_inform_img: {
-            type: DataTypes.BLOB('long'),
+            type: DataTypes.STRING(100),
             comment: "이미지",
         },
     }, {
