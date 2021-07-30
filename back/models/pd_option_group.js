@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
     });
     Pd_option_group.associate = models => {
-        Pd_option_group.hasMany(models.Pd_option, {foreignKey: 'pd_option_group_id', sourceKey: 'pd_option_group_id'});
+        Pd_option_group.hasOne(models.Pd_option, {foreignKey: 'pd_option_group_id', sourceKey: 'pd_option_group_id'});
+        Pd_option_group.belongsTo(models.Product, {foreignKey: 'product_id', targetKey: 'product_id'});
     };
     return Pd_option_group;
 };

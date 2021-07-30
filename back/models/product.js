@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Product.associate = models => {
         Product.hasMany(models.Product_img, {foreignKey: 'product_id', sourceKey: 'product_id'});
+        Product.hasMany(models.Pd_option_group, {foreignKey: 'product_id', sourceKey: 'product_id'});
         Product.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
         Product.belongsToMany(models.Order, {through: 'order_product'});
         Product.belongsToMany(models.Category, {through: 'product_category'});
