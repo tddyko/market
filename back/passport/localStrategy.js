@@ -8,7 +8,6 @@ module.exports = () => {
         passwordField: 'password',
         passReqToCallback: true,
     }, async (req, userId, password, done) => {
-        let result;
         try {
             if (req.body.check === 'market') {
                 exUser = await Market.findOne({where: {id: userId}});
