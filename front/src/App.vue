@@ -1,8 +1,9 @@
 <template>
   <v-app>
+    <!-- nav -->
     <v-navigation-drawer
-      app
       v-model="drawer"
+      app
     >
       <v-list-item>
         <v-list-item-content>
@@ -15,7 +16,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-list
         dense
@@ -43,13 +44,13 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
 
       <v-toolbar-title>No Wait</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
