@@ -1,11 +1,16 @@
 <template>
   <v-card
     class="mx-auto"
-    fluid
-    m-100
     elevation="1"
     outlined
   >
+  <v-row       
+    v-for="n in 2"
+    :key="n"
+    :class="n === 1 ? 'mb-6' : ''">
+    <v-col
+      v-for="k in n + 1"
+      :key="k">
     <v-list-item three-line>
       <v-list-item-content>
         <!-- <div class="text-overline mb-4">
@@ -28,6 +33,7 @@
         color="grey"
       />  -->
     </v-list-item>
+    </v-col>
 
     <!-- <v-card-actions>
       <v-btn
@@ -38,6 +44,25 @@
         Button
       </v-btn>
     </v-card-actions> -->
+    </v-row>
+    <v-row
+      v-for="n in 2"
+      :key="n"
+      :class="n === 1 ? 'mb-6' : ''"
+    >
+      <v-col
+        v-for="k in n + 1"
+        :key="k"
+      >
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          {{ k }} of {{ n + 1 }}
+        </v-card>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
