@@ -67,6 +67,7 @@ export default {
       {title: '주문관리', icon: 'mdi-clipboard-text', to: '/market/order'},
       {title: '예약관리', icon: 'mdi-account-multiple-outline', to: '/market/reservation'},
       {title: '기본정보', icon: 'mdi-account-multiple-outline', to: '/market/basic'},
+      {title: '기본정보2', icon: 'mdi-account-multiple-outline', to: '/market/marketinform'}, // App.vue에 기본정보2에관한 내용추가
     ],
   }),
 };

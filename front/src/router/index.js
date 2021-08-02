@@ -29,12 +29,22 @@ const routes = [
   },
   {
     path: "/market/basic",
-    name: "basic",
+    name: "Basic",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "Reservation" */ "../views/market/기본정보.vue"),
+  },
+  // 라우터에 기본정보2에대한 정보 추가
+  {
+    path: "/market/marketinform",
+    name: "MarketInfrom",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "MarketInfrom" */ "../views/market/기본정보2.vue"),
   },
 ];
 
