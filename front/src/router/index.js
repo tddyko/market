@@ -27,6 +27,15 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "Reservation" */ "../views/market/Reservation.vue"),
   },
+  {
+    path: "/market/basic",
+    name: "basic",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "Reservation" */ "../views/market/기본정보.vue"),
+  },
 ];
 
 const router = new VueRouter({

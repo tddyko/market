@@ -66,6 +66,7 @@ export default {
       {title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
       {title: '주문관리', icon: 'mdi-clipboard-text', to: '/market/order'},
       {title: '예약관리', icon: 'mdi-account-multiple-outline', to: '/market/reservation'},
+      {title: '기본정보', icon: 'mdi-account-multiple-outline', to: '/market/basic'},
     ],
   }),
 };
