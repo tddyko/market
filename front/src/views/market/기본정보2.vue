@@ -5,15 +5,15 @@
       dark
       flat
     >
-      <v-spacer></v-spacer>
+      <v-spacer />
 
 
-      <template v-slot:extension>
+      <template #extension>
         <v-tabs
           v-model="tab"
           align-with-title
         >
-          <v-tabs-slider color="yellow"></v-tabs-slider>
+          <v-tabs-slider color="yellow" />
 
           <v-tab
             v-for="item in items"
