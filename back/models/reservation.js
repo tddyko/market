@@ -37,9 +37,18 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'Reservations',         // 실제 데이터베이스에 적용되는 테이블이름
         charset: 'utf8mb4',             // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
+        hooks : {
+            afterDestroy : (instance, options) => {
+                instance.getReserve_reviews().then((user)=> {
+                    user.forEach(element => {
+                        element.destroy();
+                    });
+                    });
+            }
+        }
     });
     Reservation.associate = models => {
-        Reservation.hasMany(models.Reserve_review, {foreignKey: 'reservation_id', sourceKey: 'reservation_id'});
+        Reservation.hasMany(models.Reserve_review, {foreignKey: 'reservation_id', sourceKey: 'reservation_id',onDelete : 'cascade', hooks : true});
         Reservation.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
         Reservation.belongsTo(models.Member, {foreignKey: 'member_id', targetKey: 'member_id'});
     };
