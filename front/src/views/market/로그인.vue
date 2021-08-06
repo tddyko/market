@@ -1,6 +1,6 @@
 <template>
   <v-container
-    
+    width-full
     fill-height
   >
     <v-row
@@ -27,12 +27,31 @@
               로그인
             </h1>
           </v-card-text>
-          <v-text-field          
-            label="이메일"
+          <div
+            align="left"
+          >
+            이메일
+            <v-text-field   
+               
+              outlined
+              dense  
+              label="이메일"
+            />
+          </div>
+          <div align="left">
+            비밀번호
+            <v-text-field
+              outlined
+              dense
+              label="비밀번호"
+            />
+          </div>
+          
+          <v-switch
+            v-model="switch1"
+            :label="`Switch 1: ${switch1.toString()}`"
           />
-          <v-text-field
-            label="비밀번호"
-          />
+
           <v-btn
             large
             block
@@ -49,7 +68,9 @@
 
 <script>
 export default {
-
+data: () => ({
+   switch1: true,
+})
 }
 </script>
 
