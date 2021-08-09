@@ -31,10 +31,10 @@
             align="left"
           >
             이메일
-            <v-text-field   
-                
+            <v-text-field
+
               outlined
-              dense  
+              dense
               label="이메일"
             />
           </div>
@@ -94,11 +94,11 @@
             >
               <v-img
                 src="@/assets/kt.png"
-                height="40"                  
+                height="40"
                 @click="kakaoLogin"
               />
-              
-              
+
+
               <v-img
                 src="@/assets/gg.png"
                 height="40"

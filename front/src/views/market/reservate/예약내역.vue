@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      ';'f;f;''
+    ';'f;f;''
   </v-container>
 </template>
 

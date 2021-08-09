@@ -1,5 +1,9 @@
 <template>
-  <h1>Order</h1>
+  <div
+    id="warp"
+    class="rounded-xl"
+    outlined
+  />
 </template>
 
 <script>
@@ -9,5 +13,9 @@ export default {
 </script>
 
 <style scoped>
+#warp{
+ width: 645px;
+ height: 530px;
+}
 
 </style>
