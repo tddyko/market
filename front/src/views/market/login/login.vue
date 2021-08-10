@@ -31,10 +31,10 @@
             align="left"
           >
             이메일
-            <v-text-field   
-                
+            <v-text-field
+
               outlined
-              dense  
+              dense
               label="이메일"
             />
           </div>
@@ -94,11 +94,11 @@
             >
               <v-img
                 src="@/assets/kt.png"
-                height="40"                  
+                height="40"
                 @click="kakaoLogin"
               />
-              
-              
+
+
               <v-img
                 src="@/assets/gg.png"
                 height="40"
@@ -121,15 +121,16 @@
 
   <script>
   export default {
-  data: () => ({
-    switch1: true,
-    link:'http://google.com',
-    link2:'http://naver.com',
-    link3:'http://vuetifyjs.com',
-    kakaoLogin: () => {
-      alert('카카오 로그인 페이지')
-    }
-  })
+    name: 'login',
+    data: () => ({
+      switch1: true,
+      link:'http://google.com',
+      link2:'http://naver.com',
+      link3:'http://vuetifyjs.com',
+      kakaoLogin: () => {
+        alert('카카오 로그인 페이지')
+      }
+    })
   }
   </script>
 
