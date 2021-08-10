@@ -3,14 +3,9 @@
     absolute
     justify="center"
   >
-    <v-col
-      cols="8"
-    >
+    <v-col cols="8">
       <v-card class="overflow-hidden">
-        <v-app-bar
-
-          color="primary"
-        >
+        <v-app-bar color="primary">
           <v-app-bar-title>Title</v-app-bar-title>
           <template #extension>
             <v-tabs align-with-title>
@@ -24,7 +19,7 @@
           class="overflow-y-auto"
           max-height="600"
         >
-          <v-container style="height: 600px;">
+          <v-container style="height: 600px">
             <v-row>
               <v-col>
                 <v-card
@@ -43,11 +38,8 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>

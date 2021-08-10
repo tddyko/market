@@ -31,7 +31,7 @@
         :key="item.tab"
       >
         <v-card flat>
-          <v-card-text>{{ item.contents.name }}</v-card-text>
+          <v-card-text>{{ item.contents }}</v-card-text>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -39,23 +39,15 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      tab: null,
-      items: [
-        {
-          tab: '운영정보', contents: {
-            name: '1번'
-          }
-        },
-        {
-          tab: '공지사항', contents: {
-            name: '2번'
-          }
-        },
-      ],
-    }
-  },
-}
+  export default {
+    data () {
+      return {
+        tab: null,
+        items: [
+            {tab: '운영정보' , contents: '1번'},
+            {tab: '공지사항' , contents: '2번'},
+        ],
+      }
+    },
+  }
 </script>
