@@ -14,7 +14,6 @@
         <template #activator="{ on, attrs }">
           <v-text-field
             v-model="date"
-            label="Picker in menu"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -67,7 +66,9 @@ export default {
   data(){
     return{
         picker: '',
-        date: new Date().toISOString().substr(0, 9),
+        date: new Date().toISOString().substring(0,10),
+        menu: false,
+        modal: false, 
         headers: [
           {
             text: '주문번호',
