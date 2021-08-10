@@ -4,10 +4,12 @@
     p-10
     tag="section"
   >
+  <v-row
+  justify="center">
     <v-card
       justify="center"
       width="1300"
-      height="1070"
+      height="970"
       elevation="3"
       outlined
       class="rounded-xl"
@@ -157,6 +159,7 @@
         </div>
       </v-continer>
     </v-card>
+  </v-row>
   </v-container>
 </template>
 
