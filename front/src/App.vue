@@ -20,13 +20,13 @@
         <v-divider />
 
         <v-list-item
-          :to="itemtest.to"
+          :to="dashboard.to"
         >
           <v-list-item-icon>
-            <v-icon v-text="itemtest.icon" />
+            <v-icon v-text="dashboard.icon" />
           </v-list-item-icon>
           <v-list-item-content class="mr-16">
-            <v-list-item-title v-text="itemtest.title" />
+            <v-list-item-title v-text="dashboard.title" />
           </v-list-item-content>
         </v-list-item>
 
@@ -36,6 +36,7 @@
           :key="items.title"
           v-model="items.active"
           :prepend-icon="items.icon"
+          :to="items.to"
         >
           <template
             #activator
@@ -47,24 +48,31 @@
 
 
           <v-list-item
-            v-for="child in items.items"
-            :key="child.title"
-            :to="child.to"
+            v-for="subtitle in items.items"
+            :key="subtitle.title"
+            :to="subtitle.to"
           >
             <v-list-item-content>
               <v-list-item-title
-                v-text="child.title"
+                v-text="subtitle.title"
               />
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-item :to="dinfo.to">
+          <v-list-item-icon>
+            <v-icon v-text="dinfo.icon" />
+          </v-list-item-icon>
+          <v-list-item-content class="mr-16">
+            <v-list-item-title v-text="dinfo.title" />
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar
       app
-      color="primary"
-      dark
+      light
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
@@ -86,17 +94,18 @@ export default {
 
   data: () => ({
     drawer: null,
-    itemtest:{title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
+    dashboard:{title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
+    dinfo:{title: '대시보드', icon: 'mdi-view-dashboard', to: './views/market/Reservation.vue'},
 
     item: [
-      {title: '주문관리', icon: 'mdi-clipboard-text', to: '/market/order', items: [
-        {title: '주문내역',  to: '/market/주문내역.vue'},
-        {title: '주문관리',  to: '/reservate/리뷰관리'},
+      {title: '주문관리', icon: 'mdi-clipboard-text', items: [
+        {title: '주문내역',  to: '/market/order'},
+        {title: '주문관리',  to: './views/reservate/리뷰관리'},
       ]
       },
-      {title: '예약관리', icon: 'mdi-account-multiple-outline', items: [
-        {title: '예약내역',  to: '/reservate/예약내역'},
-        {title: '예약관리',  to: '/reservate/리뷰관리'},
+      {title: '예약관리', icon: 'mdi-account-multiple-outline',  to: '/market/reservate', items: [
+        {title: '예약내역',  to: '/market/reservate/reservate1'},
+        {title: '예약관리',  to: '/market/reservate/reservate2'},
 
       ]},
     ],
