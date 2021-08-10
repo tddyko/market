@@ -5,55 +5,39 @@
     <v-row justify="center">
       <v-col
         cols="12"
-        xl="12"
-        md="12"
+        xl="10"
+        md="10"
+        xs="12"
         align-self="center"
       >
-        <v-container>
-          <v-menu
-            v-model="menu2"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template #activator="{ on, attrs }">
-              <v-container>
-                <v-row justify="center">
-                  <v-col
-                    cols="12"
-                    align-self="center"
-                  >
-                    <v-text-field
-                      v-model="date"
-                      label="날짜 변경"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      size="6"
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                    <v-date-picker
-                      v-model="date"
-                      full-width
-                      @input="menu = false"
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-            </template>
-          </v-menu>
-
-
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            :items-per-page="5"
-            class="elevation-1 ma-7"
-            flat
-          />
-        </v-container>
+        <v-expansion-panels flat>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <v-text-field
+                v-model="date"
+                label="날짜 변경"
+                prepend-icon="mdi-calendar"
+                readonly
+                flat
+              />
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-date-picker
+                v-model="date"
+                full-width
+                class="elevation-1"
+                @input="menu = false"
+              />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :items-per-page="5"
+          class="elevation-1 ma-6"
+          flat
+        />
       </v-col>
     </v-row>
   </v-card>
