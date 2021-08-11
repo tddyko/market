@@ -30,7 +30,7 @@
 export default {
   name: "MarketListGroup",
   components: {
-    MarketListItems: () => import('./ListItems')
+    MarketListItems: () => import('@/layouts/market/ListItems')
   },
   props: {
     item: {
