@@ -10,9 +10,9 @@
 export default {
   name: "MarketBase",
   components: {
-    MarketAppBar: () => import('./AppBar'),
-    MarketDrawer: () => import('./Drawer'),
-    MarketMain: () => import('./Content')
+    MarketAppBar: () => import('@/layouts/market/AppBar'),
+    MarketDrawer: () => import('@/layouts/market/Drawer'),
+    MarketMain: () => import('@/layouts/market/Content')
   },
   data: () => ({
     drawer: true,

@@ -23,7 +23,7 @@
       </v-list-item-content>
 
       <!-- <v-list-item-avatar
-        
+
         size="0"
         color="grey"
       />  -->
@@ -40,8 +40,6 @@
     </v-card-actions> -->
   </v-card>
 </template>
-
-
 <script>
 export default {
   name: 'DashBoard',         //컴포넌트 이름

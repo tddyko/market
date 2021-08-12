@@ -8,7 +8,7 @@
 export default {
   name: "Index",
   components: {
-    Login: () => import('./Content')
+    Login: () => import('@/layouts/login/Content')
   }
 }
 </script>

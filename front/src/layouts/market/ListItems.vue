@@ -3,7 +3,6 @@
     link
     :to="item.to"
     class="py-1"
-    active-class="primary white--text"
   >
     <v-list-item-icon>
       <v-icon>{{ item.icon }}</v-icon>

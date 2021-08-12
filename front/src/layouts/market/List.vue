@@ -24,8 +24,8 @@
 <script>
 export default {
   components: {
-    MarketListItemGroup: () => import('./ListGroup'),
-    MarketListItems: () => import('./ListItems')
+    MarketListItemGroup: () => import('@/layouts/market/ListGroup'),
+    MarketListItems: () => import('@/layouts/market/ListItems')
   },
   name: "MarketList",
   props: {
