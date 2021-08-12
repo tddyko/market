@@ -15,8 +15,7 @@ export default {
     MarketMain: () => import('./Content')
   },
   data: () => ({
-    drawer: false,
-    right: null,
+    drawer: true,
   }),
 }
 </script>
