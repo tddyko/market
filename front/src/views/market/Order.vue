@@ -1,18 +1,19 @@
 <template>
-  <v-card
-    class="rounded-xl"
-  >
-    <v-row justify="center">
-      <v-col
-        cols="12"
-        xl="10"
-        md="10"
-        xs="12"
-        align-self="center"
-      >
-        <v-expansion-panels flat>
+  <v-row justify="center">
+    <v-col
+      lg="10"
+      xl="8"
+      md="12"
+      sm="12"
+      cols="12"
+      align-self="center"
+    >
+      <v-card class="rounded-xl">
+        <v-expansion-panels
+          flat
+        >
           <v-expansion-panel>
-            <v-expansion-panel-header>
+            <v-expansion-panel-header class="rounded-xl">
               <v-text-field
                 v-model="date"
                 label="날짜 변경"
@@ -35,12 +36,12 @@
           :headers="headers"
           :items="items"
           :items-per-page="5"
-          class="elevation-1 ma-6"
+          class=" ma-6 "
           flat
         />
-      </v-col>
-    </v-row>
-  </v-card>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

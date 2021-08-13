@@ -15,7 +15,7 @@
                 align-with-title
               >
                 <v-tabs-slider color="yellow" />
-
+                
                 <v-tab>
                   1번
                 </v-tab>

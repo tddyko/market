@@ -18,11 +18,15 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "Order" */ "../views/market/Order.vue"),
-      orderchildren:[
-        {
-          path: "/market/order/Order"
-        },{}
-      ]
+  },
+  {
+    path: "/market/order/test",
+    name: "test",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "Order" */ "../views/market/OrderReviewManagement.vue"),
   },
   {
     path: "/market/basic",
@@ -57,7 +61,7 @@ const routes = [
     children: [
         {
             path:'reservate1',
-            name:'reservate1',            
+            name:'reservate1',
             component: () => import(/* webpackChunkName: "views-reservate1" */
             '@/views/market/reservate/리뷰관리')
 
@@ -69,7 +73,7 @@ const routes = [
             '@/views/market/reservate/예약내역')
 
         },
-     
+
     ]
 },
 ];

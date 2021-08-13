@@ -100,7 +100,7 @@ export default {
     item: [
       {title: '주문관리', icon: 'mdi-clipboard-text', items: [
         {title: '주문내역',  to: '/market/order'},
-        {title: '주문관리',  to: './views/reservate/리뷰관리'},
+        {title: '주문관리',  to: '/market/order/test'},
       ]
       },
       {title: '예약관리', icon: 'mdi-account-multiple-outline',  to: '/market/reservate', items: [
