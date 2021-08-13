@@ -10,12 +10,11 @@
 </template>
 
 <script>
-import MarketList from "@/layouts/market/List";
 export default {
   name: "MarketDrawer",
   components: {
-    MarketList,
-    DrawerHeader: () => import('./DrawerHeader')
+    MarketList: () => import('@/layouts/market/List'),
+    DrawerHeader: () => import('@/layouts/market/DrawerHeader')
   },
   data: () => ({
     items: [
