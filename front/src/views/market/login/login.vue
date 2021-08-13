@@ -1,139 +1,122 @@
 <template>
-  <v-container
-    width-full
-    fill-height
-  >
-    <v-row
-      justify="center"
-    >
-      <v-col
-        cols=""
-        xs="10"
-        sm="6"
-        md="6"
-        lg="6"
-        xl="6"
-      >
+  <v-container class="fill-height">
+    <v-row justify="center">
+      <v-col cols="auto">
         <v-card
-          class="pa-5 "
-
-          elevation="5"
-          fill-height
-          width="500"
-          height="650"
+          width="640"
         >
-          <v-card-text>
-            <h1>
-              로그인
-            </h1>
+          <v-card-text class="align-center px-16">
+            <validation-observer>
+              <v-form>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="id"
+                  :rules="{
+                    required: true,
+                    regx: /^[a-zA-Z0-9]+$/
+                  }"
+                >
+                  <v-text-field
+                    v-model="id"
+                    label="아이디"
+                    placeholder="아이디를 입력하세요"
+                    prepend-inner-icon="mdi-account"
+                    outlined
+                    single-line
+                    clearable
+                    :error-messages="errors"
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="password"
+                  :rules="{
+                    required: true,
+                    regx: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+                  }"
+                >
+                  <v-text-field
+                    v-model="passwd"
+                    label="비밀번호"
+                    placeholder="비밀번호를 입력하세요"
+                    prepend-inner-icon="mdi-lock"
+                    outlined
+                    single-line
+                    clearable
+                    :counter="16"
+                    :append-icon="pwd_check ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="pwd_check ? 'text' : 'password'"
+                    :error-messages="errors"
+                    @click:append="pwd_check = !pwd_check"
+                  />
+                </validation-provider>
+                <v-row class="mb-1 align-center">
+                  <v-col>
+                    <v-switch
+                      v-model="login_switch"
+                      inset
+                    />
+                  </v-col>
+                  <v-spacer />
+                  <v-col>
+                    <v-btn
+                      text
+                      small
+                      to="/"
+                    >
+                      아이디찾기
+                    </v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn
+                      text
+                      small
+                      to="/"
+                    >
+                      비밀번호 찾기
+                    </v-btn>
+                  </v-col>
+                </v-row>
+                <v-btn
+                  block
+                  x-large
+                  dark
+                  color="primary"
+                >
+                  로그인
+                </v-btn>
+                <v-row class="mt-3 text-center">
+                  <v-col>
+                    <div>
+                      아직 노웨잇 회원이 아니세요? <v-btn
+                      text
+                      color="blue"
+                    >
+                      회원가입하기
+                    </v-btn>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-form>
+            </validation-observer>
           </v-card-text>
-          <div
-            align="left"
-          >
-            이메일
-            <v-text-field
-
-              outlined
-              dense
-              label="이메일"
-            />
-          </div>
-          <div align="left">
-            비밀번호
-            <v-text-field
-              outlined
-              dense
-              label="비밀번호"
-            />
-          </div>
-          <v-row>
-            <v-col
-              class="mt-n3"
-            >
-              <v-switch
-                v-model="switch1"
-                :label="`Switch 1: ${switch1.toString()}`"
-              />
-            </v-col>
-            <v-col>
-              <a :href="link">아이디 찾기</a> | <a :href="link2">비밀번호 찾기</a>
-            </v-col>
-          </v-row>
-
-          <v-btn
-            large
-            block
-            color="primary"
-            rounded
-          >
-            로그인
-          </v-btn>
-          <div
-            class="pt-5"
-          >
-            아직 NoWait! 회원이 아니신가요? <a :href="link3">회원가입하기</a>
-          </div>
-          <v-row
-            class="pt-5"
-          >
-            <v-col
-              cols="4"
-            >
-              <v-divider />
-            </v-col>
-            소셜 계정으로 로그인
-            <v-col
-              cols="4"
-            >
-              <v-divider />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              cols="12"
-            >
-              <v-img
-                src="@/assets/kt.png"
-                height="40"
-                @click="kakaoLogin"
-              />
-
-
-              <v-img
-                src="@/assets/gg.png"
-                height="40"
-              />
-              <v-img
-                src="@/assets/fb.png"
-                height="40"
-              />
-              <v-img
-                src="@/assets/nv.png"
-                height="40"
-              />
-            </v-col>
-          </v-row>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
+<script>
+export default {
+  name: 'Login',
+  data: () => ({
+    id: null,
+    passwd: null,
+    pwd_check: false,
+    login_switch: false,
+  })
+}
+</script>
 
-  <script>
-  export default {
-    name: 'login',
-    data: () => ({
-      switch1: true,
-      link:'http://google.com',
-      link2:'http://naver.com',
-      link3:'http://vuetifyjs.com',
-      kakaoLogin: () => {
-        alert('카카오 로그인 페이지')
-      }
-    })
-  }
-  </script>
+<style scoped>
 
-  <style>
-
-  </style>
+</style>
