@@ -34,7 +34,7 @@
                   full-width
                   class="mt-4"
                 />
-    
+
                 <v-data-table
                   :headers="headers"
                   :items="desserts"

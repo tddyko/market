@@ -23,14 +23,16 @@
 
 <script>
 export default {
+  name: "MarketList",
   components: {
     MarketListItemGroup: () => import('@/layouts/market/ListGroup'),
     MarketListItems: () => import('@/layouts/market/ListItems')
   },
-  name: "MarketList",
   props: {
-    items: Array,
-    default: () => ([]),
+    items: {
+      type: Array,
+      default: () => ([]),
+    }
   }
 }
 </script>

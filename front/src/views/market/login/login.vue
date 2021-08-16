@@ -89,11 +89,11 @@
                   <v-col>
                     <div>
                       아직 노웨잇 회원이 아니세요? <v-btn
-                      text
-                      color="blue"
-                    >
-                      회원가입하기
-                    </v-btn>
+                        text
+                        color="blue"
+                      >
+                        회원가입하기
+                      </v-btn>
                     </div>
                   </v-col>
                 </v-row>

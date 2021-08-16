@@ -1,7 +1,8 @@
 <template>
   <v-list-item
     link
-    :to="item.to" exact-path
+    :to="item.to"
+    exact-path
     class="py-1"
   >
     <v-list-item-icon>
