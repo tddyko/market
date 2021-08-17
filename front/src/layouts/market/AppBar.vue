@@ -4,7 +4,7 @@
     color="primary"
     dark
   >
-    <v-app-bar-nav-icon @click="$emit('drawer')" />
+    <v-app-bar-nav-icon @click="drawer = !drawer" />
     <v-toolbar-title>No Wait</v-toolbar-title>
     <v-spacer />
     <v-btn
@@ -17,7 +17,17 @@
 
 <script>
 export default {
-  name: "MarketAppBar"
+  name: "MarketAppBar",
+  computed: {
+    drawer: {
+      get() {
+        return this.$store.getters['app/getDrawer'];
+      },
+      set(v) {
+        return this.$store.dispatch('app/toggleDrawer', v)
+      }
+    }
+  }
 }
 </script>
 
