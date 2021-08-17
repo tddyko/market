@@ -46,7 +46,18 @@
               md="4"
             >
               <input ref="imageInput" type="file" multiple hidden @change="onChangeImages" />
-              <v-btn type="button" @click="onClickImgUpload">이미지 업로드</v-btn>
+              <v-btn
+                type="button"
+                rounded
+                outlined
+                color="primary"
+                @click="onClickImgUpload"
+              >
+                사진 업로드
+                <v-icon right>
+                  mdi-camera
+                </v-icon>
+              </v-btn>
             </v-col>
           </v-row>
         </v-container>
