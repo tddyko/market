@@ -9,7 +9,6 @@
       #img="props"
     >
       <v-img
-        :gradient="gradient"
         v-bind="props"
       />
     </template>

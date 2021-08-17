@@ -8,9 +8,10 @@
     <v-toolbar-title>No Wait</v-toolbar-title>
     <v-spacer />
     <v-btn
+      icon
       to="/login"
     >
-      로그인
+      <v-icon>mdi-login-variant</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
