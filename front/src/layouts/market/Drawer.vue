@@ -19,10 +19,15 @@ export default {
   data: () => ({
     items: [
       {title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
-      {title: '주문관리', icon: 'mdi-clipboard-text', to: '/market/order'},
-      {title: '예약관리', icon: 'mdi-account-multiple-outline', to: '/market/reservation'},
-      {title: '주문내역2', icon: 'mdi-account-multiple-outline', to: '/market/order2'},
-      {title: '로그인', icon: 'mdi-account-multiple-outline', to: '/login'},
+      {title: '주문관리', icon: 'mdi-clipboard-text', items:[
+          {title: '주문내역', icon: 'mdi-clipboard-text', to: '/market/order'},
+          {title: '리뷰관리', icon: 'mdi-clipboard-text'}
+        ]},
+      {title: '예약관리', icon: 'mdi-account-multiple-outline', items:[
+          {title: '주문내역', icon: 'mdi-clipboard-text', to: '/market/reservation'},
+          {title: '리뷰관리', icon: 'mdi-clipboard-text'}
+        ]},
+      {title: '기본정보', icon: 'mdi-clipboard-text'}
     ],
   }),
 }
