@@ -1,32 +1,32 @@
 <template>
   <v-row justify="center">
     <v-col
+      align-self="center"
+      cols="12"
       lg="10"
-      xl="8"
       md="12"
       sm="12"
-      cols="12"
-      align-self="center"
+      xl="8"
     >
-      <v-card className="rounded-xl">
+      <v-card class-name="rounded-xl">
         <v-expansion-panels
           flat
         >
           <v-expansion-panel>
-            <v-expansion-panel-header className="rounded-xl">
+            <v-expansion-panel-header class-name="rounded-xl">
               <v-text-field
                 v-model="date"
+                flat
                 label="날짜 변경"
                 prepend-icon="mdi-calendar"
                 readonly
-                flat
               />
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-date-picker
                 v-model="date"
+                class-name="elevation-1"
                 full-width
-                className="elevation-1"
                 @input="menu = false"
               />
             </v-expansion-panel-content>

@@ -4,7 +4,7 @@ const state = () => ({
     {title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
     {title: '주문관리', icon: 'mdi-clipboard-text', items: [
         {title: '주문내역',  to: '/market/order'},
-        {title: '주문관리',  to: '/market/order/review'},
+        {title: '리뷰 관리',  to: '/market/order/review'},
       ]
     },
     {title: '예약관리', icon: 'mdi-account-multiple-outline', items: [
