@@ -30,15 +30,15 @@ const routes = [
         component: () => import(/* webpackChunkName: "Order" */ "@/views/market/OrderReviewManagement.vue"),
       },
       {
-        path:'/market/reservate/reservate1',
-        name:'reservate1',
-        component: () => import(/* webpackChunkName: "views-reservate1" */'@/views/market/reservate/예약내역.vue')
+        path:'/market/reservation',
+        name:'reservation',
+        component: () => import(/* webpackChunkName: "views-reservate1" */'@/views/market/reservation/reservation.vue')
 
       },
       {
-        path:'/market/reservate/reservate2',
+        path:'/market/reservation/reservationreview',
         name:'reservate2',
-        component: () => import(/* webpackChunkName: "views-reservate2" */'@/views/market/reservate/리뷰관리')
+        component: () => import(/* webpackChunkName: "views-reservate2" */'@/views/market/reservation/reservationreview')
 
       },
       {
