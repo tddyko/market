@@ -17,7 +17,7 @@
       >
         <v-continer>
           <div
-          
+
             class="mt-16 mx-6"
           >
             <v-row>
@@ -34,7 +34,7 @@
                       </v-list-item-title>
                       <v-sparkline
                         class="py-16"
-                        :value="value" 
+                        :value="value"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -52,7 +52,7 @@
                     <v-sheet
                       outlined
                     >
-                      <v-list-item-title class="text-h4 mt-16"> 
+                      <v-list-item-title class="text-h4 mt-16">
                         Downloads
                       </v-list-item-title>
                       <v-sparkline
@@ -71,14 +71,14 @@
                       />
                     </v-sheet>
                   </v-list-item-content>
-            
+
                   <v-list-item-content class="mt-16 mx-3">
                     <v-sheet
                       outlined
                     >
                       <v-list-item-title class="text-h4 mt-16">
                         Favorites
-                      </v-list-item-title>          
+                      </v-list-item-title>
                       <v-sparkline
                         class="py-16"
                         :value="value"
@@ -127,8 +127,8 @@
                     </v-sheet>
                   </v-list-item-content>
                 </v-col>
-            
-            
+
+
                 <v-col
                   cols="8"
                 >
