@@ -4,7 +4,6 @@
     v-bind="$attrs"
     app
   >
-
     <template
       #img="props"
     >
@@ -20,7 +19,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
+
 export default {
   name: "MarketDrawer",
   components: {
