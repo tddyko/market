@@ -60,24 +60,23 @@ export default {
             value: 'ReservationNum',
           },
           { text: '예약시간', value: 'ReservationTime', align: 'center'},
-          { text: '주문내역', value: 'Reservationinfo', align: 'center'},
+          { text: '예약내역', value: 'Reservationinfo', align: 'center'},
           { text: '예약인원', value: 'Reservationset',  align: 'center'},
-          { text: '임시데이터', value: 'Reservationpay',  align: 'center'},
           { text: '예약상태', value: 'Reservation',     align: 'center'},
         ],
       items: [
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 취소" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 취소" },
-    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservationpay: "33,000", Reservation: "예약 완료" }
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 취소" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 취소" },
+    {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분" , Reservationinfo: "허니콤보 외 1건", Reservationset: 2,  Reservation: "예약 완료" }
       ]
     }
   }
