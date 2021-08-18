@@ -18,10 +18,8 @@ export default {
   },
   data: () => ({
     drawer: null,
-    dashboard:{title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
-    dinfo:{title: '기본정보', icon: 'mdi-information', to: '/market/defaultinfo'},
-
-    item: [
+    items: [
+      {title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
       {title: '주문관리', icon: 'mdi-clipboard-text', items: [
           {title: '주문내역',  to: '/market/order'},
           {title: '주문관리',  to: '/market/order/test'},
@@ -31,6 +29,7 @@ export default {
           {title: '예약내역',  to: '/market/reservate/reservate1'},
           {title: '리뷰관리',  to: '/market/reservate/reservate2'},
         ]},
+      {title: '기본정보', icon: 'mdi-information', to: '/market/defaultinfo'}
     ],
   }),
 }
