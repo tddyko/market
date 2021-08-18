@@ -1,31 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {v4: uuidv4} = require('uuid'); 
-<<<<<<< HEAD
 const {Market, Category, Member} = require('../models');
 const {isLoggedInMember, isLoggedInMarket} = require('./middlewares');
 
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/user_images/');
-
-/*
-localhost/users/storeInformation로 접속
-=======
-const multer = require('multer');
-const {Market,Category,Prodouct,Store_infrom,Member} = require('../models');
-const { isLoggedInMember, isLoggedInMarket} = require('./middlewares');
-
-//이미지 파일 저장 관련 설정
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-      cb(null, './public/images/');
-  },
-  filename: function (req, file, cb) {
-      cb(null, new Date().valueOf() + '_' + file.originalname);
-  },
-});
-const upload = multer({storage: storage});
+ 
 
 /*
 localhost/users/storeInformation로 접속
@@ -72,17 +54,14 @@ router.put('/storeInformation/update',
 )
 /*
 localhost/users/createCategory 접속
-*/
-<<<<<<< HEAD
+*/ 
 router.post('/createCategory', isLoggedInMarket, function (req, res) {
-    Category
-        .create({category_id: uuidv4(), name: req.body.name})
+    Category.create({category_id: uuidv4(), name: req.body.name})
         .then(r => {
             res.send('추가 성공');
         })
         .catch(err => console.dir(err));
-=======
-const upload2 = multer();
+    })
 router.post('/storeInformation', upload.single('userfile'), isLoggedInMarket, async(req,res)=>{ 
   console.log('로그인 성공');
   console.dir(req.user);
@@ -163,8 +142,7 @@ router.delete('/membersignout',isLoggedInMember, async(req,res) => {
   }).catch(err => {
     if(err)
     console.log(err);
-  })
->>>>>>> 5398735f9da3000eb1b24f51e78bf53c9715115e
+  }) 
 });
 
 /* localhost/users/memberInformation 접속  손님정보보기*/
