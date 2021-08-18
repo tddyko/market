@@ -104,8 +104,7 @@ router.get('/member_list',isLoggedInMember, async(req,res) => {
     res.json(result);
 });
 
-<<<<<<< HEAD
-=======
+ 
 /*  
 localhost/order/member_list 주문내역
 */
@@ -133,6 +132,5 @@ router.get('/member_list',isLoggedInMember, async(req,res) => {
 });
     res.json(result);
 });
-
->>>>>>> 5398735f9da3000eb1b24f51e78bf53c9715115e
+ 
 module.exports = router;
