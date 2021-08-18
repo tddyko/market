@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt');
 module.exports = () => {
     passport.use(new localStrategy({
         usernameField: 'id',
-        passwordField: 'password',
+        passwordField: 'passwd',
         passReqToCallback: true,
     }, async (req, userId, password, done) => {
         try {
-            if (req.body.check === 'market') {
+            if (req.body.login_switch === true) {
                 exUser = await Market.findOne({where: {id: userId}});
             } else {
                 exUser = await Member.findOne({where: {id: userId}});

@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const passport = require('passport');  //페스포트
 const passportConfing = require('./passport'); //페스포트 설정
 const flash = require('connect-flash');
-
+const cors = require('cors');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const user_loginRouter = require('./routes/user_login'); //로그인, 로그아웃
@@ -16,8 +16,15 @@ const user_signupRouter = require('./routes/user_signup'); //회원가입
 const chageSotreinfoRouter = require('./routes/chageSotreinfo'); //가게 카테고리 업데이트
 const menuRouter = require('./routes/menu'); //메뉴 관련 라우터
 const reservationRouter = require('./routes/reservations'); //예약 관련 라우터
+const reseve_reviewRouter = require('./routes/reserve_review'); //예약 리뷰 관련 라우터
 const orderRouter = require('./routes/orders'); //주문
-
+const dashboardRouter = require('./routes/dashboard');// 대시보드 
+const order_reviewRouter = require('./routes/order_review');//주문리뷰
+const order_review_answerRouter = require('./routes/order_review_answer');//주문리뷰답글
+const menu_optionRouter = require('./routes/menu_option');//메뉴옵션
+const market_inforomRouter = require('./routes/market_infom');//가게 정보
+const main_page = require('./routes/mainPage'); //들어가자마자 나오는 화면
+ 
 const app = express();
 
 passportConfing(); //페스포트 설정
@@ -39,6 +46,7 @@ const connDB = async () => {
     console.log('데이터베이스 연결성공');
 };
 
+app.use(cors());
 // dotenv setting
 dotenv.config();
 
@@ -66,13 +74,20 @@ app.use(passport.session());
 app.use(flash());
 
 app.use('/', indexRouter);
+app.use('/market_preview', market_inforomRouter);
 app.use('/',user_loginRouter);
 app.use('/', user_signupRouter);
 app.use('/users', usersRouter);
+app.use('/markets',main_page);
 app.use('/update',chageSotreinfoRouter); //추후 수정
 app.use('/menu',menuRouter);
 app.use('/reservation', reservationRouter);
+app.use('/reseve_review',reseve_reviewRouter);
 app.use('/order',orderRouter);
+app.use('/dashboard',dashboardRouter);
+app.use('/order_review',order_reviewRouter)
+app.use('/order_review_answer',order_review_answerRouter);
+app.use('/menu_option',menu_optionRouter);
 
 app.use( (req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
