@@ -76,6 +76,12 @@ const routes = [
 
     ]
 },
+{
+  path:'/market/defaultinfo',
+  name:'dafaultinfo',
+  component: () => import(/* webpackChunkName: "views-reservate2" */
+  '@/views/market/DefaultInfo.vue')
+}
 ];
 
 const router = new VueRouter({

@@ -95,7 +95,7 @@ export default {
   data: () => ({
     drawer: null,
     dashboard:{title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
-    dinfo:{title: '기본정보', icon: 'mdi-information', to: './views/market/Reservation.vue'},
+    dinfo:{title: '기본정보', icon: 'mdi-information', to: '/market/defaultinfo'},
 
     item: [
       {title: '주문관리', icon: 'mdi-clipboard-text', items: [
