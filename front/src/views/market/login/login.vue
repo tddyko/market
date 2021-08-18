@@ -82,6 +82,7 @@
                   x-large
                   dark
                   color="primary"
+                  @click="login()"
                 >
                   로그인
                 </v-btn>
@@ -102,6 +103,7 @@
   </v-container>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'Login',
   components: {
@@ -112,7 +114,26 @@ export default {
     passwd: null,
     pwd_check: false,
     login_switch: false,
-  })
+  }),
+  methods : {
+    login() {
+      console.log("ww")
+         axios({
+           method: 'post',
+              url: "http://localhost/login",
+              headers: {}, 
+              data: {
+                // This is the body part
+                id : this.id, passwd: this.passwd, login_switch: this.login_switch
+              }
+         }).then((response) =>{
+           if(response.data.message =="success"){
+             console.log('로그인 성공');
+              this.$router.push('/market');
+           }
+         })
+      }
+  }
 }
 </script>
 
