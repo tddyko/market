@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true,
             unique: true,
-            comment: "공지사항 이미지 고유아이디값",
+            comment: "가게 내부 사진 이미지 고유아이디값",
         },
         market_inform_img: {
             type: DataTypes.STRING(100),

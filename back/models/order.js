@@ -7,6 +7,31 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             unique: true,
         },
+        name: {
+            type: DataTypes.STRING(16),
+            allowNull: false,
+            comment: "받을 사람 이름",
+        },
+        phonenumber: {
+            type: DataTypes.STRING(13),
+            allowNull: false,
+            comment: "받을 사람 전화번호",
+        },
+        address: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+            comment: "받을 사람 주소",
+        },
+        dt_address: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+            comment: "받을 사람 상세주소",
+        },
+        requirements :{
+            type: DataTypes.STRING(30),
+            allowNull: false,
+            comment: "요청사항",
+        },
         price: {
             type: DataTypes.STRING(10),
             allowNull: false,

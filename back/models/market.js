@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "고유 아이디값",
         },
         profile_img: {
-            type: DataTypes.BLOB('long'),
+            type: DataTypes.STRING(100),
             allowNull: false,
             comment: "마켓 로고 이미지",
         },

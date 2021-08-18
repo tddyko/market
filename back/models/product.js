@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             comment: "제품가격",
         },
+        product_info : {
+            type: DataTypes.STRING(30),
+            allowNull: true,
+            comment: "제품설명",
+        },
     }, {
         sequelize,
         timestamps: true,               // create_at 컬럼 입력된 시간, update_at 컬럼 업데이트된 시간 자동적용

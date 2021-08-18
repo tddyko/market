@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
         },
         reserve_date: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             comment : "예약 시간",
             allowNull: false,
         },
