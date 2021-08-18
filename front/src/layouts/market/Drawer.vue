@@ -17,17 +17,19 @@ export default {
     DrawerHeader: () => import('@/layouts/market/DrawerHeader')
   },
   data: () => ({
-    items: [
-      {title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
-      {title: '주문관리', icon: 'mdi-clipboard-text', to: '/market/order'},
-      {title: '예약관리', icon: 'mdi-account-multiple-outline', to: '/market/reservation'},
-      {title: '기본정보', icon: 'mdi-account-multiple-outline', to: '/market/basic'},
-      {title: '기본정보2', icon: 'mdi-account-multiple-outline', to: '/market/basic2'},
-      {title: '주문내역2', icon: 'mdi-account-multiple-outline', to: '/market/order2'},
-      {title: '로그인', icon: 'mdi-account-multiple-outline', to: '/login'},
-      {title: '예약관리2', icon: 'mdi-account-multiple-outline', items: [
-          {title: '리뷰관리', icon: 'mdi-account-multiple-outline', to: '/market/reservation1'},
-          {title: '예약내역', icon: 'mdi-account-multiple-outline', to: '/market/reservation2'},
+    drawer: null,
+    dashboard:{title: '대시보드', icon: 'mdi-view-dashboard', to: '/market'},
+    dinfo:{title: '기본정보', icon: 'mdi-information', to: '/market/defaultinfo'},
+
+    item: [
+      {title: '주문관리', icon: 'mdi-clipboard-text', items: [
+          {title: '주문내역',  to: '/market/order'},
+          {title: '주문관리',  to: '/market/order/test'},
+        ]
+      },
+      {title: '예약관리', icon: 'mdi-account-multiple-outline',  to: '/market/reservate', items: [
+          {title: '예약내역',  to: '/market/reservate/reservate1'},
+          {title: '리뷰관리',  to: '/market/reservate/reservate2'},
 
         ]},
     ],
