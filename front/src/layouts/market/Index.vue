@@ -1,7 +1,7 @@
 <template>
 <v-app>
-  <market-app-bar @drawer="drawer = !drawer" />
-  <market-drawer v-model="drawer" />
+  <market-app-bar />
+  <market-drawer />
   <market-main />
 </v-app>
 </template>
@@ -15,7 +15,6 @@ export default {
     MarketMain: () => import('@/layouts/market/Content')
   },
   data: () => ({
-    drawer: true,
   }),
 }
 </script>

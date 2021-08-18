@@ -88,12 +88,8 @@
                 <v-row class="mt-3 text-center">
                   <v-col>
                     <div>
-                      아직 노웨잇 회원이 아니세요? <v-btn
-                        text
-                        color="blue"
-                      >
-                        회원가입하기
-                      </v-btn>
+                      아직 노웨잇 회원이 아니세요?
+                      <sign-up />
                     </div>
                   </v-col>
                 </v-row>
@@ -108,6 +104,9 @@
 <script>
 export default {
   name: 'Login',
+  components: {
+    SignUp: () => import('@/views/market/login/signup')
+    },
   data: () => ({
     id: null,
     passwd: null,
