@@ -7,6 +7,7 @@ const {v4: uuidv4} = require('uuid');
 const {Op} = require('sequelize')
 const sequelize = require('sequelize');
 const dayjs = require('dayjs');
+require('dayjs/locale/ko');
  
 //고객이 주문하는 라우터
 router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
@@ -43,4 +44,33 @@ router.get('/list',isLoggedInMarket, async(req,res)=>{
     }); 
     res.json(result);
 });
+
+/*  
+localhost/order/member_list 주문내역
+*/
+router.get('/member_list',isLoggedInMember, async(req,res) => {
+    dayjs.locale('ko');
+    let {market_id} = await Order.findOne({
+        attributes : ['market_id'],
+        where : {member_id : req.user.member_id}
+    })
+    let  result = await Order.findAll({
+        attributes : [[sequelize.fn('date_format', sequelize.col('Order.created_at'),dayjs().format('MM/DD (ddd)')),'created_at'],'order_count','price','current_state'],
+        
+        include :[{
+             model : Market,
+             attributes : ['market_name']},
+            {
+                model : Product,
+                attributes: ['name'],
+                through : {attributes :[]} 
+            },
+    ],
+         where : {market_id,} ,
+        order : [['createdAt', 'DESC']]
+
+});
+    res.json(result);
+});
+
 module.exports = router;
