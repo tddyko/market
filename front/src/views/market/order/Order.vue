@@ -53,12 +53,7 @@ export default {
         menu: false,
         modal: false,
         headers: [
-          {
-            text: '주문번호',
-            align: 'center',
-            sortable: false,
-            value: 'orderNum',
-          },
+          {text: '주문번호', align: 'center', sortable: false, value: 'orderNum',},
           { text: '주문시각', value: 'orderTime', align: 'center'},
           { text: '주문내역', value: 'orderinfo', align: 'center'},
           { text: '주문건수', value: 'orderset',  align: 'center'},

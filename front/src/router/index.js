@@ -25,7 +25,16 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Order" */ "@/views/market/Order.vue"),
+          import(/* webpackChunkName: "Order" */ "@/views/market/order/Order.vue"),
+      },
+      {
+        path: "/market/order/review",
+        name: "OrderReview",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "OrderReview" */ "@/views/market/order/OrderReview"),
       },
       {
         path: "/market/reservation",
@@ -34,40 +43,26 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Reservation" */ "@/views/market/Reservation"),
+          import(/* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation"),
       },
       {
-        path: "/market/basic",
-        name: "basic",
+        path: "/market/reservation/review",
+        name: "ReservationReview",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "기본정보" */ "@/views/market/기본정보.vue"),
+          import(/* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/ReservationReview"),
       },
       {
-        path: "/market/basic2",
-        name: "basic",
+        path: "/market/info",
+        name: "Information",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "기본정보2" */ "@/views/market/기본정보2.vue"),
+          import(/* webpackChunkName: "Information" */ "@/views/market/info/Info"),
       },
-      {
-        path: "/market/order2",
-        name: "order2",
-        component: () =>
-          import(/* webpackChunkName: "주문내역" */ "@/views/market/주문내역.vue"),
-      },
-      {
-        path:'/market/reservation1',
-        name:'reservation1',
-        component: () => import(/* webpackChunkName: "리뷰관리" */
-          '@/views/market/reservation/리뷰관리')
-
-      },
-      {
-        path:'/market/reservation2',
-        name:'reservation2',
-        component: () => import(/* webpackChunkName: "예약내역" */
-          '@/views/market/reservation/예약내역')
-
-      }
     ]
   },
   {
