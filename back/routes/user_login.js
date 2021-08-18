@@ -6,7 +6,7 @@ const {isNotLoggedIn} = require('./middlewares');
 //로그인 
 /*
   로그인 하는 부분
-  localhost:3000/users/login로 접속
+  localhost/login로 접속
   id의 id는 id
   비밀번호의 id 는 password
 */
@@ -26,12 +26,12 @@ router.post('/login',isNotLoggedIn,(req,res,next)=>{
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/');
+      return res.json({message:'success'});
     })
   })(req,res,next);
 });
 /*
-localhost/users/logout로 접속
+localhost/logout로 접속
 로그아웃
 */
 router.post('/logout', function(req,res){
