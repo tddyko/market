@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "고유 아이디값",
         },
         profile_img: {
-            type: DataTypes.BLOB('long'),
+            type: DataTypes.STRING(100),
             allowNull: false,
             comment: "마켓 로고 이미지",
         },
@@ -72,14 +72,47 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'Markets',         // 실제 데이터베이스에 적용되는 테이블이름
         charset: 'utf8mb4',             // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
+        hooks : {
+            afterDestroy : (instance, options) => {
+                instance.getOrders().then((user)=> {
+                    user.forEach(element => {
+                        element.destroy();
+                    });
+                    }),
+                    instance.getOrder_reviews().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    }),
+                    instance.getOrder_review_answers().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    }),
+                    instance.getReserve_reviews().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    }),
+                    instance.getReserve_review_answers().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    }),
+                    instance.getMarket_inform().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    });
+          }}
     });
     Market.associate = models => {
-        Market.hasMany(models.Order, {foreignKey: 'market_id', sourceKey: 'market_id'});
-        Market.hasMany(models.Order_review, {foreignKey: 'market_id', sourceKey: 'market_id'});
-        Market.hasMany(models.Order_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id'});
-        Market.hasMany(models.Reserve_review, {foreignKey: 'market_id', sourceKey: 'market_id'});
-        Market.hasMany(models.Reserve_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id'});
-        Market.hasOne(models.Market_inform, {foreignKey: 'market_id', sourceKey: 'market_id'});
+        Market.hasMany(models.Order, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasMany(models.Order_review, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasMany(models.Order_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasMany(models.Reserve_review, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasMany(models.Reserve_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasOne(models.Market_inform, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.belongsToMany(models.Category, {through: 'market_category'});
     };
     return Market;

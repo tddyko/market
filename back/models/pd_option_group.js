@@ -22,9 +22,19 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'Pd_option_groups',         // 실제 데이터베이스에 적용되는 테이블이름
         charset: 'utf8mb4',             // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
+        hooks : {
+            afterDestroy : (instance, options) => {
+                instance.getPd_options().then((user)=> {
+                    user.forEach(element => {
+                        element.destroy();
+                    });
+                    });
+            }
+        }
     });
     Pd_option_group.associate = models => {
-        Pd_option_group.hasMany(models.Pd_option, {foreignKey: 'pd_option_group_id', sourceKey: 'pd_option_group_id'});
+        Pd_option_group.hasMany(models.Pd_option, {foreignKey: 'pd_option_group_id', sourceKey: 'pd_option_group_id',onDelete : 'cascade', hooks : true});
+        Pd_option_group.belongsTo(models.Product, {foreignKey: 'product_id', targetKey: 'product_id'});
     };
     return Pd_option_group;
 };

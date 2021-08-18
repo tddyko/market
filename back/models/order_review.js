@@ -25,10 +25,23 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'Order_reviews',         // 실제 데이터베이스에 적용되는 테이블이름
         charset: 'utf8mb4',             // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
         collate: 'utf8mb4_general_ci',  // 데이터베이스 캐릭터셋 에모지 스타일까지 적용
+        hooks : {
+            afterDestroy : (instance, options) => {
+                instance.getOrder_review_imgs().then((user)=> {
+                    user.forEach(element => {
+                        element.destroy();
+                    });
+                    }),
+                    instance.getOrder_review_answer().then((user) => {
+                        user.forEach(element => {
+                            element.destroy();
+                        });
+                    });
+          }  }
     });
     Order_review.associate = models => {
-        Order_review.hasMany(models.Order_review_img, {foreignKey: 'order_review_id', sourceKey: 'order_review_id'});
-        Order_review.hasOne(models.Order_review_answer, {foreignKey: 'order_review_id', sourceKey: 'order_review_id'});
+        Order_review.hasMany(models.Order_review_img, {foreignKey: 'order_review_id', sourceKey: 'order_review_id',onDelete : 'cascade', hooks : true});
+        Order_review.hasOne(models.Order_review_answer, {foreignKey: 'order_review_id', sourceKey: 'order_review_id',onDelete : 'cascade', hooks : true});
         Order_review.belongsTo(models.Member, {foreignKey: 'member_id', targetKey: 'member_id'});
         Order_review.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
         Order_review.belongsTo(models.Order, {foreignKey: 'order_id', targetKey: 'order_id'});
