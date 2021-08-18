@@ -30,7 +30,6 @@ export default {
       {title: '예약관리', icon: 'mdi-account-multiple-outline',  to: '/market/reservate', items: [
           {title: '예약내역',  to: '/market/reservate/reservate1'},
           {title: '리뷰관리',  to: '/market/reservate/reservate2'},
-
         ]},
     ],
   }),
