@@ -7,8 +7,8 @@
     >
       <v-card class="rounded-xl">
         <v-toolbar
-          color="blue"
-          height="80px"
+          color="white"
+          height="auto"
           class="rounded-t-xl"
         >
           <v-row
@@ -58,35 +58,26 @@
             >
               <v-tabs
                 v-model="tab"
-                hide-slider
-                background-color="blue"
+                slider-color="light-blue"
                 centered
                 grow
               >
                 <v-tab
-                  id="back-white"
-                  color="white"
-                  class="font-weight-light"
+                  class="font-weight-regular text--white"
                   :class="`text-${tapsize}`"
                   min-width="1"
                 >
                   전체(00)
                 </v-tab>
-
                 <v-tab
-
-                  id="back-white"
-                  color="white"
-                  class="font-weight-light"
+                  class="font-weight-regular"
                   :class="`text-${tapsize}`"
                   min-width="auto"
                 >
                   미답변(00)
                 </v-tab>
                 <v-tab
-                  id="back-white"
-                  color="white"
-                  class="font-weight-light"
+                  class="font-weight-regular"
                   :class="`text-${tapsize}`"
                   min-width="auto"
                 >
@@ -105,111 +96,88 @@
             v-for="a in 3"
             :key="a"
           >
-            <v-row
-              justify="center"
-              class="mt-4"
-            >
-              <v-col
-                lg="10"
-                md="10"
-              >
-                <v-card outlined>
-                  <v-container>
-                    <v-row
-                      justify="start"
-                      no-gutters
-                      align="center"
+            <v-card outlined>
+              <v-card-text>
+                <v-container>
+                  <v-row
+                    justify="start"
+                    no-gutters
+                    align="center"
+                  >
+                    <v-col
+                      md="1"
+                      lg="1"
+                      xl="1"
                     >
-                      <v-col
-                        md="12"
-                        lg="12"
-                      >
-                        <v-row
-                          justify="start"
-                          no-gutters
-                          align="center"
-                        >
-                          <v-col
-                            md="1"
-                            lg="1"
-                          >
-                            <v-avatar>
-                              <img
-                                src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                alt="John"
-                              >
-                            </v-avatar>
-                          </v-col>
-                          <v-col
-                            lg="1"
-                            md="1"
-                            class="font-weight-bold"
-                            :class="`text-${fontsize}`"
-                          >
-                            닉네임
-                          </v-col>
-                          <v-col
-                            lg="9"
-                            md="9"
-                            class="font-weight-light ma-1"
-                            :class="`text-${datesize}`"
-                            align="start"
-                          >
-                            0000년 00월 00일
-                          </v-col>
-                          <v-col
-                            lg="2"
-                            md="2"
-                            offset-lg="1"
-                            offset-md="1"
-                            align-self="start"
-                          >
-                            <v-rating
-                              v-model="rating"
-                              background-color="warning lighten-1"
-                              color="orange"
-                              half-increments
-                              dense
-                              :size="`${ratingsize}`"
-                            />
-                          </v-col>
-                          <span class="grey--text text--lighten-2 text-caption ml-7">
-                            ({{ rating }})
-                          </span>
-                        </v-row>
-                      </v-col>
-                      <v-col
-                        lg="12"
-                        md="12"
-                        align="start"
-                        class="mt-1"
-                      >
+                      <v-avatar>
                         <img
-                          height="70"
-                          width="70"
                           src="https://cdn.vuetifyjs.com/images/john.jpg"
                           alt="John"
-                          class="rounded-lg ma-2"
                         >
-                      </v-col>
-                      <v-col
-                        lg="8"
-                        md="8"
-                        class="ma-2"
+                      </v-avatar>
+                    </v-col>
+                    <v-col
+                      lg="1"
+                      md="1"
+                      xl="1"
+                      class="font-weight-bold"
+                      :class="`text-${fontsize}`"
+                    >
+                      닉네임
+                    </v-col>
+                    <v-col
+                      lg="9"
+                      md="9"
+                      xl="9"
+                      class="font-weight-light mr-1"
+                      :class="`text-${datesize}`"
+                      align="start"
+                    >
+                      0000년 00월 00일
+                      <v-rating
+                        v-model="rating"
+                        background-color="warning lighten-1"
+                        color="orange"
+                        half-increments
+                        dense
+                        :size="`${ratingsize}`"
+                      />
+                    </v-col>
+                    <v-col
+                      lg="12"
+                      md="12"
+                      xl="12"
+                      align="center"
+                      class="mt-1"
+                    >
+                      <img
+                        height="200"
+                        width="200"
+                        src="https://cdn.vuetifyjs.com/images/john.jpg"
+                        alt="John"
+                        class="rounded-lg ma-2"
                       >
-                        <v-textarea
-                          value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
-                          placeholder="내용을 입력하세요."
-                          no-resize
-                          hide-details
-                          readonly
-                          rounded
-                        />
-                      </v-col>
-                    </v-row>
+                    </v-col>
+                    <v-col
+                      lg="8"
+                      md="8"
+                      xl="12"
+                      class="ma-2"
+                    >
+                      <v-textarea
+                        value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
+                        placeholder="내용을 입력하세요."
+                        no-resize
+                        hide-details
+                        readonly
+                        class="px-16"
+                        rounded
+                      />
+                    </v-col>
                     <v-col
                       lg="10"
                       md="10"
+                      xl="12"
                     >
                       <v-textarea
                         outlined
@@ -218,24 +186,31 @@
                         placeholder="내용을 입력하세요."
                         no-resize
                         hide-details
+                        class="px-16"
                         rounded
                       />
                     </v-col>
-                  </v-container>
-                  <v-card-actions>
-                    <v-spacer />
-                    <v-btn
-                      color="error"
-                    >
-                      취소
-                    </v-btn>
-                    <v-btn color="primary">
-                      확인
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-col>
-            </v-row>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  color="error"
+                >
+                  취소
+                </v-btn>
+                <v-btn color="primary">
+                  확인
+                </v-btn>
+                <p
+                  v-for="items2 in tabheader"
+                  :key="items2.testheader"
+                >
+                  {{ items2.testheader }}
+                </p>
+              </v-card-actions>
+            </v-card>
           </v-tab-item>
         </v-tabs-items>
       </v-card>
@@ -244,6 +219,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
       menu: false,
       modal: false,
@@ -255,6 +231,7 @@ export default {
         }
     },
     computed: {
+          ...mapState(['order/tabheader']),
       dateRangeText () {
         return this.dates.join(' ~ ')
       },
@@ -262,21 +239,24 @@ export default {
          switch (this.$vuetify.breakpoint.name) {
            case 'md': return 'md-subtitle-1'
            case 'lg': return 'lg-h6'
+           case 'xl': return 'xl-h6'
            default : return ''
       }
     },
-          tapsize () {
+      tapsize () {
          switch (this.$vuetify.breakpoint.name) {
            case 'md': return 'md-h6'
            case 'lg': return 'lg-h6'
+           case 'xl': return 'xl-h6'
            default : return ''
       }
 
     },
-              datesize () {
+      datesize () {
          switch (this.$vuetify.breakpoint.name) {
            case 'md': return 'md-caption'
            case 'lg': return 'lg-caption'
+           case 'xl': return 'xl-caption'
            default : return ''
       }
 
@@ -284,11 +264,12 @@ export default {
     ratingsize(){
       switch (this.$vuetify.breakpoint.name){
         case 'md' : return '25'
-        case 'lg' : return '27'
+        case 'lg' : return '22'
+        case 'xl' : return '17'
         default : return ''
       }
     }
-  },
+  }
 }
 </script>
 
