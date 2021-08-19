@@ -8,18 +8,18 @@ const {Op} = require('sequelize');
 const sequelize = require('sequelize'); 
 const dayjs = require('dayjs');
 require('dayjs/locale/ko');
+ 
 
 //고객이 예약하는 라우터 localhost/reservation/in/teststore
 router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
     let {market_id} = await Market.findOne({attributes : ['market_id'], where :{market_name: req.params.marketname}, raw : true});    
     var {current_state, order_count,date,time} = req.body;
     var reserve_date = dayjs(date).format('YYYY-MM-DD');
-    var reserve_time = dayjs(time).format('hh:mm');
     Reservation.create({
         reservation_id : uuidv4(),
-        current_state, order_count,
+        current_state, order_count, 
         reserve_date : reserve_date, 
-        reserve_time : reserve_time,member_id : req.user.member_id,
+        reserve_time :time ,member_id : req.user.member_id,
         market_id   
     }).then(r => {
         if(r)
@@ -59,13 +59,13 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
 router.get('/list', isLoggedInMarket, async(req,res)=>{
     dayjs.locale('ko'); 
     console.log(req.body);
-    console.log(req.query);
+    console.log(req.query);  
     var dateValue = req.query.dateValue; 
     if(dateValue)
         var date = dayjs(dateValue).format('YYYY-MM-DD');
     else
         var date =  dayjs().format('YYYY-MM-DD');
-   
+  
     let reservations = await Reservation.findAll({
         attributes : ['reservation_id',
            'reserve_date','reserve_time'
@@ -76,8 +76,8 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
         },raw : true
         }).then(r=>{
         r.forEach(elements=>{
-            elements.reserve_date = dayjs(elements.reserve_date).format('YYYY.MM.DD.(ddd)')
-            elements.reserve_time = dayjs(elements.dateAndTime).format('a hh시 mm분')
+            elements.reserve_date = dayjs(elements.reserve_date + elements.reserve_time).format('YYYY.MM.DD.(ddd)')
+            elements.reserve_time = dayjs(elements.reserve_date + elements.reserve_time).format('a hh시 mm분')
             })
             return r;
         });
