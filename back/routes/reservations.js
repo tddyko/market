@@ -68,9 +68,7 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
    
     let reservations = await Reservation.findAll({
         attributes : ['reservation_id',
-        [
-            sequelize.fn('concat',sequelize.col('reserve_date'),sequelize.col('reserve_time')),'dateAndTime'
-        ]
+           'reserve_date','reserve_time'
             ,'order_count','current_state']
         ,where : {
             market_id : req.user.market_id, 
@@ -78,7 +76,8 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
         },raw : true
         }).then(r=>{
         r.forEach(elements=>{
-            elements.dateAndTime = dayjs(elements.dateAndTime).format('YYYY.MM.DD.(ddd) a hh시 mm분')
+            elements.reserve_date = dayjs(elements.reserve_date).format('YYYY.MM.DD.(ddd)')
+            elements.reserve_time = dayjs(elements.dateAndTime).format('a hh시 mm분')
             })
             return r;
         });
