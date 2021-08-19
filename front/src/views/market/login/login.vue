@@ -102,8 +102,7 @@
     </v-row>
   </v-container>
 </template>
-<script>
-import axios from 'axios'
+<script> 
 export default {
   name: 'Login',
   components: {
@@ -113,12 +112,15 @@ export default {
     id: null,
     passwd: null,
     pwd_check: false,
-    login_switch: false,
+    login_switch: null,
   }),
   methods : {
+    switch (sate){
+      console.log(sate)
+    },
     login() {
       console.log("ww")
-         axios({
+         this.$Axios({
            method: 'post',
               url: "http://localhost/login",
               headers: {}, 
@@ -127,12 +129,18 @@ export default {
                 id : this.id, passwd: this.passwd, login_switch: this.login_switch
               }
          }).then((response) =>{
-           if(response.data.message =="success"){
-             console.log('로그인 성공');
+           console.log(response)
+           if(response.data.user){
+           
               this.$router.push('/market');
+           }else{
+             this.$router.push('/login')
            }
          })
       }
+  },
+  computed: {
+    user(){return this.$store.getters.user;}
   }
 }
 </script>
