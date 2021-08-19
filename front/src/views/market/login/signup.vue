@@ -1,56 +1,66 @@
 <template>
   <v-dialog
     v-model="dialog"
-    persistent
-    max-width="600px"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
   >
     <template #activator="{ on, attrs }">
       <v-btn
         v-bind="attrs"
-        text
         color="blue"
+        text
         v-on="on"
       >
         회원가입하기
       </v-btn>
     </template>
     <v-card>
-      <v-card-title>
-        <span class="text-h5">회원가입</span>
-      </v-card-title>
+      <v-toolbar
+        color="primary"
+        dark
+      >
+        <v-toolbar-title>회원가입</v-toolbar-title>
+        <v-spacer />
+        <v-toolbar-items>
+          <v-btn
+            dark
+            icon
+            @click="dialog = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
       <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="6"
-              md="4"
-            >
+        <v-form>
+          <v-row class="align-center">
+            <v-col>
               <span>스토어이미지</span>
             </v-col>
-            <v-col
-              cols="12"
-              sm="6"
-              md="4"
-            >
-              <v-avatar>
+            <v-col>
+              <v-avatar
+                size="80"
+              >
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
                   alt="John"
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
                 >
               </v-avatar>
             </v-col>
-            <v-col
-              cols="12"
-              sm="6"
-              md="4"
-            >
-              <input ref="imageInput" type="file" multiple hidden @change="onChangeImages" />
+            <v-col>
+              <input
+                ref="imageInput"
+                hidden
+                multiple
+                type="file"
+                @change="onChangeImages"
+              >
               <v-btn
-                type="button"
-                rounded
-                outlined
                 color="primary"
+                outlined
+                rounded
+                type="button"
                 @click="onClickImgUpload"
               >
                 사진 업로드
@@ -60,20 +70,140 @@
               </v-btn>
             </v-col>
           </v-row>
-        </v-container>
+          <v-row class="align-center">
+            <v-col>
+              <span>아이디</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+            <v-col>
+              <v-btn>
+                중복확인
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>비밀번호</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>비밀번호 확인</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>이메일</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>@
+            <v-col>
+              <v-select
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>가게이름</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>전화번호</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>주소</span>
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>우편번호</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+            <v-col>
+              <v-btn>주소검색</v-btn>
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>주소</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+          <v-row class="align-center">
+            <v-col>
+              <span>상세주소</span>
+            </v-col>
+            <v-col>
+              <v-text-field
+                clearable
+                label="Solo"
+                solo
+              />
+            </v-col>
+          </v-row>
+        </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn
-          color="red darken-1"
-          text
-          @click="dialog = false"
-        >
-          취소
-        </v-btn>
-        <v-btn
+          class="white--text"
           color="blue darken-1"
-          text
           @click="dialog = true"
         >
           가입
