@@ -17,7 +17,7 @@
               <v-text-field
                 v-model="date"
                 flat
-                label="날짜 변경"
+                label="{{test}}"
                 prepend-icon="mdi-calendar"
                 readonly
               />
@@ -28,6 +28,7 @@
                 class-name="elevation-1"
                 full-width
                 @input="menu = false"
+                @change="test()"
               />
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -40,6 +41,8 @@
           flat
         />
       </v-card>
+      
+        
     </v-col>
   </v-row>
 </template>
@@ -49,9 +52,10 @@ export default {
   name: '예약내역',         //컴포넌트 이름
   data() {
     return {
-      date: new Date().toISOString().substring(0, 10),
+      date: null,
       menu: false,
       modal: false,
+      test : '1',
       headers: [
         {text: '예약번호', align: 'center', sortable: false, value: 'ReservationNum',},
         {text: '예약시간', value: 'ReservationTime', align: 'center'},
@@ -74,7 +78,21 @@ export default {
         {ReservationNum: "ABC-1fgasa-fadsf", ReservationTime: "2021.01.01.(월) 오후3시 16분", Reservationinfo: "허니콤보 외 1건", Reservationset: 2, Reservation: "예약 완료"}
       ]
     }
-  }
+  },
+  methods: {
+    test(){ 
+      console.log(this.date);
+      this.$Axios({
+        url : "http://localhost/reservation/list",
+        method : "get",
+        withCredentials : true,
+        params: {
+          dateValue: this.date
+        }
+        }).then((response)=>{ 
+          console.log(response)
+        })
+  }}
 }
 </script>
 

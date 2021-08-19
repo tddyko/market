@@ -46,7 +46,10 @@ const connDB = async () => {
     console.log('데이터베이스 연결성공');
 };
 
-app.use(cors());
+app.use(cors({
+  origin : "http://localhost:8080",
+  credentials : true
+}));
 // dotenv setting
 dotenv.config();
 

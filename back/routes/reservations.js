@@ -57,13 +57,15 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
 
 //가게가 예약한 목록을 보는라우터 2020-10-20
 router.get('/list', isLoggedInMarket, async(req,res)=>{
-    dayjs.locale('ko');
-    var {dateValue} = req.body;
+    dayjs.locale('ko'); 
+    console.log(req.body);
+    console.log(req.query);
+    var dateValue = req.query.dateValue; 
     if(dateValue)
         var date = dayjs(dateValue).format('YYYY-MM-DD');
     else
         var date =  dayjs().format('YYYY-MM-DD');
-    console.log(date);
+   
     let reservations = await Reservation.findAll({
         attributes : ['reservation_id',
         [
