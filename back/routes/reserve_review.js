@@ -4,8 +4,9 @@ const router = express.Router();
 const {Market,Reserve_review_img,Member,Reserve_review_answer,Reserve_review} = require('../models');
 const {v4: uuidv4} = require('uuid');  
 const dayjs = require('dayjs');
+require('dayjs/locale/ko');
 const {Op} = require('sequelize');
-
+const sequelize = require('sequelize');
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/reserve_review_images/');
@@ -22,13 +23,13 @@ router.post('/:marketname/:reservation_id',isLoggedInMember,upload.array('reserv
         member_id : req.user.member_id,
     }).then(r => {if(r){console.log('리뷰 작성 성공')}});
 
-    if(req.files.reserve_reviewImg) {
-        req.files.reserve_reviewImg.forEach(async(files)=> {
+    if(req.files) {
+        req.files.forEach(async(files)=> {
             Reserve_review_img.create({
                 reserve_review_img_id : uuidv4(),
                 reserve_review_img : files.path,
                 reserve_review_id
-            }).then(r => {if(r){console.log('성공')}});    
+            }).then(r => {if(r){console.log('성공')}}).catch(err=>{console.error(err)});    
         })
     }
     
@@ -52,9 +53,9 @@ router.get('/:id',isLoggedInMember,upload.array('reviewImg',3), async(req, res) 
             console.dir(err);
         }
     });
-    if(req.files.reviewImg){
+    if(req.files){
         await Reserve_review_img.destroy({where : {reserve_review_id}}).then(async() => {
-            req.files.reviewImg.forEach(async(file) => {
+            req.files.forEach(async(file) => {
                 await Reserve_review_img.create({
                     reserve_review_img_id : uuidv4(),
                     reserve_review_img : file.path,
@@ -67,11 +68,28 @@ router.get('/:id',isLoggedInMember,upload.array('reviewImg',3), async(req, res) 
 
 //가게가 손님들이 단 리뷰를 보는 라우터
 router.get('/reviews/list',isLoggedInMarket, async(req,res)=>{
-    const {date} = req.body;
-    let date1 = dayjs(date).format('YYYY-MM-DD');
-    let date2 = dayjs(date1).add("1","day").format("YYYY-MM-DD"); 
+    dayjs.locale('ko')
+    let tab = req.body.tab || req.query.tab;
+    let date_start,date_end ;
+    console.log(tab);
+    if(req.query.date1){
+        if(req.query.date1 < req.query.date2){
+            date_start = dayjs(req.query.date1).format('YYYY-MM-DD');
+            date_end = dayjs(req.query.date2).add("1","day").format("YYYY-MM-DD");    
+        }else{
+            date_start = dayjs(req.query.date2).format('YYYY-MM-DD');
+            date_end = dayjs(req.query.date1).add("1","day").format("YYYY-MM-DD"); 
+        }
+    }
+    if(!req.query.date1){
+         date_start = dayjs().format('YYYY-MM-DD');
+         date_end = dayjs(date_start).add("1","day").format("YYYY-MM-DD"); 
+    }   
     let results = await Reserve_review.findAll({
-        attributes : ['reserve_review_id','review','rating'],
+        attributes : ['reserve_review_id','review','rating',
+        [sequelize.fn('date_format', 
+        sequelize.col('Reserve_review.created_at'), '%Y년 %m월 %d일'), 'created_date']
+        ],
         include : [
             {
                 model : Reserve_review_img,
@@ -86,12 +104,26 @@ router.get('/reviews/list',isLoggedInMarket, async(req,res)=>{
         ],
         where : {
             market_id : req.user.market_id,
-            createdAt : {[Op.between]: [date1,date2] }
-        }
-        ,raw : true
-    }).catch(err=>{console.error(err)});
+            createdAt : {[Op.between]: [date_start,date_end] }
+        } 
+    }).then(r=>{
+        const returnData = new Array();
+        r.forEach(element=>{
+            //switch(tab){
+             //   case 0 : 
+             if(tab==0)
+                returnData.push(element)
+             if(tab==1 && element.Reserve_review_answer ==null)
+                returnData.push(element)
+             
+             if(tab==2 && element.Reserve_review_answer!=null)
+                 returnData.push(element)
 
+        })
+        return returnData;
+    }).catch(err=>{console.error(err)}); 
     res.json(results); 
+
 })
 
 //localhost/reseve_review/:reseve_review_id uuid값  리뷰삭제페이지
@@ -117,18 +149,36 @@ router.delete('/:id',isLoggedInMember,async(req,res)=>{
 
 //localhost/reseve_review/recoment/:reseve_review_id uuid값  리뷰 답글 라우터
 router.get('/recoment/:reviewId',isLoggedInMarket, async(req,res)=>{
-    let {answer} = req.body; 
+    let getAnswer = req.query.answer; 
+    console.log(getAnswer);
     let {member_id} = await Reserve_review.findOne({
         attributes : ['member_id'],
         where: {reserve_review_id : req.params.reviewId},
         raw : true
     }).catch(err=>{console.error(err)});
-    await Reserve_review_answer.create({
+
+    let findInformId = await Reserve_review_answer.findOne(
+        {attributes : ['member_id'],where : {member_id},raw : true}) 
+    let reviewData={
         reserve_review_answer_id : uuidv4(),
-        answer, market_id : req.user.market_id, 
+        answer :  getAnswer
+        ,market_id : req.user.market_id, 
         member_id, reserve_review_id : req.params.reviewId,
-    }).then(r => {if(r)console.log('코멘트 추가 성공')})
-    
+    } 
+    await updateOrCreate(Reserve_review_answer,findInformId,reviewData);
 })
  
+async function updateOrCreate(tableName, where, inputData){
+    let findData = await tableName.findOne({where :where}).catch(error => console.log(error))
+    if(!findData){ 
+        console.log(inputData);
+        return tableName.create(inputData).then(
+            r => {if(r)console.log(tableName.tableName + ' 값 생성')}).catch((error) => {console.log(error)})
+    }else{ 
+        console.log(inputData);
+        return tableName.update(inputData,{where : where}).then(
+            r => {if(r)console.log(tableName.tableName + ' 값 수정')}).catch((error) => {console.log(error)})
+    }
+}
+
 module.exports = router;
