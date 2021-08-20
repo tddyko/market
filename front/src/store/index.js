@@ -1,15 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import market from "@/store/modules/market";
-import order from "@/store/modules/order";
+import market from "@/store/market";
+import order from "@/store/order";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  modules: {
+  modules:{
     ...market,
-    ...order,
-  },
-});
+    ...order
+  }
+})
 
-export default store;
+export default store

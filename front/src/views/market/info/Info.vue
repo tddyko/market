@@ -1,28 +1,26 @@
 <template>
   <v-row justify="center">
     <v-col
-      lg="12"
+      lg="10"
+      xl="8"
       md="12"
     >
       <v-card class="rounded-xl">
         <v-toolbar
-          color="blue"
-          height="80px"
+          color="white"
+          height="auto"
           class="rounded-t-xl"
         >
           <v-row justify="start">
             <v-col lg="5">
               <v-tabs
                 v-model="tab"
-                hide-slider
-                background-color="blue"
+                slider-color="light-blue"
                 centered
                 grow
               >
                 <v-tab
-                  id="back-white"
-                  color="white"
-                  class="font-weight-light"
+                  class="font-weight-regular text--white"
                   :class="`text-${tapsize}`"
                   min-width="auto"
                 >
@@ -41,7 +39,7 @@
             </v-col>
           </v-row>
         </v-toolbar>
-
+        <v-divider />
         <v-tabs-items
           v-for="n in 1"
           :key="n"
@@ -50,11 +48,11 @@
           <v-tab-item>
             <v-row
               justify="center"
-              class="mt-4"
             >
               <v-col
                 lg="10"
                 md="10"
+                xl="12"
               >
                 <v-card elevation="5">
                   <v-container>
@@ -127,7 +125,7 @@
                             v-model="startmenu"
                             :close-on-content-click="false"
                             :nudge-right="40"
-                            transition="scale-transition"
+                            transition="fade-transition"
                             offset-y
                             max-width="290px"
                             min-width="290px"
@@ -163,7 +161,7 @@
                             v-model="endmenu"
                             :close-on-content-click="false"
                             :nudge-right="40"
-                            transition="scale-transition"
+                            transition="fade-transition"
                             offset-y
                             max-width="290px"
                             min-width="290px"
@@ -231,11 +229,11 @@
           <v-tab-item>
             <v-row
               justify="center"
-              class="mt-4"
             >
               <v-col
-                lg="10"
-                md="10"
+                lg="12"
+                md="12"
+                xl="12"
               >
                 <v-card elevation="5">
                   <v-form>
@@ -260,6 +258,7 @@
                           lg="9"
                         >
                           <v-textarea
+                            ref="test"
                             outlined
                             dense
                             hide-details
@@ -275,21 +274,23 @@
                         <v-col
                           lg="4"
                         >
-                          <div class="ml-15">
-                            <v-btn
-                              class="rounded-xl"
-                              height="90"
-                              min-width="auto"
-                              @click="uploder"
-                            >
-                              <div class="d-block">
-                                <v-icon>mdi-camera</v-icon>
-                              </div>
-                              <div class="d-block">
-                                사진선택
-                              </div>
-                            </v-btn>
-                          </div>
+                          <input
+                            ref="imageInput"
+                            type="file"
+                            multiple
+                            hidden
+                          >
+                          <v-btn
+                            class="rounded-xl"
+                            type="button"
+                            min-width="auto"
+                            @click="onButtonClick"
+                          >
+                            <v-icon>
+                              mdi-camera
+                            </v-icon>
+                            사진선택
+                          </v-btn>
                         </v-col>
                       </v-row>
                       <v-btn
@@ -331,15 +332,7 @@ export default {
     endtime: null,
     startmenu: false,
     endmenu: false,
-    modal2: false,
-    uploder:() => {
-            this.isSelecting = true
-      window.addEventListener('focus', () => {
-        this.isSelecting = false
-      }, { once: true })
-
-      this.$refs.uploader.click()
-    }
+    modal2: false
     }
 
   },
@@ -378,7 +371,12 @@ computed:{
         default : return ''
       }
     }
-}
+},
+  methods: {
+    onButtonClick() {
+      this.$refs.test.click();
+    },
+  }
 }
 </script>
 
@@ -386,6 +384,6 @@ computed:{
 #back-white{
   background-color: white;
   border-radius: 25px;
-  
+
 }
 </style>

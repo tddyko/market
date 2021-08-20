@@ -1,13 +1,13 @@
 const state = () => ({
   tabheader: [
     {
-      testheader: "테스트1",
+      testheader: "전체",
     },
     {
-      testheader: "테스트2",
+      testheader: "미답변",
     },
     {
-      testheader: "테스트3",
+      testheader: "답변완료",
     },
   ],
 });

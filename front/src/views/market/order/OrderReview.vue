@@ -63,25 +63,13 @@
                 grow
               >
                 <v-tab
+                  v-for="tabitem in tab1"
+                  :key="tabitem.testheader"
                   class="font-weight-regular text--white"
                   :class="`text-${tapsize}`"
                   min-width="1"
                 >
-                  전체(00)
-                </v-tab>
-                <v-tab
-                  class="font-weight-regular"
-                  :class="`text-${tapsize}`"
-                  min-width="auto"
-                >
-                  미답변(00)
-                </v-tab>
-                <v-tab
-                  class="font-weight-regular"
-                  :class="`text-${tapsize}`"
-                  min-width="auto"
-                >
-                  답변완료(00)
+                  {{ tabitem.testheader }}
                 </v-tab>
               </v-tabs>
             </v-col>
@@ -96,7 +84,8 @@
             v-for="a in 3"
             :key="a"
           >
-            <v-card outlined>
+            <v-divider />
+            <v-card>
               <v-card-text>
                 <v-container>
                   <v-row
@@ -135,6 +124,7 @@
                     >
                       0000년 00월 00일
                       <v-rating
+                        id="raiting-inline"
                         v-model="rating"
                         background-color="warning lighten-1"
                         color="orange"
@@ -142,6 +132,7 @@
                         dense
                         :size="`${ratingsize}`"
                       />
+                      ({{ rating }})
                     </v-col>
                     <v-col
                       lg="12"
@@ -203,12 +194,6 @@
                 <v-btn color="primary">
                   확인
                 </v-btn>
-                <p
-                  v-for="items2 in tabheader"
-                  :key="items2.testheader"
-                >
-                  {{ items2.testheader }}
-                </p>
               </v-card-actions>
             </v-card>
           </v-tab-item>
@@ -219,19 +204,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 export default {
       menu: false,
       modal: false,
       data(){
         return{
+          tab1: this.$store.state.order.tabheader, //게터로 바꾸자
           rating: '4',
           tab: null,
         dates: ["",""],
         }
     },
     computed: {
-          ...mapState(['order/tabheader']),
       dateRangeText () {
         return this.dates.join(' ~ ')
       },
@@ -274,9 +258,8 @@ export default {
 </script>
 
 <style>
-#back-white{
-  background-color: white;
-  border-radius: 25px;
+#raiting-inline{
+  display: inline;
 }
 #center-input{
   text-align: center

@@ -82,8 +82,4 @@ export default {
 </script>
 
 <style scoped>
-#warp {
-  width: 645px;
-  height: 530px;
-}
 </style>

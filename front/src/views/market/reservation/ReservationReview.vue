@@ -87,6 +87,7 @@
             </v-col>
           </v-row>
         </v-toolbar>
+        <v-divider />
         <v-tabs-items
           v-for="n in 3"
           :key="n"
@@ -96,7 +97,7 @@
             v-for="a in 3"
             :key="a"
           >
-            <v-card outlined>
+            <v-card>
               <v-card-text>
                 <v-container>
                   <v-row
@@ -269,10 +270,6 @@ export default {
 </script>
 
 <style>
-#back-white{
-  background-color: white;
-  border-radius: 25px;
-}
 #center-input{
   text-align: center
 }

@@ -15,7 +15,7 @@
         outlined
         class="rounded-xl"
       >
-        <v-continer>
+        <v-container>
           <div
 
             class="mt-16 mx-6"
@@ -158,7 +158,7 @@
               </v-list-item>
             </v-row>
           </div>
-        </v-continer>
+        </v-container>
       </v-card>
     </v-row>
   </v-container>
