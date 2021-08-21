@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import market from "@/store/market";
-import order from "@/store/order";
+import order from "@/store/order/Order";
 
 Vue.use(Vuex);
 

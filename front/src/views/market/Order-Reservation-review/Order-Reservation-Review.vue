@@ -217,10 +217,12 @@
 export default {
       menu: false,
       modal: false,
+
       data(){
         return{
           rating: '4',
           tab: null,
+          menu2: false,
         dates: ["",""],
         }
     },
