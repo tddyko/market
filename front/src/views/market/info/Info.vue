@@ -42,6 +42,7 @@
           </v-row>
         </v-toolbar>
 
+        <!--입력받는 부분-->
         <v-tabs-items
           v-for="n in 1"
           :key="n"
@@ -66,6 +67,7 @@
                         <v-col lg="2">
                           스토어 이미지
                         </v-col>
+                        <!--현재 스토어 이미지-->
                         <v-col lg="2">
                           <v-avatar size="100">
                             <img
@@ -74,11 +76,16 @@
                             >
                           </v-avatar>
                         </v-col>
+                        <!--메장 업로드-->
                         <v-col lg="2">
                           <v-file-input
                             prepend-icon="mdi-cloud-upload"
                             hide-input
                             dense
+                            id="profile_img"
+                            ref="profile_img"
+                            v-on:change="selectFile()"
+                            :rules="rules"
                           />
                         </v-col>
                       </v-row>
@@ -92,11 +99,12 @@
                           매장소개
                         </v-col>
                         <v-col lg="5">
-                          <v-textarea
+                          <v-textarea 
+                            v-model="comment"
                             no-resize
                             outlined
                             dense
-                            hide-details
+                            hide-details 
                           />
                         </v-col>
                       </v-row>
@@ -109,9 +117,10 @@
                         </v-col>
                         <v-col lg="3">
                           <v-text-field
+                            v-model="phonenumber"
                             outlined
                             hide-details
-                            dense
+                            dense 
                           />
                         </v-col>
                       </v-row>
@@ -130,7 +139,7 @@
                             transition="scale-transition"
                             offset-y
                             max-width="290px"
-                            min-width="290px"
+                            min-width="290px" 
                           >
                             <template #activator="{ on, attrs }">
                               <v-text-field
@@ -140,13 +149,13 @@
                                 v-bind="attrs"
                                 dense
                                 hide-details
-                                v-on="on"
+                                v-on="on" 
                               />
                             </template>
                             <v-time-picker
                               v-model="time"
                               full-width
-                              @click:minute="startmenu = false"
+                              @click:minute="startmenu = false" 
                             />
                           </v-menu>
                         </v-col>
@@ -166,7 +175,7 @@
                             transition="scale-transition"
                             offset-y
                             max-width="290px"
-                            min-width="290px"
+                            min-width="290px" 
                           >
                             <template #activator="{ on, attrs }">
                               <v-text-field
@@ -182,7 +191,7 @@
                             <v-time-picker
                               v-model="endtime"
                               full-width
-                              @click:minute="endmenu = false"
+                              @click:minute="endmenu = false" 
                             />
                           </v-menu>
                         </v-col>
@@ -196,20 +205,22 @@
                         </v-col>
                         <v-col lg="2">
                           <v-select
+                            v-model="week_holiday"
                             :items="week"
                             label="주"
                             dense
                             solo
-                            hide-details
+                            hide-details 
                           />
                         </v-col>
                         <v-col lg="2">
                           <v-select
+                            v-model="day_holiday"
                             :items="day"
                             label="일"
                             dense
                             solo
-                            hide-details
+                            hide-details 
                           />
                         </v-col>
                       </v-row>
@@ -218,6 +229,7 @@
                         color="primary"
                         width="80"
                         height="40"
+                         v-on:click="submitInform"
                       >
                         저장
                       </v-btn>
@@ -260,6 +272,7 @@
                           lg="9"
                         >
                           <v-textarea
+                          v-model="noti"
                             outlined
                             dense
                             hide-details
@@ -275,12 +288,14 @@
                         <v-col
                           lg="4"
                         >
+                        <!--스토어 이미지-->
                           <div class="ml-15">
                             <v-btn
                               class="rounded-xl"
                               height="90"
                               min-width="auto"
                               @click="uploder"
+                              :rules="rules"
                             >
                               <div class="d-block">
                                 <v-icon>mdi-camera</v-icon>
@@ -297,6 +312,7 @@
                         color="primary"
                         width="80"
                         height="40"
+                       
                       >
                         저장
                       </v-btn>
@@ -316,7 +332,8 @@
 export default {
   data(){
     return{
-    tab:'',
+    tab:0,
+    profile_Img : "",
     files: [],
     rules: [
         value => !value || value.size < 2000000 || '사진용량은 2mb(사이즈)를 초과할수 없습니다.',
@@ -332,6 +349,11 @@ export default {
     startmenu: false,
     endmenu: false,
     modal2: false,
+    comment :'',
+    noti : '',
+    phonenumber : '',
+    week_holiday : null,
+    day_holiday : null,
     uploder:() => {
             this.isSelecting = true
       window.addEventListener('focus', () => {
@@ -343,7 +365,43 @@ export default {
     }
 
   },
-
+methods:{
+  //운영정보 업로드
+  submitInform : function(){
+    const fd = new FormData(); //반드시 필요 
+    fd.append('profile_img', this.profile_img); //4번
+    this.$Axios({
+      methods : 'POST',
+      url : 'https://localhost/update/inform',
+      withCredentials: true, //쿠키가 서로 저장
+      data: { 
+       market_phone : this.phonenumber,
+       start_time : this.time,
+       end_time : this.endtime,
+       market_coment : this.inform, 
+       market_inform_week_holiday : this.week_holiday,
+       market_inform_day_holiday : this.day_holiday,  
+       fd
+      },
+      headers : {
+        "Content-Type": "multiple/form-data"
+      }
+    }).then(async(response)=>console.log(response)).catch((err)=>console.log(err))
+  
+    console.log("datas")
+    console.log("phonenumber : " + this.phonenumber); 
+    console.log("comment : " + this.comment); 
+    console.log("noti : " + this.noti); 
+    console.log("time : " + this.time)
+    console.log("endtime : " + this.endtime) 
+    console.log("files : " + this.files)
+  },
+  //이미지 업로드용 메소드
+  selectFile : function(){ 
+    console.log(this.$refs.profile_img); 
+ 
+}
+},
 computed:{
       dateRangeText () {
         return this.dates.join(' ~ ')
@@ -378,7 +436,7 @@ computed:{
         default : return ''
       }
     }
-}
+  }
 }
 </script>
 
