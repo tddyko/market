@@ -121,7 +121,7 @@
                       justify="start"
                       no-gutters
                       align="center"
-                      @click="showRecomentSwitch()"
+                      @click="showRecomentSwitch(index)"
                     >
                       <v-col
                         md="12"
@@ -222,7 +222,7 @@
                     <v-col
                       lg="10"
                       md="10"
-                      v-if="showRecoment"
+                      v-if="item.showRecoment"
                     >
                       <v-textarea
                         outlined  
@@ -236,7 +236,7 @@
                       />
                     </v-col>
                   </v-container>
-                  <v-card-actions v-if="showRecoment">
+                  <v-card-actions v-if="item.showRecoment">
                     <v-spacer />
                     <v-btn
                       color="error"
@@ -313,8 +313,11 @@ export default {
     searchChangeFunc(event){
      this.recoment=event
     },
-    showRecomentSwitch(){ 
-        this.showRecoment = !this.showRecoment;
+    showRecomentSwitch(index){
+      console.log(index)
+      this.items[index].showRecoment = !this.items[index].showRecoment 
+      //보여줄지 말지 결정하는 변수를 각 컨테이너에 들어갈 각 배열에 요소를 추가하고 0 
+      //index값을 받아서 해당 index를 가진 컨테이너만 보여줄지 말지를 결정하는 방향으로
     },
     showValue(findComent){ 
       console.log(findComent)
@@ -338,9 +341,13 @@ export default {
                 date1 : this.dates[0], date2: this.dates[1], tab : this.tab,
               }
         }).then(async(response)=>{
-           await response.data.forEach((data)=>{data.rating = parseFloat(data.rating)})
-            this.items =  response.data; 
-            console.log(this.items)
+           await response.data.forEach(
+             (data)=>{
+                data.rating = parseFloat(data.rating)
+                data.showRecoment = false
+                })
+            this.items = response.data
+            console.log(response.data)
         }).catch((err)=>{
           console.log(err)
         })
