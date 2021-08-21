@@ -5,6 +5,22 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    component: () =>
+      import(/* webpackChunkName: "market_layout" */ "@/layouts/main/Index"),
+    children: [
+      {
+        path: "/",
+        name: "Main",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "Dashboard" */ "@/views/main/StoreList"),
+      },
+    ],
+  },
+  {
     path: "/market",
     component: () =>
       import(/* webpackChunkName: "market_layout" */ "@/layouts/market/Index"),

@@ -13,16 +13,24 @@
     >
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
-    <v-flex shrink>
-      <v-expand-x-transition>
-        <div
-          v-show="expand"
-          style="white-space: nowrap"
-        >
-          <v-text-field />
-        </div>
-      </v-expand-x-transition>
-    </v-flex>
+    <v-expand-x-transition>
+      <v-card
+        v-show="expand"
+        class="pa-2"
+        color="transparent"
+        dark
+        elevation="0"
+        width="600px"
+      >
+        <v-text-field
+          clearable
+          dense
+          filled
+          hide-details
+          rounded
+        />
+      </v-card>
+    </v-expand-x-transition>
     <v-btn
       icon
       to="/login"
@@ -34,7 +42,10 @@
 
 <script>
 export default {
-  name: "MainAppBar"
+  name: "MainAppBar",
+  data: () => ({
+    expand: false
+  }),
 }
 </script>
 

@@ -20,14 +20,14 @@
 export default {
   name: "MarketAppBar",
   computed: {
-    drawer: {
-      get() {
-        return this.$store.getters['app/getDrawer'];
-      },
-      set(v) {
-        return this.$store.dispatch('app/toggleDrawer', v)
+      drawer: {
+        get() {
+          return this.$store.getters['app/getDrawer'];
+        },
+        set(v) {
+          return this.$store.dispatch('app/toggleDrawer', v)
+        }
       }
-    }
   }
 }
 </script>
