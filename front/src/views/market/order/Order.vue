@@ -28,6 +28,7 @@
                 full-width
                 class="elevation-1"
                 @input="menu = false"
+                @change="getOrder()"
               />
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -49,32 +50,40 @@ export default {
   name: 'Order',         //컴포넌트 이름
   data(){
     return{
-        date: new Date().toISOString().substring(0,10),
+        date: null,
         menu: false,
         modal: false,
         headers: [
-          {text: '주문번호', align: 'center', sortable: false, value: 'orderNum',},
-          { text: '주문시각', value: 'orderTime', align: 'center'},
-          { text: '주문내역', value: 'orderinfo', align: 'center'},
-          { text: '주문건수', value: 'orderset',  align: 'center'},
-          { text: '주문금액', value: 'orderpay',  align: 'center'},
-          { text: '주문상태', value: 'order',     align: 'center'},
+          {text: '주문번호', align: 'center', sortable: false, value: 'order_id',},
+          { text: '주문시각', value: 'createdAt', align: 'center'},
+          { text: '주문내역', value: 'Products.name', align: 'center'},
+          { text: '주문건수', value: 'order_count',  align: 'center'},
+          { text: '주문금액', value: 'price',  align: 'center'},
+          { text: '주문상태', value: 'current_state',     align: 'center'},
         ],
       items: [
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 취소" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 취소" },
-    {orderNum: "ABC-1fgasa-fadsf", orderTime: "2021.01.01.(월) 오후3시 16분" , orderinfo: "허니콤보 외 1건", orderset: 2, orderpay: "33,000", order: "주문 완료" }
-      ]
+     ]
     }
+  },
+  
+  methods: {
+    
+    getOrder(){   
+      console.log("wow")
+      this.$Axios({
+        url : "http://localhost/order/list",
+        method : "get",
+        withCredentials : true,
+        params: {
+          dateValue: this.date
+        }
+        }).then((response)=>{  
+       
+            this.items = response.data;
+            console.log(this.items)
+       
+        })
+  }
   }
 }
 </script>

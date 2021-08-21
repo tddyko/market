@@ -212,6 +212,7 @@
                       >
                         <v-textarea
                           v-model="item.review" 
+                          placeholder="내용을 입력하세요."
                           no-resize
                           hide-details
                           readonly
@@ -233,7 +234,7 @@
                         hide-details
                         rounded
                         @input="searchChangeFunc($event)"
-                      />
+                      />  
                     </v-col>
                   </v-container>
                   <v-card-actions v-if="item.showRecoment">
@@ -372,8 +373,7 @@ export default {
       return require(`../../../../../back/${name}`);
     }
   },
-  created(){ 
-    console.log("tab : " + this.tab);
+  created(){  
   },
   
  

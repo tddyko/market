@@ -18,7 +18,7 @@ const upload = multer({storage: storage});
 
 //localhost/menu/addmenu
 //id 가 name , price인 곳에서 정보를 받음
-router.get('/addMenu',upload.single('userfile'), isLoggedInMarket, async(req,res)=>{
+router.get('/addMenu',upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
     const product_id = uuidv4();
     Product.create({
         product_id,
@@ -29,10 +29,10 @@ router.get('/addMenu',upload.single('userfile'), isLoggedInMarket, async(req,res
     }).then(() => {
      
     }).catch(err=>console.dir(err));
-    if(req.file.menuImg)
+    if(req.file)
     Product_img.create({
         product_img_id : uuidv4(),
-        product_img : req.file.menuImg.path,
+        product_img : req.file.path,
         product_id
     });
 });

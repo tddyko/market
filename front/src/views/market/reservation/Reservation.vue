@@ -28,7 +28,7 @@
                 class-name="elevation-1"
                 full-width
                 @input="menu = false"
-                @change="test()"
+                @change="getReserve()"
               />
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     
-    test(){   
+    getReserve(){   
       this.$Axios({
         url : "http://localhost/reservation/list",
         method : "get",

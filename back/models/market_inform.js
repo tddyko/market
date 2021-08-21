@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     Market_inform.associate = models => {
         Market_inform.hasMany(models.Market_inform_img, {foreignKey: 'market_inform_id', sourceKey: 'market_inform_id',onDelete : 'cascade', hooks : true});
         Market_inform.hasMany(models.Market_inform_holiday, {foreignKey: 'market_inform_id', sourceKey: 'market_inform_id',onDelete : 'cascade', hooks : true});
+        Market_inform.hasMany(models.Market_noti_img, {foreignKey: 'market_inform_id', sourceKey: 'market_inform_id',onDelete : 'cascade', hooks : true});
         Market_inform.belongsTo(models.Market, {foreignKey: 'market_id', targetKey: 'market_id'});
     };
     return Market_inform;

@@ -97,8 +97,8 @@
           </v-row>
         </v-toolbar>
         <v-tabs-items
-          v-for="n in 3"
-          :key="n"
+          v-for="(item,index) in items"
+          :key="index"
           v-model="tab"
         >
           <v-tab-item
@@ -119,6 +119,7 @@
                       justify="start"
                       no-gutters
                       align="center"
+                       @click="showRecomentSwitch(index)"
                     >
                       <v-col
                         md="12"
@@ -135,8 +136,8 @@
                           >
                             <v-avatar>
                               <img
-                                src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                alt="John"
+                                :src="imgSrc(item.Member.profile_img)"
+                                alt="UserProfileImg"
                               >
                             </v-avatar>
                           </v-col>
@@ -146,7 +147,7 @@
                             class="font-weight-bold"
                             :class="`text-${fontsize}`"
                           >
-                            닉네임
+                            {{item.Member.nickname}}
                           </v-col>
                           <v-col
                             lg="9"
@@ -155,7 +156,7 @@
                             :class="`text-${datesize}`"
                             align="start"
                           >
-                            0000년 00월 00일
+                           {{item.created_date}}
                           </v-col>
                           <v-col
                             lg="2"
@@ -165,7 +166,7 @@
                             align-self="start"
                           >
                             <v-rating
-                              v-model="rating"
+                              v-model="item.rating"
                               background-color="warning lighten-1"
                               color="orange"
                               half-increments
@@ -174,7 +175,7 @@
                             />
                           </v-col>
                           <span class="grey--text text--lighten-2 text-caption ml-7">
-                            ({{ rating }})
+                            ({{ item.rating }})
                           </span>
                         </v-row>
                       </v-col>
@@ -183,11 +184,14 @@
                         md="12"
                         align="start"
                         class="mt-1"
+                         v-if="item.Order_review_imgs.length>0"
                       >
                         <img
+                          v-for="(iamges,index) in item.Reserve_review_imgs"
+                           :key="index"
                           height="70"
                           width="70"
-                          src="https://cdn.vuetifyjs.com/images/john.jpg"
+                           :src="imgSrc(iamges.order_review_img)"
                           alt="John"
                           class="rounded-lg ma-2"
                         >
@@ -198,7 +202,7 @@
                         class="ma-2"
                       >
                         <v-textarea
-                          value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
+                          v-model="item.review" 
                           placeholder="내용을 입력하세요."
                           no-resize
                           hide-details
@@ -210,26 +214,29 @@
                     <v-col
                       lg="10"
                       md="10"
+                       v-if="item.showRecoment"
                     >
                       <v-textarea
                         outlined
-                        value="감사합니다 더욱더 발전하는 저희 교촌치킨이 되겠습니다."
+                        :value="showValue(item.Order_review_answer)"
                         dense
                         placeholder="내용을 입력하세요."
                         no-resize
                         hide-details
                         rounded
+                        @input="searchChangeFunc($event)"
                       />
                     </v-col>
                   </v-container>
-                  <v-card-actions>
+                  <v-card-actions  v-if="item.showRecoment">
                     <v-spacer />
                     <v-btn
                       color="error"
                     >
                       취소
                     </v-btn>
-                    <v-btn color="primary">
+                    <v-btn color="primary"
+                    @click="recomentReviews(item.order_review_id)">
                       확인
                     </v-btn>
                   </v-card-actions>
@@ -249,13 +256,17 @@ export default {
       modal: false,
       data(){
         return{
-          rating: '4',
-          tab: null,
-        dates: ["",""],
+          rating: 4,
+           tab: 0, //순서대로 0,1,2 값을 가짐
+          dates: [null,null],
+          items: [],
+          recoment : "",
+          showRecoment : false,
         }
     },
     computed: {
       dateRangeText () {
+        this.getOrderReviews();
         return this.dates.join(' ~ ')
       },
       fontsize () {
@@ -287,6 +298,73 @@ export default {
         case 'lg' : return '27'
         default : return ''
       }
+    }
+  },
+  
+  methods: {
+    searchChangeFunc(event){
+     this.recoment=event
+    },
+    showRecomentSwitch(index){
+      console.log(index)
+      this.items[index].showRecoment = !this.items[index].showRecoment 
+      //보여줄지 말지 결정하는 변수를 각 컨테이너에 들어갈 각 배열에 요소를 추가하고 0 
+      //index값을 받아서 해당 index를 가진 컨테이너만 보여줄지 말지를 결정하는 방향으로
+    },
+    showValue(findComent){ 
+      console.log(findComent)
+      if(findComent !=null){
+         this.recoment = findComent.answer;
+        return findComent.answer;
+      }
+      else{
+        this.recoment = ""
+        return ""
+      }
+    },
+    getOrderReviews(){  
+      console.log("test");
+      if(this.dates.length > 1){ 
+        console.log(this.dates)
+        this.$Axios({
+          url : "http://localhost/order_review/reviews/list",
+          method : "GET",
+          withCredentials: true, //쿠키가 서로 저장
+              params: {
+                // This is the body part
+                date1 : this.dates[0], date2: this.dates[1], tab : this.tab,
+              }
+        }).then(async(response)=>{
+          console.log('wow')
+          console.log(response)
+           await response.data.forEach(
+             (data)=>{
+                data.rating = parseFloat(data.rating)
+                data.showRecoment = false
+                })
+            this.items = response.data 
+        }).catch((err)=>{
+          console.log(err)
+        })
+      } 
+    },
+    recomentReviews(order_review_id){ 
+      console.log(this.recoment); 
+      this.$Axios({
+         url : `http://localhost/order_review/answer/${order_review_id}`,
+          method : "GET",
+          withCredentials: true, //쿠키가 서로 저장
+          params: {
+            // This is the body part
+              answer : this.recoment
+          }
+      }).then(async(response)=>{
+        console.log(response)
+      }).catch((err)=>console.log(err))
+    },
+    imgSrc(name){ 
+      name = name.replaceAll("\\", "/"); 
+      return require(`../../../../../back/${name}`);
     }
   },
 }

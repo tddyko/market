@@ -15,20 +15,11 @@ localhost/users/storeInformation로 접속
 >>>>>>> 5398735f9da3000eb1b24f51e78bf53c9715115e
 가게 테이블 정보 보는 용도
 */                                                                                                                                                                                                                                                                                                                                  
-router.post(
-    '/storeInformation',
-    upload.single('userfile'),
+router.get(
+    '/storeInformation', 
     isLoggedInMarket,
     async (req, res) => {
-        console.log('로그인 성공');
-        console.dir(req.user);
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(
-            `ID :  ${req.user.id}
-                  이메일 : ${req.user.email}          
-                  가게이름 : ${req.user.market_name}
-                 `
-        );
+        res.json(req.user)
     }
 );
 

@@ -8,7 +8,7 @@ const {Op} = require('sequelize')
 const sequelize = require('sequelize');
 const dayjs = require('dayjs');
 require('dayjs/locale/ko');
- 
+    
 /*  
 localhost/order/:가게이름  주문하기
 */
@@ -40,7 +40,7 @@ localhost/order/list 가게주문내역
 */
 router.get('/list',isLoggedInMarket, async(req,res)=>{
     dayjs.locale('ko');
-    let {ascDesc,dateValue} = req.body;
+    let dateValue = req.query.dateValue;
     let daterange ={};
     if(dateValue){ 
         daterange.date1 = dayjs(dateValue).format('YYYY-MM-DD');
@@ -50,8 +50,9 @@ router.get('/list',isLoggedInMarket, async(req,res)=>{
         daterange.date2 = dayjs(Date()).add("1","day").format("YYYY-MM-DD"); 
     }  
     const result = await Order.findAll({ 
-        attributes : ['order_id','created_at',
-         'order_count','current_state',
+        attributes : ['order_id',
+         'order_count','current_state',  
+          [sequelize.fn('date_format', sequelize.col('Order.created_at'), '%Y-%m-%d %H:%i:%s'), 'createdAt'],
         [sequelize.literal('Order.price*Order.order_count'),'price']],
         include : [{ 
             model : Product, 
@@ -61,15 +62,20 @@ router.get('/list',isLoggedInMarket, async(req,res)=>{
         where : {
             market_id : req.user.market_id, 
             createdAt : {[Op.between]: [daterange.date1,daterange.date2] }
-        }, 
-        order: sequelize.literal("FIELD(current_state,'"+'주문완료'+"') " + ascDesc) //주문 완료를 제일 위로
-        ,raw : true
+        },raw : true
+        //order: sequelize.literal("FIELD(current_state,'"+'주문완료'+"') " + ascDesc) //주문 완료를 제일 위로
     }).then(r=>{
-        r.forEach(element => {
-            element.created_at = dayjs(element.created_at).format('YYYY.MM.DD.(ddd) a hh시 mm분')
+        r.forEach(element => { 
+            let dateValue = new Date(element.createdAt);
+            console.log(dateValue);
+            dateValue = dateValue.toString()
+            console.log(dayjs(dateValue).format('YYYY.MM.DD.(ddd) a hh시 mm분')) 
+            element.createdAt = dayjs(dateValue).format('YYYY.MM.DD.(ddd) a hh시 mm분')  
+            console.log(element.createdAt);
         });
         return r;
     })
+
     res.json(result);
 });
 
@@ -82,6 +88,7 @@ router.get('/member_list',isLoggedInMember, async(req,res) => {
         attributes : ['market_id'],
         where : {member_id : req.user.member_id}
     })
+    //orderTime: "2021.01.01.(월) 오후3시 16분"
     let result = await Order.findAll({
         attributes : ['order_id','created_at','order_count','price','current_state'],
         include :[{
@@ -96,7 +103,7 @@ router.get('/member_list',isLoggedInMember, async(req,res) => {
         where : {market_id,} ,
         order : [['createdAt', 'DESC']]
     }.then(r=>{
-        r.forEach(element => {
+        r.forEach(element => {  
             element.created_at = dayjs(element.created_at).format('MM/DD (ddd)')
         });
         return r;
