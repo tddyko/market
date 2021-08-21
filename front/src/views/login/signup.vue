@@ -45,7 +45,13 @@
               sm="6"
               md="4"
             >
-              <input ref="imageInput" type="file" multiple hidden @change="onChangeImages" />
+              <input
+                ref="imageInput"
+                type="file"
+                multiple
+                hidden
+                @change="onChangeImages"
+              >
               <v-btn
                 type="button"
                 rounded
