@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "OrderReviewDatepicker",
+  name: "ReservationReviewDatepicker",
   data() {
     return{
       manu: false,

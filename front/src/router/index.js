@@ -39,7 +39,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "OrderReview" */ "@/views/market/order/Order-review/OrderReview"
+            /* webpackChunkName: "OrderReview" */ "@/views/market/order/Order-review/OrderIndex"
           ),
       },
       {
@@ -50,7 +50,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Reservation" */ "@/views/market/order/Order-Reservation-history/Order-Reservation"
+            /* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation-history/Reservation-history-index"
           ),
       },
       {
@@ -61,7 +61,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "ReservationReview" */ "@/views/market/Order-Reservation-review/Order-Reservation-Review"
+            /* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/Reservation-review/Reservation-Review-index"
           ),
       },
       {
@@ -85,7 +85,7 @@ const routes = [
       {
         path: "/login",
         name: "login",
-        component: () => import("@/views/market/login/login"),
+        component: () => import("@/views/login/login"),
       },
     ],
   },

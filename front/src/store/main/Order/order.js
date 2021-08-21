@@ -1,4 +1,4 @@
-const state = () => ({
+const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
   Tab_Headers: [
     {
       Header: "전체",
@@ -11,12 +11,13 @@ const state = () => ({
     },
   ],
   Tab: null,
-  Order_List_headers: [
-    {text: '예약번호', align: 'center', sortable: false, value: 'ReservationNum',},
-    {text: '예약시간', value: 'ReservationTime', align: 'center'},
-    {text: '예약내역', value: 'Reservationinfo', align: 'center'},
-    {text: '예약인원', value: 'Reservationset', align: 'center'},
-    {text: '예약상태', value: 'Reservation', align: 'center'},
+  Order_List_Headers: [
+    { text: "주문번호", align: "center", sortable: false, value: "orderNum" },
+    { text: "주문시각", value: "orderTime", align: "center" },
+    { text: "주문내역", value: "orderinfo", align: "center" },
+    { text: "주문건수", value: "orderset", align: "center" },
+    { text: "주문금액", value: "orderpay", align: "center" },
+    { text: "주문상태", value: "order", align: "center" },
   ],
   Order_List_Items: [
     {
@@ -118,24 +119,15 @@ const state = () => ({
   ],
 });
 
-const getters = {
-  Get_Tab_Header(state) {
-    return state.Tab_Headers;
-  },
-  Get_List_Header(state) {
-    return state.Order_List_Headers;
-  },
-  Get_List_Items(state) {
-    return state.Order_List_Items;
+const getters = { //getters가 컴포트?
+};
+
+const mutations = {
+  setTab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+    state.Tab = tab;
   },
 };
 
-const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메소드 정의!
-  setTab(state, tab) {
-    state.Tab = tab; //그거랑 똑같고
-  },
-};
-
-const actions = {}; // 내가 변이를 할때! 확정을 지어줄때 커밋할때
+const actions = {};
 
 export default { namespaced: true, state, getters, mutations, actions };
