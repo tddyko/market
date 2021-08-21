@@ -107,7 +107,7 @@ import axios from 'axios'
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/market/login/market_signup')
+    SignUp: () => import('@/views/login/market_signup')
     },
   data: () => ({
     id: null,
