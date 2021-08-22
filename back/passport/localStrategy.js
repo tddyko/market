@@ -9,7 +9,8 @@ module.exports = () => {
         passReqToCallback: true,
     }, async (req, userId, password, done) => {
         try {
-            if (req.body.login_switch === true) {
+            let login_switch = req.query.login_switch ||req.body.login_switch
+            if (login_switch === true) {
                 exUser = await Market.findOne({where: {id: userId}});
             } else {
                 exUser = await Member.findOne({where: {id: userId}});

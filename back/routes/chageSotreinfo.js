@@ -22,22 +22,22 @@ router.post('/category',isLoggedInMarket, async (req,res)=>{
             });
         });
 });
-/* localhost/update/infrom */
+
+/* localhost//mymarket/update/infrom */
 router.post('/inform',isLoggedInMarket,
     //upload.fields([{name : 'profile_img',maxCount : 1},{name : 'info_img',maxCount : 3}]
-    upload.single('profile_img'
-    ),async(req,res)=>{
-    console.log(req.query)
-    console.log(req.body)
-    /*
+    upload.single('profile_img'),
+    async(req,res)=>{  
+    console.log(req.files)
+    console.log(req.file)
     let {market_phone,start_time,end_time,market_coment} =  req.body; 
     let inputData = {market_phone,start_time,end_time,market_coment};
     inputData.market_id = req.user.market_id;
     await updateOrCreate(Market_inform,{market_id : req.user.market_id},inputData);
-
     if(req.file){
-            Market.update({profile_img : files.path}, {where : {market_id : req.user.market_id}})
-            .then(r => {if(r)console.log('가게 이미지 수정 성공')})
+        Market.update({profile_img : 'public\\images\\market_inform_images\\' + req.file.filename}, 
+        {where : {market_id : req.user.market_id}})
+        .then(r => {if(r)console.log('가게 이미지 수정 성공')})
     }
     if(req.files){
         await Market_inform.findOne({where : {market_id : req.user.market_id},raw : true})
@@ -61,7 +61,7 @@ router.post('/inform',isLoggedInMarket,
         };
         holidayData.market_inform_id = findInformId.market_inform_id;
         await updateOrCreate(Market_inform_holiday,findInformId,holidayData);
-    }*/
+    }
 })
 
 

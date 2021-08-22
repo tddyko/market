@@ -9,8 +9,7 @@ const {isNotLoggedIn} = require('./middlewares');
   localhost/login로 접속
   id의 id는 id
   비밀번호의 id 는 password
-*/
-let login;
+*/ 
 router.post('/login',isNotLoggedIn,(req,res,next)=>{
   passport.authenticate('local',(authError,user, info)=>{
     if(authError){
@@ -26,7 +25,7 @@ router.post('/login',isNotLoggedIn,(req,res,next)=>{
         console.error(loginError);
         return next(loginError);
       }
-      return res.json(user);
+      return res.json({message:"sussec"});
     })
   })(req,res,next);
 });

@@ -81,10 +81,10 @@
                           <v-file-input
                             prepend-icon="mdi-cloud-upload"
                             hide-input
-                            dense
-                            id="profile_img"
-                            ref="profile_img"
-                            v-on:change="selectFile()"
+                            dense   
+                            accept =".jpg, .jpeg"
+                            refs="uploader"
+                            v-on:change="selectFile"
                             :rules="rules"
                           />
                         </v-col>
@@ -141,6 +141,7 @@
                             max-width="290px"
                             min-width="290px" 
                           >
+                          <!--시작시간-->
                             <template #activator="{ on, attrs }">
                               <v-text-field
                                 v-model="time"
@@ -229,7 +230,7 @@
                         color="primary"
                         width="80"
                         height="40"
-                         v-on:click="submitInform"
+                        @click="submitInform()"
                       >
                         저장
                       </v-btn>
@@ -332,9 +333,9 @@
 export default {
   data(){
     return{
-    tab:0,
-    profile_Img : "",
-    files: [],
+    tab:0, 
+    files: "",
+    infomFlies : [],
     rules: [
         value => !value || value.size < 2000000 || '사진용량은 2mb(사이즈)를 초과할수 없습니다.',
       ],
@@ -367,40 +368,22 @@ export default {
   },
 methods:{
   //운영정보 업로드
-  submitInform : function(){
-    const fd = new FormData(); //반드시 필요 
-    fd.append('profile_img', this.profile_img); //4번
-    this.$Axios({
-      methods : 'POST',
-      url : 'https://localhost/update/inform',
-      withCredentials: true, //쿠키가 서로 저장
-      data: { 
-       market_phone : this.phonenumber,
-       start_time : this.time,
-       end_time : this.endtime,
-       market_coment : this.inform, 
-       market_inform_week_holiday : this.week_holiday,
-       market_inform_day_holiday : this.day_holiday,  
-       fd
-      },
-      headers : {
-        "Content-Type": "multiple/form-data"
-      }
-    }).then(async(response)=>console.log(response)).catch((err)=>console.log(err))
-  
-    console.log("datas")
-    console.log("phonenumber : " + this.phonenumber); 
-    console.log("comment : " + this.comment); 
-    console.log("noti : " + this.noti); 
-    console.log("time : " + this.time)
-    console.log("endtime : " + this.endtime) 
-    console.log("files : " + this.files)
+  submitInform(){
+    let formData = new FormData();
+    formData.append("profile_img", this.files);
+    formData.append("market_phone", this.phonenumber)
+    formData.append("market_coment", this.comment)
+    formData.append("start_time", this.time)
+    formData.append("end_time", this.endtime)
+    this.$Axios.post('http://localhost/mymarket/update/inform',formData,{
+      headers : {'Content-Type': 'multipart/form-data'},withCredentials: true
+    }).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
   },
-  //이미지 업로드용 메소드
-  selectFile : function(){ 
-    console.log(this.$refs.profile_img); 
- 
-}
+  //이미지 업로드용 메소드 
+  selectFile : function(file){  
+     console.log(file); 
+     this.files = file
+  } 
 },
 computed:{
       dateRangeText () {
