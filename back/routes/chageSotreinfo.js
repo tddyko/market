@@ -17,7 +17,7 @@ router.post('/category',isLoggedInMarket, async (req,res)=>{
                      await market.getCategories().then((r)=>{
                          console.log(r[0].dataValues.name);
                      }); 
-                     res.send({message:'success'})
+                     res.json({message:'Succeed'})
                })
             });
         });
@@ -27,7 +27,7 @@ router.post('/category',isLoggedInMarket, async (req,res)=>{
 router.post('/inform',isLoggedInMarket,
     //upload.fields([{name : 'profile_img',maxCount : 1},{name : 'info_img',maxCount : 3}]
     upload.single('profile_img'),
-    async(req,res)=>{  
+    async(req,res)=>{   
     console.log(req.files)
     console.log(req.file)
     let {market_phone,start_time,end_time,market_coment} =  req.body; 
@@ -62,6 +62,7 @@ router.post('/inform',isLoggedInMarket,
         holidayData.market_inform_id = findInformId.market_inform_id;
         await updateOrCreate(Market_inform_holiday,findInformId,holidayData);
     }
+    res.json({message : 'Succeed'})
 })
 
 
@@ -82,6 +83,7 @@ router.post('/notice',isLoggedInMarket,upload.array('noti_img',3), async(req,res
         })
      })
     }
+    res.json({message : 'Succeed'})
 })
 
 async function updateOrCreate(tableName, where, inputData){

@@ -126,9 +126,8 @@ export default {
                 // This is the body part
                 id : this.id, passwd: this.passwd, login_switch: this.login_switch
               }
-         }).then((response) =>{
-            if(response.data.message=='Succeed') 
-                this.$router.push('/');
+         }).then((response) =>{ console.log(response)
+                this.$router.push('/market');
          })
       }
   }

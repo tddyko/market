@@ -376,7 +376,7 @@ methods:{
     formData.append("start_time", this.time)
     formData.append("end_time", this.endtime)
     this.$Axios.post('http://localhost/mymarket/update/inform',formData,{
-      headers : {'Content-Type': 'multipart/form-data'},withCredentials: true
+      headers : {'Content-Type': 'multipart/form-data'}
     }).then((res)=>{console.log(res)}).catch((err)=>console.log(err))
   },
   //이미지 업로드용 메소드 

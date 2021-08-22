@@ -100,6 +100,13 @@ export default {
       { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
     ],
   }),
+  beforeMount : {
+    getItems(){
+      this.$Axios({
+        url : "http://localhost/"
+      })
+    }
+  }
 }
 </script>
 <style>

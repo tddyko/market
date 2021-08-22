@@ -5,8 +5,8 @@
         justify="space-between"
       >
         <v-col
-          class="ml-15"
           cols="4"
+          class="ml-15"
         >
           <v-img
             class="my-10"
@@ -17,8 +17,8 @@
           />
         </v-col>
         <v-col
-          align-self="start"
           xl="7"
+          align-self="start"
         >
           <div class="text-h3 text-left font-weight-bold my-16">
             백종원이 인정한 연돈 <small>일식</small>
@@ -28,15 +28,15 @@
               xl="1"
             >
               <v-rating
-                background-color="grey"
                 class="star"
+                background-color="grey"
                 color="warning"
-                dense
-                half-increments
                 length="5"
                 readonly
                 size="45"
                 value="4.5"
+                half-increments
+                dense
               />
               <!-- <span class="rat-score">4.5</span> -->
             </v-col>
@@ -49,9 +49,9 @@
     <!-- 메뉴, 예약, 리뷰, 정보 탭 -->
     <v-tabs
       v-model="tabs"
-      background-color="white"
       class="mt-10"
       fixed-tabs
+      background-color="white"
     >
       <v-tabs-slider color="primary" />
       <v-tab>
@@ -82,8 +82,8 @@
               class="py-10"
             >
               <v-chip-group
-                active-class="primary--text"
                 mandatory
+                active-class="primary--text"
               >
                 <v-chip
                   v-for="tag in tags"
@@ -103,7 +103,7 @@
             </h1>
           </v-col>
         </v-row>
-        <v-row
+        <v-row 
           class="my-1"
           justify="center"
         >
@@ -113,7 +113,7 @@
             :cols="card.flex"
           >
             <!-- 반복될 카드 -->
-            <v-card
+            <v-card 
               height="180px"
             >
               <v-row
@@ -121,8 +121,8 @@
                 justify="start"
               >
                 <v-col
-                  class="mx-4"
                   cols="2"
+                  class="mx-4"
                 >
                   <v-avatar
                     color="warning lighten-2"
@@ -145,8 +145,8 @@
                   <v-spacer />
 
                   <v-btn
-                    color="indigo"
                     outlined
+                    color="indigo"
                   >
                     담기
                   </v-btn>
@@ -167,7 +167,7 @@
             </h1>
           </v-col>
         </v-row>
-        <v-row
+        <v-row 
           class="my-1"
           justify="center"
         >
@@ -177,7 +177,7 @@
             :cols="card.flex"
           >
             <!-- 반복될 카드 -->
-            <v-card
+            <v-card 
               height="180px"
             >
               <v-row
@@ -185,8 +185,8 @@
                 justify="start"
               >
                 <v-col
-                  class="mx-4"
                   cols="2"
+                  class="mx-4"
                 >
                   <v-avatar
                     color="warning lighten-2"
@@ -209,8 +209,8 @@
                   <v-spacer />
 
                   <v-btn
-                    color="indigo"
                     outlined
+                    color="indigo"
                   >
                     담기
                   </v-btn>
@@ -233,10 +233,10 @@
                   <v-date-picker
                     v-model="picker"
                     :first-day-of-week="0"
-                    class="mt-10"
+                    locale="ko"
                     color="warning"
                     full-width
-                    locale="ko"
+                    class="mt-10"
                   />
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -249,7 +249,7 @@
                     column
                   >
                     <v-chip
-                      v-for="tag in tags"
+                      v-for="tag in tags2"
                       :key="tag"
                     >
                       {{ tag }}
@@ -266,16 +266,16 @@
                       <div>예약 인원수를 선택해주세요</div>
                     </v-col>
                     <v-col>
-                      <v-btn
-                        class="btn-people"
+                      <v-btn 
                         outlined
+                        class="btn-people"
                       >
                         -
                       </v-btn>
                       <span>1</span>
                       <v-btn
-                        class="btn-people"
                         outlined
+                        class="btn-people"
                       >
                         +
                       </v-btn>
@@ -287,61 +287,228 @@
           </v-col>
         </v-row>
       </v-tab-item>
+      <!-- // 예약 탭 끝 -->
+      <!-- 리뷰 탭 -->
+      <v-tab-item>
+        <v-card 
+          class="mt-10 mx-auto"
+          max-width="900px"
+        >
+          <v-row>
+            <v-col xl="6">
+                <v-rating
+                  class="star"
+                  background-color="grey"
+                  color="warning"
+                  length="5"
+                  readonly
+                  size="30"
+                  value="4.5"
+                  half-increments
+                  dense
+                />
+            </v-col>
+            <v-divider
+              inset
+              vertical
+            />
+            <v-col xl="6">
+              <span>5.0</span>
+              <v-progress-linear
+                v-model="valueDeterminate"
+                height="10"
+                color="indigo darken-2"
+              />
+            </v-col>
+          </v-row>
+        </v-card>
+
+        <v-spacer />
+
+        <v-card
+          class="my-10 mx-auto"
+          max-width="900px"
+        >
+          <v-row>
+            <v-col>ddd</v-col>
+          </v-row>
+        </v-card>
+      </v-tab-item>
+      <!-- // 리뷰 탭 끝 -->
+      <!-- 정보 탭 -->
+      <v-tab-item>
+        <v-card
+          elevation="2"
+          class="mx-auto my-10"
+          max-width="1200"
+        >
+          <v-row>
+            <v-col>
+              <div class="text-h4 mt-10">
+                매장 공지
+              </div>
+            </v-col>
+          </v-row>
+          <v-row
+            justify="center"
+            dense
+          >
+            <v-col xl="2">
+              <v-img
+                class="my-10"
+                lazy-src="https://picsum.photos"
+                max-height="150"
+                max-width="150"
+                src="https://picsum.photos/150"
+              />
+            </v-col>
+            <v-col xl="2">
+              <v-img
+                class="my-10"
+                lazy-src="https://picsum.photos"
+                max-height="150"
+                max-width="150"
+                src="https://picsum.photos/150"
+              />
+            </v-col>
+            <v-col xl="2">
+              <v-img
+                class="my-10"
+                lazy-src="https://picsum.photos"
+                max-height="150"
+                max-width="150"
+                src="https://picsum.photos/150"
+              />
+            </v-col>
+            <v-col xl="2">
+              <v-img
+                class="my-10"
+                lazy-src="https://picsum.photos"
+                max-height="150"
+                max-width="150"
+                src="https://picsum.photos/150"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <div class="text--secondary">
+                매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+
+  매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
+              </div>
+            </v-col>
+          </v-row>
+
+          <v-divider 
+            inset 
+            class="my-15"
+          />
+
+          <v-row>
+            <v-col>
+              <div class="text-h4 mt-10">
+                매장 정보
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-tab-item>
+      <!-- // 정보 탭 끝 -->
     </v-tabs-items>
   </v-container>
 </template>
 
 <script>
-export default {
-  data: () => ({
-    rat: '4.5',
-    tabs: null,
-    tags: [
-      '메뉴1',
-      '메뉴2',
-      '메뉴3',
-      '메뉴4',
-      '메뉴5',
-      '메뉴6',
-      '메뉴7',
-      '메뉴8',
-      '메뉴9',
-    ],
-    cards: [
-      { title: '등심 가츠', flex: 9 },
-      { title: '치즈 가츠', flex: 9 },
-    ],
-  }),
-}
+  export default {
+    data: () => ({
+      rat: '4.5',
+      tabs: null,
+      tags: [
+        '메뉴1',
+        '메뉴2',
+        '메뉴3',
+        '메뉴4',
+        '메뉴5',
+        '메뉴6',
+        '메뉴7',
+        '메뉴8',
+        '메뉴9',
+      ],
+      tags2: [
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+        '17:00',
+        '17:30',
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
+      ],
+      cards: [
+        { title: '등심 가츠', flex: 9 },
+        { title: '치즈 가츠', flex: 9 },
+      ],
+    }),
+  }
 </script>
 
 
 <style>
-small{
-  font-size: 0.5em;
-  font-weight: normal;
-  color: grey;
-}
-.rat{
-  display: inline;
-}
-h4{
-  margin-top: 2em;
-  font-size: 1.5em;
-  text-align: left;
-  font-weight: 400;
-}
-h4:first-of-type{
-  margin-top: 3em;
-}
-.chip-group{
-  margin-left: auto;
-  margin-right: auto;
-}
-.price{
-  font-size: 1.3em !important;
-}
-.btn-people{
-  margin: 0 2em;
-}
+  small{
+    font-size: 0.5em;
+    font-weight: normal;
+    color: grey;
+  }
+  .rat{
+    display: inline;
+  }
+  h4{
+    margin-top: 2em;
+    font-size: 1.5em;
+    text-align: left;
+    font-weight: 400;
+  }
+  h4:first-of-type{
+    margin-top: 3em;
+  }
+  .chip-group{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price{
+    font-size: 1.3em !important;
+  }
+  .btn-people{
+    margin: 0 2em;
+  }
+  v-progress-linear{
+    display: inline;
+    width: 60%;
+  }
 </style>
