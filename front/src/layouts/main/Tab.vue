@@ -1,5 +1,8 @@
 <template>
-  <v-tabs>
+  <v-tabs
+    v-model="tab"
+    v-bind="$attrs"
+  >
     <v-tab>
       ad
     </v-tab>
@@ -7,8 +10,21 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
-  name: "Tab"
+  name: "MainTab",
+  computed: {
+    ...mapState('app', ["tab"]),
+    tab: {
+      get() {
+        return this.$store.getters['app/getTab'];
+      },
+      set(v) {
+        return this.$store.dispatch('app/actTab', v)
+      }
+    }
+  }
 }
 </script>
 
