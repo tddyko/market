@@ -25,7 +25,7 @@ router.post('/login',isNotLoggedIn,(req,res,next)=>{
         console.error(loginError);
         return next(loginError);
       }
-      return res.json({message:"sussec"});
+      return res.json({message:"Succeed"});
     })
   })(req,res,next);
 });
