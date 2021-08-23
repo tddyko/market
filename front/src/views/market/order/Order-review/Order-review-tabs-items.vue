@@ -1,14 +1,11 @@
 <template>
   <div>
     <v-tabs-items
-      v-for="n in 3"
-      :key="n"
+      v-for="review_items in test"
+      :key="review_items"
       v-model="Tab"
     >
-      <v-tab-item
-        v-for="a in 3"
-        :key="a"
-      >
+      <v-tab-item>
         <v-divider />
         <v-card>
           <v-card-text>
@@ -33,33 +30,37 @@
                 <v-col
                   lg="1"
                   md="1"
-                  xl="1"
+                  xl="auto"
                   class="font-weight-bold"
                   :class="`text-${Font_Size}`"
                 >
-                  닉네임
+                  {{ review_items.Nickname }}
                 </v-col>
                 <v-col
                   lg="9"
                   md="9"
                   xl="9"
-                  class="font-weight-light mr-1"
+                  class="font-weight-light"
                   :class="`text-${Date_Font_Size}`"
                   align="start"
                 >
-                  0000년 00월 00일
-                  <div>
-                    <v-rating
-                      id="Rating-Inline"
-                      v-model="rating"
-                      background-color="warning lighten-1"
-                      color="orange"
-                      half-increments
-                      dense
-                      :size="`${Rating_size}`"
-                      class="mr-2"
-                    />
-                    ({{ rating }})
+                  <div class="mx-5">
+                    <div class="ml-1">
+                      {{ review_items.Date_issue }}
+                    </div>
+                    <div>
+                      <v-rating
+                        id="Rating-Inline"
+                        :value="`${review_items.Rating}`"
+                        background-color="warning lighten-1"
+                        color="orange"
+                        half-increments
+                        dense
+                        readonly
+                        :size="`${Rating_size}`"
+                      />
+                      ({{ review_items.Rating }})
+                    </div>
                   </div>
                 </v-col>
                 <v-col
@@ -84,7 +85,7 @@
                   class="ma-2"
                 >
                   <v-textarea
-                    value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
+                    :value="`${review_items.Review}`"
                     placeholder="내용을 입력하세요."
                     no-resize
                     hide-details
@@ -134,7 +135,7 @@ export default {
   name: "OrderReviewTabsItems",
   data(){
     return{
-      rating: 4
+      test: this.$store.state.order.Order_Review
     }
   },
   computed: {
@@ -166,7 +167,7 @@ export default {
       switch (this.$vuetify.breakpoint.name){
         case 'md' : return '25'
         case 'lg' : return '22'
-        case 'xl' : return '17'
+        case 'xl' : return '16.8'
         default : return ''
       }
     }

@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import market from "@/store/market";
-import order from "@/store/main/Order";
-import reservation from "@/store/main/Reservation";
-import info from "@/store/main/Info";
+import order from "@/store/market/Order";
+import reservation from "@/store/market/Reservation";
+import info from "@/store/market/Info";
 
 Vue.use(Vuex);
 

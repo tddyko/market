@@ -13,6 +13,9 @@ const getters = {
   },
   Get_Day() {
     return state.day;
+  },
+  getTab(){
+    return state.Tab;
   }
 };
 
