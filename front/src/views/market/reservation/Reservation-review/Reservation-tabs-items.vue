@@ -48,16 +48,19 @@
                   align="start"
                 >
                   0000년 00월 00일
-                  <v-rating
-                    id="Rating-Inline"
-                    v-model="rating"
-                    background-color="warning lighten-1"
-                    color="orange"
-                    half-increments
-                    dense
-                    :size="`${Rating_size}`"
-                  />
-                  ({{ rating }})
+                  <div>
+                    <v-rating
+                      id="Rating-Inline"
+                      v-model="rating"
+                      background-color="warning lighten-1"
+                      color="orange"
+                      half-increments
+                      dense
+                      :size="`${Rating_size}`"
+                      class="mr-2"
+                    />
+                    ({{ rating }})
+                  </div>
                 </v-col>
                 <v-col
                   lg="12"

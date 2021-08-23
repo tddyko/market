@@ -36,7 +36,6 @@ export default {
       set (value) {
         this.$store.commit('reservation/setTab', value)
       }
-
     },
     Tap_Size() {
       switch (this.$vuetify.breakpoint.name) {
