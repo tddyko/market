@@ -13,9 +13,6 @@
     >
       {{ Tabs.Header }}
     </v-tab>
-    <div>
-      {{ $store.state.reservation.Tab }}
-    </div>
   </v-tabs>
 </template>
 
@@ -31,10 +28,10 @@ export default {
   computed: {
     Tab: {
       get () {
-        return this.$store.state.reservation.Tab
+        return this.$store.getters['market_modules/Reservation_Get_Tab']
       },
       set (value) {
-        this.$store.commit('reservation/setTab', value)
+        this.$store.dispatch('market_modules/Reservation_Set_Tab_Actions', value)
       }
     },
     Tap_Size() {

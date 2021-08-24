@@ -7,7 +7,7 @@ const state = () => ({
   Order_date: new Date().toISOString().substring(0,10),
 
   //예약 내역, 예약 리뷰
-  Reservation_Tab: null,
+  Reservation_tab: null,
   Reservation_menu: null,
   Reservation_menu2: false,
   Reservation_dates: [],
@@ -41,7 +41,7 @@ const mutations = {
   },
   //예약 내역, 예약 리뷰 관리
   Reservation_Set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
-    state.Reservation_Tab = tab;
+    state.Reservation_tab = tab;
   },
   Reservation_Set_Menu(state, value) {
     state.Reservation_menu = value;
@@ -49,7 +49,7 @@ const mutations = {
   Reservation_Set_Menu2(state, value) {
     state.Reservation_menu2 = value;
   },
-  Reservation_Set_dates(state, value){
+  Reservation_Set_Dates(state, value){
     state.Reservation_dates = value;
   },
   Reservation_Update_Menu(state) {
@@ -85,7 +85,7 @@ const getters = {
 
 // 예약 내역, 예약 리뷰
   Reservation_Get_Tab(state){
-    return state.Reservation_Tab;
+    return state.Reservation_tab;
   },
   Reservation_Get_Menu(state){
     return state.Reservation_menu;
@@ -125,7 +125,7 @@ const actions = {
   Reservation_Set_Date_Actions ({ commit }, value) {
     commit('Reservation_Set_Date', value)
   },
-  Reservation_set_Dates_Actions ({ commit }, value) {
+  Reservation_Set_Dates_Actions ({ commit }, value) {
     commit('Reservation_Set_Dates', value)
   },
   Reservation_Set_Menu_Actions ({ commit }, value) {

@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     Tab() {
-      return this.$store.state.reservation.Tab;
+      return this.$store.getters['market_modules/Reservation_Get_Tab']
     },
     ReviewTabsItems(){
       return this.$store.state.reservation.Reservation_Review;
