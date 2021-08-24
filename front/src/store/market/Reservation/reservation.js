@@ -85,6 +85,7 @@ const state = () => ({
       Review: "지금까지 이런 맛은 없었다. 이것은 갈비인가 통닭인가."
     }
   ],
+  meni
 });
 
 const getters = {

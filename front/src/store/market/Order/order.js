@@ -147,9 +147,10 @@ const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
       Review: "지금까지 이런 맛은 없었다. 이것은 갈비인가 통닭인가."
     }
   ],
-  manu: false,
+  menu: null,
   menu2: false,
-  dates: ["",""]
+  dates: [],
+  date: new Date().toISOString().substring(0,10),
 });
 
 const getters = { //getters가 컴포트?
@@ -168,26 +169,44 @@ const getters = { //getters가 컴포트?
   Get_Tab(state){
     return state.Tab;
   },
-  Get_manu(state){
-    return state.manu;
+  Get_Menu(state){
+    return state.menu;
   },
-  Get_manu2(state){
-    return state.manu2;
+  Get_Menu2(state){
+    return state.menu2;
   },
   Get_dates(state){
     return state.dates;
+  },
+  Get_date(state){
+    return state.date;
   }
 };
 
 const mutations = {
-  setTab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+  set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
     state.Tab = tab;
   },
-  setManu(state, value){
-    state.manu = value;
+  Set_Menu(state, value){
+    state.menu=value;
   },
-  setManu2(state, value){
-    state.manu2 = value;
+  Update_Menu(state){
+    state.menu= null;
+  },
+  Update_Menu2(state){
+    if (state.dates.length === 2){
+      state.menu2 = null;
+    }
+
+  },
+  set_dates(state, value){
+    state.dates = value;
+  },
+  set_date(state, value){
+    state.date = value;
+  },
+  Set_Menu2(state, value){
+    state.menu2=value;
   },
 };
 

@@ -27,7 +27,7 @@
     <v-date-picker
       v-model="dates"
       range
-      @input="menu = false"
+      @input="update"
     />
   </v-menu>
 </template>
@@ -37,18 +37,24 @@ export default {
   name: "OrderReviewDatepicker",
   data() {
     return{
-      menu2: false,
-      dates: ["",""]
     }
   },
   computed: {
-    manu : {
-      get () {
-        return this.$store.getters["order/Get_manu"]
+    menu2: {
+      set(value){
+       this.$store.commit('order/Set_Menu2', value)
       },
-      set(value) {
-        this.$store.commit('order/setManu', value)
+      get(){
+       return this.$store.getters['order/Get_Menu2'];
       }
+    },
+    dates: {
+      set(value) {
+        this.$store.commit('order/set_dates', value)
+      },
+      get(){
+      return this.$store.getters["order/Get_dates"]
+      },
     },
     Date_center_join () {
       return this.dates.join(' ~ ')
@@ -65,6 +71,11 @@ export default {
           return ''
       }
     }
+  },
+  methods: {
+    update(){
+      this.$store.commit('order/Update_Menu2')
+    },
   }
 }
 </script>

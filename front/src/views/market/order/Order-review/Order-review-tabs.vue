@@ -32,7 +32,7 @@ export default {
         return this.$store.getters["order/Get_Tab"]
       },
       set (value) {
-        this.$store.commit('order/setTab', value)
+        this.$store.commit('order/set_Tab', value)
       }
     },
     Tap_Size() {
