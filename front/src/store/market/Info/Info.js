@@ -18,6 +18,7 @@ const state = () => ({
   Open_Time: null,
   Open_Time_Menu: false,
   Close_Time_Menu: false,
+  test: '',
 })
 const getters = {
   Get_Info_Tab(state) {
@@ -54,7 +55,7 @@ const mutations = {
     state.Tab = value;
   },
   Set_Open_Time(state, value){
-    state.Open_Time = value;
+    state.Open_Time =  value;
   },
   Set_Close_Time(state, value){
     state.Close_Time = value;
@@ -64,7 +65,13 @@ const mutations = {
   },
   Set_Close_Time_Menu(state, value){
     state.Close_Time_Menu = value;
-  }
+  },
+  Update_Open_Time_Menu(state){
+    state.Open_Time_Menu = false;
+  },
+  Update_Close_Time_Menu(state){
+    state.Close_Time_Menu = false;
+  },
 };
 
 const actions = {

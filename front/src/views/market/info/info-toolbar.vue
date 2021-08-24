@@ -3,6 +3,7 @@
     color="white"
     height="auto"
     class="rounded-t-xl"
+    elevation="3"
   >
     <v-row justify="start">
       <v-col lg="5">

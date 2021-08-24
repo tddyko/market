@@ -3,8 +3,12 @@
     <v-tabs-items
       v-model="get"
     >
-      <InfoItemOperational />
-      <InfoItemNotice />
+      <div>
+        <InfoItemOperational />
+      </div>
+      <div>
+        <InfoItemNotice />
+      </div>
     </v-tabs-items>
   </div>
 </template>

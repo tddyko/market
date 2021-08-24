@@ -5,7 +5,10 @@
       xl="8"
       md="12"
     >
-      <v-card class="rounded-xl">
+      <v-card
+        class="rounded-xl"
+        elevation="3"
+      >
         <InfoToolbar />
         <v-divider />
         <InfoTabsItems />
@@ -50,9 +53,4 @@ computed:{
 </script>
 
 <style>
-#back-white{
-  background-color: white;
-  border-radius: 25px;
-
-}
 </style>
