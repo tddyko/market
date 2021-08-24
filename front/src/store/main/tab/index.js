@@ -1,3 +1,3 @@
-import app from "@/store/main/tab/app";
+import tab from "@/store/main/tab/tab";
 
-export default { app };
+export default { tab };

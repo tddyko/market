@@ -11,7 +11,6 @@
         v-bind="props"
       />
     </template>
-
     <drawer-header />
     <v-divider />
     <market-list :items="items" />

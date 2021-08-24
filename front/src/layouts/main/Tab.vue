@@ -1,30 +1,45 @@
-<template>
+<template
+  v-slot="extension"
+>
   <v-tabs
     v-model="tab"
     v-bind="$attrs"
+    grow
   >
-    <v-tab>
-      ad
+    <v-tabs-slider color="white" />
+    <v-tab
+      v-for="title in tabTitle"
+      :key="title.title"
+    >
+      {{ title.title }}
     </v-tab>
   </v-tabs>
 </template>
 
 <script>
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 
 export default {
-  name: "MainTab",
+  name: 'MainTabBar',
   computed: {
-    ...mapState('app', ["tab"]),
+    ...mapState('tab', ["tab"]),
     tab: {
       get() {
-        return this.$store.getters['app/getTab'];
+        return this.$store.getters['tab/getTab'];
       },
       set(v) {
-        return this.$store.dispatch('app/actTab', v)
+        return this.$store.dispatch('tab/actTab', v)
+      }
+    },
+    tabTitle: {
+      get() {
+        return this.$store.getters['tab/getTabTitle'];
+      },
+      set(v) {
+        return this.$store.dispatch('tab/actTabTitle', v)
       }
     }
-  }
+  },
 }
 </script>
 
