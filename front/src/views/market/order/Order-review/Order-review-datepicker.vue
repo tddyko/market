@@ -42,7 +42,7 @@ export default {
   computed: {
     menu2: {
       set(value){
-       this.$store.commit('market_modules/Order_Set_Menu2', value)
+       this.$store.dispatch("market_modules/Order_Set_Menu2_Actions", value)
       },
       get(){
        return this.$store.getters['market_modules/Order_Get_Menu2'];
@@ -50,10 +50,10 @@ export default {
     },
     dates: {
       set(value) {
-        this.$store.commit('market_modules/Order_Set_dates', value)
+        this.$store.dispatch("market_modules/Order_Set_Dates_Actions", value)
       },
       get(){
-      return this.$store.getters["market_modules/Order_Get_dates"]
+      return this.$store.getters["market_modules/Order_Get_Dates"]
       },
     },
     Date_center_join () {

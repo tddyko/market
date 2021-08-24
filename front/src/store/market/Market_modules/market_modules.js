@@ -2,7 +2,7 @@ const state = () => ({
   //주문 내역, 주문 리뷰
   Order_menu: null,
   Order_menu2: false,
-  Order_Tab: null,
+  Order_tab: null,
   Order_dates: [],
   Order_date: new Date().toISOString().substring(0,10),
 
@@ -17,12 +17,15 @@ const state = () => ({
 const mutations = {
   //주문 내역, 주문 리뷰
   Order_Set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
-    state.Order_Tab = tab;
+    state.Order_tab = tab;
   },
   Order_Set_Menu(state, value) {
     state.Order_menu = value;
   },
-  Order_Set_dates(state, value){
+  Order_Set_Menu2(state, value) {
+    state.Order_menu2 = value;
+  },
+  Order_Set_Dates(state, value){
     state.Order_dates = value;
   },
   Order_Update_Menu(state) {
@@ -33,7 +36,7 @@ const mutations = {
       state.Order_menu2 = null;
     }
   },
-  Order_Set_date(state, value){
+  Order_Set_Date(state, value){
     state.Order_date = value;
   },
   //예약 내역, 예약 리뷰 관리
@@ -41,28 +44,31 @@ const mutations = {
     state.Reservation_Tab = tab;
   },
   Reservation_Set_Menu(state, value) {
-    state.Reservation_Tmenu = value;
+    state.Reservation_menu = value;
+  },
+  Reservation_Set_Menu2(state, value) {
+    state.Reservation_menu2 = value;
   },
   Reservation_Set_dates(state, value){
-    state.Reservation_Tdates = value;
+    state.Reservation_dates = value;
   },
   Reservation_Update_Menu(state) {
-    state.Reservation_Tmenu = null;
+    state.Reservation_menu = null;
   },
   Reservation_Update_Menu2(state) {
-    if (state.Reservation_Tdates.length === 2) {
-      state.Reservation_Tmenu2 = null;
+    if (state.Reservation_dates.length === 2) {
+      state.Reservation_menu2 = null;
     }
   },
-  Reservation_Set_date(state, value){
-    state.Reservation_Tdate = value;
+  Reservation_Set_Date(state, value){
+    state.Reservation_date = value;
   }
 };
 
 const getters = {
   //주문 내역, 주문 리뷰
   Order_Get_Tab(state){
-    return state.Order_Tab;
+    return state.Order_tab;
   },
   Order_Get_Menu(state){
     return state.Order_menu;
@@ -70,10 +76,10 @@ const getters = {
   Order_Get_Menu2(state){
     return state.Order_menu2;
   },
-  Order_Get_dates(state){
+  Order_Get_Dates(state){
     return state.Order_dates;
   },
-  Order_Get_date(state){
+  Order_Get_Date(state){
     return state.Order_date;
   },
 
@@ -96,9 +102,38 @@ const getters = {
 };
 
 const actions = {
-  test ({ commit }, value) {
-    commit('Order_Set_date', value)
-  }
+  Order_Set_Tab_Actions ({ commit }, value) {
+    commit('Order_Set_Tab', value)
+  },
+  Order_Set_Date_Actions ({ commit }, value) {
+    commit('Order_Set_Date', value)
+  },
+  Order_Set_Dates_Actions ({ commit }, value) {
+    commit('Order_Set_Dates', value)
+  },
+  Order_Set_Menu_Actions ({ commit }, value) {
+    commit('Order_Set_Menu', value)
+  },
+  Order_Set_Menu2_Actions ({ commit }, value) {
+    commit('Order_Set_Menu2', value)
+  },
+
+  //예약 내역, 예약 리뷰
+  Reservation_Set_Tab_Actions ({ commit }, value) {
+    commit('Reservation_Set_Tab', value)
+  },
+  Reservation_Set_Date_Actions ({ commit }, value) {
+    commit('Reservation_Set_Date', value)
+  },
+  Reservation_set_Dates_Actions ({ commit }, value) {
+    commit('Reservation_Set_Dates', value)
+  },
+  Reservation_Set_Menu_Actions ({ commit }, value) {
+    commit('Reservation_Set_Menu', value)
+  },
+  Reservation_Set_Menu2_Actions ({ commit }, value) {
+    commit('Reservation_Set_Menu2', value)
+  },
 };
 
 

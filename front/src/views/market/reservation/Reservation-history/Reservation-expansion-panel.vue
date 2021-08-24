@@ -35,24 +35,24 @@ export default {
   computed: {
     menu:{
       get(){
-      return this.$store.getters["market_modules/Get_Menu"];
+      return this.$store.getters["market_modules/Reservation_Get_Menu"];
       },
       set(value){
-      this.$store.commit("market_modules/Set_Menu", value)
+        this.$store.dispatch("market_modules/Reservation_Set_Menu_Actions", value)
       }
     },
     date: {
       get(){
-      return this.$store.getters["market_modules/Get_date"];
+      return this.$store.getters["market_modules/Reservation_Get_date"];
       },
       set(value){
-        this.$store.commit("market_modules/Set_date",value);
+        this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
       }
     }
   },
   methods: {
     update(){
-      this.$store.commit("market_modules/Update_Menu");
+      this.$store.commit("market_modules/Reservation_Update_Menu")
     }
   }
 }

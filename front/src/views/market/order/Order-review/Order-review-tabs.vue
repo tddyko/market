@@ -29,10 +29,10 @@ export default {
     },
     Tab: {
       get () {
-        return this.$store.getters["order/Order_Get_Tab"]
+        return this.$store.getters["market_modules/Order_Get_Tab"]
       },
       set (value) {
-        this.$store.commit('order/Order_Set_Tab', value)
+        this.$store.dispatch("market_modules/Order_Set_Tab_Actions", value)
       }
     },
     Tap_Size() {
