@@ -21,7 +21,7 @@
             v-model="date"
             full-width
             class="elevation-1"
-            @change="updatetest"
+            @change="update"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -39,24 +39,24 @@ export default {
   computed: {
     menu:{
       get(){
-        return this.$store.getters["order/Get_Menu"]
+        return this.$store.getters["market_modules/Get_Menu"]
       },
       set(value){
-        this.$store.commit("order/Set_Menu", value)
+        this.$store.commit("market_modules/Set_Menu", value)
       },
     },
     date:{
       get(){
-        return this.$store.getters["order/Get_date"]
+        return this.$store.getters["market_modules/Get_date"]
       },
       set(value){
-        this.$store.commit("order/set_date", value)
+        this.$store.dispatch('market_modules/test', value)
       }
     }
   },
   methods: {
-    updatetest(){
-      this.$store.commit("order/Update_Menu");
+    update(){
+      this.$store.commit("market_modules/Update_Menu");
     }
   }
 }

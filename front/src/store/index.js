@@ -4,6 +4,7 @@ import market from "@/store/market";
 import order from "@/store/market/Order";
 import reservation from "@/store/market/Reservation";
 import info from "@/store/market/Info";
+import market_modules from "@/store/market/Market_modules"
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
     ...market,
     ...order,
     ...reservation,
-    ...info
+    ...info,
+    ...market_modules
   }
 })
 

@@ -1,5 +1,6 @@
 <template>
   <v-expansion-panels
+    v-model="menu"
     flat
   >
     <v-expansion-panel>
@@ -17,7 +18,7 @@
           v-model="date"
           full-width
           class="elevation-1"
-          @input="menu = false"
+          @change="update"
         />
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -29,8 +30,29 @@ export default {
   name: "ReservationPanel",
   data(){
     return{
-      date: new Date().toISOString().substring(0,10),
-      menu: false
+    }
+  },
+  computed: {
+    menu:{
+      get(){
+      return this.$store.getters["market_modules/Get_Menu"];
+      },
+      set(value){
+      this.$store.commit("market_modules/Set_Menu", value)
+      }
+    },
+    date: {
+      get(){
+      return this.$store.getters["market_modules/Get_date"];
+      },
+      set(value){
+        this.$store.commit("market_modules/Set_date",value);
+      }
+    }
+  },
+  methods: {
+    update(){
+      this.$store.commit("market_modules/Update_Menu");
     }
   }
 }

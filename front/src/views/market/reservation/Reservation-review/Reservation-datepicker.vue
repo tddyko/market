@@ -27,7 +27,7 @@
     <v-date-picker
       v-model="dates"
       range
-      @input="menu = false"
+      @change="menu = false"
     />
   </v-menu>
 </template>
@@ -37,15 +37,29 @@ export default {
   name: "ReservationReviewDatepicker",
   data() {
     return{
-      manu: false,
-      menu2: false,
-      dates: ["",""]
     }
   },
   computed: {
+    menu2: {
+      set(value){
+        this.$store.commit('market_modules/Set_Menu2', value)
+      },
+      get(){
+        return this.$store.getters['market_modules/Get_Menu2'];
+      }
+    },
+    dates: {
+      set(value) {
+        this.$store.commit('market_modules/Set_dates', value)
+      },
+      get(){
+        return this.$store.getters["market_modules/Get_dates"]
+      },
+    },
     Date_center_join () {
       return this.dates.join(' ~ ')
     },
+
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
         case 'md':

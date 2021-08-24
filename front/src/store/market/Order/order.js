@@ -145,6 +145,13 @@ const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
       Rating: 1,
       Date_issue: "2021년 8월 22일",
       Review: "지금까지 이런 맛은 없었다. 이것은 갈비인가 통닭인가."
+    },
+    {
+      Avatar_img: "블라블라블라",
+      Nickname: "정민이",
+      Rating: 4,
+      Date_issue: "2021년 8월 24일",
+      Review: "노드 드럽게 어렵네 이거 사람이 쓰라고 만든건가 ㅋㅋㄹ삥뽕"
     }
   ],
   menu: null,
