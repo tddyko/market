@@ -38,14 +38,20 @@
       >
         <v-icon>mdi-login-variant</v-icon>
       </v-btn>
+      <template
+        #extension
+      >
+        <main-tab-bar />
+      </template>
     </v-app-bar>
-    <main-tab-bar />
   </v-container>
 </template>
 <script>
 export default {
   name: "MainAppBar",
-  components: {MainTabBar: () => import('@/layouts/main/Tab')},
+  components: {
+    MainTabBar: () => import('@/layouts/main/Tab')
+  },
   data: () => ({
     expand: false,
   }),

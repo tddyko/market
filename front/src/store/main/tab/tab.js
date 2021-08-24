@@ -18,7 +18,6 @@ const getters = {
 
 const mutations = {
   setTab(state, data) {
-    //엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
     state.tab = data;
   },
   setTabTitle(state, data) {

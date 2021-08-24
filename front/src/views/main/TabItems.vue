@@ -1,21 +1,21 @@
 <template>
-  <v-tabs
+  <v-tabs-items
     v-model="tab"
-    grow
   >
-    <v-tabs-slider color="white" />
-    <v-tab
+    <v-tab-item
       v-for="title in tabTitle"
       :key="title.title"
     >
-      {{ title.title }}
-    </v-tab>
-  </v-tabs>
+      <store-list />
+    </v-tab-item>
+  </v-tabs-items>
 </template>
 
 <script>
+import StoreList from "@/views/main/StoreList";
 export default {
   name: 'MainTabBar',
+  components: {StoreList},
   computed: {
     tab: {
       get() {
@@ -31,6 +31,14 @@ export default {
       },
       set(v) {
         return this.$store.dispatch('tab/actTabTitle', v)
+      }
+    },
+    tabItems: {
+      get() {
+        return this.$store.getters['items/getTabItems'];
+      },
+      set(v) {
+        return this.$store.dispatch('items/actTabItems', v)
       }
     }
   },
