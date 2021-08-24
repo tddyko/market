@@ -6,20 +6,13 @@
     grow
   >
     <v-tab
+      v-for="tab in Get_Tab_Headers"
+      :key="tab"
       class="font-weight-regular text--white"
       :class="`text-${tap_size}`"
       min-width="auto"
     >
-      운영정보
-    </v-tab>
-    <v-tab
-      id="back-white"
-      color="white"
-      class="font-weight-light"
-      :class="`text-${tap_size}`"
-      min-width="auto"
-    >
-      공지사항
+      {{ tab.Header }}
     </v-tab>
   </v-tabs>
 </template>
@@ -30,11 +23,14 @@ export default {
   computed: {
     Tab:{
       set(value){
-        this.$store.commit('info/setTab', value)
+        this.$store.dispatch("info/Info_Set_Tab_Actions",value)
       },
-      get () {
-        return this.$store.state.info.Tab
+      get(){
+        return this.$store.getters['info/Get_Info_Tab']
       }
+    },
+    Get_Tab_Headers(){
+      return this.$store.getters["info/Get_Tab_Headers"]
     },
     tap_size () {
       switch (this.$vuetify.breakpoint.name) {

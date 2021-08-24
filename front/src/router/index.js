@@ -72,7 +72,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Information" */ "@/views/market/info/Info"
+            /* webpackChunkName: "Information" */ "@/views/market/info/Info-index"
           ),
       },
     ],
