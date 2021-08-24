@@ -142,7 +142,7 @@ export default {
       return this.$store.getters["order/Get_Order_Review"]
     },
     Get_Tab() {
-      return this.$store.getters["order/Get_Tab"]
+      return this.$store.getters["order/Order_Get_Tab"]
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {

@@ -42,18 +42,18 @@ export default {
   computed: {
     menu2: {
       set(value){
-       this.$store.commit('market_modules/Set_Menu2', value)
+       this.$store.commit('market_modules/Order_Set_Menu2', value)
       },
       get(){
-       return this.$store.getters['market_modules/Get_Menu2'];
+       return this.$store.getters['market_modules/Order_Get_Menu2'];
       }
     },
     dates: {
       set(value) {
-        this.$store.commit('market_modules/Set_dates', value)
+        this.$store.commit('market_modules/Order_Set_dates', value)
       },
       get(){
-      return this.$store.getters["market_modules/Get_dates"]
+      return this.$store.getters["market_modules/Order_Get_dates"]
       },
     },
     Date_center_join () {
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     update(){
-      this.$store.commit('market_modules/Update_Menu2')
+      this.$store.commit('market_modules/Order_Update_Menu2')
     },
   }
 }
