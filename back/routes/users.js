@@ -11,8 +11,7 @@ const upload = setMulter('./public/images/user_images/');
 
 /*
 localhost/users/storeInformation로 접속
-수정중
->>>>>>> 5398735f9da3000eb1b24f51e78bf53c9715115e
+수정중 
 가게 테이블 정보 보는 용도
 */                                                                                                                                                                                                                                                                                                                                  
 router.get(

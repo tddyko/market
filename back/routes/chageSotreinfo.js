@@ -27,28 +27,31 @@ router.post('/category',isLoggedInMarket, async (req,res)=>{
 router.post('/inform',isLoggedInMarket,
     //upload.fields([{name : 'profile_img',maxCount : 1},{name : 'info_img',maxCount : 3}]
     upload.single('profile_img'),
-    async(req,res)=>{   
-    console.log(req.files)
+    async(req,res)=>{    
     console.log(req.file)
     let {market_phone,start_time,end_time,market_coment} =  req.body; 
     let inputData = {market_phone,start_time,end_time,market_coment};
     inputData.market_id = req.user.market_id;
     await updateOrCreate(Market_inform,{market_id : req.user.market_id},inputData);
     if(req.file){
-        Market.update({profile_img : 'public\\images\\market_inform_images\\' + req.file.filename}, 
-        {where : {market_id : req.user.market_id}})
-        .then(r => {if(r)console.log('가게 이미지 수정 성공')})
+        Market.update({profile_img : 'public\\images\\user_signup_images\\' + req.file.filename}, 
+        {
+            where : {market_id : req.user.market_id}}).then(
+                r => {
+                    if(r)return true 
+                    else return false})
     }
     if(req.files){
         await Market_inform.findOne({where : {market_id : req.user.market_id},raw : true})
         .then(async(r) => {
             await Market_inform_img.destroy({where : {market_inform_id : r.market_inform_id},force : true})
-            req.files.info_img.forEach(async(files)=>{
+            isSuccess = req.files.info_img.forEach(async(files)=>{
                 await Market_inform_img.create({
                     market_infrom_img_id : uuidv4(),
                     market_inform_img : files.path,
                     market_inform_id : r.market_inform_id
-                })
+                }).then((r)=>{if(r)return true 
+                else return false})
         })
      })
     }
@@ -60,9 +63,9 @@ router.post('/inform',isLoggedInMarket,
             market_inform_day_holiday
         };
         holidayData.market_inform_id = findInformId.market_inform_id;
-        await updateOrCreate(Market_inform_holiday,findInformId,holidayData);
+        isSuccess = await updateOrCreate(Market_inform_holiday,findInformId,holidayData);
     }
-    res.json({message : 'Succeed'})
+    res.json({message : "Succeed"})
 })
 
 
@@ -95,10 +98,12 @@ async function updateOrCreate(tableName, where, inputData){
             inputData.market_infrom_img_id = uuidv4();  
         if(tableName == 'Market_inform_holiday')
             inputData.Market_inform_holiday = uuidv4(); 
-        return tableName.create(inputData).then(r => {if(r)console.log(tableName.tableName + ' 값 생성')})
+        return tableName.create(inputData).then(r => {if(r)return true 
+            else return false})
     }else{ 
         console.log(inputData);
-        return tableName.update(inputData,{where : where}).then(r => {if(r)console.log(tableName.tableName + ' 값 수정')})
+        return tableName.update(inputData,{where : where}).then(r => {if(r)return true
+        else return false})
     }
 }
 

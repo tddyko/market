@@ -116,18 +116,22 @@ export default {
     login_switch: false,
   }),
   methods : {
-    login() { 
-        console.log("ssdsd")
+    login() {  
          axios({
            method: 'post',
               url: "http://localhost/login",
               headers: {}, 
+              withCredentials: true,
               data: {
                 // This is the body part
                 id : this.id, passwd: this.passwd, login_switch: this.login_switch
               }
-         }).then((response) =>{ console.log(response)
+         }).then((response) =>{ 
+             console.log(response)
+             if(response.data.id!=null)
                 this.$router.push('/market');
+             else
+                alert(response.data)
          })
       }
   }

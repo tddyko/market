@@ -1,52 +1,67 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedInMarket} = require('./middlewares');
-const {Order,Reservation} = require('../models');
-
- router.post('/', isLoggedInMarket, async(req,res) => {
-     let order_count = await Order.findAll({
-       attributes : ['order_count'],
-    });
-
-     let reserve_count = await Reservation.findAll({
-       attributes : ['order_count'],
-      });
-
-     let current_state = await Order.findAll({
-       attributes : ['current_state'], where: {current_state : '주문'},
-     });
-
-     let current_state1 = await Order.findAll({
-      attributes : ['current_state'], where: {current_state : '주문완료'},
-    });
-
-    let current_state2 = await Order.findAll({
-      attributes : ['current_state'], where: {current_state : '주문취소'},
-    });
-
-    let reserve_state = await Reservation.findAll({
-      attributes : ['current_state'], where: {current_state : '예약'},
-    });
-
-    let reserve_state1 = await Reservation.findAll({
-      attributes : ['current_state'], where: {current_state : '예약완료'},
-    });
-
-    let reserve_state2 = await Reservation.findAll({
-      attributes : ['current_state'], where: {current_state : '예약취소'},
-    });
+const {isLoggedInMarket} = require('./middlewares');
+const {Market, Order, Reservation,Market_inform} = require('../models');
+const {Op} = require('sequelize');
+const sequelize = require('sequelize');
+const dayjs = require('dayjs');
+/* localhost/dashboard */
+router.get('/', isLoggedInMarket, async (req, res) => {
+    let result = await Market_inform.findOne({
+        attributes : ['start_time','end_time'],
+        where: {market_id : req.user.market_id}
+    }).then((result) => {return result})
+    let start_time = parseInt(result.start_time.substring(0,2));
+    let end_time = parseInt(result.end_time.substring(0,2));
+    console.log(start_time,end_time)
+    let daterange=[];
+    for(let i=start_time ; i<=end_time; i++)
+       daterange.push(dayjs().set('hour', i).set('minute',0).format('YYYY-MM-DD HH:mm'))
+        console.log(daterange)
     
-      res.send(`가게이름 : ${req.user.market_name}
-                주문건수 : ${Object.keys(order_count).length}
-                주문 : ${Object.keys(current_state).length}
-                주문완료 : ${Object.keys(current_state1).length}
-                주문취소 : ${Object.keys(current_state2).length}
-                예약건수 : ${Object.keys(reserve_count).length}
-                예약 : ${Object.keys(reserve_state).length}
-                예약완료 : ${Object.keys(reserve_state1).length}
-                예약취소 : ${Object.keys(reserve_state2).length}
-      `);
-  });
-  
+    let datas = new Object();
+    datas.times = daterange
+    datas.ordertotalCount = await getValues(Order, daterange,'주문');
+    datas.ordercompletedCount = await getValues(Order, daterange,'주문완료');
+    datas.ordercancelCount = await getValues(Order, daterange,'주문취소');
+    datas.reservetotalCount = await getValues(Reservation, daterange,'예약');
+    datas.reservecompletedCount = await getValues(Reservation, daterange,'예약완료');
+    datas.reservecancelCount = await getValues(Reservation, daterange,'예약취소');
+    res.json(datas)
+   
+});
 
-  module.exports = router;
+async function getValues(tableName,daterange,current_state){
+    let values = [];
+    if(tableName == Order)
+    for(let i=0; i<daterange.length-1; i++){
+        let results = await tableName.count({
+            where : {
+                current_state : current_state,
+                createdAt : {[Op.between]: [daterange[i],daterange[i+1]] }           
+            }
+        }).then((r)=>{return r;})
+        values.push(results)
+    }
+    else 
+    for(let i=0; i<daterange.length-1; i++){
+        let results = await tableName.count({
+            where : {
+                [Op.and] : [
+                    sequelize.where(
+                        sequelize.fn('concat',sequelize.col('reserve_date')," ",sequelize.col('reserve_time')),{
+                            [Op.gte] : daterange[i],
+                            [Op.lte] : daterange[i+1]
+                        })
+                    ,
+                    {current_state : current_state}
+                ]
+            }
+        })
+        values.push(results)
+    }
+    
+    return values;
+}
+
+module.exports = router;

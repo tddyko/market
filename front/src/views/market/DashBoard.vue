@@ -15,7 +15,7 @@
         outlined
         class="rounded-xl"
       >
-        <v-continer>
+        <v-container>
           <div
 
             class="mt-16 mx-6"
@@ -30,11 +30,11 @@
                       outlined
                     >
                       <v-list-item-title class="text-h4 mt-16">
-                        Earnings
+                        주문건수
                       </v-list-item-title>
                       <v-sparkline
                         class="py-16"
-                        :value="value"
+                        :value="value.ordertotalCount"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -44,6 +44,7 @@
                         :fill="fill"
                         :type="type"
                         :auto-line-width="autoLineWidth"
+                        :labels="labels"
                         auto-draw
                       />
                     </v-sheet>
@@ -53,11 +54,11 @@
                       outlined
                     >
                       <v-list-item-title class="text-h4 mt-16">
-                        Downloads
+                        주문완료
                       </v-list-item-title>
                       <v-sparkline
                         class="py-16"
-                        :value="value"
+                        :value="value.ordercompletedCount"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -67,8 +68,9 @@
                         :fill="fill"
                         :type="type"
                         :auto-line-width="autoLineWidth"
-                        auto-draw
-                      />
+                        :labels="labels"
+                        auto-draw> 
+                      </v-sparkline>
                     </v-sheet>
                   </v-list-item-content>
 
@@ -77,11 +79,11 @@
                       outlined
                     >
                       <v-list-item-title class="text-h4 mt-16">
-                        Favorites
+                        주문취소
                       </v-list-item-title>
                       <v-sparkline
                         class="py-16"
-                        :value="value"
+                        :value="value.ordercancelCount"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -92,6 +94,7 @@
                         :type="type"
                         :auto-line-width="autoLineWidth"
                         auto-draw
+                        :labels="labels"
                       />
                     </v-sheet>
                   </v-list-item-content>
@@ -99,20 +102,20 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-list-item two>
-                <v-col
-                  cols="4"
+              <v-col>
+                <v-list-item
+                  three
                 >
-                  <v-list-item-content class="mb-16">
+                  <v-list-item-content class="mt-16 mx-3">
                     <v-sheet
-                      class="py-13"
                       outlined
                     >
-                      <v-list-item-title class="text-h4 my-16">
-                        Profile Strength
+                      <v-list-item-title class="text-h4 mt-16">
+                        예약건수
                       </v-list-item-title>
                       <v-sparkline
-                        :value="value"
+                        class="py-16"
+                        :value="value.reservetotalCount"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -123,24 +126,22 @@
                         :type="type"
                         :auto-line-width="autoLineWidth"
                         auto-draw
-                      />
+                        :labels="labels"
+                      >
+                      
+                      </v-sparkline>
                     </v-sheet>
                   </v-list-item-content>
-                </v-col>
-
-
-                <v-col
-                  cols="8"
-                >
-                  <v-list-item-content class="mb-16 mx-2">
+                  <v-list-item-content class="mt-16 mx-3">
                     <v-sheet
                       outlined
                     >
-                      <v-list-item-title class="text-h4 mt-11 mb-6 pt-16">
-                        Detailed chart02
+                      <v-list-item-title class="text-h4 mt-16">
+                        예약완료
                       </v-list-item-title>
                       <v-sparkline
-                        :value="value"
+                        class="py-16"
+                        :value="value.reservecompletedCount"
                         :gradient="gradient"
                         :smooth="radius || false"
                         :padding="padding"
@@ -151,14 +152,40 @@
                         :type="type"
                         :auto-line-width="autoLineWidth"
                         auto-draw
+                        :labels="labels"
                       />
                     </v-sheet>
                   </v-list-item-content>
-                </v-col>
-              </v-list-item>
+
+                  <v-list-item-content class="mt-16 mx-3">
+                    <v-sheet
+                      outlined
+                    >
+                      <v-list-item-title class="text-h4 mt-16">
+                        예약취소
+                      </v-list-item-title>
+                      <v-sparkline
+                        class="py-16"
+                        :value="value.reservecancelCount"
+                        :gradient="gradient"
+                        :smooth="radius || false"
+                        :padding="padding"
+                        :line-width="width"
+                        :stroke-linecap="lineCap"
+                        :gradient-direction="gradientDirection"
+                        :fill="fill"
+                        :type="type"
+                        :auto-line-width="autoLineWidth"
+                        auto-draw
+                        :labels="labels"
+                      />
+                    </v-sheet>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-col>
             </v-row>
           </div>
-        </v-continer>
+        </v-container>
       </v-card>
     </v-row>
   </v-container>
@@ -179,13 +206,37 @@
       radius: 10,
       padding: 8,
       lineCap: 'round',
-      gradient: gradients[5],
-      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
+      gradient: gradients[5], 
+      value:{}, //값
+      labels:[], //밑에 시간
+      b:[1,2,3],
       gradientDirection: 'top',
       gradients,
       fill: false,
       type: 'trend',
       autoLineWidth: false,
     }),
+   mounted() {  
+    this.$Axios({
+        url : "http://localhost/dashboard",
+        method : "GET",
+        withCredentials : true,
+        }).then((res) => {
+            console.log(res)
+            this.value.ordertotalCount = res.data.ordertotalCount;
+            this.value.ordercompletedCount = res.data.ordercompletedCount;
+            this.value.ordercancelCount = res.data.ordercancelCount;
+            this.value.reservetotalCount = res.data.reservetotalCount;
+            this.value.reservecompletedCount = res.data.reservecompletedCount;
+            this.value.reservecancelCount = res.data.reservecancelCount;
+            res.data.times.forEach(element=>{
+              element = element.substring(11)
+              this.labels.push(element)
+            })
+            console.log(this.value)
+        }).catch((err) => {
+          console.log(err);
+        })
+  }
   }
 </script>

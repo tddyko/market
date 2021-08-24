@@ -110,6 +110,7 @@ module.exports = (sequelize, DataTypes) => {
         Market.hasMany(models.Order, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.hasMany(models.Order_review, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.hasMany(models.Order_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
+        Market.hasMany(models.Reservation, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.hasMany(models.Reserve_review, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.hasMany(models.Reserve_review_answer, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
         Market.hasOne(models.Market_inform, {foreignKey: 'market_id', sourceKey: 'market_id',onDelete :'cascade', hooks : true});
