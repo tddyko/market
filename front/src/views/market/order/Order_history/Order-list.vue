@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-data-table
-      :headers="List_Header"
-      :items="List_Items"
+      :headers="Get_List_Header"
+      :items="Get_List_Items"
       :items-per-page="5"
       class=" ma-6 "
       flat
@@ -15,11 +15,15 @@ export default {
   name: "OrderList",
   data() {
     return {
-      List_Header: this.$store.state.order.Order_List_Headers,
-      List_Items: this.$store.state.order.Order_List_Items
     };
   },
   computed: {
+    Get_List_Header(){
+      return this.$store.getters["order/Get_Order_List_Headers"]
+    },
+    Get_List_Items(){
+      return this.$store.getters["order/Get_Order_List_Items"]
+    },
   }
 }
 </script>

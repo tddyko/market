@@ -147,14 +147,47 @@ const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
       Review: "지금까지 이런 맛은 없었다. 이것은 갈비인가 통닭인가."
     }
   ],
+  manu: false,
+  menu2: false,
+  dates: ["",""]
 });
 
 const getters = { //getters가 컴포트?
+  Get_Order_Review(state){
+    return state.Order_Review;
+  },
+  Get_Order_Tab_Headers(state){
+    return state.Tab_Headers;
+  },
+  Get_Order_List_Headers(state){
+    return state.Order_List_Headers;
+  },
+  Get_Order_List_Items(state){
+    return state.Order_List_Items;
+  },
+  Get_Tab(state){
+    return state.Tab;
+  },
+  Get_manu(state){
+    return state.manu;
+  },
+  Get_manu2(state){
+    return state.manu2;
+  },
+  Get_dates(state){
+    return state.dates;
+  }
 };
 
 const mutations = {
   setTab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
     state.Tab = tab;
+  },
+  setManu(state, value){
+    state.manu = value;
+  },
+  setManu2(state, value){
+    state.manu2 = value;
   },
 };
 

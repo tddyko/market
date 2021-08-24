@@ -37,12 +37,19 @@ export default {
   name: "OrderReviewDatepicker",
   data() {
     return{
-      manu: false,
       menu2: false,
       dates: ["",""]
     }
   },
   computed: {
+    manu : {
+      get () {
+        return this.$store.getters["order/Get_manu"]
+      },
+      set(value) {
+        this.$store.commit('order/setManu', value)
+      }
+    },
     Date_center_join () {
       return this.dates.join(' ~ ')
     },

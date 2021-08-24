@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-tabs-items
-      v-for="review_items in test"
+      v-for="review_items in Get_Order_Review"
       :key="review_items"
-      v-model="Tab"
+      v-model="Get_Tab"
     >
       <v-tab-item>
         <v-divider />
@@ -135,12 +135,14 @@ export default {
   name: "OrderReviewTabsItems",
   data(){
     return{
-      test: this.$store.state.order.Order_Review
     }
   },
   computed: {
-    Tab() {
-      return this.$store.state.order.Tab;
+    Get_Order_Review(){
+      return this.$store.getters["order/Get_Order_Review"]
+    },
+    Get_Tab() {
+      return this.$store.getters["order/Get_Tab"]
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {

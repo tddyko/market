@@ -88,6 +88,7 @@ const state = () => ({
 });
 
 const getters = {
+
 };
 
 const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메소드 정의!

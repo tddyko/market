@@ -6,16 +6,13 @@
     grow
   >
     <v-tab
-      v-for="Tabs in Tab_Headers"
+      v-for="Tabs in Get_Order_Tab_Headers"
       :key="Tabs.Header"
       class="font-weight-regular text--white"
       :class="`text-${Tap_Size}`"
     >
       {{ Tabs.Header }}
     </v-tab>
-    <div>
-      {{ $store.state.order.Tab }}
-    </div>
   </v-tabs>
 </template>
 
@@ -24,18 +21,19 @@ export default {
   name: "OrderReviewTabs",
   data() {
     return {
-      Tab_Headers: this.$store.state.order.Tab_Headers,
     }
   },
   computed: {
+    Get_Order_Tab_Headers(){
+      return this.$store.getters["order/Get_Order_Tab_Headers"]
+    },
     Tab: {
       get () {
-        return this.$store.state.order.Tab
+        return this.$store.getters["order/Get_Tab"]
       },
       set (value) {
         this.$store.commit('order/setTab', value)
       }
-
     },
     Tap_Size() {
       switch (this.$vuetify.breakpoint.name) {
