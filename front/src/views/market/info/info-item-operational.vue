@@ -91,11 +91,13 @@
                     dense
                     hide-details
                     v-on="on"
+                    @click="Open_Time_AMPM"
                   />
                 </template>
                 <v-time-picker
                   v-model="Open_Time"
                   full-width
+                  format="ampm"
                   ampm-in-title
                   @click:minute="Update_Open_Time_Menu"
                 />
@@ -128,11 +130,13 @@
                     hide-details
                     dense
                     v-on="on"
+                    @click="Close_Time_AMPM"
                   />
                 </template>
                 <v-time-picker
                   v-model="Close_Time"
                   full-width
+                  format="ampm"
                   ampm-in-title
                   @click:minute="Update_Close_Time_Menu"
                 />
@@ -224,7 +228,7 @@ export default {
       get(){
         return this.$store.getters["info/Get_Close_Time_Menu"]
       }
-    }
+    },
   },
   methods: {
     Update_Open_Time_Menu(){
@@ -232,6 +236,13 @@ export default {
     },
     Update_Close_Time_Menu(){
       this.$store.commit("info/Update_Close_Time_Menu")
+
+    },
+    Close_Time_AMPM(){
+        this.$store.dispatch("info/Info_Set_Close_Time_Actions", null)
+    },
+    Open_Time_AMPM(){
+        this.$store.dispatch("info/Info_Set_Open_Time_Actions", null)
     }
   },
  }
