@@ -37,7 +37,6 @@ const getters = {
   },
   Get_Open_Time(state){
     return state.Open_Time;
-
   },
   Get_Close_Time(state){
     return state.Close_Time;
