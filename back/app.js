@@ -77,12 +77,11 @@ app.use(passport.session());
 app.use(flash());
 
 app.use('/', indexRouter);
-app.use('/market_preview', market_inforomRouter);
 app.use('/',user_loginRouter);
 app.use('/', user_signupRouter);
 app.use('/users', usersRouter);
 app.use('/markets',main_page);
-app.use('/update',chageSotreinfoRouter); //추후 수정
+app.use('/mymarket/update',chageSotreinfoRouter); //추후 수정
 app.use('/menu',menuRouter);
 app.use('/reservation', reservationRouter);
 app.use('/reseve_review',reseve_reviewRouter);
@@ -91,6 +90,7 @@ app.use('/dashboard',dashboardRouter);
 app.use('/order_review',order_reviewRouter)
 app.use('/order_review_answer',order_review_answerRouter);
 app.use('/menu_option',menu_optionRouter);
+app.use('/market_preview', market_inforomRouter);
 
 app.use( (req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

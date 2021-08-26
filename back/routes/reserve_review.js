@@ -72,6 +72,8 @@ router.get('/reviews/list',isLoggedInMarket, async(req,res)=>{
     let tab = req.body.tab || req.query.tab;
     let date_start,date_end ;
     console.log(tab);
+    console.log(req.query.date1);
+    console.log(req.query.date2);
     if(req.query.date1){
         if(req.query.date1 < req.query.date2){
             date_start = dayjs(req.query.date1).format('YYYY-MM-DD');
