@@ -44,7 +44,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Order" */ "@/views/market/order/Order.vue"
+            /* webpackChunkName: "Order" */ "@/views/market/order/Order_history/Order.vue"
           ),
       },
       {
@@ -55,7 +55,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "OrderReview" */ "@/views/market/order/OrderReview"
+            /* webpackChunkName: "OrderReview" */ "@/views/market/order/Order-review/OrderIndex"
           ),
       },
       {
@@ -66,7 +66,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation"
+            /* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation-history/Reservation-history-index"
           ),
       },
       {
@@ -77,7 +77,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/ReservationReview"
+            /* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/Reservation-review/Reservation-Review-index"
           ),
       },
       {
@@ -88,7 +88,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Information" */ "@/views/market/info/Info"
+            /* webpackChunkName: "Information" */ "@/views/market/info/Info-index"
           ),
       },
     ],

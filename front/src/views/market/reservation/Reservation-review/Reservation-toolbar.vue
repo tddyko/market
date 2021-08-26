@@ -1,0 +1,46 @@
+<template>
+  <div>
+    <v-toolbar
+      color="white"
+      height="auto"
+      class="rounded-t-xl"
+    >
+      <v-row
+        align="center"
+        justify="space-between"
+      >
+        <v-col
+          md="5"
+          lg="5"
+          xl="4"
+        >
+          <ReservationReviewDatepicker />
+        </v-col>
+        <v-col
+          md="6"
+          lg="6"
+        >
+          <ReservationReviewTabs />
+        </v-col>
+      </v-row>
+    </v-toolbar>
+    <v-card class="rounded-xl">
+      <ReservationReviewTabsItems />
+    </v-card>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "ReservationReviewToolbar",
+  components:{
+    ReservationReviewTabs: () => import('@/views/market/reservation/Reservation-review/Reservation-tabs'),
+    ReservationReviewTabsItems: () => import('@/views/market/reservation/Reservation-review/Reservation-tabs-items'),
+    ReservationReviewDatepicker: () => import('@/views/market/reservation/Reservation-review/Reservation-datepicker'),
+  },
+}
+</script>
+
+<style scoped>
+
+</style>
