@@ -3,50 +3,50 @@
     <v-row justify="center">
       <v-col cols="auto">
         <v-card
-          width="640"
+          width="450"
         >
-          <v-card-text class="align-center px-16">
+          <v-card-text class="align-center">
             <validation-observer>
               <v-form>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="id"
                   :rules="{
                     required: true,
                     regx: /^[a-zA-Z0-9]+$/
                   }"
+                  name="id"
                 >
                   <v-text-field
                     v-model="id"
+                    :error-messages="errors"
+                    clearable
                     label="아이디"
+                    outlined
                     placeholder="아이디를 입력하세요"
                     prepend-inner-icon="mdi-account"
-                    outlined
                     single-line
-                    clearable
-                    :error-messages="errors"
                   />
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="password"
                   :rules="{
                     required: true,
                     regx: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
                   }"
+                  name="password"
                 >
                   <v-text-field
                     v-model="passwd"
+                    :append-icon="pwd_check ? 'mdi-eye' : 'mdi-eye-off'"
+                    :counter="16"
+                    :error-messages="errors"
+                    :type="pwd_check ? 'text' : 'password'"
+                    clearable
                     label="비밀번호"
+                    outlined
                     placeholder="비밀번호를 입력하세요"
                     prepend-inner-icon="mdi-lock"
-                    outlined
                     single-line
-                    clearable
-                    :counter="16"
-                    :append-icon="pwd_check ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="pwd_check ? 'text' : 'password'"
-                    :error-messages="errors"
                     @click:append="pwd_check = !pwd_check"
                   />
                 </validation-provider>
@@ -60,8 +60,8 @@
                   <v-spacer />
                   <v-col>
                     <v-btn
-                      text
                       small
+                      text
                       to="/"
                     >
                       아이디찾기
@@ -69,8 +69,8 @@
                   </v-col>
                   <v-col>
                     <v-btn
-                      text
                       small
+                      text
                       to="/"
                     >
                       비밀번호 찾기
@@ -79,9 +79,9 @@
                 </v-row>
                 <v-btn
                   block
-                  x-large
-                  dark
                   color="primary"
+                  dark
+                  x-large
                   @click="login()"
                 >
                   로그인
@@ -102,11 +102,11 @@
     </v-row>
   </v-container>
 </template>
-<script> 
+<script>
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/market/login/signup')
+    SignUp: () => import('@/views/login/market_signup')
     },
   data: () => ({
     id: null,
@@ -115,13 +115,13 @@ export default {
     login_switch: null,
   }),
   methods:  {
-    
+
     async login() {
       console.log("ww")
          this.$Axios({
            method: 'post',
               url: "http://localhost/login",
-              headers: {}, 
+              headers: {},
               withCredentials: true, //쿠키가 서로 저장
               data: {
                 // This is the body part

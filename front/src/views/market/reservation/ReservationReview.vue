@@ -105,7 +105,7 @@
           <!--답변 미답변 답변완료-->
           <v-tab-item
             v-for="a in 3"
-            :key="a" 
+            :key="a"
           >
             <v-row
               justify="center"
@@ -132,14 +132,14 @@
                           no-gutters
                           align="center"
                         >
-                        
+
                           <!--멤버 프로필 사진-->
                           <v-col
                             md="1"
                             lg="1"
-                          > 
+                          >
                             <v-avatar>
-                              <v-img  
+                              <v-img
                                 :src="imgSrc(item.Member.profile_img)"
                                 alt="UserProfileImg"
                               ></v-img>
@@ -211,7 +211,7 @@
                         class="ma-2"
                       >
                         <v-textarea
-                          v-model="item.review" 
+                          v-model="item.review"
                           no-resize
                           hide-details
                           readonly
@@ -225,7 +225,7 @@
                       v-if="showRecoment"
                     >
                       <v-textarea
-                        outlined  
+                        outlined
                         :value="showValue(item.Reserve_review_answer)"
                         dense
                         placeholder="내용을 입력하세요."
@@ -263,7 +263,7 @@ export default {
       menu: false,
       modal: false,
       data(){
-        return{ 
+        return{
           rating: 4,
           tab: 0, //순서대로 0,1,2 값을 가짐
           dates: [null,null],
@@ -273,8 +273,8 @@ export default {
         }
     },
     computed: {
-      
-      dateRangeText () { 
+
+      dateRangeText () {
         this.getReserveReviews();
         return this.dates.join(' ~ ')
       },
@@ -313,10 +313,10 @@ export default {
     searchChangeFunc(event){
      this.recoment=event
     },
-    showRecomentSwitch(){ 
+    showRecomentSwitch(){
         this.showRecoment = !this.showRecoment;
     },
-    showValue(findComent){ 
+    showValue(findComent){
       console.log(findComent)
       if(findComent !=null){
          this.recoment = findComent.answer;
@@ -327,8 +327,8 @@ export default {
         return ""
       }
     },
-    getReserveReviews(){  
-      if(this.dates.length > 1){ 
+    getReserveReviews(){
+      if(this.dates.length > 1){
         this.$Axios({
           url : "http://localhost/reseve_review/reviews/list",
           method : "GET",
@@ -339,15 +339,15 @@ export default {
               }
         }).then(async(response)=>{
            await response.data.forEach((data)=>{data.rating = parseFloat(data.rating)})
-            this.items =  response.data; 
+            this.items =  response.data;
             console.log(this.items)
         }).catch((err)=>{
           console.log(err)
         })
-      } 
+      }
     },
-    recomentReviews(reserve_review_id){ 
-      console.log(this.recoment); 
+    recomentReviews(reserve_review_id){
+      console.log(this.recoment);
       this.$Axios({
          url : `http://localhost/reseve_review/recoment/${reserve_review_id}`,
           method : "GET",
@@ -360,16 +360,16 @@ export default {
         console.log(response)
       }).catch((err)=>console.log(err))
     },
-    imgSrc(name){ 
-      name = name.replaceAll("\\", "/"); 
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
       return require(`../../../../../back/${name}`);
     }
   },
-  created(){ 
+  created(){
     console.log("tab : " + this.tab);
   },
-  
- 
+
+
 }
 </script>
 

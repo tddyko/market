@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const path = require('path');
+const path = require("path");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get("/", function (req, res, next) {
   // res.render('index', { title: 'Express' });
-  res.sendFile(path.join(__dirname, '../components/HelloWorld.vue'));
+  res.sendFile(path.join(__dirname, "../components/HelloWorld.vue"));
 });
 
 module.exports = router;

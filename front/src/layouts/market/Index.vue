@@ -1,9 +1,9 @@
 <template>
-<v-app>
-  <market-app-bar />
-  <market-drawer />
-  <market-main />
-</v-app>
+  <v-app>
+    <market-app-bar />
+    <market-drawer />
+    <market-main />
+  </v-app>
 </template>
 
 <script>

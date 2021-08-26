@@ -11,7 +11,6 @@
         v-bind="props"
       />
     </template>
-
     <drawer-header />
     <v-divider />
     <market-list :items="items" />
@@ -19,7 +18,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: "MarketDrawer",

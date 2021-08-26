@@ -5,6 +5,22 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    component: () =>
+      import(/* webpackChunkName: "market_layout" */ "@/layouts/main/Index"),
+    children: [
+      {
+        path: "/",
+        name: "Main",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "Dashboard" */ "@/views/main/TabItems"),
+      },
+    ],
+  },
+  {
     path: "/market",
     component: () =>
       import(/* webpackChunkName: "market_layout" */ "@/layouts/market/Index"),
@@ -16,7 +32,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Dashboard" */ "@/views/market/DashBoard"),
+          import(
+            /* webpackChunkName: "Dashboard" */ "@/views/market/DashBoard"
+          ),
       },
       {
         path: "/market/order",
@@ -25,7 +43,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Order" */ "@/views/market/order/Order.vue"),
+          import(
+            /* webpackChunkName: "Order" */ "@/views/market/order/Order.vue"
+          ),
       },
       {
         path: "/market/order/review",
@@ -34,7 +54,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "OrderReview" */ "@/views/market/order/OrderReview"),
+          import(
+            /* webpackChunkName: "OrderReview" */ "@/views/market/order/OrderReview"
+          ),
       },
       {
         path: "/market/reservation",
@@ -43,7 +65,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation"),
+          import(
+            /* webpackChunkName: "Reservation" */ "@/views/market/reservation/Reservation"
+          ),
       },
       {
         path: "/market/reservation/review",
@@ -52,7 +76,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/ReservationReview"),
+          import(
+            /* webpackChunkName: "ReservationReview" */ "@/views/market/reservation/ReservationReview"
+          ),
       },
       {
         path: "/market/info",
@@ -61,9 +87,11 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Information" */ "@/views/market/info/Info"),
+          import(
+            /* webpackChunkName: "Information" */ "@/views/market/info/Info"
+          ),
       },
-    ]
+    ],
   },
   {
     path: "/login",
@@ -71,11 +99,11 @@ const routes = [
       import(/* webpackChunkName: "LoginLayout" */ "@/layouts/login/Index"),
     children: [
       {
-        path: '/login',
-        name: 'login',
-        component: () => import('@/views/market/login/login')
-      }
-    ]
+        path: "/login",
+        name: "login",
+        component: () => import("@/views/login/login"),
+      },
+    ],
   },
 ];
 
