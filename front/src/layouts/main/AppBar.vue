@@ -39,6 +39,7 @@
         <v-icon>mdi-login-variant</v-icon>
       </v-btn>
       <template
+        v-if="$route.name === 'Main'"
         #extension
       >
         <main-tab-bar />

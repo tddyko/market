@@ -13,6 +13,7 @@
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
+            to=""
           >
             <v-card-title v-text="card.title" />
           </v-img>
@@ -47,11 +48,8 @@ export default {
   computed: {
     cards: {
       get() {
-        return this.$store.getters['market/getCards'];
+        return this.$store.getters['marketList/getCards'];
       },
-      set(v) {
-        return this.$store.dispatch('market/actCards', v)
-      }
     },
   }
 }

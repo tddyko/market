@@ -40,7 +40,7 @@
 <script>
 export default {
   components: {
-    ListCard: () => import('@/views/main/ListCard')
+    ListCard: () => import('@/views/main/marketlist/ListCard')
   },
   computed: {
     select: {
