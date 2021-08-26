@@ -18,7 +18,6 @@ const state = () => ({
   Open_Time: null,
   Open_Time_Menu: false,
   Close_Time_Menu: false,
-  test: '',
 })
 const getters = {
   Get_Info_Tab(state) {
@@ -38,6 +37,7 @@ const getters = {
   },
   Get_Open_Time(state){
     return state.Open_Time;
+
   },
   Get_Close_Time(state){
     return state.Close_Time;
@@ -67,9 +67,19 @@ const mutations = {
     state.Close_Time_Menu = value;
   },
   Update_Open_Time_Menu(state){
+    if(parseInt(state.Open_Time.toString().substring(0,2)) >= 12){
+      state.Open_Time = '오후 ' + state.Open_Time;
+    }else{
+      state.Open_Time = '오전 ' + state.Open_Time;
+    }
     state.Open_Time_Menu = false;
   },
   Update_Close_Time_Menu(state){
+      if(parseInt(state.Close_Time.toString().substring(0,2)) >= 12){
+        state.Close_Time = '오후 ' + state.Close_Time;
+      }else{
+        state.Close_Time = '오전 ' + state.Close_Time;
+      }
     state.Close_Time_Menu = false;
   },
 };

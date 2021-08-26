@@ -6,8 +6,8 @@
     grow
   >
     <v-tab
-      v-for="Tabs in Get_Order_Tab_Headers"
-      :key="Tabs.Header"
+      v-for="(Tabs, index) in Get_Order_Tab_Headers"
+      :key="index"
       class="font-weight-regular text--white"
       :class="`text-${Tap_Size}`"
     >
