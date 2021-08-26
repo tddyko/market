@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import StoreList from "@/views/main/StoreList";
+import StoreList from "@/views/main/MarketList";
 export default {
   name: 'MainTabBar',
   components: {StoreList},
