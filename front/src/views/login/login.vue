@@ -107,45 +107,38 @@ export default {
   name: 'Login',
   components: {
     SignUp: () => import('@/views/login/market_signup')
-    },
+  },
   data: () => ({
     id: null,
     passwd: null,
     pwd_check: false,
     login_switch: null,
   }),
-  methods:  {
-<<<<<<<< HEAD:front/src/views/login/login.vue
-
-========
->>>>>>>> origin/origin/kibeom2:front/src/views/market/login/login.vue
-    async login() {
-         this.$Axios({
-           method: 'post',
-              url: "http://localhost/login",
-<<<<<<<< HEAD:front/src/views/login/login.vue
-              headers: {},
-========
->>>>>>>> origin/origin/kibeom2:front/src/views/market/login/login.vue
-              withCredentials: true, //쿠키가 서로 저장
-              data: {
-                // This is the body part
-                id : this.id, passwd: this.passwd, login_switch: this.login_switch
-              }
-         }).then((response) =>{ 
-           console.log(response)
-           if(response.status == 200)
-            this.$router.push('/market').catch((err)=>{
-                console.log(err)
-            })
-         }).catch((err)=>{
-           console.log("로그인 못함")
-           console.log(err)
-         })
-      }
-  },
   computed: {
     user(){return this.$store.getters.user;}
+  },
+  methods:  {
+
+    async login() {
+      console.log("ww")
+      this.$Axios({
+        method: 'post',
+        url: "http://localhost/login",
+        headers: {},
+        withCredentials: true, //쿠키가 서로 저장
+        data: {
+          // This is the body part
+          id : this.id, passwd: this.passwd, login_switch: this.login_switch
+        }
+      }).then((response) =>{
+        console.log(response.data.market_id)
+        this.$router.push('/market').catch((err)=>{
+          console.log(err)
+        })
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   }
 }
 </script>
