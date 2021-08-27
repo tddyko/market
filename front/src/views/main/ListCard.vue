@@ -3,18 +3,18 @@
   >
     <v-row>
       <v-col
-        v-for="card in get"
-        :key="card.title"
+        v-for="(card,index) in get"
+        :key="index"
         :cols="get.flex"
       >
         <!-- 반복될 카드 -->
         <v-card>
           <v-img
-              :src="imgSrc(card.profile_img)"
+            :src="imgSrc(card.profile_img)"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
-            @click="test"
+            @click="test(card)"
           >
             <v-card-title v-text="card.market_name" />
           </v-img>
@@ -42,23 +42,24 @@
 <script>
 export default {
   name: "ListCard",
+   data() {
+     return {
+      tabIndex : this.$store.getters['tab/getTab']
+    }
+  },
   computed: {
-      get() {
-        //console.log(this.$store.getters['market/getCards'])
-        return this.$store.getters['market/getCards']
-      }
-  },
-  created(){
-    this.set();
-  },
-  methods: {
-    set(){
-      this.$store.dispatch('market/actCards');
+    get() { 
+        return this.$store.getters['marketList/getCards']
     },
-    test(){ 
+  },  
+  methods: {
+     
+    test(card){  
+      this.$router.push({name : 'marketdetail', params : {market_name : card.market_name}})
     },
     imgSrc(name){ 
-      name = name.replaceAll("\\", "/");  
+      console.log(name) 
+      name = name.replaceAll("\\", "/"); 
       return require(`../../../../back/${name}`);
     }
   }

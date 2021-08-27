@@ -19,6 +19,9 @@ export default {
   computed: {
     tab: {
       get() {
+        let tabIndex = this.$store.getters['tab/getTab'];
+        console.log(tabIndex) 
+        this.$store.dispatch('marketList/actCards',tabIndex); 
         return this.$store.getters['tab/getTab'];
       },
       set(v) {
