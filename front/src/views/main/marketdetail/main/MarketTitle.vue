@@ -35,7 +35,7 @@
               length="5"
               readonly
               size="45"
-              value="4.5"
+              :value="ratingStar"
             />
             <!-- <span class="rat-score">4.5</span> -->
           </v-col>
@@ -49,7 +49,14 @@
 
 <script>
 export default {
-  name: "MarketTitle"
+  name: "MarketTitle",
+  computed: {
+    ratingStar: {
+      get() {
+        return this.$store.getters["marketDetail/getRating"]
+      }
+    }
+  }
 }
 </script>
 

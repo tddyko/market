@@ -1,13 +1,17 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="dialog"
+      v-model="floating.dialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
     >
       <template #activator="{ on, attrs }">
         <v-btn
+          fab
+          fixed
+          bottom
+          right
           color="primary"
           dark
           v-bind="attrs"
@@ -26,7 +30,7 @@
           <v-btn
             icon
             dark
-            @click="dialog = false"
+            @click="floating.dialog = false"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -78,7 +82,7 @@
           <v-col
             xl="7"
           >
-            <v-radio-group v-model="radioGroup">
+            <v-radio-group v-model="floating.radioGroup">
               <v-radio
                 v-for="n in 3"
                 :key="n"
@@ -90,7 +94,7 @@
           <v-col
             xl="7"
           >
-            <v-radio-group v-model="radioGroup">
+            <v-radio-group v-model="floating.radioGroup">
               <v-radio
                 v-for="n in 3"
                 :key="n"
@@ -129,14 +133,12 @@
 <script>
 export default {
   name: 'OrderPopup',
-  data () {
-    return {
-      dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false,
-      radioGroup: 1,
+  computed: {
+    floating: {
+      get() {
+        return this.$store.getters["marketDetail/getFloating"]
+      }
     }
-  },
+  }
 }
 </script>

@@ -1,77 +1,6 @@
 <template>
   <v-container>
     <v-card
-      class="mt-10 mx-auto"
-      max-width="900px"
-    >
-      <v-row justify="center">
-        <v-col
-          align="center"
-          align-self="center"
-          xl="6"
-        >
-          <v-rating
-            background-color="grey"
-            color="warning"
-            dense
-            half-increments
-            length="5"
-            readonly
-            size="50"
-            value="4.5"
-          />
-        </v-col>
-        <v-divider
-          inset
-          vertical
-        />
-        <v-col
-          align-self="center"
-          xl="2"
-        >
-          <p>5.0</p>
-          <p>4.0</p>
-          <p>3.0</p>
-          <p>2.0</p>
-          <p>1.0</p>
-        </v-col>
-        <v-col xl="3">
-          <v-progress-linear
-            v-model="valueDeterminate"
-            class="mt-3"
-            color="indigo darken-2"
-            height="10"
-          />
-          <v-progress-linear
-            v-model="valueDeterminate"
-            class="my-8"
-            color="indigo darken-2"
-            height="10"
-          />
-          <v-progress-linear
-            v-model="valueDeterminate"
-            class="my-8"
-            color="indigo darken-2"
-            height="10"
-          />
-          <v-progress-linear
-            v-model="valueDeterminate"
-            class="my-8"
-            color="indigo darken-2"
-            height="10"
-          />
-          <v-progress-linear
-            v-model="valueDeterminate"
-            class="my-8"
-            color="indigo darken-2"
-            height="10"
-          />
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-spacer />
-    <v-card
       class="my-10 mx-auto"
       max-width="900px"
     >
@@ -176,14 +105,14 @@
           </v-col>
         </v-row>
       </v-container>
-      <!-- </v-card-text> -->
+    <!-- </v-card-text> -->
     </v-card>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "MenuReview"
+  name: "ReviewCards"
 }
 </script>
 

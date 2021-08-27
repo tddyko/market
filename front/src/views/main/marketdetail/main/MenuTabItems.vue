@@ -23,10 +23,10 @@
 export default {
   name: "MenuTabItems",
   components: {
-    MenuInform: () => import('@/views/main/marketdetail/MenuInform'),
-    MenuReview: () => import('@/views/main/marketdetail/MenuReview'),
-    MenuReserve: () => import('@/views/main/marketdetail/MenuReserve'),
-    MenuOrder: () => import('@/views/main/marketdetail/MenuOrder')
+    MenuInform: () => import('@/views/main/marketdetail/information/MenuInform'),
+    MenuReview: () => import('@/views/main/marketdetail/review/MenuReview'),
+    MenuReserve: () => import('@/views/main/marketdetail/reserve/MenuReserve'),
+    MenuOrder: () => import('@/views/main/marketdetail/order/MenuOrder')
   },
   computed: {
     tabs: {

@@ -1,32 +1,9 @@
 <template>
   <v-container>
-    <!-- Menu chips -->
-    <v-row justify="center">
-      <v-col
-        cols="5"
-      >
-        <v-sheet
-          class="py-10"
-        >
-          <v-chip-group
-            active-class="primary--text"
-            mandatory
-          >
-            <v-chip
-              v-for="ordermenu in ordermenus"
-              :key="ordermenu"
-            >
-              {{ ordermenu }}
-            </v-chip>
-          </v-chip-group>
-        </v-sheet>
-      </v-col>
-    </v-row>
-    <!-- // chips -->
     <v-row>
       <v-col>
         <h1 class="mb-10 text-center">
-          {{ }}
+          메뉴이름
         </h1>
       </v-col>
     </v-row>
@@ -82,28 +59,18 @@
         </v-card>
       </v-col>
     </v-row>
-    <order-popup />
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "MenuOrder",
-  components: {
-    OrderPopup: () => import('@/views/main/marketdetail/popup/OrderPopup')
-  },
+  name: "MenuCards",
   computed: {
     cards: {
       get() {
         return this.$store.getters["marketDetail/getCards"]
       }
     },
-    ordermenus: {
-      get() {
-        return this.$store.getters["marketDetail/getOrderMenus"]
-      }
-    },
-
   }
 }
 </script>

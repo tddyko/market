@@ -5,24 +5,19 @@
     <menu-tabs />
     <!-- 탭 내용 -->
     <menu-tab-items />
+    <order-popup />
   </v-container>
 </template>
 
 <script>
+import OrderPopup from "@/views/main/marketdetail/popup/OrderPopup";
 export default {
   components: {
-    MenuTabItems: () => import('@/views/main/marketdetail/MenuTabItems'),
-    MenuTabs: () => import('@/views/main/marketdetail/MenuTabs'),
-    MarketTitle: () => import('@/views/main/marketdetail/MarketTitle')
+    OrderPopup,
+    MenuTabItems: () => import('@/views/main/marketdetail/main/MenuTabItems'),
+    MenuTabs: () => import('@/views/main/marketdetail/main/MenuTabs'),
+    MarketTitle: () => import('@/views/main/marketdetail/main/MarketTitle')
   },
-  computed: {
-    cards: {
-      get() {
-        return this.$store.getters['marketDetail/getCards'];
-      }
-    }
-  }
-
 }
 </script>
 
