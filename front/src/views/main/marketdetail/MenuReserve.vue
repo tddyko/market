@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="my-10">
       <v-col>
-        <h1 class="warning--text">
+        <h1 class="text-center">
           예약 날짜
         </h1>
       </v-col>
@@ -51,20 +51,21 @@
               <v-btn
                 color="indigo"
                 outlined
-                @click="next"
               >
                 담기
               </v-btn>
             </v-card-actions>
           </v-row>
         </v-card>
-      <!-- 카드 끝 -->
+        <!-- 카드 끝 -->
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-expansion-panels
           v-model="panel"
+          :disabled="disabled"
+          multiple
         >
           <v-expansion-panel>
             <v-expansion-panel-header>날짜 선택</v-expansion-panel-header>
@@ -88,10 +89,10 @@
                 column
               >
                 <v-chip
-                  v-for="tag in tags"
-                  :key="tag"
+                  v-for="time in reserveTime"
+                  :key="time"
                 >
-                  {{ tag }}
+                  {{ time }}
                 </v-chip>
               </v-chip-group>
             </v-expansion-panel-content>
@@ -141,9 +142,9 @@ export default {
         return this.$store.getters["marketDetail/getCards"]
       }
     },
-    tags: {
+    reserveTime: {
       get() {
-        return this.$store.getters["marketDetail/getTabs"]
+        return this.$store.getters["marketDetail/getReservTime"]
       }
     }
   }

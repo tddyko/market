@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- Menu chips -->
     <v-row justify="center">
       <v-col
         cols="5"
@@ -12,10 +13,10 @@
             mandatory
           >
             <v-chip
-              v-for="tag in tags"
-              :key="tag"
+              v-for="ordermenu in ordermenus"
+              :key="ordermenu"
             >
-              {{ tag }}
+              {{ ordermenu }}
             </v-chip>
           </v-chip-group>
         </v-sheet>
@@ -24,8 +25,8 @@
     <!-- // chips -->
     <v-row>
       <v-col>
-        <h1 class="mb-10">
-          메뉴 1
+        <h1 class="mb-10 text-center">
+          {{ }}
         </h1>
       </v-col>
     </v-row>
@@ -79,7 +80,6 @@
             </v-card-actions>
           </v-row>
         </v-card>
-        <!-- 카드 끝 -->
       </v-col>
     </v-row>
     <order-popup />
@@ -98,9 +98,9 @@ export default {
         return this.$store.getters["marketDetail/getCards"]
       }
     },
-    tags: {
+    ordermenus: {
       get() {
-        return this.$store.getters["marketDetail/getTags"]
+        return this.$store.getters["marketDetail/getOrderMenus"]
       }
     },
 

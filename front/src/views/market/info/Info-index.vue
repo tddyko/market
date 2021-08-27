@@ -2,8 +2,8 @@
   <v-row justify="center">
     <v-col
       lg="10"
-      xl="8"
       md="12"
+      xl="8"
     >
       <v-card
         class="rounded-xl"
@@ -23,16 +23,6 @@ export default {
     InfoToolbar : () => import("@/views/market/info/info-toolbar"),
     InfoTabsItems : () => import("@/views/market/info/info-tabs-items")
     },
-  data(){
-    return{
-        files: [],
-        rules: [
-          value => !value || value.size < 2000000 || '사진용량은 2mb(사이즈)를 초과할수 없습니다.',
-      ],
-    }
-
-  },
-
 computed:{
   Get_Week() {
     return this.$store.getters["info/Get_Week"]

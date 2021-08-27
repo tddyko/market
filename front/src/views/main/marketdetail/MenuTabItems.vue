@@ -10,6 +10,12 @@
     <v-tab-item>
       <menu-reserve />
     </v-tab-item>
+    <v-tab-item>
+      <menu-review />
+    </v-tab-item>
+    <v-tab-item>
+      <menu-inform />
+    </v-tab-item>
   </v-tabs-items>
 </template>
 
@@ -17,6 +23,8 @@
 export default {
   name: "MenuTabItems",
   components: {
+    MenuInform: () => import('@/views/main/marketdetail/MenuInform'),
+    MenuReview: () => import('@/views/main/marketdetail/MenuReview'),
     MenuReserve: () => import('@/views/main/marketdetail/MenuReserve'),
     MenuOrder: () => import('@/views/main/marketdetail/MenuOrder')
   },

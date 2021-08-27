@@ -10,56 +10,58 @@
       <v-form>
         <v-container>
           <v-row
-            justify="center"
             align="center"
             class="mt-5"
+            justify="center"
           >
             <v-col
-              lg="9"
               align="start"
+              lg="9"
             >
               공지사항
             </v-col>
           </v-row>
           <v-row
-            justify="center"
             align="center"
+            justify="center"
           >
             <v-col
               lg="9"
             >
               <v-textarea
                 ref="test"
-                outlined
                 dense
                 hide-details
                 no-resize
+                outlined
                 rows="10"
               />
             </v-col>
           </v-row>
           <v-row
-            justify="start"
             align="center"
+            justify="start"
           >
             <v-col
               lg="4"
             >
               <input
                 ref="imageInput"
-                type="file"
-                multiple
                 hidden
+                multiple
+                type="file"
               >
               <v-btn
-                class="rounded-xl"
+                color="primary"
+                outlined
+                rounded
                 type="button"
-                min-width="auto"
+                @click="onClickImgUpload"
               >
-                <v-icon>
+                사진 업로드
+                <v-icon right>
                   mdi-camera
                 </v-icon>
-                사진선택
               </v-btn>
             </v-col>
           </v-row>
@@ -67,9 +69,9 @@
             <v-btn
               class="mt-10 rounded-lg text-center"
               color="primary"
-              width="80"
               height="40"
               type="submit"
+              width="80"
             >
               저장
             </v-btn>
@@ -82,7 +84,12 @@
 
 <script>
 export default {
-  name: "InfoItemNotice"
+  name: "InfoItemNotice",
+  methods: {
+    onClickImgUpload () {
+      this.$refs.imageInput.click();
+    },
+  }
 }
 </script>
 
