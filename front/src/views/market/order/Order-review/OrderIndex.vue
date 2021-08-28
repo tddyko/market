@@ -4,6 +4,7 @@
       lg="10"
       xl="8"
       md="12"
+      sm="12"
     >
       <OrderReviewToolbar />
     </v-col>

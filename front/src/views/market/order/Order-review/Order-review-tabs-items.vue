@@ -16,6 +16,7 @@
                 align="center"
               >
                 <v-col
+                  sm="1"
                   md="1"
                   lg="1"
                   xl="1"
@@ -28,8 +29,9 @@
                   </v-avatar>
                 </v-col>
                 <v-col
-                  lg="1"
-                  md="1"
+                  sm="auto"
+                  md="auto"
+                  lg="auto"
                   xl="auto"
                   class="font-weight-bold"
                   :class="`text-${Font_Size}`"
@@ -37,6 +39,7 @@
                   {{ review_items.Nickname }}
                 </v-col>
                 <v-col
+                  sm="9"
                   lg="9"
                   md="9"
                   xl="9"
@@ -64,6 +67,7 @@
                   </div>
                 </v-col>
                 <v-col
+                  sm="12"
                   lg="12"
                   md="12"
                   xl="12"
@@ -79,10 +83,10 @@
                   >
                 </v-col>
                 <v-col
-                  lg="8"
-                  md="8"
+                  sm="12"
+                  lg="12"
+                  md="12"
                   xl="12"
-                  class="ma-2"
                 >
                   <v-textarea
                     :value="`${review_items.Review}`"
@@ -90,13 +94,14 @@
                     no-resize
                     hide-details
                     readonly
-                    class="px-16"
+                    class="px-16 mb-10"
                     rounded
                   />
                 </v-col>
                 <v-col
-                  lg="10"
-                  md="10"
+                  sm="12"
+                  lg="12"
+                  md="12"
                   xl="12"
                 >
                   <v-textarea
@@ -146,8 +151,10 @@ export default {
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return 'sm-h6'
         case 'md':
-          return 'md-subtitle-1'
+          return 'md-h6'
         case 'lg':
           return 'lg-h6'
         case 'xl':
@@ -158,6 +165,7 @@ export default {
     },
     Date_Font_Size () {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm': return 'sm-caption'
         case 'md': return 'md-caption'
         case 'lg': return 'lg-caption'
         case 'xl': return 'xl-caption'
@@ -167,8 +175,9 @@ export default {
     },
     Rating_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'md' : return '25'
-        case 'lg' : return '22'
+        case 'sm' : return '16.8'
+        case 'md' : return '16.8'
+        case 'lg' : return '16.8'
         case 'xl' : return '16.8'
         default : return ''
       }

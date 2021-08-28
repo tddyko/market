@@ -62,8 +62,10 @@ export default {
 
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
+        case "sm":
+          return 'sm-h6'
         case 'md':
-          return 'md-subtitle-1'
+          return 'md-h6'
         case 'lg':
           return 'lg-h6'
         case 'xl':

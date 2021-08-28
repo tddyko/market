@@ -13,6 +13,7 @@
     >
       {{ Tabs.Header }}
     </v-tab>
+    {{ $vuetify.breakpoint.name }}
   </v-tabs>
 </template>
 
@@ -37,6 +38,8 @@ export default {
     },
     Tap_Size() {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return 'sm-h6'
         case 'md':
           return 'md-h6'
         case 'lg':

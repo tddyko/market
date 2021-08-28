@@ -10,6 +10,7 @@
         justify="space-between"
       >
         <v-col
+          sm="6"
           md="5"
           lg="5"
           xl="4"
@@ -17,8 +18,10 @@
           <OrderReviewDatepicker />
         </v-col>
         <v-col
+          sm="6"
           md="6"
           lg="6"
+          xl="6"
         >
           <OrderReviewTabs />
         </v-col>
