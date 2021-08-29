@@ -166,11 +166,11 @@ export default {
     },
     Button_Img_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'sm' : return '64'
-        case 'md' : return '74'
-        case 'lg' : return '84'
-        case 'xl' : return '94'
-        default : return '64'
+        case 'sm' : return '74'
+        case 'md' : return '80'
+        case 'lg' : return '90'
+        case 'xl' : return '95'
+        default : return '70'
       }
     }
   },
