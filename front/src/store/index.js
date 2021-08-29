@@ -8,6 +8,7 @@ import reservation from "@/store/market/Reservation";
 import info from "@/store/market/Info";
 import market_modules from "@/store/market/Market_modules"
 import main_market from "@/store/main/market"
+import OrderPopup from "@/store/main/OrderPopup"
 
 Vue.use(Vuex);
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
     ...items,
     ...market_modules,
     ...info,
-    ...main_market
+    ...main_market,
+      ...OrderPopup
   },
 })
 

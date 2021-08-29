@@ -6,7 +6,7 @@
       v-for="title in tabTitle"
       :key="title.title"
     >
-      <store-list />
+      <StoreList />
     </v-tab-item>
   </v-tabs-items>
 </template>

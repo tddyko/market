@@ -7,7 +7,9 @@
         :cols="card.flex"
       >
         <!-- 반복될 카드 -->
-        <v-card>
+        <v-card
+          to="/MarketDeatail"
+        >
           <v-img
             :src="card.src"
             class="white--text align-end"

@@ -692,12 +692,16 @@
           </v-icon>
         </v-btn>
       </template>
+      <Orderpopupindex v-show="tabs === 0" />
     </v-speed-dial>
   </v-container>
 </template>
 
 <script>
 export default {
+  components: {
+    Orderpopupindex : () => import('@/views/main/Popup/orderPopup/OrderPopup_index')
+    },
   data: () => ({
     rat: '4.5',
     tabs: null,
@@ -747,6 +751,11 @@ export default {
     right: true,
     bottom: true,
     left: false,
+    dialog: false,
+    notifications: false,
+    sound: true,
+    widgets: false,
+    radioGroup: 1,
   }),
   watch: {
     top (val) {

@@ -50,16 +50,19 @@
                 type="file"
                 multiple
                 hidden
+                @change="onChangeImages"
               >
               <v-btn
-                class="rounded-xl"
                 type="button"
-                min-width="auto"
+                rounded
+                outlined
+                color="primary"
+                @click="onClickImgUpload"
               >
-                <v-icon>
+                사진 업로드
+                <v-icon right>
                   mdi-camera
                 </v-icon>
-                사진선택
               </v-btn>
             </v-col>
           </v-row>
@@ -82,7 +85,19 @@
 
 <script>
 export default {
-  name: "InfoItemNotice"
+  name: "InfoItemNotice",
+  methods: {
+    onClickImgUpload () {
+      this.$refs.imageInput.click();
+    },
+    onChangeImages (e) {
+      console.log(e.target.files);
+      const imgFormData = new FormData();
+      [].forEach.call(e.target.files, (f) => {
+        imgFormData.append('img', f);
+      });
+    }
+  }
 }
 </script>
 

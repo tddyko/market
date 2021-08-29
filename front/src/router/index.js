@@ -10,15 +10,6 @@ const routes = [
       import(/* webpackChunkName: "market_layout" */ "@/layouts/main/Index"),
     children: [
       {
-        path: "/OderPopup",
-        name: "OderPopup",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "Dashboard" */ "@/views/main/Oderpopup"),
-      },
-      {
         path: "/",
         name: "Main",
         // route level code-splitting
@@ -26,6 +17,20 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(/* webpackChunkName: "Dashboard" */ "@/views/main/TabItems"),
+      },
+      {
+        path: "/MarketDeatail",
+        name: "MarketDeatail",
+        component: () => import("@/views/main/MarketDetail")
+      },
+      {
+        path: "/MarketDeatail/OderPopup",
+        name: "OderPopup",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "Dashboard" */ "@/views/main/Popup/orderPopup/OrderPopup_index"),
       },
     ],
   },
@@ -45,6 +50,7 @@ const routes = [
             /* webpackChunkName: "Dashboard" */ "@/views/market/DashBoard"
           ),
       },
+
       {
         path: "/market/order",
         name: "Order",
