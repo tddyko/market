@@ -5,9 +5,9 @@
     <menu-tabs />
     <!-- 탭 내용 -->
     <menu-tab-items />
-    <order-popup />
-    <reserve-popup />
-    <review-popup />
+    <order-popup v-show="get === 0" />
+    <reserve-popup v-show="get === 1" />
+    <review-popup v-show="get === 2" />
   </v-container>
 </template>
 
@@ -21,7 +21,12 @@ export default {
     MenuTabs: () => import('@/views/main/marketdetail/main/MenuTabs'),
     MarketTitle: () => import('@/views/main/marketdetail/main/MarketTitle')
   },
-}
+  computed: {
+      get(){
+        return this.$store.getters["marketDetail/getTabs"]}
+    },
+  }
+
 </script>
 
 

@@ -17,7 +17,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          주문하기
+          주문
         </v-btn>
       </template>
       <v-card>

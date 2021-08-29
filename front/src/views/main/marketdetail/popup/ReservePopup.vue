@@ -1,19 +1,23 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="dialog"
+      v-model="floating.dialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
     >
       <template #activator="{ on, attrs }">
         <v-btn
+          fab
+          fixed
+          bottom
+          right
           color="primary"
           dark
           v-bind="attrs"
           v-on="on"
         >
-          예약 확인
+          예약
         </v-btn>
       </template>
       <v-card>
@@ -26,7 +30,7 @@
           <v-btn
             icon
             dark
-            @click="dialog = false"
+            @click="floating.dialog = false"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -129,5 +133,12 @@ export default {
       widgets: false,
     }
   },
+  computed: {
+    floating: {
+      get() {
+        return this.$store.getters["marketDetail/getFloating"]
+      }
+    }
+  }
 }
 </script>

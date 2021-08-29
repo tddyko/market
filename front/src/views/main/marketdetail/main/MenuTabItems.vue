@@ -32,6 +32,9 @@ export default {
     tabs: {
       get() {
         return this.$store.getters["marketDetail/getTabs"]
+      },
+      set(value){
+        this.$store.dispatch('marketDetail/actTabs', value)
       }
     }
   }

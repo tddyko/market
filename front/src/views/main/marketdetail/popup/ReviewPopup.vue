@@ -8,12 +8,16 @@
     >
       <template #activator="{ on, attrs }">
         <v-btn
+          fab
+          fixed
+          bottom
+          right
           color="primary"
           dark
           v-bind="attrs"
           v-on="on"
         >
-          리뷰 작성
+          리뷰
         </v-btn>
       </template>
       <v-card>
@@ -26,7 +30,7 @@
           <v-btn
             icon
             dark
-            @click="dialog = false"
+            @click="floating.dialog = false"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -117,5 +121,12 @@ export default {
       widgets: false,
     }
   },
+  computed: {
+    floating: {
+      get() {
+        return this.$store.getters["marketDetail/getFloating"]
+      }
+    }
+  }
 }
 </script>

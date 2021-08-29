@@ -32,7 +32,13 @@ export default {
         return this.$store.getters["marketDetail/getTabTitles"];
       }
     }
+  },
+  methods: {
+    get() {
+      return this.$store.getters['marketDetail/getTabs'];
+    },
   }
+
 }
 </script>
 
