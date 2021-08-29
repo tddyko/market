@@ -34,9 +34,11 @@ export default {
     },
     tap_size () {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm': return 'sm-h6'
         case 'md': return 'md-h6'
         case 'lg': return 'lg-h6'
-        default : return ''
+        case 'xl': return 'xl-h6'
+        default : return {}
       }
   }
   }
