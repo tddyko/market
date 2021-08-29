@@ -24,25 +24,38 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col xl="12">
-        <div class="text-h4">
+      <v-col
+        cols="5"
+        lg="5"
+        md="5"
+        sm="5"
+      >
+        <div :class="`text-${Font_Size}`">
           명륜진사갈비 반포점
         </div>
       </v-col>
-      <v-col xl="12">
+      <v-col
+        cols="5"
+        lg="5"
+        md="5"
+        sm="5"
+      >
         <v-rating
+          :size="`${Rating_size}`"
           background-color="grey"
           color="warning"
           dense
           half-increments
           hover
           length="5"
-          size="64"
           value="3"
         />
       </v-col>
       <v-col
-        xl="10"
+        cols="10"
+        lg="10"
+        md="10"
+        sm="10"
       >
         <v-textarea
           auto-grow
@@ -57,26 +70,59 @@
     </v-row>
     <v-row
       dense
-      justify="center"
+      justify="left"
     >
-      <v-col xl="1">
-        <v-file-input
-          height="40px"
-          hide-input
-          prepend-icon="mdi-camera"
-        />
+      <v-col
+        cols="auto"
+        lg="auto"
+        md="auto"
+        offset="1"
+        sm="auto"
+      >
+        <input
+          ref="imageInput"
+          hidden
+          multiple
+          type="file"
+          @change="onChangeImages"
+        >
+        <v-btn
+          :height="`${Button_Img_size}`"
+          :width="`${Button_Img_size}`"
+          color="primary"
+          outlined
+          rounded
+          type="button"
+          @click="onClickImgUpload"
+        >
+          <v-icon center>
+            mdi-camera
+          </v-icon>
+        </v-btn>
       </v-col>
-      <v-col xl="1">
+      <v-col
+        cols="auto"
+        lg="auto"
+        md="auto"
+        sm="auto"
+      >
         <v-img
+          :height="`${Button_Img_size}`"
+          :width="`${Button_Img_size}`"
           class="white--text align-end"
-          max-height="80"
-          max-width="80"
           src="https://picsum.photos/80"
         />
       </v-col>
     </v-row>
-    <v-row class="my-12">
-      <v-col>
+    <v-row
+      justify="end"
+    >
+      <v-col
+        cols="auto"
+        lg="auto"
+        md="auto"
+        sm="auto"
+      >
         <v-btn
           color="primary"
           depressed
@@ -84,6 +130,7 @@
           리뷰 완료
         </v-btn>
       </v-col>
+      <v-col cols="1" />
     </v-row>
   </v-card>
 </template>
@@ -95,8 +142,50 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
+    },
+    Font_Size() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return 'sm-h6'
+        case 'md':
+          return 'md-h4'
+        case 'lg':
+          return 'lg-h3'
+        default :
+          return 'h7'
+      }
+    },
+    Rating_size(){
+      switch (this.$vuetify.breakpoint.name){
+        case 'sm' : return '35'
+        case 'md' : return '50'
+        case 'lg' : return '60'
+        case 'xl' : return '65'
+        default : return '20'
+      }
+    },
+    Button_Img_size(){
+      switch (this.$vuetify.breakpoint.name){
+        case 'sm' : return '64'
+        case 'md' : return '74'
+        case 'lg' : return '84'
+        case 'xl' : return '94'
+        default : return '64'
+      }
     }
-  }
+  },
+  methods: {
+    onClickImgUpload () {
+      this.$refs.imageInput.click();
+    },
+    onChangeImages (e) {
+      console.log(e.target.files);
+      const imgFormData = new FormData();
+      [].forEach.call(e.target.files, (f) => {
+        imgFormData.append('img', f);
+      });
+    }
+  },
 }
 </script>
 
