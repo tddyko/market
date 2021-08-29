@@ -1,9 +1,8 @@
 <template>
-  <v-container>
-    <DashBoardOrder />
-    <DashBoardReserv />
-    <DashBoardBtn />
-  </v-container>
+  <div>
+    <DashBoardOrder class="mt-10" />
+    <DashBoardReserve class="mt-10" />
+  </div>
 </template>
 
 <script>
@@ -11,8 +10,7 @@
     name: "Dashboard",
     components: {
       DashBoardOrder : () => import('@/views/market/DashBoard/DashBoard_Order'),
-      DashBoardReserv : () => import('@/views/market/DashBoard/DashBoard_Reserve'),
-      DashBoardBtn : () => import('@/views/market/DashBoard/DashBoard_btn')
+      DashBoardReserve : () => import('@/views/market/DashBoard/DashBoard_Reserve'),
     },
    mounted() {
     this.$Axios({
