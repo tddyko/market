@@ -12,14 +12,11 @@
 </template>
 
 <script>
-import OrderPopup from "@/views/main/marketdetail/popup/OrderPopup";
-import ReservePopup from "@/views/main/marketdetail/popup/ReservePopup";
-import ReviewPopup from "@/views/main/marketdetail/popup/ReviewPopup";
 export default {
   components: {
-    ReviewPopup,
-    ReservePopup,
-    OrderPopup,
+    ReviewPopup: () => import('@/views/main/marketdetail/popup/ReviewPopup'),
+    ReservePopup: () => import('@/views/main/marketdetail/popup/ReservePopup'),
+    OrderPopup: () => import('@/views/main/marketdetail/popup/OrderPopup'),
     MenuTabItems: () => import('@/views/main/marketdetail/main/MenuTabItems'),
     MenuTabs: () => import('@/views/main/marketdetail/main/MenuTabs'),
     MarketTitle: () => import('@/views/main/marketdetail/main/MarketTitle')
