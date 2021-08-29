@@ -6,18 +6,26 @@
     <!-- 탭 내용 -->
     <menu-tab-items />
     <order-popup />
+    <reserve-popup />
+    <review-popup />
   </v-container>
 </template>
 
 <script>
-import OrderPopup from "@/views/main/marketdetail/popup/OrderPopup";
 export default {
   components: {
-    OrderPopup,
+    ReviewPopup: () => import('@/views/main/marketdetail/popup/ReviewPopup'),
+    ReservePopup: () => import('@/views/main/marketdetail/popup/ReservePopup'),
+    OrderPopup: () => import('@/views/main/marketdetail/popup/OrderPopup'),
     MenuTabItems: () => import('@/views/main/marketdetail/main/MenuTabItems'),
     MenuTabs: () => import('@/views/main/marketdetail/main/MenuTabs'),
     MarketTitle: () => import('@/views/main/marketdetail/main/MarketTitle')
   },
+  computed: {
+    getTabs() {
+      return this.$store.getters["tab/getTab"]
+    }
+  }
 }
 </script>
 
