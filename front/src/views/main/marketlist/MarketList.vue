@@ -40,15 +40,15 @@
 <script>
 export default {
   components: {
-    ListCard: () => import('@/views/main/ListCard')
+    ListCard: () => import('@/views/main/marketlist/ListCard')
   },
   computed: {
     select: {
       get() {
-        return this.$store.getters['market/getSelect'];
+        return this.$store.getters['marketList/getSelect'];
       },
       set(v) {
-        return this.$store.dispatch('market/actSelect', v)
+        return this.$store.dispatch('marketList/actSelect', v)
       }
     }
   },

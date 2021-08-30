@@ -12,48 +12,13 @@ const state = () => ({
   ],
   Tab: null,
   Reservation_List_Headers: [
-    {text: '예약번호', align: 'center', sortable: false, value: 'ReservationNum',},
-    {text: '예약시간', value: 'ReservationTime', align: 'center'},
-    {text: '예약내역', value: 'Reservationinfo', align: 'center'},
-    {text: '예약인원', value: 'Reservationset', align: 'center'},
-    {text: '예약상태', value: 'Reservation', align: 'center'},
+    {text: '예약번호', align: 'center', sortable: false, value: 'reservation_id',},
+    {text: '예약날짜', value: 'reserve_date', align: 'center'},
+    {text: '예약시간', value: 'reserve_time', align: 'center'},
+    {text: '예약인원', value: 'order_count', align: 'center'},
+    {text: '예약상태', value: 'current_state', align: 'center'},
   ],
   Reservation_List_Items:[
-    {
-      ReservationNum: "ABC-1fgasa-fadsf",
-      ReservationTime: "2021.01.01.(월) 오후3시 16분",
-      Reservationinfo: "허니콤보 외 1건",
-      Reservationset: 2,
-      Reservation: "예약 취소",
-    },
-    {
-      ReservationNum: "ABC-1fgasa-fadsf",
-      ReservationTime: "2021.01.01.(월) 오후3시 16분",
-      Reservationinfo: "허니콤보 외 1건",
-      Reservationset: 2,
-      Reservation: "예약 완료",
-    },
-    {
-      ReservationNum: "ABC-1fgasa-fadsf",
-      ReservationTime: "2021.01.01.(월) 오후3시 16분",
-      Reservationinfo: "허니콤보 외 1건",
-      Reservationset: 2,
-      Reservation: "예약 완료",
-    },
-    {
-      ReservationNum: "ABC-1fgasa-fadsf",
-      ReservationTime: "2021.01.01.(월) 오후3시 16분",
-      Reservationinfo: "허니콤보 외 1건",
-      Reservationset: 2,
-      Reservation: "예약 완료",
-    },
-    {
-      ReservationNum: "ABC-1fgasa-fadsf",
-      ReservationTime: "2021.01.01.(월) 오후3시 16분",
-      Reservationinfo: "허니콤보 외 1건",
-      Reservationset: 2,
-      Reservation: "예약 취소",
-    },
   ],
   Reservation_Review: [
     {

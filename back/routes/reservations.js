@@ -60,7 +60,7 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
     dayjs.locale('ko'); 
     console.log(req.body);
     console.log(req.query);  
-    var dateValue = req.query.dateValue; 
+    var dateValue = req.body.dateValue; 
     if(dateValue)
         var date = dayjs(dateValue).format('YYYY-MM-DD');
     else

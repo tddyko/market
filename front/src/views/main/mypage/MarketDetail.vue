@@ -312,6 +312,20 @@ export default {
       { title: '치즈 가츠', flex: 9 },
     ],
   }),
+  created(){ 
+    console.log(this.$route.params)
+  },
+  methods: {
+    reservation(){
+      this.$Axios({ 
+        url : `http://localhost/reservation/in/${this.$route.params}`,
+        method : 'get',
+        withCredentials : true,
+      }).then((response)=>{
+        console.log(response)
+      })
+    } 
+  }
 }
 </script>
 

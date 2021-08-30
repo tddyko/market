@@ -22,9 +22,12 @@ export default {
       return this.$store.getters["order/Get_Order_List_Headers"]
     },
     Get_List_Items(){
+      console.log("wow")
       return this.$store.getters["order/Get_Order_List_Items"]
     },
-  }
+   
+  },
+  
 }
 </script>
 

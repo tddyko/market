@@ -5,10 +5,10 @@ const { isLoggedInMarket} = require('./middlewares');
 const {v4: uuidv4} = require('uuid');
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
-
+const fs = require('fs');
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
-const upload = setMulter('./public/images/market_inform_images/');
+const upload = setMulter('./public/images/market_inform_images/'); 
 router.post('/category',isLoggedInMarket, async (req,res)=>{
         await Market.findOne({where : {market_id : req.user.market_id}}).then(async(market)=>{
             await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
@@ -23,12 +23,13 @@ router.post('/category',isLoggedInMarket, async (req,res)=>{
         });
 });
 
+
+ 
 /* localhost//mymarket/update/infrom */
 router.post('/inform',isLoggedInMarket,
     //upload.fields([{name : 'profile_img',maxCount : 1},{name : 'info_img',maxCount : 3}]
     upload.single('profile_img'),
     async(req,res)=>{    
-    console.log(req.file)
     let {market_phone,start_time,end_time,market_coment} =  req.body; 
     let inputData = {market_phone,start_time,end_time,market_coment};
     inputData.market_id = req.user.market_id;
@@ -38,8 +39,10 @@ router.post('/inform',isLoggedInMarket,
         {
             where : {market_id : req.user.market_id}}).then(
                 r => {
-                    if(r)return true 
-                    else return false})
+                    if(r){         
+                        fs.rename('./public/images/market_inform_images/'+req.file.filename,
+                    './public/images/user_signup_images/'+req.file.filename,function(err){console.log(err)})
+                    }else return false})
     }
     if(req.files){
         await Market_inform.findOne({where : {market_id : req.user.market_id},raw : true})
@@ -65,7 +68,7 @@ router.post('/inform',isLoggedInMarket,
         holidayData.market_inform_id = findInformId.market_inform_id;
         isSuccess = await updateOrCreate(Market_inform_holiday,findInformId,holidayData);
     }
-    res.json({message : "Succeed"})
+ 
 })
 
 

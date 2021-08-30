@@ -115,18 +115,13 @@ export default {
     login_switch: null,
   }),
   methods:  {
-<<<<<<<< HEAD:front/src/views/login/login.vue
-
-========
->>>>>>>> origin/origin/kibeom2:front/src/views/market/login/login.vue
+ 
     async login() {
          this.$Axios({
            method: 'post',
               url: "http://localhost/login",
-<<<<<<<< HEAD:front/src/views/login/login.vue
+               
               headers: {},
-========
->>>>>>>> origin/origin/kibeom2:front/src/views/market/login/login.vue
               withCredentials: true, //쿠키가 서로 저장
               data: {
                 // This is the body part

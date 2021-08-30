@@ -53,11 +53,6 @@ export default {
         this.$store.dispatch('market_modules/Order_Set_Date_Actions', value)
       }
     }
-  },
-  methods: {
-    update(){
-      this.$store.commit("market_modules/Order_Update_Menu");
-    }
   }
 }
 </script>

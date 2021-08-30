@@ -19,16 +19,19 @@ router.get('/', isLoggedInMarket, async (req, res) => {
        daterange.push(dayjs().set('hour', i).set('minute',0).format('YYYY-MM-DD HH:mm'))
         console.log(daterange)
     
-    let datas = new Object();
-    datas.times = daterange
-    datas.ordertotalCount = await getValues(Order, daterange,'주문');
-    datas.ordercompletedCount = await getValues(Order, daterange,'주문완료');
-    datas.ordercancelCount = await getValues(Order, daterange,'주문취소');
-    datas.reservetotalCount = await getValues(Reservation, daterange,'예약');
-    datas.reservecompletedCount = await getValues(Reservation, daterange,'예약완료');
-    datas.reservecancelCount = await getValues(Reservation, daterange,'예약취소');
+    let datas = []
+
+    datas.push({time : daterange})
+    datas.push({ value : await getValues(Order, daterange,'주문') });
+    datas.push({ value : await getValues(Order, daterange,'주문완료') });
+    datas.push({ value : await getValues(Order, daterange,'주문취소') });
+
+    datas.push({ value : await getValues(Reservation, daterange,'예약') });
+    datas.push({ value : await getValues(Reservation, daterange,'예약완료') });
+    datas.push({ value : await getValues(Reservation, daterange,'예약취소') });
+ 
     res.json(datas)
-   
+    console.log(datas[0].time);
 });
 
 async function getValues(tableName,daterange,current_state){

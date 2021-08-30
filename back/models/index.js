@@ -5,6 +5,7 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
+const {v4: uuidv4} = require('uuid');
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
@@ -42,5 +43,14 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+let categorys = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리'] 
 
+createCategory(categorys)
+async function createCategory(categorys){
+  let count =await db.Category.count({})
+  if(count < categorys.length) 
+  for(let i = 0; i<categorys.length; i++){
+    await db.Category.create({category_id: uuidv4(), name: categorys[i]}) 
+  }
+}
 module.exports = db;

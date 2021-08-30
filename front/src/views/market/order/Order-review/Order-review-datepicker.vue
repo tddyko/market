@@ -53,7 +53,7 @@ export default {
         this.$store.dispatch("market_modules/Order_Set_Dates_Actions", value)
       },
       get(){
-      return this.$store.getters["market_modules/Order_Get_Dates"]
+        return this.$store.getters["market_modules/Order_Get_Dates"]
       },
     },
     Date_center_join () {
