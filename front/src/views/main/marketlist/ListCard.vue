@@ -55,7 +55,7 @@ export default {
   methods: {
      
     test(card){  
-      this.$router.push({name : 'marketdetail', params : {market_name : card.market_name}})
+      this.$router.push({name : 'MarketDetail', params : {market_name : card.market_name}})
     },
     imgSrc(name){ 
       console.log(name) 
