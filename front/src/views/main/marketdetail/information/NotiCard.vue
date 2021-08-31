@@ -2,7 +2,6 @@
   <v-card
     class="mx-auto my-10"
     elevation="2"
-    max-width="1200"
   >
     <v-row>
       <v-col>
@@ -30,25 +29,20 @@
         />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row
+      justify="center"
+    >
       <v-col>
-        <div class="text--secondary">
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-
-          매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내
-        </div>
+        <v-textarea
+          class="ma-1"
+          hide-details
+          height="200"
+          outlined
+          dense
+          readonly
+          rounded
+          value="매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내"
+        />
       </v-col>
     </v-row>
   </v-card>
@@ -64,7 +58,7 @@ export default {
         case 'md' : return '120'
         case 'lg' : return '150'
         case 'xl' : return '150'
-        default : return '70'
+        default : return '64'
       }
     },
   }

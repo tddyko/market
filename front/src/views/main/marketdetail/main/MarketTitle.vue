@@ -23,7 +23,7 @@
         >
           <div
             class="text-h3 text-left font-weight-bold my-16"
-            :class="`text-${Title_Font_size}`"
+            :class="`text-${Font_size}`"
           >
             백종원이 인정한 연돈 <small>일식</small>
           </div>
@@ -47,7 +47,7 @@
           cols="12"
         >
           <h4
-            :class="`text-${Title_Font_size}`"
+            :class="`text-${Font_size}`"
           >
             경기도 김포시 00동 000-00
           </h4>
@@ -56,7 +56,7 @@
           cols="12"
         >
           <h4
-            :class="`text-${Title_Font_size}`"
+            :class="`text-${Font_size}`"
           >
             031-000-0000
           </h4>
@@ -93,7 +93,7 @@ export default {
         default : return '20'
       }
     },
-    Title_Font_size(){
+    Font_size(){
       switch (this.$vuetify.breakpoint.name){
         case 'sm' : return 'sm-h5'
         case 'md' : return 'md-h4'

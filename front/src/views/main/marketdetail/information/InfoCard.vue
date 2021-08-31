@@ -2,7 +2,6 @@
   <v-card
     class="mx-auto my-10"
     elevation="2"
-    max-width="1200"
   >
     <v-row>
       <v-col>
