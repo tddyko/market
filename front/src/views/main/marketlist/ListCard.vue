@@ -7,7 +7,9 @@
         :cols="card.flex"
       >
         <!-- 반복될 카드 -->
-        <v-card>
+        <v-card
+          to="/marketdetail"
+        >
           <v-img
             :src="card.src"
             class="white--text align-end"
@@ -23,17 +25,15 @@
             <v-icon color="red lighten-2">
               mdi-heart
             </v-icon>
-            <v-btn
-              text
+            <label
+              class="mr-3"
             >
-              {{}}
-            </v-btn>
+              2
+            </label>
             <v-icon>mdi-comment-processing-outline</v-icon>
-            <v-btn
-              text
-            >
-              {{}}
-            </v-btn>
+            <label>
+              3
+            </label>
           </v-card-actions>
         </v-card>
         <!-- 카드 끝 -->
