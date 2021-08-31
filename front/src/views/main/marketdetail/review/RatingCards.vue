@@ -3,6 +3,7 @@
     class="mt-10 mx-auto"
   >
     <v-row
+      class="mr-3"
       justify="space-between"
     >
       <v-col
