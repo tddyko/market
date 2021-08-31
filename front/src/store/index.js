@@ -9,6 +9,7 @@ import info from "@/store/market/Info";
 import market_modules from "@/store/market/Market_modules";
 import market_list from "@/store/main/marketlist";
 import market_detail from "@/store/main/marketdetail";
+import DashBoard from "@/store/market/DashBoard";
 
 Vue.use(Vuex);
 
@@ -23,6 +24,7 @@ const store = new Vuex.Store({
     ...info,
     ...market_list,
     ...market_detail,
+    ...DashBoard
   },
 });
 

@@ -18,6 +18,17 @@ const state = () => ({
   Open_Time: null,
   Open_Time_Menu: false,
   Close_Time_Menu: false,
+  Info_Image:[
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    },
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    },
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    }
+  ]
 })
 const getters = {
   Get_Info_Tab(state) {
@@ -47,7 +58,8 @@ const getters = {
   },
   Get_Close_Time_Menu(state){
     return state.Close_Time_Menu;
-  }
+  },
+  Get_Info_Operrational_img:(state) => state.Info_Image
 };
 
 const mutations = {
