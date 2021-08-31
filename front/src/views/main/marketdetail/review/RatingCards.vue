@@ -23,6 +23,7 @@
         />
       </v-col>
       <v-divider
+        class="my-3"
         inset
         vertical
       />
@@ -75,11 +76,11 @@ export default {
     },
     Rating_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'sm' : return '35'
-        case 'md' : return '50'
-        case 'lg' : return '60'
-        case 'xl' : return '65'
-        default : return '15'
+        case 'sm' : return '50'
+        case 'md' : return '60'
+        case 'lg' : return '70'
+        case 'xl' : return '80'
+        default : return '18'
       }
     },
   }

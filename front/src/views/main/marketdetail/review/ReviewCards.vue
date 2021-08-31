@@ -53,7 +53,7 @@
         </v-col>
         <v-col
           align="start"
-          class="font-weight-light mr-1"
+          :class="`text-${Font_size}`"
           lg="9"
           md="9"
           xl="9"
@@ -68,8 +68,10 @@
           />
         </v-col>
         <v-col
-          align="center"
+          align="left"
           class="mt-1"
+          cols="12"
+          sm="12"
           lg="12"
           md="12"
           xl="12"
@@ -77,21 +79,24 @@
           <img
             alt="John"
             class="rounded-lg ma-2"
-            height="200"
+            :height="`${Img_size}`"
             src="https://cdn.vuetifyjs.com/images/john.jpg"
-            width="200"
+            :width="`${Img_size}`"
           >
         </v-col>
         <v-col
           class="ma-2"
-          lg="8"
-          md="8"
-          xl="12"
+          lg="10"
+          md="10"
+          xl="10"
         >
-          <v-text-field
+          <v-textarea
             :class="`text-${Font_size}`"
             hide-details
+            height="200"
             outlined
+            dense
+            readonly
             placeholder="내용을 입력하세요."
             rounded
             value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
@@ -118,13 +123,22 @@ export default {
     },
     Font_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'sm' : return 'sm-body-1'
+        case 'sm' : return 'sm-body-2'
         case 'md' : return 'md-body-1'
         case 'lg' : return 'lg-body-1'
         case 'xl' : return 'xl-body-1'
-        default : return 'h1'
+        default : return 'body-2'
       }
     },
+    Img_size(){
+      switch (this.$vuetify.breakpoint.name){
+        case 'sm' : return '100'
+        case 'md' : return '120'
+        case 'lg' : return '140'
+        case 'xl' : return '150'
+        default : return '80'
+      }
+    }
   }
 }
 </script>
