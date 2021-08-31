@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col xl="9">
         <v-expansion-panels
           v-model="panel"
           :disabled="disabled"

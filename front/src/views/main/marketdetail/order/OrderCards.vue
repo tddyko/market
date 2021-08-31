@@ -36,6 +36,10 @@
             </v-col>
             <v-col
               cols="8"
+              sm="3"
+              md="5"
+              lg="5"
+              xl="8"
             >
               <v-card-title v-text="card.title" />
               <v-card-text class="text-left text--secondary">
@@ -47,7 +51,6 @@
             </v-col>
             <v-card-actions>
               <v-spacer />
-
               <v-btn
                 color="indigo"
                 outlined
