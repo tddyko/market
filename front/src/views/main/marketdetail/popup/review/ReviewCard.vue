@@ -109,7 +109,7 @@
         <v-img
           :height="`${Button_Img_size}`"
           :width="`${Button_Img_size}`"
-          class="white--text align-end"
+          class="white--text align-end rounded-xl"
           src="https://picsum.photos/80"
         />
       </v-col>
