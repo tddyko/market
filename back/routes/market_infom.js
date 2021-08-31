@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Market,Member,Market_inform_img,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
+const {Market,Member,Market_inform_img,Category,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
 ,Market_inform_holiday,Product_img,Reserve_review_img,Reservation} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
@@ -169,7 +169,7 @@ router.get('/:marketNm/order_reviews',async(req, res)=>{
 })
 
 
-
+/* localhost/market_preview/:가게이름/imformation */
 router.get('/:marketNm/imformation',async(req, res)=>{
     dayjs.locale('ko') 
     let result = await Market.findOne({
@@ -177,8 +177,9 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         include : [{
             model : Market_inform,
             required: false,
-            attributes : ['market_inform_id','start_time','end_time'],  
-           include : [{
+            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment'],  
+           include : [ 
+            {
                 model : Market_noti_img,
                 required: false,
                 attributes : ['market_noti_img'],
@@ -187,9 +188,12 @@ router.get('/:marketNm/imformation',async(req, res)=>{
                 model : Market_inform_holiday,
                 required: false,
                 attributes : ['market_inform_week_holiday','market_inform_day_holiday']
-            }]
-        }
-        ],
+            }
+           ]
+        },{
+            model : Category,
+            attributes : ['name']
+        }],
         attributes : [
             'name','market_name','address','phonenumber','profile_img',[
                 sequelize.fn('concat',sequelize.col('address'),' ' ,sequelize.col('dt_address')),'market_address']

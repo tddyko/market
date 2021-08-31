@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {v4: uuidv4} = require('uuid');
 const multer = require('multer');
-const {Product_img, Product, Pd_option_group, Pd_option} = require('../models');
+const {Market,Product_img, Product, Pd_option_group, Pd_option} = require('../models');
 const { isLoggedInMarket, isNotLoggedIn } = require('./middlewares');
 
 //이미지 파일 저장 관련 설정
@@ -98,6 +98,11 @@ router.get('/list/:marketname', async(req,res) => {
             {
                 model : Product_img,
                 attributes : ['product_img']
+            },
+            {
+                model : Pd_option_group,
+                attributes : ['name'],
+                include :[{model : Pd_option, attributes : ['name','price']}]
             }
         ],
         attributes : ['product_id','name','price','product_info'],
@@ -110,7 +115,7 @@ router.get('/list/:marketname', async(req,res) => {
 localhost/menu/option/:메뉴uuid 메뉴선택
 */
 router.get('/option/:product_id', async(req,res)=> {
-    let pd_option_group_id = await Pd_option_group.findAll({
+    let {pd_option_group_id} = await Pd_option_group.findAll({
         attributes : ['pd_option_group_id'],
         where : {product_id : req.params.product_id},
         raw : true
