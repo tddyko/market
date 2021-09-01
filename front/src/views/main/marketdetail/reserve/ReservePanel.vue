@@ -66,8 +66,8 @@
                   xl="5"
                 >
                   <v-btn
-                    v-if="reservations_Number === 0 && test"
-                    min-width="10"
+                    v-if="reservations_Number === 1"
+                    :min-width="`${test}`"
                     class="btn-people"
                     outlined
                     disabled
@@ -77,23 +77,7 @@
                   <v-btn
                     v-else-if="test"
                     class="btn-people"
-                    min-width="10"
-                    outlined
-                    @click="setReservations_number_minus"
-                  >
-                    -
-                  </v-btn>
-                  <v-btn
-                    v-else-if="reservations_Number === 0"
-                    class="btn-people"
-                    disabled
-                    outlined
-                  >
-                    -
-                  </v-btn>
-                  <v-btn
-                    v-else
-                    class="btn-people"
+                    :min-width="`${test}`"
                     outlined
                     @click="setReservations_number_minus"
                   >
@@ -101,17 +85,8 @@
                   </v-btn>
                   <span>{{ reservations_Number }}명</span>
                   <v-btn
-                    v-show="$vuetify.breakpoint.name === 'xs'"
                     class="btn-people"
-                    outlined
-                    min-width="10"
-                    @click="setReservations_number_plus"
-                  >
-                    +
-                  </v-btn>
-                  <v-btn
-                    v-show="$vuetify.breakpoint.name !== 'xs'"
-                    class="btn-people"
+                    :min-width="`${test}`"
                     outlined
                     @click="setReservations_number_plus"
                   >
@@ -134,9 +109,9 @@ export default {
     test() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
-          return true;
+          return 10;
         default:
-          return false;
+          return {};
       }
     },
     reserveTime: {
