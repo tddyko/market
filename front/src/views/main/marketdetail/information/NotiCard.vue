@@ -1,7 +1,6 @@
 <template>
   <v-card
     class="mx-auto my-10"
-    elevation="2"
   >
     <v-row>
       <v-col>
@@ -17,14 +16,14 @@
       <v-col
         v-for="n in 6"
         :key="n"
-        cols="2"
         align="center"
+        cols="2"
       >
         <v-img
-          class="my-10 rounded-xl"
-          lazy-src="https://picsum.photos"
           :height="`${Img_size}`"
           :width="`${Img_size}`"
+          class="my-10 rounded-xl"
+          lazy-src="https://picsum.photos"
           src="https://picsum.photos/150"
         />
       </v-col>
@@ -35,10 +34,10 @@
       <v-col>
         <v-textarea
           class="ma-1"
-          hide-details
-          height="200"
-          outlined
           dense
+          height="200"
+          hide-details
+          outlined
           readonly
           rounded
           value="매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내"

@@ -50,16 +50,17 @@
         cols="12"
       >
         <v-card
+          class="mx-auto my-10"
           flat
-          height="160px"
           outlined
         >
           <v-row
             align="center"
             class="mx-1"
-            justify="space-between"
+            justify="center"
           >
             <v-col
+              align="center"
               cols="3"
             >
               <v-img
@@ -84,23 +85,37 @@
             <v-col
               cols="4"
             >
-              <v-card-actions>
-                <v-btn
-                  color="indigo"
-                  disabled
-                  outlined
-                  width="1em"
-                >
-                  -
-                </v-btn>
-                <span class="ma-5">1</span>
-                <v-btn
-                  color="indigo"
-                  outlined
-                >
-                  +
-                </v-btn>
-              </v-card-actions>
+              <v-btn
+                v-if="reservations_Number === 0"
+                :min-height="`${btn_Height_Size}`"
+                :min-width="`${btn_Width_Size}`"
+                class="btn-people pa-0"
+                disabled
+                outlined
+                @click="setReservations_number_minus"
+              >
+                -
+              </v-btn>
+              <v-btn
+                v-else
+                :min-height="`${btn_Height_Size}`"
+                :min-width="`${btn_Width_Size}`"
+                class="btn-people pa-0"
+                outlined
+                @click="setReservations_number_minus"
+              >
+                -
+              </v-btn>
+              <span>{{ reservations_Number }}</span>
+              <v-btn
+                :min-height="`${btn_Height_Size}`"
+                :min-width="`${btn_Width_Size}`"
+                class="btn-people pa-0"
+                outlined
+                @click="setReservations_number_plus"
+              >
+                +
+              </v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -139,7 +154,48 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
+    },
+    reservations_Number:{
+      get() {
+        return this.$store.getters["marketDetail/getReservations_number"]
+      }
+    },
+    btn_Width_Size() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return '24'
+        case 'md':
+          return '64'
+        case 'lg':
+          return '64'
+        case 'xl':
+          return '64'
+        default :
+          return '20'
+        }
+      },
+    btn_Height_Size() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return '16'
+        case 'md':
+          return '26'
+        case 'lg':
+          return '36'
+        case 'xl':
+          return '36  '
+        default :
+          return '5'
+      }
     }
+  },
+  methods: {
+    setReservations_number_plus(){
+      this.$store.dispatch('marketDetail/actReservations_number_plus')
+    },
+    setReservations_number_minus(){
+      this.$store.dispatch('marketDetail/actReservations_number_minus')
+    },
   }
 }
 </script>

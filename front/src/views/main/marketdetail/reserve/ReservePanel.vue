@@ -3,9 +3,9 @@
     <v-row justify="center">
       <v-col
         cols="10"
-        sm="12"
-        md="10"
         lg="9"
+        md="10"
+        sm="12"
         xl="9"
       >
         <v-expansion-panels
@@ -55,8 +55,8 @@
                   <v-btn
                     v-if="reservations_Number === 0"
                     class="btn-people"
-                    outlined
                     disabled
+                    outlined
                   >
                     -
                   </v-btn>
@@ -108,7 +108,7 @@ export default {
     setReservations_number_minus(){
       this.$store.dispatch('marketDetail/actReservations_number_minus')
     },
-    }
+  }
 }
 </script>
 
