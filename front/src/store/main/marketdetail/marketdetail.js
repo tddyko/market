@@ -1,4 +1,5 @@
 const state = () => ({
+  reservations_number: 1,
   tabs: null,
   tabTitles: [
     { title: "주문" },
@@ -57,8 +58,8 @@ const state = () => ({
     "20:00",
   ],
   cards: [
-    { title: "등심 가츠", flex: 9 },
-    { title: "치즈 가츠", flex: 9 },
+    { title: "등심 가츠", flex: 10 },
+    { title: "치즈 가츠", flex: 10 },
   ],
   floating: [
     { direction: "top" },
@@ -89,6 +90,7 @@ const getters = {
   getRatingPoint: (state) => state.ratingPoint,
   getRating: (state) => state.rating,
   getFloating: (state) => state.floating,
+  getReservations_number: (state) => state.reservations_number
 };
 
 const mutations = {
@@ -107,6 +109,12 @@ const mutations = {
   setReserveTime(state, data) {
     state.reserveTime = data;
   },
+  setReservations_number_plus(state){
+    state.reservations_number += 1;
+  },
+  setReservations_number_minus(state){
+    state.reservations_number -= 1;
+  }
 };
 
 const actions = {
@@ -125,6 +133,12 @@ const actions = {
   actReserveTime({ commit }, value) {
     commit("setReserveTime", value);
   },
+  actReservations_number_plus({ commit }){
+    commit("setReservations_number_plus");
+  },
+  actReservations_number_minus({commit}){
+    commit("setReservations_number_minus");
+  }
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

@@ -2,7 +2,11 @@
   <!-- Menu chips -->
   <v-row justify="center">
     <v-col
-      cols="5"
+      cols="10"
+      sm="8"
+      md="7"
+      lg="7"
+      xl="5"
     >
       <v-sheet
         class="py-10"
