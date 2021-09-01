@@ -20,7 +20,7 @@
           <v-icon>mdi-cart-variant</v-icon>
         </v-btn>
       </template>
-      <order-card />
+      <order-cart />
     </v-dialog>
   </v-row>
 </template>
@@ -29,7 +29,7 @@
 export default {
   name: "OrderDialog",
   components: {
-    OrderCard: () => import('@/views/main/marketdetail/popup/order/OrderCard')
+    OrderCart: () => import('@/views/main/marketdetail/popup/order/OrderCart')
   },
   computed: {
     floating: {
