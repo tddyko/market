@@ -75,7 +75,7 @@
                     -
                   </v-btn>
                   <v-btn
-                    v-else-if="test"
+                    v-else
                     class="btn-people"
                     :min-width="`${test}`"
                     outlined
@@ -111,7 +111,7 @@ export default {
         case 'xs':
           return 10;
         default:
-          return {};
+          return 60;
       }
     },
     reserveTime: {
