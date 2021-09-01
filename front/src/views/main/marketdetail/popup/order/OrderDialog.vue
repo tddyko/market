@@ -17,7 +17,12 @@
           v-bind="attrs"
           v-on="on"
         >
-          <v-icon>mdi-cart-variant</v-icon>
+          <v-badge
+            color="red"
+            content="6"
+          >
+            <v-icon>mdi-cart-variant</v-icon>
+          </v-badge>
         </v-btn>
       </template>
       <order-cart />
