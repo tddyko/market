@@ -66,19 +66,10 @@
                   xl="5"
                 >
                   <v-btn
-                    v-if="reservations_Number === 1"
-                    :min-width="`${test}`"
+                    :min-width="`${btn_width}`"
                     class="btn-people"
                     outlined
-                    disabled
-                  >
-                    -
-                  </v-btn>
-                  <v-btn
-                    v-else
-                    class="btn-people"
-                    :min-width="`${test}`"
-                    outlined
+                    :disabled="btn_disabled"
                     @click="setReservations_number_minus"
                   >
                     -
@@ -86,7 +77,7 @@
                   <span>{{ reservations_Number }}명</span>
                   <v-btn
                     class="btn-people"
-                    :min-width="`${test}`"
+                    :min-width="`${btn_width}`"
                     outlined
                     @click="setReservations_number_plus"
                   >
@@ -106,13 +97,16 @@
 export default {
   name: "ReservePanel",
   computed: {
-    test() {
+    btn_width() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
           return 10;
         default:
           return 60;
       }
+    },
+    btn_disabled() {
+      return this.reservations_Number === 1;
     },
     reserveTime: {
       get() {
