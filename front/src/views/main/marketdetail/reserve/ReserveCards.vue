@@ -17,8 +17,8 @@
         :cols="card.flex"
         sm="12"
         md="10"
-        lg="9"
-        xl="9"
+        lg="10"
+        xl="10"
       >
         <!-- 반복될 카드 -->
         <v-card

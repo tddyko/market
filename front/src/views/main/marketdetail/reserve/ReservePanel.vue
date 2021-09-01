@@ -5,8 +5,8 @@
         cols="10"
         sm="12"
         md="10"
-        lg="9"
-        xl="9"
+        lg="10"
+        xl="10"
       >
         <v-expansion-panels
           v-model="panel"
@@ -48,15 +48,46 @@
             <v-expansion-panel-header>인원 선택</v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                  lg="7"
+                  xl="7"
+                >
                   <div>예약 인원수를 선택해주세요</div>
                 </v-col>
-                <v-col>
+                <v-col
+                  align="center"
+                  cols="12"
+                  sm="6"
+                  md="6"
+                  lg="5"
+                  xl="5"
+                >
                   <v-btn
-                    v-if="reservations_Number === 0"
+                    v-if="reservations_Number === 0 && test"
+                    min-width="10"
                     class="btn-people"
                     outlined
                     disabled
+                  >
+                    -
+                  </v-btn>
+                  <v-btn
+                    v-else-if="test"
+                    class="btn-people"
+                    min-width="10"
+                    outlined
+                    @click="setReservations_number_minus"
+                  >
+                    -
+                  </v-btn>
+                  <v-btn
+                    v-else-if="reservations_Number === 0"
+                    class="btn-people"
+                    disabled
+                    outlined
                   >
                     -
                   </v-btn>
@@ -68,8 +99,18 @@
                   >
                     -
                   </v-btn>
-                  <span>{{ reservations_Number }}</span>
+                  <span>{{ reservations_Number }}명</span>
                   <v-btn
+                    v-show="$vuetify.breakpoint.name === 'xs'"
+                    class="btn-people"
+                    outlined
+                    min-width="10"
+                    @click="setReservations_number_plus"
+                  >
+                    +
+                  </v-btn>
+                  <v-btn
+                    v-show="$vuetify.breakpoint.name !== 'xs'"
                     class="btn-people"
                     outlined
                     @click="setReservations_number_plus"
@@ -90,25 +131,33 @@
 export default {
   name: "ReservePanel",
   computed: {
+    test() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return true;
+        default:
+          return false;
+      }
+    },
     reserveTime: {
       get() {
         return this.$store.getters["marketDetail/getReserveTime"]
       }
     },
-    reservations_Number:{
+    reservations_Number: {
       get() {
         return this.$store.getters["marketDetail/getReservations_number"]
       }
     }
   },
   methods: {
-    setReservations_number_plus(){
+    setReservations_number_plus() {
       this.$store.dispatch('marketDetail/actReservations_number_plus')
     },
-    setReservations_number_minus(){
+    setReservations_number_minus() {
       this.$store.dispatch('marketDetail/actReservations_number_minus')
     },
-    }
+  }
 }
 </script>
 
