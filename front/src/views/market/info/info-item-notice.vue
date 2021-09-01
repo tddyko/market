@@ -10,66 +10,90 @@
       <v-form>
         <v-container>
           <v-row
-            justify="center"
             align="center"
-            class="mt-5"
+            class="mt-5 ml-1"
+            justify="center"
           >
             <v-col
-              lg="9"
               align="start"
+              sm="10"
+              md="10"
+              lg="10"
+              xl="10"
             >
               공지사항
             </v-col>
           </v-row>
-          <v-row
-            justify="center"
-            align="center"
-          >
-            <v-col
-              lg="9"
+          <v-container>
+            <v-row
+              align="center"
+              justify="center"
             >
-              <v-textarea
-                ref="test"
-                outlined
-                dense
-                hide-details
-                no-resize
-                rows="10"
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            justify="start"
-            align="center"
-          >
-            <v-col
-              lg="4"
-            >
-              <input
-                ref="imageInput"
-                type="file"
-                multiple
-                hidden
+              <v-col
+                sm="10"
+                md="10"
+                lg="10"
+                xl="10"
               >
-              <v-btn
-                class="rounded-xl"
-                type="button"
-                min-width="auto"
+                <v-textarea
+                  ref="test"
+                  dense
+                  hide-details
+                  no-resize
+                  outlined
+                  rows="10"
+                  @input="notiInput($event)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="10"
+                md="10"
+                lg="10"
+                xl="10"
+                align="start"
               >
-                <v-icon>
-                  mdi-camera
-                </v-icon>
-                사진선택
-              </v-btn>
-            </v-col>
-          </v-row>
+                <input
+                  ref="imageInput"
+                  hidden
+                  multiple
+                  type="file"
+                  @change="fileInput"
+                >
+                <v-btn
+                  color="primary"
+                  class="rounded-lg mb-12 mr-5"
+                  outlined
+                  type="button"
+                  width="60"
+                  height="60"
+                  @click="onClickImgUpload"
+                >
+                  <v-icon bottom>
+                    mdi-camera
+                  </v-icon>
+                </v-btn>
+                <div class="d-inline-flex">
+                  <v-img
+                    v-for="(imageInput,index) in notiImgPrivew"
+                    v-show="notiImgPrivew != null"
+                    :key="index"
+                    :src="imageInput"
+                    class="mr-3"
+                    max-width="60"
+                  />
+                </div>
+              </v-col>
+            </v-row>
+          </v-container>
           <div class="text-center">
             <v-btn
               class="mt-10 rounded-lg text-center"
               color="primary"
-              width="80"
               height="40"
               type="submit"
+              width="80"
+              @click="submit"
             >
               저장
             </v-btn>
@@ -82,10 +106,41 @@
 
 <script>
 export default {
-  name: "InfoItemNotice"
+  name: "InfoItemNotice",
+  data(){
+    return {
+      notiImgPrivew : []
+    }
+  },
+  computed: {
+    Get_Image(){
+      return this.$store.getters["info/Get_notice_img"]
+    },
+  },
+  methods: {
+    onClickImgUpload () {
+      this.$refs.imageInput.click();
+    },
+    fileInput(){
+      for(let i = 0; i < this.$refs.imageInput.files.length; i++){
+        this.$store.commit("info/Set_notice_img",[
+          ...this.$store.getters["info/Get_notice_img"]
+          ,this.$refs.imageInput.files[i]
+        ])
+        this.notiImgPrivew = [...this.notiImgPrivew,
+         URL.createObjectURL(this.$refs.imageInput.files[i])]
+        console.log(this.$store.getters["info/Get_notice_img"])
+      }
+    },
+    notiInput(event) {
+      this.$store.commit("info/Set_notice", event)
+    },
+    submit(){
+      this.$store.dispatch("info/sendNotices")
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 </style>

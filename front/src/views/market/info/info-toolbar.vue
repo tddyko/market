@@ -6,7 +6,7 @@
     elevation="3"
   >
     <v-row justify="start">
-      <v-col lg="5">
+      <v-col>
         <InfoTabs />
       </v-col>
     </v-row>
@@ -23,5 +23,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

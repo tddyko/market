@@ -1,13 +1,17 @@
 <template>
   <div>
     <v-tabs-items
-      v-for="Reservation_items in ReviewTabsItems"
-      :key="Reservation_items"
       v-model="Tab"
     >
-      <v-tab-item>
+      <v-tab-item
+       v-for="a in 3"
+        :key="a" 
+      >
         <v-divider />
-        <v-card>
+        <v-card
+          v-for="(review_items,index) in ReviewTabsItems"
+          :key="index"
+        >
           <v-card-text>
             <v-container>
               <v-row
@@ -22,7 +26,7 @@
                 >
                   <v-avatar>
                     <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                      :src="imgSrc(review_items.Member.profile_img)"
                       alt="John"
                     >
                   </v-avatar>
@@ -34,7 +38,7 @@
                   class="font-weight-bold"
                   :class="`text-${Font_Size}`"
                 >
-                  {{ Reservation_items.Nickname }}
+                   {{ review_items.Member.nickname }}
                 </v-col>
                 <v-col
                   lg="9"
@@ -43,15 +47,16 @@
                   class="font-weight-light mr-1"
                   :class="`text-${Date_Font_Size}`"
                   align="start"
+                  @click="showRecoment(review_items)"
                 >
                   <div class="mx-5">
                     <div class="ml-1">
-                      {{ Reservation_items.Date_issue }}
+                       {{ review_items.created_date }}
                     </div>
                     <div>
                       <v-rating
                         id="Rating-Inline"
-                        :value="`${Reservation_items.Rating}`"
+                        :value="`${review_items.rating}`"
                         background-color="warning lighten-1"
                         color="orange"
                         half-increments
@@ -59,21 +64,25 @@
                         readonly
                         :size="`${Rating_size}`"
                       />
-                      ({{ Reservation_items.Rating }})
+                       ({{ review_items.rating }})
                     </div>
                   </div>
                 </v-col>
                 <v-col
+                 v-if="review_items.Reserve_review_imgs.length>0"
                   lg="12"
                   md="12"
                   xl="12"
                   align="center"
                   class="mt-1"
+                  @click="showRecoment(review_items)"
                 >
                   <img
+                   v-for="(images,index) in review_items.Reserve_review_imgs"
+                    :key="index"
                     height="200"
                     width="200"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    :src="imgSrc(images.reserve_review_img)"
                     alt="John"
                     class="rounded-lg ma-2"
                   >
@@ -83,9 +92,10 @@
                   md="8"
                   xl="12"
                   class="ma-2"
+                  @click="showRecoment(review_items)"
                 >
                   <v-textarea
-                    :value="`${Reservation_items.Review}`"
+                    v-model="review_items.review"
                     placeholder="내용을 입력하세요."
                     no-resize
                     hide-details
@@ -100,8 +110,10 @@
                   xl="12"
                 >
                   <v-textarea
+                    v-if="review_items.showRecoment"
                     outlined
-                    value="감사합니다 더욱더 발전하는 저희 교촌치킨이 되겠습니다."
+                    :value="showValue(review_items.Reserve_review_answer)"
+                    @input="searchChangeFunc($event)"
                     dense
                     placeholder="내용을 입력하세요."
                     no-resize
@@ -113,14 +125,14 @@
               </v-row>
             </v-container>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="review_items.showRecoment"> 
             <v-spacer />
             <v-btn
               color="error"
             >
               취소
             </v-btn>
-            <v-btn color="primary">
+            <v-btn color="primary" @click="sendrecoment(review_items.reserve_review_id)">
               확인
             </v-btn>
           </v-card-actions>
@@ -135,8 +147,8 @@
 export default {
   name: "ReservationReviewTabsItems",
   data(){
-    return{
-      rating: 4
+    return{ 
+      recoment : ""
     }
   },
   computed: {
@@ -144,7 +156,7 @@ export default {
       return this.$store.getters['market_modules/Reservation_Get_Tab']
     },
     ReviewTabsItems(){
-      return this.$store.state.reservation.Reservation_Review;
+      return this.$store.getters["reservation/Get_Reserve_Review"] 
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
@@ -174,6 +186,32 @@ export default {
         case 'xl' : return '16.8'
         default : return ''
       }
+    }
+  },
+  methods: {
+    imgSrc(name){   
+      name = name.replaceAll("\\", "/"); 
+      return require(`../../../../../../back/${name}`);
+    },
+    showRecoment(card){ 
+      card.showRecoment = !card.showRecoment;
+    },
+    showValue(findComent){  
+      if(findComent !=null){ 
+        return findComent.answer;
+      }
+      else{
+        return ""
+      }
+    },
+    searchChangeFunc(event){ 
+      return this.recoment = event
+    },
+    sendrecoment(data){  
+      let datas = {answer: this.recoment, review_id : data}
+      console.log(datas)      
+      this.$store.dispatch('reservation/actReserve_Review_answers',datas)
+     
     }
   }
 }

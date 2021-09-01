@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Market,Member,Market_inform_img,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
-,Market_inform_holiday,Product_img,Reserve_review_img,Reservation} = require('../models');
+,Market_inform_holiday,Product_img,Reserve_review_img,Reservation,Category} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
 const dayjs = require('dayjs');
@@ -188,12 +188,16 @@ router.get('/:marketNm/imformation',async(req, res)=>{
                 required: false,
                 attributes : ['market_inform_week_holiday','market_inform_day_holiday']
             }]
-        }
+            }
+            ,{
+                model : Category, 
+                attributes : ['name'] 
+            }
         ],
         attributes : [
             'name','market_name','address','phonenumber','profile_img',[
                 sequelize.fn('concat',sequelize.col('address'),' ' ,sequelize.col('dt_address')),'market_address']
-        ] 
+        ]
     }).then(async(r)=>{
         r.Market_inform.start_time = dayjs('1 ' +r.Market_inform.start_time).format('a hh:mm')
         r.Market_inform.end_time = dayjs('1 ' +r.Market_inform.end_time).format('a hh:mm')

@@ -26,8 +26,13 @@ export default {
     }
   },
   computed: {
+    
     Tab: {
       get () {
+        let inputData = new Object();
+        inputData.dates = this.$store.getters["market_modules/Reservation_Get_dates"] 
+        inputData.tabIndex = this.$store.getters["market_modules/Reservation_Get_Tab"]
+        this.$store.dispatch("reservation/actReserve_Review_Items",inputData)
         return this.$store.getters['market_modules/Reservation_Get_Tab']
       },
       set (value) {

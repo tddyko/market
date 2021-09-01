@@ -81,6 +81,7 @@
         >
           <v-col
             xl="7"
+            
           >
             <v-radio-group v-model="floating.radioGroup">
               <v-radio
@@ -90,6 +91,7 @@
                 :value="n"
               />
             </v-radio-group>
+          
           </v-col>
           <v-col
             xl="7"

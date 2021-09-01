@@ -67,7 +67,7 @@ export default {
   name: "MenuCards",
   computed: {
     cards: {
-      get() {
+      get() { 
         return this.$store.getters["marketDetail/getCards"]
       }
     },

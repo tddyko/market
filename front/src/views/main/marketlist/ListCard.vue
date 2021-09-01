@@ -10,6 +10,7 @@
         <!-- 반복될 카드 -->
         <v-card>
           <v-img
+         
             :src="imgSrc(card.profile_img)"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -57,6 +58,7 @@ export default {
     test(card){  
       this.$router.push({name : 'MarketDetail', params : {market_name : card.market_name}})
     },
+     
     imgSrc(name){ 
       console.log(name) 
       name = name.replaceAll("\\", "/"); 

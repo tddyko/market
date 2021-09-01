@@ -87,13 +87,15 @@ const mutations = {
   Set_Menu2(state, value){
     state.menu2=value;
   },
+  //주문
   Set_Order_List_Items(state, value){
     state.Order_List_Items = value;
   },
   Set_Order_Review_Items(state, value){
     state.Order_Review = null;
     state.Order_Review = value;
-  },
+  }, 
+  
 };
 const actions = {
   actOrder_List_Items({ commit },date){
@@ -109,9 +111,7 @@ const actions = {
       commit("Set_Order_List_Items", response.data);
     })
   },
-  actOrder_Review_Items({commit},data){ 
-    console.log('actOrder_Review_Items')
-    console.log(data);   
+  actOrder_Review_Items({commit},data){   
     if(data.dates.length>1)
     axios({
       url : 'http://localhost/order_review/reviews/list',
@@ -141,7 +141,8 @@ const actions = {
     }).then((response)=>{
       console.log(response)
     })
-  }
+  }, 
+  
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

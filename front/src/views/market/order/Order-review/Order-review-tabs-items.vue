@@ -1,14 +1,16 @@
 <template>
   <div> 
     <v-tabs-items
-      v-model="Get_Tab"
-      v-for="(review_items,index) in Get_Order_Review"
-      :key="index"
-    >
-      <v-tab-item  >
+      v-model="Get_Tab">
+      <v-tab-item  
+        v-for="a in 3"
+        :key="a" 
+      >
         <v-divider />
-        <v-card> 
-          <v-card-text>
+        <v-card
+         v-for="(review_items,index) in Get_Order_Review"
+        :key="index"> 
+          <v-card-text> 
             <v-container>
               <v-row
                 justify="start"
@@ -150,13 +152,10 @@ export default {
   },
   computed: {
     Get_Order_Review(){
-       console.log("tab-items : " +  this.$store.getters["order/Get_Order_Review"])  
-      
       return this.$store.getters["order/Get_Order_Review"]
     },
     Get_Tab() {  
-      console.log("tab-items : " +  this.$store.getters["market_modules/Order_Get_Tab"])  
-      return this.$store.getters["market_modules/Order_Get_Tab"]
+       return this.$store.getters["market_modules/Order_Get_Tab"]
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
