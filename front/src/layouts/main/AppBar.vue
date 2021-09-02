@@ -16,7 +16,6 @@
       </v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
         @click="expand = !expand"
       >
@@ -27,7 +26,6 @@
           v-show="expand"
           class="pa-2"
           color="transparent"
-          dark
           elevation="0"
           width="600px"
         >
