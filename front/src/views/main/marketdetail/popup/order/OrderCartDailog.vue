@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="floating.orderDialog"
+      v-model="floating.orderCartDialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
@@ -29,10 +29,9 @@
     </v-dialog>
   </v-row>
 </template>
-
 <script>
 export default {
-  name: "OrderDialog",
+  name: "OrderCartDailog",
   components: {
     OrderCart: () => import('@/views/main/marketdetail/popup/order/OrderCart')
   },
@@ -45,7 +44,5 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 </style>

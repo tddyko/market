@@ -9,7 +9,6 @@
       <v-btn
         dark
         icon
-        @click="floating.orderDialog = false"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -23,7 +22,7 @@
         />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="ma-1">
       <v-col>
         <div class="text-h3">
           허니콤보
@@ -33,11 +32,9 @@
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
-
     <v-row
-      class="my-5"
+      class="ma-1"
       justify="space-between"
     >
       <v-col>
@@ -51,28 +48,17 @@
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
-
     <v-row
-      class="my-5"
-      justify="center"
+      class="ma-1"
+      justify="start"
     >
       <v-col
-        xl="7"
+        v-for="n in 3"
+        :key="n"
+        cols="7"
       >
-        <v-radio-group v-model="floating.radioGroup">
-          <v-radio
-            v-for="n in 3"
-            :key="n"
-            :label="`메뉴 ${n}`"
-            :value="n"
-          />
-        </v-radio-group>
-      </v-col>
-      <v-col
-        xl="7"
-      >
+        <label>{{ `옵션${n}` }}</label>
         <v-radio-group v-model="floating.radioGroup">
           <v-radio
             v-for="m in 3"
@@ -83,7 +69,7 @@
         </v-radio-group>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="ma-1">
       <v-col>
         <div class="text-h6 font-weight-bold my-5">
           총 합계
@@ -95,22 +81,23 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
+    <v-row class="ma-1">
+      <v-col
+        align="center"
+      >
         <v-btn
           color="primary"
           depressed
         >
-          결제하기
+          확인
         </v-btn>
       </v-col>
     </v-row>
   </v-card>
 </template>
-
 <script>
 export default {
-  name: "OrderCard",
+  name: "OrderSelect",
   computed: {
     floating: {
       get() {
@@ -120,7 +107,5 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 </style>

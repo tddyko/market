@@ -63,11 +63,11 @@
               cols="2"
             >
               <v-img
-                class="rounded-lg ma-2"
                 :height="`${Img_size}`"
+                :width="`${Img_size}`"
+                class="rounded-lg ma-2"
                 lazy-src="https://picsum.photos"
                 src="https://picsum.photos/150"
-                :width="`${Img_size}`"
               />
             </v-col>
             <v-col
@@ -84,8 +84,8 @@
               </v-card-text>
             </v-col>
             <v-col
-              cols="5"
               align="end"
+              cols="5"
             >
               <v-btn
                 v-if="reservations_Number === 0"
@@ -139,7 +139,7 @@
         <v-btn
           color="grey"
           depressed
-          @click="floating.orderDialog = false"
+          @click="floating.orderCartDialog = false"
         >
           취소하기
         </v-btn>
