@@ -104,6 +104,12 @@ const routes = [
             /* webpackChunkName: "Information" */ "@/views/market/info/Info-index"
           ),
       },
+      {
+        path: "/market/menu",
+        name: "MenuCards",
+        component: () =>
+          import(/* webpackChunkName: "LoginLayout" */ "@/views/market/menu/menu_cards"),
+      },
     ],
   },
   {
@@ -118,6 +124,7 @@ const routes = [
       },
     ],
   },
+
 ];
 
 const router = new VueRouter({
