@@ -4,11 +4,13 @@
       justify="space-between"
     >
       <v-col
-        cols="6"
         align="center"
+        xl="6"
+        md="6"
+        sm="6"
+        cols="12"
       >
         <v-img
-          class="my-10"
           lazy-src="https://picsum.photos"
           src="https://picsum.photos/700"
           :max-height="`${Img_size}`"
@@ -16,24 +18,22 @@
         />
       </v-col>
       <v-col
-        cols="6"
+        cols="12"
+        xl="6"
+        md="6"
+        sm="6"
       >
-        <v-col
-          cols="12"
-        >
+        <v-col>
           <div
-            class="text-h3 text-left font-weight-bold my-16"
-            :class="`text-${Font_size}`"
+            :class="`text-${Font_size} text-h3 font-weight-bold`"
           >
             백종원이 인정한 연돈 <small>일식</small>
           </div>
         </v-col>
-        <v-col
-          cols="12"
-        >
+        <v-col>
           <v-rating
             background-color="grey"
-            class="star"
+            class="mb-1"
             color="warning"
             dense
             half-increments
@@ -43,23 +43,19 @@
             :value="ratingStar"
           />
         </v-col>
-        <v-col
-          cols="12"
-        >
-          <h4
-            :class="`text-${Font_size}`"
+        <v-col>
+          <div
+            class="mb-3"
+            :class="`text-${Font_size2}`"
           >
             경기도 김포시 00동 000-00
-          </h4>
-        </v-col>
-        <v-col
-          cols="12"
-        >
-          <h4
-            :class="`text-${Font_size}`"
+          </div>
+
+          <div
+            :class="`text-${Font_size2}`"
           >
             031-000-0000
-          </h4>
+          </div>
         </v-col>
       </v-col>
     </v-row>
@@ -81,7 +77,7 @@ export default {
         case 'md' : return '350'
         case 'lg' : return '400'
         case 'xl' : return '450'
-        default : return '200'
+        default : return 'full'
       }
     },
     Rating_size(){
@@ -90,7 +86,7 @@ export default {
         case 'md' : return '40'
         case 'lg' : return '50'
         case 'xl' : return '60'
-        default : return '20'
+        default : return '25'
       }
     },
     Font_size(){
@@ -99,11 +95,18 @@ export default {
         case 'md' : return 'md-h4'
         case 'lg' : return 'lg-h4'
         case 'xl' : return 'xl-h3'
-        default : return 'subtitle-1'
+        default : return 'h6'
+      }
+    },
+    Font_size2(){
+      switch (this.$vuetify.breakpoint.name){
+        case 'sm' : return 'sm-body-2'
+        case 'md' : return 'md-h6'
+        case 'lg' : return 'lg-h6'
+        case 'xl' : return 'xl-h5'
+        default : return 'body-1'
       }
     },
   }
 }
 </script>
-<style scoped>
-</style>

@@ -1,15 +1,16 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="floating.orderSelectDialog"
       fullscreen
       hide-overlay
+      :retain-focus="false"
       transition="dialog-bottom-transition"
     >
       <template #activator="{ on, attrs }">
         <v-btn
-          color="primary"
-          dark
+          color="indigo"
+          outlined
+          class="text-center"
           v-bind="attrs"
           v-on="on"
         >
@@ -31,7 +32,7 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
-    }
+    },
   }
 }
 </script>

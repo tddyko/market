@@ -12,6 +12,9 @@
       justify="center"
     >
       <v-col
+        v-for="card in cards"
+        :key="card.title"
+        :cols="card.flex"
         lg="9"
         md="10"
         sm="12"
@@ -49,12 +52,6 @@
               sm="4"
               xl="5"
             >
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs' "
-              />
-              <v-card-title
-                v-else
-              />
               <v-card-text
                 :class="card_text"
                 class="text--secondary"
@@ -97,6 +94,9 @@ export default {
   }),
   computed: {
     cards: {
+      get(){
+        return this.$store.getters["marketDetail/getCards"]
+      }
     },
     btnOption(){
       switch (this.$vuetify.breakpoint.name){
