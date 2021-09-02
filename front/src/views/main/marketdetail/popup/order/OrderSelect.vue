@@ -9,7 +9,6 @@
       <v-btn
         dark
         icon
-        @click="floating.orderSelectDialog = false"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>

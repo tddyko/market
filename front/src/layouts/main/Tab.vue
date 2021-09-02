@@ -7,6 +7,7 @@
     <v-tab
       v-for="title in tabTitle"
       :key="title.title"
+      class="font-weight-bold"
     >
       {{ title.title }}
     </v-tab>

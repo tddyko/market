@@ -1,6 +1,7 @@
 <template>
   <v-row justify="center">
     <v-dialog
+      v-model="floating.orderSelectDialog"
       fullscreen
       hide-overlay
       :retain-focus="false"

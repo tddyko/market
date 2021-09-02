@@ -62,21 +62,10 @@ const state = () => ({
     { title: "치즈 가츠", flex: 10 },
   ],
   floating: [
-    { direction: "top" },
-    { fab: false },
-    { fling: false },
-    { hover: false },
-    { top: false },
-    { right: true },
-    { bottom: true },
-    { left: false },
     { orderSelectDialog: false },
     { orderCartDialog: false },
     { reserveDialog: false },
     { reviewDialog: false },
-    { notifications: false },
-    { sound: true },
-    { widgets: false },
     { radioGroup: 1 },
   ],
 });
@@ -91,7 +80,7 @@ const getters = {
   getRatingPoint: (state) => state.ratingPoint,
   getRating: (state) => state.rating,
   getFloating: (state) => state.floating,
-  getReservations_number: (state) => state.reservations_number
+  getReservations_number: (state) => state.reservations_number,
 };
 
 const mutations = {
@@ -110,12 +99,12 @@ const mutations = {
   setReserveTime(state, data) {
     state.reserveTime = data;
   },
-  setReservations_number_plus(state){
+  setReservations_number_plus(state) {
     state.reservations_number += 1;
   },
-  setReservations_number_minus(state){
+  setReservations_number_minus(state) {
     state.reservations_number -= 1;
-  }
+  },
 };
 
 const actions = {
@@ -134,12 +123,12 @@ const actions = {
   actReserveTime({ commit }, value) {
     commit("setReserveTime", value);
   },
-  actReservations_number_plus({ commit }){
+  actReservations_number_plus({ commit }) {
     commit("setReservations_number_plus");
   },
-  actReservations_number_minus({commit}){
+  actReservations_number_minus({ commit }) {
     commit("setReservations_number_minus");
-  }
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };
