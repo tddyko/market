@@ -12,13 +12,12 @@
         align-self="center"
       >
         <v-checkbox
-          v-model="selected"
+          v-model="checkbox"
           :value="index"
         />
-        {{ selected }}
       </v-col>
       <v-col
-        :cols="card.flex"
+        cols="9"
         sm="11"
         md="9"
         lg="10"
@@ -44,9 +43,8 @@
               <v-avatar
                 color="warning lighten-2"
                 size="130"
-                tile
               >
-                <v-img />
+                <v-img :src="card.menu_img" />
               </v-avatar>
             </v-col>
             <v-col
@@ -62,12 +60,13 @@
                 centered-input
               >
                 <v-text-field
-                  :disabled="index !== selected"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
+                  label="메뉴 이름"
                   outlined
                   dense
-                  :value="card.title"
+                  :value="card.menu_name"
                 />
               </v-card-title>
               <v-card-text
@@ -75,11 +74,12 @@
                 :class="card_text"
               >
                 <v-text-field
-                  :disabled="!card.checkbox"
+                  :disabled="isDisabled(index)"
                   hide-details
                   outlined
+                  label="메뉴 설명"
                   dense
-                  :value="card_text"
+                  :value="card.menu_info"
                 />
               </v-card-text>
               <v-card-text
@@ -87,12 +87,13 @@
                 :class="card_text"
               >
                 <v-text-field
-                  :disabled="!card.checkbox"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
                   outlined
+                  label="가격"
                   dense
-                  value="9,900원"
+                  :value="card.menu_price"
                 />
               </v-card-text>
             </v-col>
@@ -140,16 +141,30 @@ export default {
   name: "MenuCards",
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
-    selected: []
   }),
   computed: {
     cards: {
       get() {
-        return this.$store.getters["marketDetail/getCards"]
+        return this.$store.getters["menu/getMenu"]
       }
     },
+    checkbox: {
+      set(value){
+        this.$store.commit("menu/setMenu_Checkbox",value)
+      },
+      get(){
+        return this.$store.getters["menu/getMenu_Checkbox"]
+      }
+    },
+  },
+  methods: {
+    isDisabled(test){
+      const test2 = this.$store.getters["menu/getMenu_Checkbox"];
+      return !test2.includes(test)
+      }
   }
-}
+  }
+
 </script>
 
 <style scoped>
