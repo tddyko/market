@@ -1,4 +1,3 @@
-
 <template>
   <v-speed-dial
     v-model="fab"
@@ -47,6 +46,7 @@
       dark
       small
       color="red"
+      @click="setDeleteMenu"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -64,29 +64,31 @@ export default {
     tabs: null,
     transition: 'slide-y-reverse-transition',
   }),
-  computed:{
-  },
+  computed: {},
   watch: {
-    top (val) {
+    top(val) {
       this.bottom = !val
     },
-    right (val) {
+    right(val) {
       this.left = !val
     },
-    bottom (val) {
+    bottom(val) {
       this.top = !val
     },
-    left (val) {
+    left(val) {
       this.right = !val
     },
   },
   methods: {
-    setNewItem(){
+    setNewItem() {
       this.$store.commit("menu/setNew_Menu")
     },
-    updateMenu(){
+    updateMenu() {
       this.$store.commit("menu/updateMenu")
-    }
     },
+    setDeleteMenu() {
+      this.$store.commit("menu/setDelete")
+    }
+  },
 }
 </script>
