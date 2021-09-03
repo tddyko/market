@@ -21,6 +21,7 @@
         />
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <div class="text-h3">
@@ -48,6 +49,13 @@
           {{ getRoom }}
         </div>
       </v-col>
+    </v-row>
+    <v-divider />
+
+    <v-row
+      class="my-5"
+      justify="space-between"
+    >
       <v-col>
         <div class="text-h6 font-weight-bold">
           날짜
@@ -55,11 +63,10 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          {{getDate}}
+          {{ getDate }}
         </div>
-      </v-col>
+      </v-col> 
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -119,7 +126,7 @@ export default {
     },
     getCount : {
       get() {
-        return this.$store.getters["marketDetail/getReserveCount"]
+        return this.$store.getters["marketDetail/getReservations_number"]
       }
     },
     getDate : {
@@ -134,6 +141,7 @@ export default {
     },
     getRoom : {
       get() {
+        console.log(this.$store.getters["marketDetail/getRoom"]);
         return this.$store.getters["marketDetail/getRoom"]
       }
     },
@@ -148,7 +156,7 @@ export default {
       inputdata.room = this.$store.getters["marketDetail/getRoom"];
       inputdata.time = this.$store.getters["marketDetail/getReserveTimeCh"];
       inputdata.date = this.$store.getters["market_modules/Reservation_Get_date"];
-      inputdata.count = this.$store.getters["marketDetail/getReserveCount"];
+      inputdata.count = this.$store.getters["marketDetail/getReservations_number"];
       inputdata.marketName = this.$session.get('market_name');
       this.$store.dispatch('marketDetail/actReservation',inputdata);
     }

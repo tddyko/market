@@ -70,14 +70,13 @@ export default {
       return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
     },
   },
-},
 methods: {
   imgSrc(name){
     console.log(name)
     name = name.replaceAll("\\", "/");
     return require(`../../../../../../back/${name}`);
   }
-},
+}
 }
 </script>
 

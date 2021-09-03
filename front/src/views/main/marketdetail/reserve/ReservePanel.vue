@@ -37,7 +37,7 @@
                 <v-chip
                   v-for="(time,index) in reserveTime"
                   :key="index"
-                  @click="test(index)"
+                  @click="setReserveTimes(index)"
                 >
                   {{ time }}
                 </v-chip>
@@ -118,14 +118,14 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getReservations_number"]
       }
-    }
-  },
-  date: {
-    get(){
-      return this.$store.getters["market_modules/Reservation_Get_date"];
     },
-    set(value){
-      this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
+    date: {
+      get(){
+      return this.$store.getters["market_modules/Reservation_Get_date"];
+      },
+      set(value){
+        this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
+      }
     }
   },
   created(){
@@ -140,9 +140,13 @@ export default {
     },
     setReserveTimes(index){
       this.$store.commit('marketDetail/setReserveTimeCh',index)
-    }
+    },
+     update(){
+      console.log(this.$store.getters["market_modules/Reservation_Get_date"]);
+    },
   }
 }
+
 </script>
 
 <style scoped>

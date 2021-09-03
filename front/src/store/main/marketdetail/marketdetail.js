@@ -58,7 +58,6 @@ const state = () => ({
   marketTitle:null,
   product: [],
   optionGroup : [],
-  reserveCount:1,
   room:[],
   reservation:[]
 });
@@ -105,8 +104,8 @@ const mutations = {
   setOptionGroup(state, data){
     state.optionGroup = data;
   },
-  setReserveCount(state, data){
-    state.reserveCount = data;
+  setReservations_number(state, data){
+    state.reservations_number = data;
   },
   setReserveTimeCh(state, data){
     state.reserveTimeCh = state.reserveTime[data]
@@ -114,17 +113,15 @@ const mutations = {
   setRoom(state, data){
     state.room = data;
   },
-  setReservation(state, data){
-    state.reservation = data;
-  }
-};
-/*  */
   setReservations_number_plus(state) {
     state.reservations_number += 1;
   },
   setReservations_number_minus(state) {
     state.reservations_number -= 1;
   },
+  setReservation(state, data){
+    state.reservation = data;
+  }
 };
 
 const actions = {
@@ -181,6 +178,12 @@ const actions = {
       commit("setOptionGroup", response.data);
     })
   },
+  actReservations_number_plus({ commit }) {
+    commit("setReservations_number_plus");
+  },
+  actReservations_number_minus({ commit }) {
+    commit("setReservations_number_minus");
+  },
   actRoom({ commit },value) {
     axios({
       url: `http://localhost/market_preview/roomlist/${value}`,
@@ -208,16 +211,10 @@ const actions = {
       }
   }).then((response) => {
     console.log(response.data);
+    commit("setReserveTime", value);
   })
   }
-    commit("setReserveTime", value);
-  },
-  actReservations_number_plus({ commit }) {
-    commit("setReservations_number_plus");
-  },
-  actReservations_number_minus({ commit }) {
-    commit("setReservations_number_minus");
-  },
-};
+
+  };
 
 export default { namespaced: true, state, getters, mutations, actions };

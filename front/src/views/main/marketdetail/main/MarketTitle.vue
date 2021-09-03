@@ -66,6 +66,11 @@
 export default {
   name: "MarketTitle",
   computed: {
+     marketInfo : {
+      get() { 
+        return this.$store.getters["marketDetail/getMarketTitle"]
+         },
+    },
     ratingStar: {
       get() {
         return this.$store.getters["marketDetail/getRating"]
