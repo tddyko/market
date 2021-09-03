@@ -62,6 +62,7 @@ const state = () => ({
   reservation:[],
   selectmenu:[],
   addmenu:[],
+  selectOptions: []
 });
 
 const getters = {
@@ -84,6 +85,7 @@ const getters = {
   getReservations_number: (state) => state.reservations_number,
   getSelectmenu: (state) => state.selectmenu,
   getAddmenu: (state) => state.addmenu,
+  getSelectOptions : (state) =>state.selectOptions
 };
 
 const mutations = {
@@ -128,10 +130,15 @@ const mutations = {
   },
   setSelectmenu(state, data){
     state.selectmenu.push(data);
+    console.log("주문한 음식 " + state.selectmenu)
   },
   setAddmenu(state, data){
     state.addmenu = data;
   },
+  setSelectOptions(state, data){
+    state.selectOptions[data.index] = data.value
+    console.log(state.selectOptions)
+  }
 };
 
 const actions = {

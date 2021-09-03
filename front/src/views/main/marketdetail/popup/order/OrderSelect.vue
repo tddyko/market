@@ -64,7 +64,7 @@
             :key="index1"
             :label="`${option.name}`"
             :value="option.name"
-            @change="test(option.price,index)"
+            @change="sumPrice(option.price,index,cards.price)"
           />
         </v-radio-group>
       </v-col>
@@ -77,7 +77,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold my-5">
-          {{cards.price+test}}
+          {{totalpriceis}}
         </div>
       </v-col>
     </v-row>
@@ -88,6 +88,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="payment(cards,floating)"
         >
           확인
         </v-btn>
@@ -99,8 +100,8 @@
 export default {
   name: "OrderSelect",
   data(){
-    return () => {
-      let a = new Array();
+    return{
+      totalpriceis : this.$store.getters["marketDetail/getAddmenu"].price
     }
   },
   computed: {
@@ -111,15 +112,30 @@ export default {
     },
      cards: {
        get() {
-         console.log(this.$store.getters["marketDetail/getAddmenu"]);
         return this.$store.getters["marketDetail/getAddmenu"]
        }
     },
+
   },
   methods: {
-    test(e,index){
-      console.log( this.a[index] = e);
-      this.a[index] = e
+    sumPrice(e,index,price){
+      let inputdata = {'index' : index, 'value' : e}
+      this.$store.commit("marketDetail/setSelectOptions",inputdata)
+      let optionPirceSum = 0
+      let optionPrices = this.$store.getters["marketDetail/getSelectOptions"]
+      for(let i =0; i<optionPrices.length; i++ ){
+        optionPirceSum +=parseInt(optionPrices[i])
+      }
+      optionPirceSum+=parseInt(price)
+      this.totalpriceis = optionPirceSum
+    },
+    payment(food,ok){
+      food.totalprice = this.totalpriceis
+      this.$store.commit("marketDetail/setSelectmenu",food)
+      ok.orderSelectDialog = false
+      this.totalpriceis = food.price
+      alert('선택 완료')
+
     }
   }
 }

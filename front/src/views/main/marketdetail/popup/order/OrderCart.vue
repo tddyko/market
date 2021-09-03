@@ -56,6 +56,9 @@
             align="center"
             class="mx-1"
             justify="center"
+
+            v-for="(order,index) in orderItems"
+            :key="index"
           >
             <v-col
               class="pa-0 ma-0"
@@ -73,13 +76,13 @@
               cols="5"
             >
               <v-card-title :class="`text-${menuFont1} pa-0 my-3`">
-                허니콤보
+                {{order.name}}
               </v-card-title>
               <v-card-text :class="`text-${menuFont2} text-left text--secondary pa-0 my-3`">
-                메뉴 설명
+                {{order.product_info}}
               </v-card-text>
               <v-card-text :class="`text-${menuFont1} text-left font-weight-bold price pa-0 my-3`">
-                9,900원
+                {{order.totalprice}}
               </v-card-text>
             </v-col>
             <v-col
@@ -164,6 +167,12 @@ export default {
         return this.$store.getters["marketDetail/getFloating"]
       }
     },
+    orderItems :{
+      get() {
+        return this.$store.getters["marketDetail/getSelectmenu"]
+      }
+    },
+
     reservations_Number:{
       get() {
         return this.$store.getters["marketDetail/getReservations_number"]
