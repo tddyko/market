@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="my-10 mx-auto"
+    class="my-10 mx-auto pa-3"
   >
     <!-- <v-card-text> -->
     <v-container>
@@ -95,6 +95,7 @@
             dense
             height="200"
             hide-details
+            no-resize
             outlined
             placeholder="내용을 입력하세요."
             readonly
@@ -107,9 +108,66 @@
         align="center"
         justify="start"
       >
-        <v-col>
-          <v-card>
-            dasd
+        <v-col
+          cols="10"
+        >
+          <v-card
+            color="#f5f5dc"
+            elevation="0"
+            shaped
+          >
+            <v-row
+              align-center
+              class="ma-1"
+            >
+              <v-col
+                lg="1"
+                md="2"
+                sm="3"
+                xl="1"
+              >
+                <v-avatar>
+                  <img
+                    alt="John"
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  >
+                </v-avatar>
+              </v-col>
+              <v-col
+                class="font-weight-bold"
+                lg="1"
+                md="2"
+                sm="3"
+                xl="1"
+              >
+                사장님
+              </v-col>
+              <v-col
+                :class="`text-${Font_size}`"
+                align="start"
+                lg="9"
+                md="7"
+                sm="6"
+                xl="9"
+              >
+                0000년 00월 00일
+              </v-col>
+              <v-col
+                cols="12"
+              >
+                <v-textarea
+                  :class="`text-${Font_size}`"
+                  dense
+                  height="auto"
+                  hide-details
+                  no-resize
+                  placeholder="내용을 입력하세요."
+                  readonly
+                  rounded
+                  value="감사합니다"
+                />
+              </v-col>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>

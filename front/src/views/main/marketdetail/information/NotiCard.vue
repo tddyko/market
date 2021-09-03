@@ -37,6 +37,7 @@
           dense
           height="200"
           hide-details
+          no-resize
           outlined
           readonly
           rounded

@@ -31,12 +31,20 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <v-form>
-          <v-row class="align-center">
-            <v-col>
+        <v-form
+          class="ma-3"
+        >
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="1"
+            >
               <span>스토어이미지</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="1"
+            >
               <v-avatar
                 size="80"
               >
@@ -46,7 +54,9 @@
                 >
               </v-avatar>
             </v-col>
-            <v-col>
+            <v-col
+              cols="1"
+            >
               <input
                 ref="imageInput"
                 hidden
@@ -68,11 +78,17 @@
               </v-btn>
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="1"
+            >
               <span>아이디</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="6"
+            >
               <v-text-field
                 clearable
                 label="Solo"
