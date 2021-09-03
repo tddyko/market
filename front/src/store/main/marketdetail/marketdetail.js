@@ -34,29 +34,8 @@ const state = () => ({
     { rating: 1532 },
     { rating: 11 },
   ],
-  reserveTime: [
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ],
+  reserveTime: [],
+  reserveTimeCh: [],
   cards: [],
   floating: [
     { direction: "top" },
@@ -77,7 +56,10 @@ const state = () => ({
   ],
   marketTitle:null,
   product: [],
-  optionGroup : []
+  optionGroup : [],
+  reserveCount:1,
+  room:[],
+  reservation:[]
 });
 
 const getters = {
@@ -92,7 +74,11 @@ const getters = {
   getFloating: (state) => state.floating,
   getMarketTitle: (state) => state.marketTitle,
   getProduct: (state) => state.product,
-  getOptionGroup: (state) => state.optionGroup
+  getOptionGroup: (state) => state.optionGroup,
+  getReserveCount: (state) => state.reserveCount,
+  getReserveTimeCh: (state) => state.reserveTimeCh,
+  getRoom: (state) => state.room,
+  getReservation: (state) => state.reservation,
 };
 
 const mutations = {
@@ -117,8 +103,20 @@ const mutations = {
   setOptionGroup(state, data){
     state.optionGroup = data;
   },
+  setReserveCount(state, data){
+    state.reserveCount = data;
+  },
+  setReserveTimeCh(state, data){
+    state.reserveTimeCh = state.reserveTime[data]
+  },
+  setRoom(state, data){
+    state.room = data;
+  },
+  setReservation(state, data){
+    state.reservation = data;
+  }
 };
-
+/*  */
 const actions = {
   actTabs({ commit }, value) {
     commit("setTabs", value);
@@ -141,7 +139,15 @@ const actions = {
     commit("setOrderMenus", value);
   },
   actReserveTime({ commit }, value) {
-    commit("setReserveTime", value);
+    axios({
+      url: `http://localhost/dashboard/${value}`,
+      method: "get",
+      headers:{},
+      withCredentials: true,
+    }).then(async (response) => {
+      console.log(response.data);
+      await commit("setReserveTime", response.data);
+    })
   },
   actMarketTitle({ commit },value) {
     axios({
@@ -165,6 +171,35 @@ const actions = {
       commit("setOptionGroup", response.data);
     })
   },
+  actRoom({ commit },value) {
+    axios({
+      url: `http://localhost/market_preview/roomlist/${value}`,
+      method : 'get',
+      headers: {},
+      withCredentials: true, //쿠키가 서로 저장
+    }).then((response) => {
+      console.log(response.data);
+      commit("setRoom", response.data)
+    })
+  },
+  actReservation({ commit },value) {
+    console.log(value);
+    axios({
+      url: `http://localhost/reservation/in/${value.marketName}`,
+      method : 'post',
+      headers: {},
+      withCredentials: true,
+      data: {
+        current_state : "예약",
+        order_count : value.count,
+        reserve_date: value.date,
+        reserve_time: value.time,
+        reserve_seat: value.room
+      }
+  }).then((response) => {
+    console.log(response.data);
+  })
+  }
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

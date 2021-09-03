@@ -6,8 +6,9 @@ import items from "@/store/main/tabItems";
 import order from "@/store/market/Order";
 import reservation from "@/store/market/Reservation";
 import info from "@/store/market/Info";
-import market_modules from "@/store/market/Market_modules"
-import main_market from "@/store/main/market"
+import market_modules from "@/store/market/Market_modules";
+import market_list from "@/store/main/marketlist";
+import market_detail from "@/store/main/marketdetail";
 
 Vue.use(Vuex);
 
@@ -20,8 +21,9 @@ const store = new Vuex.Store({
     ...items,
     ...market_modules,
     ...info,
-    ...main_market
+    ...market_list,
+    ...market_detail,
   },
-})
+});
 
-export default store
+export default store;

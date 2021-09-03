@@ -69,8 +69,8 @@
                         :type="type"
                         :auto-line-width="autoLineWidth"
                         :labels="labels"
-                        auto-draw> 
-                      </v-sparkline>
+                        auto-draw
+                      />
                     </v-sheet>
                   </v-list-item-content>
 
@@ -127,9 +127,7 @@
                         :auto-line-width="autoLineWidth"
                         auto-draw
                         :labels="labels"
-                      >
-                      
-                      </v-sparkline>
+                      />
                     </v-sheet>
                   </v-list-item-content>
                   <v-list-item-content class="mt-16 mx-3">
@@ -206,7 +204,7 @@
       radius: 10,
       padding: 8,
       lineCap: 'round',
-      gradient: gradients[5], 
+      gradient: gradients[5],
       value:{}, //값
       labels:[], //밑에 시간
       b:[1,2,3],
@@ -216,7 +214,7 @@
       type: 'trend',
       autoLineWidth: false,
     }),
-   mounted() {  
+   mounted() {
     this.$Axios({
         url : "http://localhost/dashboard",
         method : "GET",

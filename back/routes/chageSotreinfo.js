@@ -75,7 +75,7 @@ router.post('/notice',isLoggedInMarket,upload.array('noti_img',3), async(req,res
     let {market_noti} =  req.body; 
     let inputData = {market_noti};
     await updateOrCreate(Market_inform,{market_id : req.user.market_id}, inputData);
-    if(req.files){
+    if(req.files.length>0){
         await Market_inform.findOne({where : {market_id : req.user.market_id},raw : true})
         .then(async(r) => {
             await Market_noti_img.destroy({where : {market_inform_id : r.market_inform_id},force : true})

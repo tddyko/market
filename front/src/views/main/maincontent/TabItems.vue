@@ -6,20 +6,24 @@
       v-for="title in tabTitle"
       :key="title.title"
     >
-      <store-list />
+      <main-market-list />
     </v-tab-item>
   </v-tabs-items>
 </template>
 
 <script>
-import StoreList from "@/views/main/MarketList";
 export default {
   name: 'MainTabBar',
-  components: {StoreList},
+  components: {
+    MainMarketList: () => import('@/views/main/marketlist/MarketList')
+  },
   computed: {
     tab: {
       get() {
-        return this.$store.getters['tab/getTab'];
+         let tabIndex = this.$store.getters['tab/getTab'];
+        console.log(tabIndex) 
+        this.$store.dispatch('marketList/actCards',tabIndex); 
+        return this.$store.getters['tab/getTab']; 
       },
       set(v) {
         return this.$store.dispatch('tab/actTab', v)
@@ -33,14 +37,6 @@ export default {
         return this.$store.dispatch('tab/actTabTitle', v)
       }
     },
-    tabItems: {
-      get() {
-        return this.$store.getters['items/getTabItems'];
-      },
-      set(v) {
-        return this.$store.dispatch('items/actTabItems', v)
-      }
-    }
   },
 }
 </script>

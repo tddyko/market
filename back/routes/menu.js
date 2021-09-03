@@ -104,7 +104,7 @@ router.get('/list/:marketname', async(req,res) => {
                 attributes : ['name'],
                 include :[{model : Pd_option, attributes : ['name','price']}]
             }
-        ],
+        ], 
         attributes : ['product_id','name','price','product_info'],
         where : {market_id}
     });

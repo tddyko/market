@@ -16,7 +16,20 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Dashboard" */ "@/views/main/TabItems"),
+          import(
+            /* webpackChunkName: "Dashboard" */ "@/views/main/maincontent/TabItems"
+          ),
+      },
+      {
+        path: "/marketdetail",
+        name: "MarketDetail",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderList" */ "@/views/main/marketdetail/main/MarketDetail"
+          ),
       },
     ],
   },

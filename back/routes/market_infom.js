@@ -1,45 +1,44 @@
 const express = require('express');
 const router = express.Router();
 const {Market,Member,Market_inform_img,Category,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
-,Market_inform_holiday,Product_img,Reserve_review_img,Reservation} = require('../models');
+,Market_inform_holiday,Product_img,Market_room,Reserve_review_img,Reservation} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
+const { isLoggedInMarket } = require("./middlewares");
+const {v4: uuidv4} = require('uuid');
 const dayjs = require('dayjs');
 require('dayjs/locale/ko')
 dayjs.locale('ko')
  
+const setMulter = require('../multer');
+const upload = setMulter('./public/images/market_room/');
 
 router.get('/:marketNm/totalRating',async(req, res)=>{
     let ratringResult = new Object();
-    let result = await Market.findAll({
+    let sum ={};
+    let order_review = await Market.findAll({
         where: {market_name: req.params.marketNm},
-        include :[{
-            model : Reserve_review,
-            attributes : []
-        },{
-            model : Order_review, 
-            attributes : []
-            
-        }],  
-        attributes : [ 
-            [ sequelize.literal(`(
-                (SUM(IFNULL(Reserve_reviews.rating,0))
-                +SUM(IFNULL(Order_reviews.rating,0)))
-                /(COUNT(Reserve_reviews.rating) + COUNT(Order_reviews.rating))
-                )`
-              ), 'ratingAvg'
-            ]
-        ],raw : true  
-    }).then(r=>{
-        return r[0].ratingAvg;
-    }) 
-    var array = new Array();  
+        include :[
+            {
+                model : Order_review,
+                attributes : ['rating']
+            },
+            {
+                model : Reserve_review,
+                attributes : ['rating']
+            }
+        ],
+        attributes : [],raw : true  
+    }).then((res) => {
+      console.log(res);
+    })
+   /*  var array = new Array();  
     for(var i=1;i<=5; i++)
        array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i)) 
                     + (await countRating(Order_review,req.params.marketNm,i))
     ratringResult.ratingAvg = result;
-    ratringResult.ratingsCount = array
-    res.json(ratringResult); 
+    ratringResult.ratingsCount = array */
+    //res.json(ratringResult); 
 })
 
 async function countRating(tableName,where,rating){
@@ -177,7 +176,7 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         include : [{
             model : Market_inform,
             required: false,
-            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment'],  
+            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment','market_phone'],  
            include : [ 
             {
                 model : Market_noti_img,
@@ -204,5 +203,32 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         return r;
     });
     res.json(result) 
+})
+
+/*  localhost/market_preview/room */
+router.post('/room',upload.single('room_img'),isLoggedInMarket, async(req,res) => {
+    let {room_name,room_comment,room_price} =req.body
+    console.log(req.file.path);
+    await Market_room.create({
+        room_id:uuidv4(),room_name,room_comment,room_price,
+        room_images : req.file.path, 
+        market_id : req.user.market_id
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
+/*  localhost/market_preview/roomlist/:가게이름 */
+router.get('/roomlist/:marketNm', async(req, res) => {
+   let{market_id} = await Market.findOne({
+        attributes:['market_id'], where : {market_name : req.params.marketNm}
+    });
+            console.log(market_id);
+   let room =  await Market_room.findAll({
+        attributes : ['room_name','room_comment','room_price','room_images'], where : {market_id}
+    }).catch((err) => {
+        console.log(err);
+    });
+    res.json(room)
 })
 module.exports = router;

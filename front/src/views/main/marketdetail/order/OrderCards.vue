@@ -44,7 +44,7 @@
                 {{card.name}}
               </v-card-text>
               <v-card-text class="text-left font-weight-bold price">
-                {{card.price}}
+                {{card.price}}원
               </v-card-text>
             </v-col>
             <v-card-actions>
@@ -52,7 +52,7 @@
               <v-btn
                 color="indigo"
                 outlined
-                @click="get()"
+                @click="1"
               >
                 담기
               </v-btn>
@@ -67,27 +67,24 @@
 <script>
 export default {
   name: "MenuCards",
+
   computed: {
     cards: {
       get() {
+        console.log(this.$store.getters["marketDetail/getCards"]+'12312512r');
         return this.$store.getters["marketDetail/getCards"]
       }
     },
   },
     beforeCreate(){
-    return this.$store.dispatch("marketDetail/actCards",this.$session.get('market_name'))  
+      return this.$store.dispatch("marketDetail/actCards",this.$session.get('market_name'))  
   },
   methods: {
     imgSrc(name){  
       name = name.replaceAll("\\", "/"); 
       return require(`../../../../../../back/${name}`);
     },
-    test(card){  
-      this.$router.push('MarketDetail')
-      //this.$store.dispatch("marketDetail/actMarketTitle",card.market_name)
-      this.$store.dispatch("marketDetail/actCards",this.$session.get('market_name'))
     },
-    }
   }
 </script>
 
