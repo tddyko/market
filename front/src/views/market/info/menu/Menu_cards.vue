@@ -83,7 +83,7 @@
                 />
               </v-card-text>
               <v-card-text
-                class="font-weight-bold price"
+                class="font-weight-bold"
                 :class="card_text"
               >
                 <v-text-field
@@ -113,6 +113,7 @@
                   color="error"
                   outlined
                   class="text-center"
+                  @click="deleteMenu"
                 >
                   삭제
                 </v-btn>
@@ -124,6 +125,8 @@
                   color="error"
                   outlined
                   class="text-center"
+                  :index="index"
+                  @click="deleteMenu"
                 >
                   삭제
                 </v-btn>
@@ -138,7 +141,7 @@
 
 <script>
 export default {
-  name: "MenuCards",
+  name: "InfoMenucards",
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),
@@ -161,15 +164,17 @@ export default {
     isDisabled(test){
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
       return !test2.includes(test)
-      }
+      },
+    deleteMenu(e){
+      this.$store.commit("menu/setDelete",e)
+    }
   }
   }
 
 </script>
 
 <style scoped>
-.centered-input >>> input {
-}
+
 </style>
 
 

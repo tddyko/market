@@ -108,7 +108,7 @@ const routes = [
         path: "/market/menu",
         name: "MenuCards",
         component: () =>
-          import(/* webpackChunkName: "LoginLayout" */ "@/views/market/menu/menu_cards"),
+          import(/* webpackChunkName: "LoginLayout" */ "@/views/market/info/option/Option_index"),
       },
     ],
   },
