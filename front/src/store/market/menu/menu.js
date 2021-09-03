@@ -60,7 +60,6 @@ const mutations = {
       if(!JSON.stringify(state.menu[i]).includes(test[i])){
         state.menu.splice(i, 1, test[i])
       }
-
     }
   }
 }
