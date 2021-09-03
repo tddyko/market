@@ -42,6 +42,14 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
+    <v-btn
+      fab
+      dark
+      small
+      color="red"
+    >
+      <v-icon>mdi-delete-forever</v-icon>
+    </v-btn>
   </v-speed-dial>
 </template>
 
