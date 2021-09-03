@@ -1,26 +1,28 @@
 <template>
   <v-container>
-    <v-row class="my-10">
-      <v-col>
-        <h1 class="text-center">
-          예약 날짜
-        </h1>
-      </v-col>
-    </v-row>
     <v-row
+      v-for="(card,index) in cards"
+      :key="index"
       class="my-1"
       justify="center"
     >
+      <!-- 반복될 카드 -->
       <v-col
-        v-for="card in cards"
-        :key="card.title"
-        :cols="card.flex"
-        sm="12"
-        md="10"
-        lg="10"
-        xl="10"
+        cols="auto"
+        align-self="center"
       >
-        <!-- 반복될 카드 -->
+        <v-checkbox
+          v-model="checkbox"
+          :value="index"
+        />
+      </v-col>
+      <v-col
+        cols="9"
+        sm="11"
+        md="9"
+        lg="10"
+        xl="9"
+      >
         <v-card
           height="auto"
           class="pa-5"
@@ -41,8 +43,9 @@
               <v-avatar
                 color="warning lighten-2"
                 size="130"
-                tile
-              />
+              >
+                <v-img :src="card.menu_img" />
+              </v-avatar>
             </v-col>
             <v-col
               cols="12"
@@ -50,29 +53,48 @@
               md="5"
               lg="5"
               xl="5"
-              align="center"
+              align="start"
             >
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs' "
-                :class="card_text"
-                v-text="card.title"
-              />
               <v-card-title
-                v-else
                 :class="card_text"
-                v-text="card.title"
-              />
+                centered-input
+              >
+                <v-text-field
+                  :disabled="isDisabled(index)"
+                  class="centered-input"
+                  hide-details
+                  label="메뉴 이름"
+                  outlined
+                  dense
+                  :value="card.menu_name"
+                />
+              </v-card-title>
               <v-card-text
                 class="text--secondary"
                 :class="card_text"
               >
-                메뉴 설명
+                <v-text-field
+                  :disabled="isDisabled(index)"
+                  hide-details
+                  outlined
+                  label="메뉴 설명"
+                  dense
+                  :value="card.menu_info"
+                />
               </v-card-text>
               <v-card-text
                 class="font-weight-bold price"
                 :class="card_text"
               >
-                9,900원
+                <v-text-field
+                  :disabled="isDisabled(index)"
+                  class="centered-input"
+                  hide-details
+                  outlined
+                  label="가격"
+                  dense
+                  :value="card.menu_price"
+                />
               </v-card-text>
             </v-col>
             <v-spacer />
@@ -88,28 +110,27 @@
                 class="text-center"
               >
                 <v-btn
-                  color="indigo"
+                  color="error"
                   outlined
                   class="text-center"
                 >
-                  담기
+                  삭제
                 </v-btn>
               </div>
               <v-card-actions
                 v-else
               >
                 <v-btn
-                  color="indigo"
+                  color="error"
                   outlined
                   class="text-center"
                 >
-                  담기
+                  삭제
                 </v-btn>
               </v-card-actions>
             </v-col>
           </v-row>
         </v-card>
-      <!-- 카드 끝 -->
       </v-col>
     </v-row>
   </v-container>
@@ -117,21 +138,38 @@
 
 <script>
 export default {
-  name: "ReserveCards",
+  name: "MenuCards",
   data: () => ({
-    card_text: 'text-center text-sm-left text-md-left '
+    card_text: 'text-center text-sm-left text-md-left ',
   }),
   computed: {
     cards: {
       get() {
-        return this.$store.getters["marketDetail/getCards"]
+        return this.$store.getters["menu/getMenu"]
+      }
+    },
+    checkbox: {
+      set(value){
+        this.$store.commit("menu/setMenu_Checkbox",value)
+      },
+      get(){
+        return this.$store.getters["menu/getMenu_Checkbox"]
       }
     },
   },
+  methods: {
+    isDisabled(test){
+      const test2 = this.$store.getters["menu/getMenu_Checkbox"];
+      return !test2.includes(test)
+      }
+  }
+  }
 
-}
 </script>
 
 <style scoped>
-
+.centered-input >>> input {
+}
 </style>
+
+

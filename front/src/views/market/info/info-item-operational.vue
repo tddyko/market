@@ -110,7 +110,7 @@
             id="image-box"
             color="success"
             outlined
-            class="rounded-xl d-inline"
+            class="rounded-lg d-inline"
             type="button"
             width="60"
             height="60"
@@ -132,8 +132,10 @@
           xl="auto"
         >
           <v-img
+            class="rounded-lg"
             :src="imageInput.image"
-            max-width="35"
+            width="60"
+            height="60"
           />
         </v-col>
       </v-row>
@@ -327,7 +329,6 @@
         >
           저장
         </v-btn>
-        {{ $vuetify.breakpoint.name }}
       </div>
     </v-container>
   </v-form>

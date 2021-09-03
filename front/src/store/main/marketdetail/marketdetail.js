@@ -58,8 +58,8 @@ const state = () => ({
     "20:00",
   ],
   cards: [
-    { title: "등심 가츠", flex: 10 },
-    { title: "치즈 가츠", flex: 10 },
+    { title: "등심 가츠", flex: 10 ,checkbox: false},
+    { title: "치즈 가츠", flex: 10 ,checkbox: false},
   ],
   floating: [
     { orderSelectDialog: false },

@@ -77,7 +77,7 @@
                     v-show="Get_Image != null"
                     :key="imageInput"
                     :src="imageInput.image"
-                    class="mr-3"
+                    class="mr-3 rounded-lg"
                     max-width="60"
                   />
                 </div>

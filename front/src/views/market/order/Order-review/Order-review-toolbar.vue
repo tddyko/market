@@ -4,6 +4,7 @@
       color="white"
       height="auto"
       class="rounded-t-xl"
+      elevation="3"
     >
       <v-row
         align="center"
@@ -30,7 +31,10 @@
         </v-col>
       </v-row>
     </v-toolbar>
-    <v-card class="rounded-xl">
+    <v-card
+      class="rounded-xl"
+      elevation="3"
+    >
       <OrderReviewTabsItems />
     </v-card>
   </div>
