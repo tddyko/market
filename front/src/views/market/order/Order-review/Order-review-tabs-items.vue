@@ -185,7 +185,7 @@ export default {
         case 'md' : return '17'
         case 'lg' : return '17'
         case 'xl' : return '17'
-        default : return '16.4'
+        default : return '16.5'
       }
     }
   }
