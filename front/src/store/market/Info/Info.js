@@ -13,6 +13,15 @@ const state = () => ({
     {
       Header: "공지사항",
     },
+    {
+      Header: "메뉴관리",
+    },
+    {
+      Header: "사이드메뉴관리",
+    },
+    {
+      Header: "좌석관리",
+    },
   ],
   Close_Time: null,
   Open_Time: null,
