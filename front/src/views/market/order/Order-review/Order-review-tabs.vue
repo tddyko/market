@@ -29,7 +29,7 @@ export default {
     },
     Tab: {
       get () {  
-        let inputData = new Object();
+        let inputData = new Object(); 
         inputData.dates = this.$store.getters["market_modules/Order_Get_Dates"] 
         inputData.tabIndex = this.$store.getters["market_modules/Order_Get_Tab"]
         this.$store.dispatch("order/actOrder_Review_Items",inputData)

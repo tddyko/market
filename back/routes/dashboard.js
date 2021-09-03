@@ -20,7 +20,6 @@ router.get('/', isLoggedInMarket, async (req, res) => {
         console.log(daterange)
     
     let datas = []
-
     datas.push({time : daterange})
     datas.push({ value : await getValues(Order, daterange,'주문') });
     datas.push({ value : await getValues(Order, daterange,'주문완료') });
@@ -29,7 +28,7 @@ router.get('/', isLoggedInMarket, async (req, res) => {
     datas.push({ value : await getValues(Reservation, daterange,'예약') });
     datas.push({ value : await getValues(Reservation, daterange,'예약완료') });
     datas.push({ value : await getValues(Reservation, daterange,'예약취소') });
- 
+
     res.json(datas)
     console.log(datas[0].time);
 });

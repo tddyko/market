@@ -1,5 +1,10 @@
+import axios from "axios";
 const state = () => ({
   tabs: null, 
+  select_items: [
+    "주문리뷰",
+    "예약리뷰" 
+  ],  
   tabTitles: [
     { title: "주문" },
     { title: "예약" },
@@ -77,6 +82,8 @@ const state = () => ({
     { widgets: false },
     { radioGroup: 1 },
   ],
+  reviews:[],
+
 });
 
 const getters = {
@@ -89,6 +96,8 @@ const getters = {
   getRatingPoint: (state) => state.ratingPoint,
   getRating: (state) => state.rating,
   getFloating: (state) => state.floating,
+  getSelect: (state) => state.select_items,
+  getReviews : (state) => state.reviews,
 };
 
 const mutations = {
@@ -107,6 +116,17 @@ const mutations = {
   setReserveTime(state, data) {
     state.reserveTime = data;
   },
+  setRating : (state, data) => {
+    console.log("setRating : " + data); 
+    state.rating = data.ratingAvg;
+    console.log(data.ratingsCount)
+    for(let i in state.valueDeterminate){ 
+      state.valueDeterminate[i].rating = data.ratingsCount[i]
+    } 
+  },
+  setReviews : (state,data) => {
+    state.reviews = data
+  }
 };
 
 const actions = {
@@ -124,6 +144,34 @@ const actions = {
   },
   actReserveTime({ commit }, value) {
     commit("setReserveTime", value);
+  },
+  actRating({ commit }, value) {
+    axios({
+      url: `http://localhost/market_preview/${value}/totalRating`,
+      method: 'get',
+    }).then((response)=>{
+      console.log(response.data)
+      commit("setRating", response.data);
+    })
+  },
+  actReviews({ commit }, value) {
+    console.log(value.switch);
+    if(value.switch == 0)
+      axios({
+        url: `http://localhost/order_review/reviews/list/${value.market_name}`,
+        method: 'get',
+      }).then((response)=>{
+        console.log(response.data)
+        commit("setReviews", response.data)
+      })
+    else
+      axios({
+        url: `http://localhost/reseve_review/reviews/list/${value.market_name}`,
+        method: 'get',
+      }).then((response)=>{
+        console.log(response.data)
+        commit("setReviews", response.data)
+      })
   },
 };
 

@@ -7,6 +7,11 @@ import './plugins'
 import axios from 'axios'
 Vue.prototype.$Axios = axios;
 Vue.config.productionTip = false;
+import VueSession from 'vue-session'
+
+var sessionOptions = {
+  persist: true
+}
 
 new Vue({
   router,
@@ -14,3 +19,4 @@ new Vue({
   vuetify,
   render: (h) => h(App)
 }).$mount("#app");
+Vue.use(VueSession, sessionOptions)

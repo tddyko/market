@@ -5,7 +5,6 @@
     <review-cards />
   </v-container>
 </template>
-
 <script>
 export default {
   name: "MenuReview",
@@ -15,7 +14,5 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 </style>

@@ -1,7 +1,13 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col
+        cols="10"
+        lg="9"
+        md="10"
+        sm="12"
+        xl="9"
+      >
         <v-expansion-panels
           v-model="panel"
           :disabled="disabled"
@@ -29,8 +35,9 @@
                 column
               >
                 <v-chip
-                  v-for="time in reserveTime"
+                  v-for="(time,index) in reserveTime"
                   :key="time"
+                  @click="test(index)"
                 >
                   {{ time }}
                 </v-chip>
@@ -47,15 +54,26 @@
                 </v-col>
                 <v-col>
                   <v-btn
+                    v-if="reservations_Number === 0"
                     class="btn-people"
+                    disabled
                     outlined
                   >
                     -
                   </v-btn>
-                  <span>1</span>
+                  <v-btn
+                    v-else
+                    class="btn-people"
+                    outlined
+                    @click="setReservations_number_minus"
+                  >
+                    -
+                  </v-btn>
+                  <span>{{ reservations_Number }}</span>
                   <v-btn
                     class="btn-people"
                     outlined
+                    @click="setReservations_number_plus"
                   >
                     +
                   </v-btn>
@@ -77,6 +95,22 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getReserveTime"]
       }
+    },
+    reservations_Number:{
+      get() {
+        return this.$store.getters["marketDetail/getReservations_number"]
+      }
+    }
+  },
+  methods: {
+    setReservations_number_plus(){
+      this.$store.dispatch('marketDetail/actReservations_number_plus')
+    },
+    setReservations_number_minus(){
+      this.$store.dispatch('marketDetail/actReservations_number_minus')
+    },
+    test(index){
+      console.log("test" + index)
     }
   }
 }

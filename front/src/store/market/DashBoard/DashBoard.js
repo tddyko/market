@@ -75,9 +75,8 @@ const mutations = {
     state.Order_DashBoard.forEach((element)=>{
       let sumValue=0;  
       data[0].time.forEach((data)=>{
-          element.labels.push(data.substring(11))
-        })
-        
+        element.labels.push(data.substring(11))
+      })
         element.value = data[i].value;
         i++
     });

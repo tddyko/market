@@ -5,16 +5,8 @@ const multer = require('multer');
 const {Product_img, Product, Pd_option_group, Pd_option} = require('../models');
 const { isLoggedInMarket, isNotLoggedIn } = require('./middlewares');
 
-//이미지 파일 저장 관련 설정
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/images/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, new Date().valueOf() + '_' + file.originalname);
-    },
-});
-const upload = multer({storage: storage});
+const setMulter = require('../multer');
+const upload = setMulter('./public/images/menu_images/');
 
 //localhost/menu/addmenu
 //id 가 name , price인 곳에서 정보를 받음

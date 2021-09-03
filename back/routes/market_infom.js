@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Market,Member,Market_inform_img,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
-,Market_inform_holiday,Product_img,Reserve_review_img,Reservation,Category} = require('../models');
+,Market_inform_holiday,Reserve_review_img,Reservation,Category} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
 const dayjs = require('dayjs');
@@ -11,34 +11,23 @@ dayjs.locale('ko')
 
 router.get('/:marketNm/totalRating',async(req, res)=>{
     let ratringResult = new Object();
-    let result = await Market.findAll({
-        where: {market_name: req.params.marketNm},
-        include :[{
-            model : Reserve_review,
-            attributes : []
-        },{
-            model : Order_review, 
-            attributes : []
-            
-        }],  
-        attributes : [ 
-            [ sequelize.literal(`(
-                (SUM(IFNULL(Reserve_reviews.rating,0))
-                +SUM(IFNULL(Order_reviews.rating,0)))
-                /(COUNT(Reserve_reviews.rating) + COUNT(Order_reviews.rating))
-                )`
-              ), 'ratingAvg'
-            ]
-        ],raw : true  
-    }).then(r=>{
-        return r[0].ratingAvg;
-    }) 
+    let {market_id} = await Market.findOne({
+        attributes :['market_id'], 
+        where:{market_name: req.params.marketNm},raw : true
+    }); 
+    let sum = 
+    await Reserve_review.sum('rating',{where :{market_id}}) + await Order_review.sum('rating',{where :{market_id}})
+    if(sum==null) sum=0
+    let count = await Reserve_review.count({where:{market_id}}) + 
+    await Order_review.count({where:{market_id}})
+    if(count==null) count=0
+
     var array = new Array();  
     for(var i=1;i<=5; i++)
-       array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i)) 
+        array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i)) 
                     + (await countRating(Order_review,req.params.marketNm,i))
-    ratringResult.ratingAvg = result;
-    ratringResult.ratingsCount = array
+    ratringResult.ratingAvg = sum/count;
+    ratringResult.ratingsCount = array.reverse()
     res.json(ratringResult); 
 })
 

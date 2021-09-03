@@ -105,6 +105,37 @@ router.get('/reviews/list',isLoggedInMarket, async(req, res) => {
     res.json(reviews);
 });
 
+
+router.get('/reviews/list/:marketName', async(req, res) => {
+    dayjs.locale('ko') 
+    let {market_id} = await Market.findOne({where : {market_name: req.params.marketName}})
+    let reviews = await Order_review.findAll({
+        attributes : ['order_review_id','review','rating',
+        [sequelize.fn('date_format', 
+        sequelize.col('Order_review.created_at'), '%Y년 %m월 %d일'), 'created_date']
+        ],
+        include : [
+            {
+                model : Order_review_img,
+                attributes : ['order_review_img'],
+            },{
+                model : Order_review_answer,
+                attributes : ['answer'],
+            },{
+                model : Member,
+                attributes : ['nickname','profile_img']
+            }
+        ],
+        where : {
+            market_id
+        } 
+    }).then(r=>{return r}).catch(err=> console.log(err)); 
+    res.json(reviews);
+});
+
+
+
+
 /* 
 localhost/order_review/:order_review_id  리뷰수정페이지
  */

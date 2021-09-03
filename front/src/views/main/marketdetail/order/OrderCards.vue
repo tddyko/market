@@ -15,18 +15,28 @@
         v-for="card in cards"
         :key="card.title"
         :cols="card.flex"
+        sm="12"
+        md="10"
+        lg="9"
+        xl="9"
       >
         <!-- 반복될 카드 -->
         <v-card
-          height="180px"
+          height="auto"
+          class="pa-5"
         >
           <v-row
             align="center"
-            justify="start"
+            justify="center"
           >
             <v-col
               class="mx-4"
-              cols="2"
+              align="center"
+              cols="12"
+              sm="4"
+              md="3"
+              lg="3"
+              xl="3"
             >
               <v-avatar
                 color="warning lighten-2"
@@ -35,26 +45,68 @@
               />
             </v-col>
             <v-col
-              cols="8"
+              cols="12"
+              sm="4"
+              md="5"
+              lg="5"
+              xl="5"
+              align="center"
             >
-              <v-card-title v-text="card.title" />
-              <v-card-text class="text-left text--secondary">
+              <div
+                v-if="$vuetify.breakpoint.name === 'xs' "
+                :class="card_text"
+                v-text="card.title"
+              />
+              <v-card-title
+                v-else
+                :class="card_text"
+                v-text="card.title"
+              />
+              <v-card-text
+                class="text--secondary"
+                :class="card_text"
+              >
                 메뉴 설명
               </v-card-text>
-              <v-card-text class="text-left font-weight-bold price">
+              <v-card-text
+                class="font-weight-bold price"
+                :class="card_text"
+              >
                 9,900원
               </v-card-text>
             </v-col>
-            <v-card-actions>
-              <v-spacer />
-
-              <v-btn
-                color="indigo"
-                outlined
+            <v-spacer />
+            <v-col
+              cols="12"
+              sm="3"
+              md="3"
+              lg="2"
+              xl="2"
+            >
+              <div
+                v-if="$vuetify.breakpoint.name === 'xs'"
+                class="text-center"
               >
-                담기
-              </v-btn>
-            </v-card-actions>
+                <v-btn
+                  color="indigo"
+                  outlined
+                  class="text-center"
+                >
+                  담기
+                </v-btn>
+              </div>
+              <v-card-actions
+                v-else
+              >
+                <v-btn
+                  color="indigo"
+                  outlined
+                  class="text-center"
+                >
+                  담기
+                </v-btn>
+              </v-card-actions>
+            </v-col>
           </v-row>
         </v-card>
       </v-col>
@@ -65,9 +117,12 @@
 <script>
 export default {
   name: "MenuCards",
+  data: () => ({
+    card_text: 'text-center text-sm-left text-md-left '
+  }),
   computed: {
     cards: {
-      get() { 
+      get() {
         return this.$store.getters["marketDetail/getCards"]
       }
     },
