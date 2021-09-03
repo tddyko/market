@@ -1,14 +1,13 @@
 <template>
   <v-card>
     <v-toolbar
-      color="primary"
-      dark
+      color="white"
     >
       <v-toolbar-title>결제창</v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
+        @click="floating.orderSelectDialog = false"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>

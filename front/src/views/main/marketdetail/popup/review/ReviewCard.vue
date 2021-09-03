@@ -1,13 +1,11 @@
 <template>
   <v-card>
     <v-toolbar
-      color="primary"
-      dark
+      color="white"
     >
       <v-toolbar-title>리뷰 작성</v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
         @click="floating.reviewDialog = false"
       >

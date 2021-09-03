@@ -1,8 +1,7 @@
 <template>
   <v-card>
     <v-toolbar
-      color="primary"
-      dark
+      color="white"
     >
       <v-toolbar-title>결제창</v-toolbar-title>
     </v-toolbar>

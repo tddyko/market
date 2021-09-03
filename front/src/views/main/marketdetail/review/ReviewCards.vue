@@ -5,7 +5,7 @@
     <!-- <v-card-text> -->
     <v-container>
       <v-row justify="end">
-        <v-col xl="3">
+        <v-col cols="3">
           <v-select
             :items="['주문 리뷰', '예약 리뷰']"
             class="select-width pa-5 mt-5"
@@ -52,8 +52,8 @@
           닉네임
         </v-col>
         <v-col
-          align="start"
           :class="`text-${Font_size}`"
+          align="start"
           lg="9"
           md="9"
           xl="9"
@@ -71,17 +71,17 @@
           align="left"
           class="mt-1"
           cols="12"
-          sm="12"
           lg="12"
           md="12"
+          sm="12"
           xl="12"
         >
           <img
+            :height="`${Img_size}`"
+            :width="`${Img_size}`"
             alt="John"
             class="rounded-lg ma-2"
-            :height="`${Img_size}`"
             src="https://cdn.vuetifyjs.com/images/john.jpg"
-            :width="`${Img_size}`"
           >
         </v-col>
         <v-col
@@ -92,15 +92,25 @@
         >
           <v-textarea
             :class="`text-${Font_size}`"
-            hide-details
-            height="200"
-            outlined
             dense
-            readonly
+            height="200"
+            hide-details
+            outlined
             placeholder="내용을 입력하세요."
+            readonly
             rounded
             value="맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요맛있어요"
           />
+        </v-col>
+      </v-row>
+      <v-row
+        align="center"
+        justify="start"
+      >
+        <v-col>
+          <v-card>
+            dasd
+          </v-card>
         </v-col>
       </v-row>
     </v-container>

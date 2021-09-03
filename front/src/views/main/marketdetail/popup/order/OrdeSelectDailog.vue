@@ -2,16 +2,17 @@
   <v-row justify="center">
     <v-dialog
       v-model="floating.orderSelectDialog"
+      :retain-focus="false"
       fullscreen
       hide-overlay
-      :retain-focus="false"
+      persistent
       transition="dialog-bottom-transition"
     >
       <template #activator="{ on, attrs }">
         <v-btn
+          class="text-center"
           color="indigo"
           outlined
-          class="text-center"
           v-bind="attrs"
           v-on="on"
         >

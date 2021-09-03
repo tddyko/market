@@ -7,9 +7,9 @@
   >
     <template #activator="{ on, attrs }">
       <v-btn
-        v-bind="attrs"
         color="blue"
         text
+        v-bind="attrs"
         v-on="on"
       >
         회원가입하기
@@ -17,14 +17,12 @@
     </template>
     <v-card>
       <v-toolbar
-        color="primary"
-        dark
+        color="white"
       >
         <v-toolbar-title>회원가입</v-toolbar-title>
         <v-spacer />
         <v-toolbar-items>
           <v-btn
-            dark
             icon
             @click="dialog = false"
           >
