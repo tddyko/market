@@ -76,7 +76,8 @@
               sm="3"
               xl="2"
             >
-              <order-select-dialog />
+              <order-select-dialog v-bind:num='card'>
+              </order-select-dialog>
             </v-col>
           </v-row>
         </v-card>

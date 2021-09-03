@@ -59,7 +59,9 @@ const state = () => ({
   product: [],
   optionGroup : [],
   room:[],
-  reservation:[]
+  reservation:[],
+  selectmenu:[],
+  addmenu:[],
 });
 
 const getters = {
@@ -80,6 +82,8 @@ const getters = {
   getRoom: (state) => state.room,
   getReservation: (state) => state.reservation,
   getReservations_number: (state) => state.reservations_number,
+  getSelectmenu: (state) => state.selectmenu,
+  getAddmenu: (state) => state.addmenu,
 };
 
 const mutations = {
@@ -121,7 +125,13 @@ const mutations = {
   },
   setReservation(state, data){
     state.reservation = data;
-  }
+  },
+  setSelectmenu(state, data){
+    state.selectmenu.push(data);
+  },
+  setAddmenu(state, data){
+    state.addmenu = data;
+  },
 };
 
 const actions = {

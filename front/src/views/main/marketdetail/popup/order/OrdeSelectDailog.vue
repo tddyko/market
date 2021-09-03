@@ -15,6 +15,7 @@
           outlined
           v-bind="attrs"
           v-on="on"
+          @click="select"
         >
           추가
         </v-btn>
@@ -25,6 +26,7 @@
 </template>
 <script>
 export default {
+   props: ["num"],
   name: "OrderSelectDialog",
   components: {
     OrderSelect: () => import('@/views/main/marketdetail/popup/order/OrderSelect')
@@ -35,6 +37,15 @@ export default {
         return this.$store.getters["marketDetail/getFloating"]
       }
     },
+  },
+  created(){
+    console.log(this.num);
+  },
+  methods: {
+    select(){
+      this.$store.commit('marketDetail/setAddmenu',this.num);
+      console.log(this.$store.getters["marketDetail/getAddmenu"]);
+    }
   }
 }
 </script>
