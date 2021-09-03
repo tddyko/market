@@ -11,60 +11,79 @@
         <v-container>
           <v-row
             align="center"
-            class="mt-5"
+            class="mt-5 ml-1"
             justify="center"
           >
             <v-col
               align="start"
-              lg="9"
+              sm="10"
+              md="10"
+              lg="10"
+              xl="10"
             >
               공지사항
             </v-col>
           </v-row>
-          <v-row
-            align="center"
-            justify="center"
-          >
-            <v-col
-              lg="9"
+          <v-container>
+            <v-row
+              align="center"
+              justify="center"
             >
-              <v-textarea
-                ref="test"
-                dense
-                hide-details
-                no-resize
-                outlined
-                rows="10"
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-            justify="start"
-          >
-            <v-col
-              lg="4"
-            >
-              <input
-                ref="imageInput"
-                hidden
-                multiple
-                type="file"
+              <v-col
+                sm="10"
+                md="10"
+                lg="10"
+                xl="10"
               >
-              <v-btn
-                color="primary"
-                outlined
-                rounded
-                type="button"
-                @click="onClickImgUpload"
+                <v-textarea
+                  ref="test"
+                  dense
+                  hide-details
+                  no-resize
+                  outlined
+                  rows="10"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="10"
+                md="10"
+                lg="10"
+                xl="10"
+                align="start"
               >
-                사진 업로드
-                <v-icon right>
-                  mdi-camera
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
+                <input
+                  ref="imageInput"
+                  hidden
+                  multiple
+                  type="file"
+                >
+                <v-btn
+                  color="primary"
+                  class="rounded-lg mb-12 mr-5"
+                  outlined
+                  type="button"
+                  width="60"
+                  height="60"
+                  @click="onClickImgUpload"
+                >
+                  <v-icon bottom>
+                    mdi-camera
+                  </v-icon>
+                </v-btn>
+                <div class="d-inline-flex">
+                  <v-img
+                    v-for="imageInput in Get_Image"
+                    v-show="Get_Image != null"
+                    :key="imageInput"
+                    :src="imageInput.image"
+                    class="mr-3 rounded-lg"
+                    max-width="60"
+                  />
+                </div>
+              </v-col>
+            </v-row>
+          </v-container>
           <div class="text-center">
             <v-btn
               class="mt-10 rounded-lg text-center"
@@ -85,6 +104,11 @@
 <script>
 export default {
   name: "InfoItemNotice",
+  computed: {
+    Get_Image(){
+      return this.$store.getters["info/Get_Info_Operrational_img"]
+    },
+  },
   methods: {
     onClickImgUpload () {
       this.$refs.imageInput.click();

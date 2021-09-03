@@ -4,27 +4,37 @@
       color="white"
       height="auto"
       class="rounded-t-xl"
+      elevation="3"
     >
       <v-row
         align="center"
         justify="space-between"
+        no-gutters
       >
         <v-col
-          md="5"
-          lg="5"
-          xl="4"
+          cols="12"
+          sm="3"
+          md="4"
+          lg="4"
+          xl="3"
         >
           <OrderReviewDatepicker />
         </v-col>
         <v-col
+          cols="12"
+          sm="6"
           md="6"
           lg="6"
+          xl="6"
         >
           <OrderReviewTabs />
         </v-col>
       </v-row>
     </v-toolbar>
-    <v-card class="rounded-xl">
+    <v-card
+      class="rounded-xl"
+      elevation="3"
+    >
       <OrderReviewTabsItems />
     </v-card>
   </div>

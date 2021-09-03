@@ -1,13 +1,11 @@
 <template>
   <v-card>
     <v-toolbar
-      color="primary"
-      dark
+      color="white"
     >
       <v-toolbar-title>리뷰 작성</v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
         @click="floating.reviewDialog = false"
       >
@@ -109,7 +107,7 @@
         <v-img
           :height="`${Button_Img_size}`"
           :width="`${Button_Img_size}`"
-          class="white--text align-end"
+          class="white--text align-end rounded-xl"
           src="https://picsum.photos/80"
         />
       </v-col>

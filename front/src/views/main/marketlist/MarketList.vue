@@ -24,11 +24,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col
-            lg="12"
-            md="12"
-            sm="12"
-          >
+          <v-col>
             <list-card />
           </v-col>
         </v-row>

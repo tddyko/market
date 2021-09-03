@@ -61,14 +61,16 @@ export default {
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return 'sm-subtitle-1'
         case 'md':
           return 'md-subtitle-1'
         case 'lg':
-          return 'lg-h6'
+          return 'lg-subtitle-1'
         case 'xl':
-          return 'xl-h6'
+          return 'xl-subtitle-1'
         default :
-          return ''
+          return 'h5'
       }
     }
   },

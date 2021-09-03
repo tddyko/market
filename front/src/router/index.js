@@ -46,7 +46,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(
-            /* webpackChunkName: "Dashboard" */ "@/views/market/DashBoard"
+            /* webpackChunkName: "Dashboard" */ "@/views/market/DashBoard/DashBoard"
           ),
       },
       {
@@ -104,6 +104,12 @@ const routes = [
             /* webpackChunkName: "Information" */ "@/views/market/info/Info-index"
           ),
       },
+      {
+        path: "/market/menu",
+        name: "MenuCards",
+        component: () =>
+          import(/* webpackChunkName: "LoginLayout" */ "@/views/market/info/option/Option_index"),
+      },
     ],
   },
   {
@@ -118,6 +124,7 @@ const routes = [
       },
     ],
   },
+
 ];
 
 const router = new VueRouter({

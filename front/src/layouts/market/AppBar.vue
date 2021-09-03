@@ -1,11 +1,19 @@
 <template>
   <v-app-bar
     app
-    color="primary"
-    dark
+    color="white"
   >
     <v-app-bar-nav-icon @click="drawer = !drawer" />
-    <v-toolbar-title>No Wait</v-toolbar-title>
+    <v-toolbar-title>
+      <router-link to="/market">
+        <v-img
+          src="@/assets/logo.png"
+          max-width="165"
+          max-height="30"
+          contain
+        />
+      </router-link>
+    </v-toolbar-title>
     <v-spacer />
     <v-btn
       icon

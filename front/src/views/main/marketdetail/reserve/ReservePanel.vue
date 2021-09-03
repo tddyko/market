@@ -1,10 +1,15 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col
+        cols="10"
+        sm="12"
+        md="10"
+        lg="10"
+        xl="10"
+      >
         <v-expansion-panels
           v-model="panel"
-          :disabled="false"
           multiple
         >
           <v-expansion-panel>
@@ -44,22 +49,38 @@
             <v-expansion-panel-header>인원 선택</v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                  lg="7"
+                  xl="7"
+                >
                   <div>예약 인원수를 선택해주세요</div>
                 </v-col>
-                <v-col>
+                <v-col
+                  align="center"
+                  cols="12"
+                  sm="6"
+                  md="6"
+                  lg="5"
+                  xl="5"
+                >
                   <v-btn
+                    :min-width="`${btn_width}`"
                     class="btn-people"
                     outlined
-                    @click="mynus"
+                    :disabled="btn_disabled"
+                    @click="setReservations_number_minus"
                   >
                     -
                   </v-btn>
-                  <span>{{ reserveCount }}</span>
+                  <span>{{ reservations_Number }}명</span>
                   <v-btn
                     class="btn-people"
+                    :min-width="`${btn_width}`"
                     outlined
-                    @click="plus"
+                    @click="setReservations_number_plus"
                   >
                     +
                   </v-btn>
@@ -77,40 +98,47 @@
 export default {
   name: "ReservePanel",
   computed: {
+    btn_width() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 10;
+        default:
+          return 60;
+      }
+    },
+    btn_disabled() {
+      return this.reservations_Number === 1;
+    },
     reserveTime: {
       get() {
         return this.$store.getters["marketDetail/getReserveTime"]
       }
     },
-    reserveCount: {
+    reservations_Number: {
       get() {
-        return this.$store.getters["marketDetail/getReserveCount"]
+        return this.$store.getters["marketDetail/getReservations_number"]
       }
-    },
-    date: {
-      get(){
+    }
+  },
+  date: {
+    get(){
       return this.$store.getters["market_modules/Reservation_Get_date"];
-      },
-      set(value){
-        this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
-      }
+    },
+    set(value){
+      this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
     }
   },
   created(){
     this.$store.dispatch("marketDetail/actReserveTime",this.$session.get('market_name'))
   },
   methods: {
-    update(){
-      console.log(this.$store.getters["market_modules/Reservation_Get_date"]);
+    setReservations_number_plus() {
+      this.$store.dispatch('marketDetail/actReservations_number_plus')
     },
-    mynus(){
-      if(this.$store.getters["marketDetail/getReserveCount"]>1)
-      this.$store.commit('marketDetail/setReserveCount',this.$store.getters["marketDetail/getReserveCount"]-1)
+    setReservations_number_minus() {
+      this.$store.dispatch('marketDetail/actReservations_number_minus')
     },
-    plus(){
-      this.$store.commit('marketDetail/setReserveCount',this.$store.getters["marketDetail/getReserveCount"]+1)
-    },
-    test(index){
+    setReserveTimes(index){
       this.$store.commit('marketDetail/setReserveTimeCh',index)
     }
   }

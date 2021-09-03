@@ -1,5 +1,6 @@
 import axios from 'axios';
 const state = () => ({
+  reservations_number: 1,
   tabs: null,
   tabTitles: [
     { title: "주문" },
@@ -79,6 +80,7 @@ const getters = {
   getReserveTimeCh: (state) => state.reserveTimeCh,
   getRoom: (state) => state.room,
   getReservation: (state) => state.reservation,
+  getReservations_number: (state) => state.reservations_number,
 };
 
 const mutations = {
@@ -117,6 +119,14 @@ const mutations = {
   }
 };
 /*  */
+  setReservations_number_plus(state) {
+    state.reservations_number += 1;
+  },
+  setReservations_number_minus(state) {
+    state.reservations_number -= 1;
+  },
+};
+
 const actions = {
   actTabs({ commit }, value) {
     commit("setTabs", value);
@@ -200,6 +210,14 @@ const actions = {
     console.log(response.data);
   })
   }
+    commit("setReserveTime", value);
+  },
+  actReservations_number_plus({ commit }) {
+    commit("setReservations_number_plus");
+  },
+  actReservations_number_minus({ commit }) {
+    commit("setReservations_number_minus");
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

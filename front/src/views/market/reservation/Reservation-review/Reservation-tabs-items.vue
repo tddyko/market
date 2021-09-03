@@ -11,38 +11,42 @@
           <v-card-text>
             <v-container>
               <v-row
+                align="center"
                 justify="start"
                 no-gutters
-                align="center"
               >
                 <v-col
-                  md="1"
-                  lg="1"
-                  xl="1"
+                  lg="auto"
+                  md="auto"
+                  sm="auto"
+                  xl="auto"
                 >
                   <v-avatar>
                     <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
                       alt="John"
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
                     >
                   </v-avatar>
                 </v-col>
                 <v-col
-                  lg="1"
-                  md="1"
-                  xl="auto"
-                  class="font-weight-bold"
                   :class="`text-${Font_Size}`"
+                  class="font-weight-bold ml-7"
+                  cols="auto"
+                  lg="auto"
+                  md="auto"
+                  sm="auto"
+                  xl="auto"
                 >
                   {{ Reservation_items.Nickname }}
                 </v-col>
                 <v-col
-                  lg="9"
-                  md="9"
-                  xl="9"
-                  class="font-weight-light mr-1"
                   :class="`text-${Date_Font_Size}`"
                   align="start"
+                  class="font-weight-light"
+                  lg="5"
+                  md="5"
+                  sm="8"
+                  xl="5"
                 >
                   <div class="mx-5">
                     <div class="ml-1">
@@ -51,63 +55,66 @@
                     <div>
                       <v-rating
                         id="Rating-Inline"
+                        :size="`${Rating_size}`"
                         :value="`${Reservation_items.Rating}`"
                         background-color="warning lighten-1"
                         color="orange"
-                        half-increments
                         dense
+                        half-increments
                         readonly
-                        :size="`${Rating_size}`"
                       />
                       ({{ Reservation_items.Rating }})
                     </div>
                   </div>
                 </v-col>
                 <v-col
+                  align="center"
+                  class="mt-1"
                   lg="12"
                   md="12"
                   xl="12"
-                  align="center"
-                  class="mt-1"
                 >
                   <img
-                    height="200"
-                    width="200"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
                     alt="John"
                     class="rounded-lg ma-2"
+                    height="200"
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    width="200"
                   >
                 </v-col>
                 <v-col
-                  lg="8"
-                  md="8"
+                  class="ma-2 mb-7"
+                  cols="12"
+                  lg="12"
+                  md="12"
+                  sm="12"
                   xl="12"
-                  class="ma-2"
                 >
                   <v-textarea
                     :value="`${Reservation_items.Review}`"
-                    placeholder="내용을 입력하세요."
-                    no-resize
-                    hide-details
-                    readonly
                     class="px-16"
+                    hide-details
+                    no-resize
+                    readonly
                     rounded
                   />
                 </v-col>
                 <v-col
-                  lg="10"
-                  md="10"
+                  cols="12"
+                  lg="12"
+                  md="12"
+                  sm="12"
                   xl="12"
                 >
                   <v-textarea
-                    outlined
-                    value="감사합니다 더욱더 발전하는 저희 교촌치킨이 되겠습니다."
-                    dense
-                    placeholder="내용을 입력하세요."
-                    no-resize
-                    hide-details
                     class="px-16"
+                    dense
+                    hide-details
+                    no-resize
+                    outlined
+                    placeholder="내용을 입력하세요."
                     rounded
+                    value="감사합니다 더욱더 발전하는 저희 교촌치킨이 되겠습니다."
                   />
                 </v-col>
               </v-row>
@@ -148,10 +155,12 @@ export default {
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm':
+          return 'sm-body1'
         case 'md':
-          return 'md-subtitle-1'
+          return 'md-body-1'
         case 'lg':
-          return 'lg-h6'
+          return 'lg-body-1'
         case 'xl':
           return 'xl-h6'
         default :
@@ -160,19 +169,21 @@ export default {
     },
     Date_Font_Size () {
       switch (this.$vuetify.breakpoint.name) {
+        case 'sm': return 'sm-caption'
         case 'md': return 'md-caption'
         case 'lg': return 'lg-caption'
         case 'xl': return 'xl-caption'
-        default : return ''
+        default : return 'caption'
       }
 
     },
     Rating_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'md' : return '25'
-        case 'lg' : return '22'
-        case 'xl' : return '16.8'
-        default : return ''
+        case 'sm' : return '18'
+        case 'md' : return '18.6'
+        case 'lg' : return '18.6'
+        case 'xl' : return '18.6'
+        default : return '8'
       }
     }
   }

@@ -1,13 +1,11 @@
 <template>
   <v-card>
     <v-toolbar
-      color="primary"
-      dark
+      color="white"
     >
       <v-toolbar-title>예약 확인 창</v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
         @click="floating.reserveDialog = false"
       >
@@ -23,8 +21,6 @@
         />
       </v-col>
     </v-row>
-
-    
     <v-row>
       <v-col>
         <div class="text-h3">
@@ -38,7 +34,7 @@
 
     <v-divider />
 
-     <v-row
+    <v-row
       class="my-5"
       justify="space-between"
     >
@@ -52,14 +48,6 @@
           {{ getRoom }}
         </div>
       </v-col>
-    </v-row>
-
-    <v-divider />
-
-    <v-row
-      class="my-5"
-      justify="space-between"
-    >
       <v-col>
         <div class="text-h6 font-weight-bold">
           날짜
@@ -67,7 +55,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-         {{getDate}}
+          {{getDate}}
         </div>
       </v-col>
     </v-row>
@@ -89,7 +77,6 @@
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -127,7 +114,6 @@ export default {
   computed: {
     floating: {
       get() {
-        console.log(this.$store.getters["marketDetail/getReserveTime"]);
         return this.$store.getters["marketDetail/getFloating"]
       }
     },
@@ -154,7 +140,7 @@ export default {
   },
   created(){
     //console.log(this.$store.getters["marketDetail/getReserveTime"],this.$session.get('market_name'));
-    
+
   },
   methods: {
     button() {

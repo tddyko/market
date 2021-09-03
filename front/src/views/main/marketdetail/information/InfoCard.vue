@@ -121,18 +121,18 @@ export default {
   name: "MenuInform",
   computed: {
     marketInfo : {
-      get() { 
+      get() {
         return this.$store.getters["marketDetail/getMarketTitle"]
          },
     },
     beforeCreate(){
-    return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))  
+    return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
   },
   },
   methods: {
-    imgSrc(name){ 
+    imgSrc(name){
       console.log(name)
-      name = name.replaceAll("\\", "/"); 
+      name = name.replaceAll("\\", "/");
       return require(`../../../../../../back/${name}`);
     }
   },

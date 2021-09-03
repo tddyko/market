@@ -3,10 +3,11 @@
     v-model="tab"
     grow
   >
-    <v-tabs-slider color="white" />
+    <v-tabs-slider color="blue" />
     <v-tab
       v-for="title in tabTitle"
       :key="title.title"
+      class="font-weight-bold"
     >
       {{ title.title }}
     </v-tab>

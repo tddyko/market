@@ -1,9 +1,9 @@
 const state = () => ({
   week: [
-    "첫재 주", "둘째 주","셋째 주","넷째 주"
+    "첫재 주", "둘째 주", "셋째 주", "넷째 주"
   ],
   day: [
-    "월요일", "화요일","수요일","목요일","금요일","토요일","일요일"
+    "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
   ],
   Tab: null,
   Tab_Headers: [
@@ -13,11 +13,31 @@ const state = () => ({
     {
       Header: "공지사항",
     },
+    {
+      Header: "메뉴관리",
+    },
+    {
+      Header: "사이드메뉴관리",
+    },
+    {
+      Header: "좌석관리",
+    },
   ],
   Close_Time: null,
   Open_Time: null,
   Open_Time_Menu: false,
   Close_Time_Menu: false,
+  Info_Image: [
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    },
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    },
+    {
+      image: "https://cdn.vuetifyjs.com/images/john.jpg",
+    }
+  ]
 })
 const getters = {
   Get_Info_Tab(state) {
@@ -29,77 +49,82 @@ const getters = {
   Get_Day(state) {
     return state.day;
   },
-  Get_Tab(state){
+  Get_Tab(state) {
     return state.Tab;
   },
-  Get_Tab_Headers(state){
+  Get_Tab_Headers(state) {
     return state.Tab_Headers;
   },
-  Get_Open_Time(state){
+  Get_Open_Time(state) {
     return state.Open_Time;
 
   },
-  Get_Close_Time(state){
+  Get_Close_Time(state) {
     return state.Close_Time;
   },
-  Get_Open_Time_Menu(state){
+  Get_Open_Time_Menu(state) {
     return state.Open_Time_Menu;
   },
-  Get_Close_Time_Menu(state){
+  Get_Close_Time_Menu(state) {
     return state.Close_Time_Menu;
-  }
+  },
+  Get_Info_Operrational_img: (state) => state.Info_Image
 };
 
 const mutations = {
-  Set_Info_Tab(state, value){
+  Set_Info_Tab(state, value) {
     state.Tab = value;
   },
-  Set_Open_Time(state, value){
-    state.Open_Time =  value;
+  Set_Open_Time(state, value) {
+    state.Open_Time = value;
   },
-  Set_Close_Time(state, value){
+  Set_Close_Time(state, value) {
     state.Close_Time = value;
   },
-  Set_Open_Time_Menu(state, value){
+  Set_Open_Time_Menu(state, value) {
     state.Open_Time_Menu = value;
   },
-  Set_Close_Time_Menu(state, value){
+  Set_Close_Time_Menu(state, value) {
     state.Close_Time_Menu = value;
   },
-  Update_Open_Time_Menu(state){
-    if(parseInt(state.Open_Time.toString().substring(0,2)) >= 12){
+  Update_Open_Time_Menu(state) {
+    if (parseInt(state.Open_Time.toString().substring(0, 2)) > 12) {
+      state.Open_Time = '오후 ' + (parseInt(state.Open_Time)- 12) + state.Open_Time.toString().substring(2, 5);
+    } else if (parseInt(state.Open_Time.toString().substring(0, 2)) < 10) {
+      state.Open_Time = '오전 ' + state.Open_Time.toString().substring(1, 2) + state.Open_Time.toString().substring(2, 5);
+    } else {
       state.Open_Time = '오후 ' + state.Open_Time;
-    }else{
-      state.Open_Time = '오전 ' + state.Open_Time;
     }
     state.Open_Time_Menu = false;
   },
-  Update_Close_Time_Menu(state){
-      if(parseInt(state.Close_Time.toString().substring(0,2)) >= 12){
-        state.Close_Time = '오후 ' + state.Close_Time;
-      }else{
-        state.Close_Time = '오전 ' + state.Close_Time;
-      }
+  Update_Close_Time_Menu(state) {
+    if (parseInt(state.Close_Time.toString().substring(0, 2)) > 12) {
+      state.Close_Time = '오후 ' + (parseInt(state.Close_Time)- 12) + state.Close_Time.toString().substring(2, 5);
+    } else if (parseInt(state.Close_Time.toString().substring(0, 2)) < 10) {
+      state.Close_Time = '오전 ' + state.Close_Time.toString().substring(1, 2) + state.Close_Time.toString().substring(2, 5);
+    } else {
+      state.Close_Time = '오후 ' + state.Close_Time;
+    }
     state.Close_Time_Menu = false;
   },
 };
 
 const actions = {
-  Info_Set_Tab_Actions({commit}, value){
+  Info_Set_Tab_Actions({commit}, value) {
     commit("Set_Info_Tab", value);
   },
-  Info_Set_Open_Time_Actions({commit}, value){
+  Info_Set_Open_Time_Actions({commit}, value) {
     commit("Set_Open_Time", value);
   },
-  Info_Set_Close_Time_Actions({commit}, value){
+  Info_Set_Close_Time_Actions({commit}, value) {
     commit("Set_Close_Time", value);
   },
-  Info_Set_Open_Time_Menu({commit}, value){
+  Info_Set_Open_Time_Menu({commit}, value) {
     commit("Set_Open_Time_Menu", value)
   },
-  Info_Set_Close_Time_Menu({commit}, value){
+  Info_Set_Close_Time_Menu({commit}, value) {
     commit("Set_Close_Time_Menu", value)
   }
 };
 
-export default {namespaced: true , state ,getters ,actions ,mutations}
+export default {namespaced: true, state, getters, actions, mutations}

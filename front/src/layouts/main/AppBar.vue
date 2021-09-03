@@ -2,13 +2,20 @@
   <v-container>
     <v-app-bar
       app
-      color="primary"
-      dark
+      color="white"
     >
-      <v-toolbar-title>No Wait</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/">
+          <v-img
+            src="@/assets/logo.png"
+            max-width="165"
+            max-height="30"
+            contain
+          />
+        </router-link>
+      </v-toolbar-title>
       <v-spacer />
       <v-btn
-        dark
         icon
         @click="expand = !expand"
       >
@@ -19,7 +26,6 @@
           v-show="expand"
           class="pa-2"
           color="transparent"
-          dark
           elevation="0"
           width="600px"
         >
