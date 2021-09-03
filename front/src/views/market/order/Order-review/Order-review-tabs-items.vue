@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-0">
     <v-tabs-items
       v-for="review_items in Get_Order_Review"
       :key="review_items"
@@ -7,7 +7,10 @@
     >
       <v-tab-item>
         <v-divider />
-        <v-card>
+        <v-card
+          class="mt-0"
+          elevation="3"
+        >
           <v-card-text>
             <v-container>
               <v-row
@@ -178,11 +181,11 @@ export default {
     },
     Rating_size(){
       switch (this.$vuetify.breakpoint.name){
-        case 'sm' : return '18'
-        case 'md' : return '18.6'
-        case 'lg' : return '18.6'
-        case 'xl' : return '18.6'
-        default : return '8'
+        case 'sm' : return '17'
+        case 'md' : return '17'
+        case 'lg' : return '17'
+        case 'xl' : return '17'
+        default : return '16.4'
       }
     }
   }
