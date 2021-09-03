@@ -31,19 +31,27 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <v-form
-          class="ma-3"
-        >
+        <v-form>
           <v-row
             align="center"
+            class="mt-1"
           >
             <v-col
-              cols="1"
+              cols="3"
+              sm="5"
+              md="5"
+              lg="3"
+              xl="3"
             >
-              <span>스토어이미지</span>
+              <span>스토어 이미지</span>
             </v-col>
             <v-col
-              cols="1"
+              cols="3"
+              sm="3"
+              md="2"
+              lg="2"
+              xl="2"
+              class="ml-0 mr-6"
             >
               <v-avatar
                 size="80"
@@ -55,7 +63,11 @@
               </v-avatar>
             </v-col>
             <v-col
-              cols="1"
+              cols="3"
+              sm="3"
+              md="3"
+              lg="3"
+              xl="3"
             >
               <input
                 ref="imageInput"
@@ -65,14 +77,14 @@
                 @change="onChangeImages"
               >
               <v-btn
+                class="pa-0 ma-0"
                 color="primary"
                 outlined
                 rounded
                 type="button"
                 @click="onClickImgUpload"
               >
-                사진 업로드
-                <v-icon right>
+                <v-icon center>
                   mdi-camera
                 </v-icon>
               </v-btn>
@@ -82,147 +94,296 @@
             align="center"
           >
             <v-col
-              cols="1"
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
             >
               <span>아이디</span>
             </v-col>
             <v-col
-              cols="6"
+              cols="5"
+              sm="6"
+              md="3"
+              xl="3"
+              lg="3"
             >
               <v-text-field
                 clearable
-                label="Solo"
+                label="아이디를 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
-            <v-col>
-              <v-btn>
+            <v-col
+              cols="1"
+              sm="1"
+              md="1"
+              lg="1"
+              xl="1"
+            >
+              <v-btn class="pa-0 ma-0">
                 중복확인
               </v-btn>
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>비밀번호</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              xl="4"
+              lg="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="비밀번호를 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>비밀번호 확인</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="비밀번호 확인"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              xl="2"
+              lg="2"
+            >
               <span>이메일</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
               <v-text-field
+                class="ma-0 pa-0"
+                label="이메일을 입력해주세요"
                 clearable
-                label="Solo"
                 solo
-              />
-            </v-col>@
-            <v-col>
-              <v-select
-                label="Solo"
-                solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
+              <span>카테고리</span>
+            </v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
+              <v-select
+                label="카테고리를 선택해주세요"
+                solo
+                hide-details
+              />
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>가게이름</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="가게이름을 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>전화번호</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="전화번호를 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
-              <span>주소</span>
-            </v-col>
-          </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>우편번호</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="5"
+              sm="6"
+              md="3"
+              xl="3"
+              lg="3"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="우편번호"
                 solo
+                hide-details
               />
             </v-col>
-            <v-col>
-              <v-btn>주소검색</v-btn>
+            <v-col
+              cols="1"
+              sm="1"
+              md="1"
+              lg="1"
+              xl="1"
+            >
+              <v-btn class="pa-0 ma-0">
+                주소검색
+              </v-btn>
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>주소</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              xl="4"
+              lg="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="주소를 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
-          <v-row class="align-center">
-            <v-col>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="3"
+              sm="4"
+              md="4"
+              lg="2"
+              xl="2"
+            >
               <span>상세주소</span>
             </v-col>
-            <v-col>
+            <v-col
+              cols="8"
+              sm="8"
+              md="4"
+              lg="4"
+              xl="4"
+            >
               <v-text-field
                 clearable
-                label="Solo"
+                label="상세주소를 입력해주세요"
                 solo
+                hide-details
               />
             </v-col>
           </v-row>
         </v-form>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn
-          class="white--text"
-          color="blue darken-1"
-          @click="dialog = true"
-        >
-          가입
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

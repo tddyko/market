@@ -7,14 +7,26 @@
     >
       <v-card id="bg-gray">
         <v-row>
-          <v-col cols="9">
+          <v-col
+            cols="7"
+            sm="7"
+            md="7"
+            lg="8"
+            xl="8"
+          >
             <h1
-              class="pa-5 mt-5 text-xl-h4 text-lg-h5 text-sm-body-2 text-left"
+              class="pa-5 mt-5 text-h5 text-left"
             >
               우리동네 맛집
             </h1>
           </v-col>
-          <v-col col="3">
+          <v-col
+            col="5"
+            sm="5"
+            md="5"
+            lg="4"
+            xl="4"
+          >
             <v-select
               :items="select"
               class="select-width pa-5 mt-5"

@@ -81,13 +81,11 @@
     </v-row>
   </v-container>
 </template>
-
 <script>
-import OrderSelectDialog from "@/views/main/marketdetail/popup/order/OrdeSelectDailog";
 export default {
   name: "MenuCards",
   components: {
-    OrderSelectDialog
+    OrderSelectDialog: () => import('@/views/main/marketdetail/popup/order/OrdeSelectDailog')
   },
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left '
@@ -106,7 +104,5 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 </style>
