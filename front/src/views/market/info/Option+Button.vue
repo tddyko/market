@@ -29,6 +29,7 @@
       dark
       small
       color="green"
+      @click="setItem"
     >
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
@@ -88,6 +89,11 @@ export default {
     },
     setDeleteMenu() {
       this.$store.commit("menu/setDelete")
+    },
+    setItem(){
+      this.$store.commit("menu/updateMenu")
+      const test = this.$store.getters["menu/getMenu"]
+      console.log(test)
     }
   },
 }

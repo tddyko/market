@@ -40,51 +40,58 @@ const state = () => ({
   copy: [],
   updateMenu: [],
   menu_checkbox: [],
-  new_menu: ''
+  pushmenu: {
+    menu_id: null,
+    menu_name: null,
+    menu_img: null,
+    menu_price: null,
+    menu_info: null,
+  }
 })
 
 const getters = {
-  getMenu:(state) => state.copy,
-  getMenu_Checkbox:(state) => state.menu_checkbox,
-  getNew_Menu:(state) => state.new_menu,
-  }
+  getMenu: (state) => state.copy,
+  getMenu_Checkbox: (state) => state.menu_checkbox,
+}
 
 
 const mutations = {
-  setMenu:(state,value) => state.menu = value,
-  setMenu_Checkbox:(state,value) => {state.menu_checkbox = value},
-  setNew_Menu:(state) => {
-    state.copy.push("");
+  setMenu: (state, value) => state.copy = value,
+  setMenu_Checkbox: (state, value) => {
+    state.menu_checkbox = value
   },
-  copymenu(state){
+  setNew_Menu: (state) => {
+    const pushmenu = state.pushmenu;
+    let num = null;
+    for(let i = 0; i< state.copy.length; i++){
+      num = state.copy[i].menu_id;
+    }
+    pushmenu.menu_id = num + 1
+    state.copy.push(pushmenu);
+  },
+  copymenu(state) {
     state.copy = state.menu
   },
-  setDelete:(state) => {
-    const checked = state.menu_checkbox;
-/*    if(state.copy.length() !== state.menu.length()){
-      state.copy = state.menu;
-    } else {
-      for (const i of checked) {
-        if(!JSON.stringify(state.menu[i]).includes(state.copy[i])){
-          state.menu.splice(i, 1, state.copy[i])
-        }
-      }
-    }*/
-    for (let i = 0; i<state.menu_checkbox.length; i++){
-      console.log(state.menu_checkbox[i])
-      for (let j = 0; j < state.menu.length; j++) {
-        if(state.menu[j].menu_id === state.menu_checkbox[i]){
-            state.menu.splice(j, 1);
+  setDelete: (state) => {
+    for (let i = 0; i < state.menu_checkbox.length; i++) {
+      for (let j = 0; j < state.copy.length; j++) {
+        if (state.copy[j].menu_id === state.menu_checkbox[i]) {
+          state.copy.splice(j, 1);
         }
       }
     }
+    state.menu = state.copy;
+    console.log('menu:')
+    console.log(state.menu)
     state.menu_checkbox = []
   },
-  updateMenu:(state,payload) => {
-    const test = payload;
-    for (let i = 0; i < test.length(); i++ ){
-      if(!JSON.stringify(state.menu[i]).includes(test[i])){
-        state.menu.splice(i, 1, test[i])
+  updateMenu: (state) => {
+    for (let i = 0; i < state.menu_checkbox.length; i++) {
+      for (let j = 0; j < state.copy.length; j++) {
+        if (state.copy[j].menu_id === state.menu_checkbox[i]) {
+          console.log(state.copy[j]);
+          state.menu[j] = state.copy[j]
+        }
       }
     }
   }

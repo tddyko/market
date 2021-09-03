@@ -11,7 +11,6 @@
         cols="auto"
         align-self="center"
       >
-        {{ checkbox }}
         <v-checkbox
           v-model="checkbox"
           :value="card.menu_id"
@@ -61,7 +60,8 @@
                 centered-input
               >
                 <v-text-field
-                  :disabled="isDisabled(index)"
+                  v-model="card.menu_name"
+                  :disabled="isDisabled(card.menu_id)"
                   class="centered-input"
                   hide-details
                   label="메뉴 이름"
@@ -75,20 +75,23 @@
                 :class="card_text"
               >
                 <v-text-field
-                  :disabled="isDisabled(index)"
+                  v-model="card.menu_info"
+                  :disabled="isDisabled(card.menu_id)"
                   hide-details
                   outlined
                   label="메뉴 설명"
                   dense
                   :value="card.menu_info"
                 />
+                {{ cards }}
               </v-card-text>
               <v-card-text
                 class="font-weight-bold"
                 :class="card_text"
               >
                 <v-text-field
-                  :disabled="isDisabled(index)"
+                  v-model="card.menu_price"
+                  :disabled="isDisabled(card.menu_id)"
                   class="centered-input"
                   hide-details
                   outlined
@@ -114,6 +117,7 @@
                   color="error"
                   outlined
                   class="text-center"
+                  :disabled="isDisabled(card.menu_id)"
                   @click="deleteMenu"
                 >
                   삭제
@@ -126,7 +130,7 @@
                   color="error"
                   outlined
                   class="text-center"
-                  :index="index"
+                  :disabled="isDisabled(card.menu_id)"
                   @click="deleteMenu"
                 >
                   삭제
@@ -150,6 +154,9 @@ export default {
     cards: {
       get() {
         return this.$store.getters["menu/getMenu"]
+      },
+      set(value){
+        this.$store.commit("menu/setMenu",value)
       }
     },
     checkbox: {
@@ -165,9 +172,9 @@ export default {
     this.copyMenu();
   },
   methods: {
-    isDisabled(test){
-      const test2 = this.$store.getters["menu/getMenu_Checkbox"];
-      return !test2.includes(test)
+    isDisabled(value){
+      const Checkbox = this.$store.getters["menu/getMenu_Checkbox"];
+      return !Checkbox.includes(value)
       },
     deleteMenu(e){
       this.$store.commit("menu/setDelete",e)
