@@ -11,9 +11,10 @@
         cols="auto"
         align-self="center"
       >
+        {{ checkbox }}
         <v-checkbox
           v-model="checkbox"
-          :value="index"
+          :value="card.menu_id"
         />
       </v-col>
       <v-col
@@ -160,6 +161,9 @@ export default {
       }
     },
   },
+  created(){
+    this.copyMenu();
+  },
   methods: {
     isDisabled(test){
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
@@ -167,6 +171,9 @@ export default {
       },
     deleteMenu(e){
       this.$store.commit("menu/setDelete",e)
+    },
+    copyMenu(){
+      this.$store.commit("menu/copymenu")
     }
   }
   }
