@@ -40,38 +40,48 @@ const state = () => ({
   copy: [],
   updateMenu: [],
   menu_checkbox: [],
+  menu_card_dialog: false,
   pushmenu: {
     menu_id: null,
     menu_name: null,
     menu_img: null,
     menu_price: null,
     menu_info: null,
-  }
+  },
+  menu_option:[]
 })
 
 const getters = {
   getMenu: (state) => state.copy,
   getMenu_Checkbox: (state) => state.menu_checkbox,
+  getMenu_Dialog: (state) => state.menu_card_dialog,
+  getMenu_option: (state) => state.menu_option
 }
 
 
 const mutations = {
   setMenu: (state, value) => state.copy = value,
+
   setMenu_Checkbox: (state, value) => {
     state.menu_checkbox = value
   },
+
+  setMenu_Dialog: (state) => state.menu_card_dialog = !state.menu_card_dialog,
+
   setNew_Menu: (state) => {
     const pushmenu = state.pushmenu;
     let num = null;
-    for(let i = 0; i< state.copy.length; i++){
+    for (let i = 0; i < state.copy.length; i++) {
       num = state.copy[i].menu_id;
     }
     pushmenu.menu_id = num + 1
     state.copy.push(pushmenu);
   },
+
   copymenu(state) {
     state.copy = state.menu
   },
+
   setDelete: (state) => {
     for (let i = 0; i < state.menu_checkbox.length; i++) {
       for (let j = 0; j < state.copy.length; j++) {
@@ -85,6 +95,7 @@ const mutations = {
     console.log(state.menu)
     state.menu_checkbox = []
   },
+
   updateMenu: (state) => {
     for (let i = 0; i < state.menu_checkbox.length; i++) {
       for (let j = 0; j < state.copy.length; j++) {
@@ -95,6 +106,7 @@ const mutations = {
       }
     }
   }
+
 }
 
 const actions = {}

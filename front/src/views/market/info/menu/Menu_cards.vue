@@ -40,11 +40,20 @@
               lg="3"
               xl="3"
             >
+              <input
+                ref="menuImageInput"
+                hidden
+                multiple
+                type="file"
+              >
               <v-avatar
                 color="warning lighten-2"
                 size="130"
+                @click="onClickImgUpload"
               >
-                <v-img :src="card.menu_img" />
+                <v-img
+                  :src="card.menu_img"
+                />
               </v-avatar>
             </v-col>
             <v-col
@@ -83,7 +92,6 @@
                   dense
                   :value="card.menu_info"
                 />
-                {{ cards }}
               </v-card-text>
               <v-card-text
                 class="font-weight-bold"
@@ -141,12 +149,15 @@
         </v-card>
       </v-col>
     </v-row>
+    <menucarddialog />
   </v-container>
 </template>
 
 <script>
+import Menucarddialog from "@/views/market/info/menu/Menu_delete_dialog";
 export default {
   name: "InfoMenucards",
+  components: {Menucarddialog},
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),
@@ -181,7 +192,10 @@ export default {
     },
     copyMenu(){
       this.$store.commit("menu/copymenu")
-    }
+    },
+    onClickImgUpload () {
+      this.$refs.menuImageInput.click();
+    },
   }
   }
 

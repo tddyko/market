@@ -3,6 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-select
+          v-model=""
           :items="items"
           label="Menu"
           outlined

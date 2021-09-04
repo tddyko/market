@@ -47,7 +47,7 @@
       dark
       small
       color="red"
-      @click="setDeleteMenu"
+      @click="setMenu_Dialog"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -94,6 +94,9 @@ export default {
       this.$store.commit("menu/updateMenu")
       const test = this.$store.getters["menu/getMenu"]
       console.log(test)
+    },
+    setMenu_Dialog(){
+      this.$store.commit("menu/setMenu_Dialog")
     }
   },
 }
