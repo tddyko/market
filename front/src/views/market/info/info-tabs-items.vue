@@ -15,6 +15,9 @@
       <v-tab-item>
         <option-index />
       </v-tab-item>
+      <v-tab-item>
+        <reserveindex />
+      </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
@@ -22,10 +25,12 @@
 <script>
 import OptionIndex from "@/views/market/info/option/Option_index";
 import MenuIndex from "@/views/market/info/menu/Menu_index";
+import Reserveindex from "@/views/market/info/reserve/Reserve_index";
 
 export default {
   name: "InfoTabsItems",
   components: {
+    Reserveindex,
     MenuIndex,
     OptionIndex,
     InfoItemOperational : () => import("@/views/market/info/info-item-operational"),

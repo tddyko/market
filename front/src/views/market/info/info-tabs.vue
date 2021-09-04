@@ -3,14 +3,15 @@
     v-model="Tab"
     slider-color="light-blue"
     centered
+    show-arrows
     grow
+    class="pa-0 ma-0"
   >
     <v-tab
       v-for="(tab, index) in Get_Tab_Headers"
       :key="index"
       class="font-weight-regular text--white"
       :class="`text-${tap_size}`"
-      min-width="auto"
     >
       {{ tab.Header }}
     </v-tab>

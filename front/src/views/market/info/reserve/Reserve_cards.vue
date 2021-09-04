@@ -149,15 +149,15 @@
         </v-card>
       </v-col>
     </v-row>
-    <menucarddialog />
+    <reservecarddialog />
   </v-container>
 </template>
 
 <script>
-import Menucarddialog from "@/views/market/info/menu/Menu_delete_dialog";
+import Reservecarddialog from "@/views/market/info/reserve/Reserve_delete_dialog";
 export default {
-  name: "InfoMenucards",
-  components: {Menucarddialog},
+  name: "Reservecard",
+  components: {Reservecarddialog},
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),

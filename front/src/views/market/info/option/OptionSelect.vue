@@ -3,12 +3,13 @@
     <v-row>
       <v-col cols="12">
         <v-select
-          v-model=""
-          :items="items"
+          v-model="Option_Select"
+          :items="getMenu_name"
           label="Menu"
           outlined
           full-width
         />
+        {{ Option_Select }}
       </v-col>
     </v-row>
   </v-container>
@@ -16,7 +17,19 @@
 <script>
 export default {
   data: () => ({
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
   }),
+  computed: {
+    Option_Select:{
+      set(value){
+        this.$store.commit('menu/setMenu_option',value)
+      },
+      get(){
+        return this.$store.getters['menu/getMenu_Option']
+      }
+    },
+    getMenu_name(){
+      return this.$store.getters['menu/getMenu_option_name']
+    }
+  }
 }
 </script>

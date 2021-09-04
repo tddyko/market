@@ -1,6 +1,8 @@
 <template>
   <v-row justify="center">
     <v-col
+      cols="12"
+      sm="12"
       lg="10"
       md="12"
       xl="8"
