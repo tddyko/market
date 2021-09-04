@@ -44,7 +44,6 @@
     </v-col>
   </v-row>
 </template>
-
 <script>
 export default {
   components: {
@@ -65,8 +64,5 @@ export default {
 <style>
 #bg-gray{
   background-color: lightgray;
-}
-#center-input{
-  text-align: center
 }
 </style>

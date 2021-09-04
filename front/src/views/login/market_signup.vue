@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="dialog"
+    v-model="getMarketSignupDialog"
     fullscreen
     hide-overlay
     transition="dialog-bottom-transition"
@@ -24,365 +24,333 @@
         <v-toolbar-items>
           <v-btn
             icon
-            @click="dialog = false"
+            @click="getMarketSignupDialog = false"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <v-form>
-          <v-row
-            align="center"
-            class="mt-1"
-          >
-            <v-col
-              cols="3"
-              sm="5"
-              md="5"
-              lg="3"
-              xl="3"
+        <validation-observer>
+          <v-form>
+            <v-row
+              align="center"
+              class="mt-1"
             >
-              <span>스토어 이미지</span>
-            </v-col>
-            <v-col
-              cols="3"
-              sm="3"
-              md="2"
-              lg="2"
-              xl="2"
-              class="ml-0 mr-6"
-            >
-              <v-avatar
-                size="80"
+              <v-col
+                cols="8"
+                sm="8"
+                md="3"
+                lg="3"
+                xl="3"
+                class="ml-0 mr-6"
               >
-                <img
-                  alt="John"
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                <v-row
+                  justify="center"
+                  class="mx-auto my-auto"
                 >
-              </v-avatar>
-            </v-col>
-            <v-col
-              cols="3"
-              sm="3"
-              md="3"
-              lg="3"
-              xl="3"
-            >
-              <input
-                ref="imageInput"
-                hidden
-                multiple
-                type="file"
-                @change="onChangeImages"
+                  <v-avatar
+                    size="80"
+                  >
+                    <img
+                      alt="John"
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    >
+                  </v-avatar>
+                </v-row>
+                <v-row
+                  justify="center"
+                  class="mx-auto text-body-2"
+                >
+                  <span>스토어 이미지</span>
+                </v-row>
+              </v-col>
+              <v-col
+                cols="1"
+                sm="1"
+                md="1"
+                lg="1"
+                xl="1"
               >
-              <v-btn
-                class="pa-0 ma-0"
-                color="primary"
-                outlined
-                rounded
-                type="button"
-                @click="onClickImgUpload"
+                <input
+                  ref="imageInput"
+                  hidden
+                  multiple
+                  type="file"
+                  @change="onChangeImages"
+                >
+                <v-btn
+                  class="pa-0 ma-0"
+                  color="primary"
+                  outlined
+                  rounded
+                  type="button"
+                  @click="onClickImgUpload"
+                >
+                  <v-icon center>
+                    mdi-camera
+                  </v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
+            >
+              <v-col
+                cols="9"
+                sm="10"
+                md="3"
+                lg="3"
+                xl="3"
               >
-                <v-icon center>
-                  mdi-camera
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
+                <validation-provider
+                  v-slot="{ errors }"
+                  :rules="{
+                    required: true,
+                    regx: /^[a-zA-Z0-9]+$/
+                  }"
+                  name="아이디"
+                >
+                  <v-text-field
+                    v-model="id"
+                    :error-messages="errors"
+                    clearable
+                    label="아이디"
+                    placeholder="아이디를 입력하세요"
+                    outlined
+                    dense
+                  />
+                </validation-provider>
+              </v-col>
+              <v-col
+                cols="1"
+                sm="1"
+                md="1"
+                lg="1"
+                xl="1"
+                class="mb-6"
+              >
+                <v-btn class="pa-0 ma-0">
+                  중복확인
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <span>아이디</span>
-            </v-col>
-            <v-col
-              cols="5"
-              sm="6"
-              md="3"
-              xl="3"
-              lg="3"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                xl="4"
+                lg="4"
+              >
+                <validation-provider
+                  v-slot="{ errors }"
+                  :rules="{
+                    required: true,
+                    regx: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+
+                  }"
+                  name="비밀번호"
+                >
+                  <v-text-field
+                    v-model="passwd"
+                    :append-icon="pwd_check1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :counter="16"
+                    :type="pwd_check1 ? 'text' : 'password'"
+                    :error-messages="errors"
+                    clearable
+                    label="비밀번호"
+                    placeholder="비밀번호를 입력해주세요."
+                    outlined
+                    dense
+                    @click:append="pwd_check1 = !pwd_check1"
+                  />
+                </validation-provider>
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <v-text-field
-                clearable
-                label="아이디를 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-            <v-col
-              cols="1"
-              sm="1"
-              md="1"
-              lg="1"
-              xl="1"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="비밀번호 확인"
+                  :rules="{
+                    required: true,
+                    confirmed: '비밀번호'
+                  }"
+                >
+                  <v-text-field
+                    v-model="pwd_validate"
+                    :append-icon="pwd_check2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :counter="16"
+                    :type="pwd_check2 ? 'text' : 'password'"
+                    :error-messages="errors"
+                    clearable
+                    label="비밀번호 확인"
+                    placeholder="비밀번호를 다시한번 입력해주세요"
+                    outlined
+                    dense
+                    @click:append="pwd_check2 = !pwd_check2"
+                  />
+                </validation-provider>
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <v-btn class="pa-0 ma-0">
-                중복확인
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <v-text-field
+                  class="ma-0 pa-0"
+                  label="이메일"
+                  placeholder="이메일을 입력해주세요."
+                  clearable
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <span>비밀번호</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              xl="4"
-              lg="4"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <v-select
+                  label="카테고리"
+                  placeholder="카테고리를 선택해주세요."
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <v-text-field
-                clearable
-                label="비밀번호를 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <v-text-field
+                  clearable
+                  label="가게이름"
+                  placeholder="가게이름을 입력해주세요."
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <span>비밀번호 확인</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <v-text-field
+                  clearable
+                  label="전화번호"
+                  placeholder="전화번호를 입력해주세요."
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <v-text-field
-                clearable
-                label="비밀번호 확인"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              xl="2"
-              lg="2"
+              <v-col
+                cols="9"
+                sm="10"
+                md="3"
+                lg="3"
+                xl="3"
+              >
+                <v-text-field
+                  clearable
+                  label="우편번호"
+                  placeholder="우편번호를 입력해주세요."
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col
+                cols="1"
+                sm="1"
+                md="1"
+                lg="1"
+                xl="1"
+                class="mb-6"
+              >
+                <v-btn class="pa-0 ma-0">
+                  주소검색
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <span>이메일</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                xl="4"
+                lg="4"
+              >
+                <v-text-field
+                  clearable
+                  label="주소"
+                  placeholder="주소를 입력해주세요."
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+            <v-row
+              align="center"
             >
-              <v-text-field
-                class="ma-0 pa-0"
-                label="이메일을 입력해주세요"
-                clearable
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>카테고리</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
-            >
-              <v-select
-                label="카테고리를 선택해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>가게이름</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
-            >
-              <v-text-field
-                clearable
-                label="가게이름을 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>전화번호</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
-            >
-              <v-text-field
-                clearable
-                label="전화번호를 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>우편번호</span>
-            </v-col>
-            <v-col
-              cols="5"
-              sm="6"
-              md="3"
-              xl="3"
-              lg="3"
-            >
-              <v-text-field
-                clearable
-                label="우편번호"
-                solo
-                hide-details
-              />
-            </v-col>
-            <v-col
-              cols="1"
-              sm="1"
-              md="1"
-              lg="1"
-              xl="1"
-            >
-              <v-btn class="pa-0 ma-0">
-                주소검색
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>주소</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              xl="4"
-              lg="4"
-            >
-              <v-text-field
-                clearable
-                label="주소를 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="3"
-              sm="4"
-              md="4"
-              lg="2"
-              xl="2"
-            >
-              <span>상세주소</span>
-            </v-col>
-            <v-col
-              cols="8"
-              sm="8"
-              md="4"
-              lg="4"
-              xl="4"
-            >
-              <v-text-field
-                clearable
-                label="상세주소를 입력해주세요"
-                solo
-                hide-details
-              />
-            </v-col>
-          </v-row>
-        </v-form>
+              <v-col
+                cols="12"
+                sm="12"
+                md="4"
+                lg="4"
+                xl="4"
+              >
+                <v-text-field
+                  clearable
+                  label="상세주소"
+                  placeholder="상세주소를 입력해주세요"
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+          </v-form>
+        </validation-observer>
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -390,9 +358,22 @@
 <script>
 export default {
   name: "Signup",
-  data: () => ({
-    dialog: false
-  }),
+  // data: () => ({
+  //   dialog: false,
+  //   id: null,
+  //   passwd: null,
+  //   pwd_check1: false,
+  //   pwd_check2: false,
+  //   pwd_validate: false,
+  // }),
+  computed: {
+    getMarketSignupDialog() {
+      return this.$store.getters["marketSignup/getMarketSignupDialog"]
+    },
+    getMarketSignupValidation() {
+      return this.$store.getters["marketSignup/getMarketSignupValidation"]
+    }
+  },
   methods: {
     onClickImgUpload () {
       this.$refs.imageInput.click();

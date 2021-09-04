@@ -2,6 +2,16 @@
   <v-container class="fill-height">
     <v-row justify="center">
       <v-col cols="auto">
+        <v-col cols="auto">
+          <router-link to="/">
+            <v-img
+              :src="require('@/assets/logo.png')"
+              class="mx-auto mb-6"
+              contain
+              width="165px"
+            />
+          </router-link>
+        </v-col>
         <v-card
           width="450"
         >
