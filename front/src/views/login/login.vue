@@ -116,7 +116,7 @@
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/login/market_signup')
+    SignUp: () => import('@/views/signup/market/market_signup')
   },
   data: () => ({
     id: null,

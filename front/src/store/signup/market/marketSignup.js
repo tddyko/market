@@ -1,12 +1,12 @@
 const state = () => ({
-  marketSignupDialog: false,
+  marketSignupDialog: null,
 
   marketSignupValidation: [
     { id: null },
     { passwd: null },
-    { pwd_check1: false },
-    { pwd_check2: false },
-    { pwd_validate: false },
+    { pwd_check1: null },
+    { pwd_check2: null },
+    { pwd_validate: null },
   ],
 });
 
@@ -15,7 +15,14 @@ const getters = {
   getMarketSignupValidation: (state) => state.marketSignupValidation,
 };
 
-const mutations = {};
+const mutations = {
+  setMarketSignupDialog(state, data) {
+    state.marketSignupDialog = data;
+  },
+  setMarketSignupValidation(state, data) {
+    state.marketSignupValidation = data;
+  },
+};
 
 const actions = {};
 
