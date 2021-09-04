@@ -1,7 +1,6 @@
 import axios from 'axios';
 const state = () => ({
   reservations_number: 1,
-  order_count : [0,0,],
   tabs: null,
   tabTitles: [
     { title: "주문" },
@@ -65,7 +64,6 @@ const state = () => ({
   addmenu:[],
   selectOptions: []
 });
-
 const getters = {
   getTabs: (state) => state.tabs,
   getTabTitles: (state) => state.tabTitles,
@@ -87,7 +85,6 @@ const getters = {
   getSelectmenu: (state) => state.selectmenu,
   getAddmenu: (state) => state.addmenu,
   getSelectOptions : (state) =>state.selectOptions,
-  getOrderCount  :(state) => state.order_count
 };
 
 const mutations = {
@@ -140,20 +137,16 @@ const mutations = {
   setSelectOptions(state, data){
     state.selectOptions[data.index] = data.value
   },
-  setOrderCountUp(state, data){
-    state.order_count[data] +=1
-    console.log('up')
-    console.log(state.order_count)
+  incrementItemQuantity(state, cartItem) {
+    cartItem.quantity++;
   },
-  setOrderCountDown(state, data){
-    state.order_count[data] -=1
-    console.log('down')
-    console.log(state.order_count)
-  }
-
+  decrementItemQuantity(state, cartItem) {
+    cartItem.quantity--;
+  },
 };
 
 const actions = {
+  actSelectmenu({commit},value){commit("setSelectmenu",value)},
   actTabs({ commit }, value) {
     commit("setTabs", value);
   },
@@ -259,8 +252,13 @@ const actions = {
         requirements : ''
       }
     })
-  }
-
+  },
+  actIncrementItemQuantity({commit}, value) {
+    commit("incrementItemQuantity", value);
+  },
+  actDecrementItemQuantity({commit}, value) {
+    commit("decrementItemQuantity", value);
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

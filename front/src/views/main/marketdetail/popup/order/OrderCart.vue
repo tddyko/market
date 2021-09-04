@@ -56,7 +56,6 @@
             align="center"
             class="mx-1"
             justify="center"
-
             v-for="(order,index) in orderItems"
             :key="index"
           >
@@ -90,13 +89,12 @@
               cols="5"
             >
               <v-btn
-                v-if="order_count[index] === 0"
+                v-if="order.quantity == 0"
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 disabled
                 outlined
-                @click="setOrderCountDown(index)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -108,7 +106,7 @@
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 outlined
-                @click="setOrderCountDown(index)"
+                @click="decrementItemQuantity(order)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -116,13 +114,13 @@
               </v-btn>
               <label
                 :class="`text-${countSize}`"
-              >{{ order_count }}</label>
+              >{{ order.quantity }}</label>
               <v-btn
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 ml-4 mr-0"
                 outlined
-                @click="setOrderCountUp(index)"
+                @click="incrementItemQuantity(order)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -150,7 +148,7 @@
         <v-btn
           color="primary"
           depressed
-          @click="submit(orderItems,order_count)"
+          @click="submit(orderItems)"
         >
           결제하기
         </v-btn>
@@ -162,23 +160,20 @@
 <script>
 export default {
   name: "OrderCart",
+
   computed: {
     floating: {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
-    },
-    orderItems :{
+    },orderItems :{
+      cache: false,
       get() {
+        console.log("get")
+        console.log(this.$store.getters["marketDetail/getSelectmenu"])
         return this.$store.getters["marketDetail/getSelectmenu"]
       }
     },
-    order_count:{
-      get() {
-        return this.$store.getters["marketDetail/getOrderCount"]
-      }
-    },
-
     btn_Width_Size() {
       switch (this.$vuetify.breakpoint.name) {
         case 'sm':
@@ -254,21 +249,23 @@ export default {
     },
   },
   methods: {
-    setOrderCountUp(index){
-      this.$store.commit('marketDetail/setOrderCountUp',index)
-    },
-    setOrderCountDown(index){
-      this.$store.commit('marketDetail/setOrderCountDown',index)
-    },
-    submit(order,count){
-      for(let i =0; i<order.length; i++){
-        order[i].count = count
-      }
-    console.log(order)
+    submit(order){
+      console.log(order)
       console.log('주문 버튼을 누름')
       //this.$store.dispatch("marketDetail/actOrder",)
-    }
+    },
 
+    incrementItemQuantity(cartItem) {
+      console.log('수량을 늘립니다 ')
+      console.log(cartItem.name + " : "  + cartItem.quantity)
+      this.$store.dispatch("marketDetail/actIncrementItemQuantity",cartItem)
+    },
+    //쇼핑 카트의 아이템 수량 감소
+    decrementItemQuantity(cartItem) {
+      console.log('수량을 줄입니다')
+      console.log(cartItem.name + " : "  + cartItem.quantity)
+      this.$store.dispatch("marketDetail/actDecrementItemQuantity",cartItem)
+    },
   }
 }
 </script>

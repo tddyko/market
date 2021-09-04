@@ -131,11 +131,11 @@ export default {
     },
     payment(food,ok){
       food.totalprice = this.totalpriceis
-      this.$store.commit("marketDetail/setSelectmenu",food)
+      food.quantity =1;
+      this.$store.dispatch("marketDetail/actSelectmenu",food)
       ok.orderSelectDialog = false
       this.totalpriceis = food.price
       alert('선택 완료')
-
     }
   }
 }
