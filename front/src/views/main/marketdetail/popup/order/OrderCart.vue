@@ -90,13 +90,13 @@
               cols="5"
             >
               <v-btn
-                v-if="reservations_Number === 0"
+                v-if="order_count[index] === 0"
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 disabled
                 outlined
-                @click="setReservations_number_minus"
+                @click="setOrderCountDown(index)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -108,7 +108,7 @@
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 outlined
-                @click="setReservations_number_minus"
+                @click="setOrderCountDown(index)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -116,13 +116,13 @@
               </v-btn>
               <label
                 :class="`text-${countSize}`"
-              >{{ reservations_Number }}</label>
+              >{{ order_count }}</label>
               <v-btn
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 ml-4 mr-0"
                 outlined
-                @click="setReservations_number_plus"
+                @click="setOrderCountUp(index)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -150,6 +150,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="submit(orderItems,order_count)"
         >
           결제하기
         </v-btn>
@@ -172,12 +173,12 @@ export default {
         return this.$store.getters["marketDetail/getSelectmenu"]
       }
     },
-
-    reservations_Number:{
+    order_count:{
       get() {
-        return this.$store.getters["marketDetail/getReservations_number"]
+        return this.$store.getters["marketDetail/getOrderCount"]
       }
     },
+
     btn_Width_Size() {
       switch (this.$vuetify.breakpoint.name) {
         case 'sm':
@@ -253,12 +254,21 @@ export default {
     },
   },
   methods: {
-    setReservations_number_plus(){
-      this.$store.dispatch('marketDetail/actReservations_number_plus')
+    setOrderCountUp(index){
+      this.$store.commit('marketDetail/setOrderCountUp',index)
     },
-    setReservations_number_minus(){
-      this.$store.dispatch('marketDetail/actReservations_number_minus')
+    setOrderCountDown(index){
+      this.$store.commit('marketDetail/setOrderCountDown',index)
     },
+    submit(order,count){
+      for(let i =0; i<order.length; i++){
+        order[i].count = count
+      }
+    console.log(order)
+      console.log('주문 버튼을 누름')
+      //this.$store.dispatch("marketDetail/actOrder",)
+    }
+
   }
 }
 </script>

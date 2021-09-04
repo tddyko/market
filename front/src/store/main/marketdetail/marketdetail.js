@@ -1,6 +1,7 @@
 import axios from 'axios';
 const state = () => ({
   reservations_number: 1,
+  order_count : [0,0,],
   tabs: null,
   tabTitles: [
     { title: "주문" },
@@ -85,7 +86,8 @@ const getters = {
   getReservations_number: (state) => state.reservations_number,
   getSelectmenu: (state) => state.selectmenu,
   getAddmenu: (state) => state.addmenu,
-  getSelectOptions : (state) =>state.selectOptions
+  getSelectOptions : (state) =>state.selectOptions,
+  getOrderCount  :(state) => state.order_count
 };
 
 const mutations = {
@@ -137,8 +139,18 @@ const mutations = {
   },
   setSelectOptions(state, data){
     state.selectOptions[data.index] = data.value
-    console.log(state.selectOptions)
+  },
+  setOrderCountUp(state, data){
+    state.order_count[data] +=1
+    console.log('up')
+    console.log(state.order_count)
+  },
+  setOrderCountDown(state, data){
+    state.order_count[data] -=1
+    console.log('down')
+    console.log(state.order_count)
   }
+
 };
 
 const actions = {
@@ -229,9 +241,26 @@ const actions = {
   }).then((response) => {
     console.log(response.data);
     commit("setReserveTime", value);
-  })
+    })
+  },
+  actOrder({commit}, value){
+    axios({
+      url : `http://localhost/reservation/in/${value.marketName}`,
+      method : 'post',
+      headers :{},
+      withCredentials : true,
+      data :{
+        current_state : "주문",
+        order_count : '',
+        name : '',
+        phonenumber : '',
+        address : '',
+        dt_address : '',
+        requirements : ''
+      }
+    })
   }
 
-  };
+};
 
 export default { namespaced: true, state, getters, mutations, actions };
