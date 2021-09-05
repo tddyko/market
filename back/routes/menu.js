@@ -50,18 +50,18 @@ router.put('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req,
             product_id : req.params.id,   
         }
     })
-    if(req.file.menuImg){
+    if(req.file){
         await Product_img.findOne({where : {product_id : req.params.id}})
         .then(async(r)=>{
             if(r){
                 Product_img.update({
-                    product_img : req.file.menuImg.path,
+                    product_img : req.file.path,
                     where : {product_id : req.params.id}
                 })
             }else{
                 Product_img.create({
                     product_img_id : uuidv4(),
-                    product_img : req.file.menuImg.path,
+                    product_img : req.file.path,
                     product_id : req.params.id
                 });
             }
@@ -107,6 +107,25 @@ router.get('/list/:marketname', async(req,res) => {
         ], 
         attributes : ['product_id','name','price','product_info'],
         where : {market_id}
+    });
+    res.json(menulist);
+});
+
+router.get('/myMarket/menuList', isLoggedInMarket, async(req,res) => {
+    let menulist = await Product.findAll({
+        include : [
+            {
+                model : Product_img,
+                attributes : ['product_img']
+            },
+            {
+                model : Pd_option_group,
+                attributes : ['name'],
+                include :[{model : Pd_option, attributes : ['name','price']}]
+            }
+        ],
+        attributes : ['product_id','name','price','product_info'],
+        where : {market_id : req.user.market_id}
     });
     res.json(menulist);
 });

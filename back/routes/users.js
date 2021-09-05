@@ -21,7 +21,7 @@ router.get(
         res.json(req.user)
     }
 );
-
+router.get('/memberInformation',isLoggedInMember,async(req,res)=>{res.json(req.user)})
 router.put('/storeInformation/update',
     upload.single('userfile'),
     isLoggedInMarket,

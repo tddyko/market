@@ -83,4 +83,3 @@ export default {
   justify-content: flex-end;
 }
 </style>
-

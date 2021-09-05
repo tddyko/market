@@ -41,10 +41,13 @@
               xl="3"
             >
               <v-avatar
+
                 color="warning lighten-2"
                 size="130"
               >
-                <v-img :src="card.menu_img" />
+                <v-img
+                  v-if="card.Product_imgs"
+                  :src="imgSrc(card.Product_imgs[0].product_img)" />
               </v-avatar>
             </v-col>
             <v-col
@@ -66,7 +69,8 @@
                   label="메뉴 이름"
                   outlined
                   dense
-                  :value="card.menu_name"
+                  :value="card.name"
+                  @input="getName($event,index)"
                 />
               </v-card-title>
               <v-card-text
@@ -79,7 +83,8 @@
                   outlined
                   label="메뉴 설명"
                   dense
-                  :value="card.menu_info"
+                  :value="card.product_info"
+                  @input="getInfo($event,index)"
                 />
               </v-card-text>
               <v-card-text
@@ -93,7 +98,9 @@
                   outlined
                   label="가격"
                   dense
-                  :value="card.menu_price"
+                  :value="card.price"
+                  ref="priceInt"
+                  @input="getPrice($event,index)"
                 />
               </v-card-text>
             </v-col>
@@ -148,9 +155,14 @@ export default {
   computed: {
     cards: {
       get() {
+        console.log(this.$store.getters["menu/getMenu"])
         return this.$store.getters["menu/getMenu"]
+      },
+      set(){
+        this.$store.dispatch("menu/actMenu")
       }
     },
+    //checkbox고른거
     checkbox: {
       set(value){
         this.$store.commit("menu/setMenu_Checkbox",value)
@@ -160,6 +172,9 @@ export default {
       }
     },
   },
+  created() {
+    this.$store.dispatch("menu/actMenu")
+  },
   methods: {
     isDisabled(test){
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
@@ -167,7 +182,26 @@ export default {
       },
     deleteMenu(e){
       this.$store.commit("menu/setDelete",e)
-    }
+    },
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+    getPrice(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "price", value : value.toString()})
+    },
+    getInfo(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "product_info", value : value})
+    },
+    getName(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "name", value : value})
+    },
   }
   }
 

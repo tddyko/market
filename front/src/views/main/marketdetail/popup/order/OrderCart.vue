@@ -169,8 +169,6 @@ export default {
     },orderItems :{
       cache: false,
       get() {
-        console.log("get")
-        console.log(this.$store.getters["marketDetail/getSelectmenu"])
         return this.$store.getters["marketDetail/getSelectmenu"]
       }
     },
@@ -250,9 +248,9 @@ export default {
   },
   methods: {
     submit(order){
-      console.log(order)
-      console.log('주문 버튼을 누름')
-      //this.$store.dispatch("marketDetail/actOrder",)
+      console.log(this.$store.getters.user)
+      this.$store.dispatch("marketDetail/actOrder",
+        {'orderItem' : order, 'marketName' : this.$session.get('market_name')})
     },
 
     incrementItemQuantity(cartItem) {

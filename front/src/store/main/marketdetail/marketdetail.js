@@ -138,9 +138,11 @@ const mutations = {
     state.selectOptions[data.index] = data.value
   },
   incrementItemQuantity(state, cartItem) {
+    console.log(cartItem)
     cartItem.quantity++;
   },
   decrementItemQuantity(state, cartItem) {
+    console.log(cartItem)
     cartItem.quantity--;
   },
 };
@@ -237,21 +239,23 @@ const actions = {
     })
   },
   actOrder({commit}, value){
-    axios({
-      url : `http://localhost/reservation/in/${value.marketName}`,
-      method : 'post',
-      headers :{},
-      withCredentials : true,
-      data :{
-        current_state : "주문",
-        order_count : '',
-        name : '',
-        phonenumber : '',
-        address : '',
-        dt_address : '',
-        requirements : ''
-      }
-    })
+    for(let order of value.orderItem){
+      axios({
+        url : `http://localhost/reservation/in/${value.marketName}`,
+        method : 'post',
+        headers :{},
+        withCredentials : true,
+        data :{
+          current_state : "주문",
+          order_count : order.quantity,
+          name : order.name,
+          phonenumber : ' ',
+          address : ' ',
+          dt_address : ' ',
+          requirements : ' '
+        }
+      })
+    }
   },
   actIncrementItemQuantity({commit}, value) {
     commit("incrementItemQuantity", value);
