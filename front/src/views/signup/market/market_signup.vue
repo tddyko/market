@@ -3,6 +3,7 @@
     v-model="dialog"
     fullscreen
     hide-overlay
+    persistent
     transition="dialog-bottom-transition"
   >
     <template #activator="{ on, attrs }">
@@ -24,14 +25,6 @@ export default {
   components: {
     MarketSignupCard: () => import('@/views/signup/market/marketSignupCard')
   },
-  // data: () => ({
-  //   dialog: false,
-  //   id: null,
-  //   passwd: null,
-  //   pwd_check1: false,
-  //   pwd_check2: false,
-  //   pwd_validate: false,
-  // }),
   computed: {
     dialog: {
       get() {
@@ -44,7 +37,5 @@ export default {
   },
 }
 </script>
-
 <style scoped>
-
 </style>

@@ -22,66 +22,6 @@
         >
           <v-row
             align="center"
-            class="mt-1"
-          >
-            <v-col
-              cols="8"
-              sm="8"
-              md="3"
-              lg="3"
-              xl="3"
-              class="ml-0 mr-6"
-            >
-              <v-row
-                justify="center"
-                class="mx-auto my-auto"
-              >
-                <v-avatar
-                  size="80"
-                >
-                  <img
-                    alt="John"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  >
-                </v-avatar>
-              </v-row>
-              <v-row
-                justify="center"
-                class="mx-auto text-body-2"
-              >
-                <span>스토어 이미지</span>
-              </v-row>
-            </v-col>
-            <v-col
-              cols="1"
-              sm="1"
-              md="1"
-              lg="1"
-              xl="1"
-            >
-              <input
-                ref="imageInput"
-                hidden
-                multiple
-                type="file"
-                @change="onChangeImages"
-              >
-              <v-btn
-                class="pa-0 ma-0"
-                color="primary"
-                outlined
-                rounded
-                type="button"
-                @click="onClickImgUpload"
-              >
-                <v-icon center>
-                  mdi-camera
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
           >
             <v-col
               cols="9"
@@ -235,38 +175,19 @@
               lg="4"
               xl="4"
             >
-              <v-select
-                :items="category"
-                :error-messages="errors"
-                label="카테고리"
-                outlined
-                dense
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="12"
-              sm="12"
-              md="4"
-              lg="4"
-              xl="4"
-            >
               <validation-provider
                 v-slot="{ errors }"
                 :rules="{
                   required: true,
                 }"
-                name="가게이름"
+                name="닉네임"
               >
                 <v-text-field
-                  v-model="marketName"
+                  v-model="memberName"
                   :error-messages="errors"
                   class="ma-0 pa-0"
-                  label="가게이름"
-                  placeholder="가게이름을 입력해주세요."
+                  label="닉네임"
+                  placeholder="닉네임을 입력해주세요."
                   clearable
                   outlined
                   dense
@@ -436,7 +357,7 @@
 <script>
 
 export default {
-  name: "MarketSignupCard",
+  name: "MemberSignupCard",
   data: () => ({
     id: null,
     email: null,
@@ -444,8 +365,7 @@ export default {
     pwd_check1: null,
     pwd_check2: null,
     pwd_validate: null,
-    category: [],
-    marketName: null,
+    memberName: null,
     phoneNum: null,
     postNum: null,
     address: null,
@@ -473,7 +393,7 @@ export default {
       this.passwd = null
       this.pwd_validate = null
       this.email = null
-      this.marketName = null
+      this.memberName = null
       this.phoneNum = null
       this.postNum = null
       this.address = null
