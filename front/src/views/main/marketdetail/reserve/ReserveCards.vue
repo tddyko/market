@@ -92,7 +92,7 @@
                   outlined
                   class="text-center"
                 >
-                  담기
+                  선택
                 </v-btn>
               </div>
               <v-card-actions
@@ -103,7 +103,7 @@
                   outlined
                   class="text-center"
                 >
-                  담기
+                  선택
                 </v-btn>
               </v-card-actions>
             </v-col>
