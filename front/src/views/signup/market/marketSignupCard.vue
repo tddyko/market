@@ -449,8 +449,19 @@ export default {
     phoneNum: null,
     postNum: null,
     address: null,
-    addressDetail: null
+    addressDetail: null,
+    errors: null
   }),
+  computed: {
+    dialog: {
+      get() {
+        return this.$store.getters["marketSignup/getMarketSignupDialog"]
+      },
+      set(value) {
+        this.$store.commit('marketSignup/setMarketSignupDialog', value)
+      }
+    },
+  },
   methods: {
     onClickImgUpload () {
       this.$refs.imageInput.click();
