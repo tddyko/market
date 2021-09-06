@@ -43,7 +43,9 @@
                 size="130"
                 tile
               >
-                <img :src="imgSrc(card.Product_imgs[0].product_img)"
+                <img
+                  v-if="card.Product_imgs!=0"
+                  :src="imgSrc(card.Product_imgs[0].product_img)"
                      alt="ㅗ">
               </v-avatar>
             </v-col>

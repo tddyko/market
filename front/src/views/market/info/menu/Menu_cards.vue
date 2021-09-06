@@ -41,12 +41,11 @@
               xl="3"
             >
               <v-avatar
-
                 color="warning lighten-2"
                 size="130"
               >
                 <v-img
-                  v-if="card.Product_imgs"
+                  v-if="card.Product_imgs != 0"
                   :src="imgSrc(card.Product_imgs[0].product_img)" />
               </v-avatar>
             </v-col>

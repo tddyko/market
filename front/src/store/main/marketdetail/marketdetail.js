@@ -129,7 +129,6 @@ const mutations = {
   },
   setSelectmenu(state, data){
     state.selectmenu.push(data);
-    console.log("주문한 음식 " + state.selectmenu)
   },
   setAddmenu(state, data){
     state.addmenu = data;
@@ -140,10 +139,13 @@ const mutations = {
   incrementItemQuantity(state, cartItem) {
     console.log(cartItem)
     cartItem.quantity++;
+
+    state.selectmenu.push()
   },
   decrementItemQuantity(state, cartItem) {
     console.log(cartItem)
     cartItem.quantity--;
+    state.selectmenu.push()
   },
 };
 
@@ -238,7 +240,10 @@ const actions = {
     commit("setReserveTime", value);
     })
   },
-  actOrder({commit}, value){
+  actOrder({getters}, value){
+  console.log('주문합니다')
+  console.log(getters.getSelectmenu)
+  /*
     for(let order of value.orderItem){
       axios({
         url : `http://localhost/reservation/in/${value.marketName}`,
@@ -255,7 +260,7 @@ const actions = {
           requirements : ' '
         }
       })
-    }
+    }*/
   },
   actIncrementItemQuantity({commit}, value) {
     commit("incrementItemQuantity", value);

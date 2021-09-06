@@ -13,11 +13,10 @@ const getters = {
   getNew_Menu:(state) => state.new_menu,
 }
 
-
 const mutations = {
   setMenu:(state,value) => state.menu = value,
   setMenu_Checkbox:(state,value) => state.menu_checkbox = value ,
-  setNew_Menu:(state) => {
+  setNew_Menu:(state,data) => {
     state.menu.push({name : '',price : '', product_info : ''});
   },
   setDelete:(state,event) => {
@@ -30,8 +29,6 @@ const mutations = {
           withCredentials : 'true',
         })
      }
-//     const test = event.target.index;
-//     state.menu.splice(test, 1 );
   },
   updateMenu:(state,payload) => {
     for(let index of state.menu_checkbox){

@@ -16,58 +16,45 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-//localhost/menu/addmenu
-//id 가 name , price인 곳에서 정보를 받음
-router.get('/addMenu',upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
-    const product_id = uuidv4();
-    Product.create({
-        product_id,
-        market_id : req.user.market_id,
-        name : req.body.name,
-        price : req.body.price,
-        product_info : req.body.product_info
-    }).then(() => {
-     
-    }).catch(err=>console.dir(err));
-    if(req.file)
-    Product_img.create({
-        product_img_id : uuidv4(),
-        product_img : req.file.path,
-        product_id
-    });
-});
-
 /* localhost/menu/update/:product_id 메뉴수정
 id 가 name , price인 곳에서 정보를 받음 */
 router.put('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
-    Product.update({
-        name : req.body.name,
-        price : req.body.price,
-        product_info : req.body.product_info
-    },
-    {
-        where : {
-            product_id : req.params.id,   
-        }
-    })
-    if(req.file){
-        await Product_img.findOne({where : {product_id : req.params.id}})
-        .then(async(r)=>{
-            if(r){
-                Product_img.update({
-                    product_img : req.file.path,
-                    where : {product_id : req.params.id}
+     let {name,price,product_info} =  req.body;
+     let inputData = {name,price,product_info};
+     inputData.market_id = req.user.market_id;
+     await updateOrCreate(Product,{product_id :  req.params.id}, inputData);
+     console.log(req.file)
+     if(req.file){
+            await Product_img.findOne({where : {product_id : req.params.id},raw : true})
+            .then(async(r) => {
+                await Product_img.destroy({where : {product_id : req.params.id},force : true}).then(async   ()=>{
+                    await Product_img.create({
+                        product_img_id : uuidv4(),
+                        product_img : req.file.path,
+                        product_id : req.params.id
+                        }).then((r)=>{if(r)return true
+                        else return false
+                    })
                 })
-            }else{
-                Product_img.create({
-                    product_img_id : uuidv4(),
-                    product_img : req.file.path,
-                    product_id : req.params.id
-                });
-            }
-        })
-    }
+            })
+     }
+
 });
+async function updateOrCreate(tableName, where, inputData){
+    let findData = await tableName.findOne({where :where}).catch(error => console.log(error))
+    if(!findData){
+        if(tableName == 'Product_img')
+            inputData.product_img_id = uuidv4();
+        return tableName.create(inputData).then(r => {if(r)return true
+            else return false})
+    }else{
+        console.log(inputData);
+        return tableName.update(inputData,{where : where}).then(r => {if(r)return true
+        else return false})
+    }
+}
+
+
 /*  
 localhost/menu/delete/:product_id  메뉴 삭제부분 
 */

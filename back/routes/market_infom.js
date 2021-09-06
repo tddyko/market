@@ -30,15 +30,15 @@ router.get('/:marketNm/totalRating',async(req, res)=>{
         ],
         attributes : [],raw : true  
     }).then((res) => {
-      console.log(res);
+      return res
     })
-   /*  var array = new Array();  
+    var array = new Array();
     for(var i=1;i<=5; i++)
        array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i)) 
                     + (await countRating(Order_review,req.params.marketNm,i))
-    ratringResult.ratingAvg = result;
-    ratringResult.ratingsCount = array */
-    //res.json(ratringResult); 
+    ratringResult.ratingAvg = order_review;
+    ratringResult.ratingsCount = array
+    res.json(ratringResult);
 })
 
 async function countRating(tableName,where,rating){

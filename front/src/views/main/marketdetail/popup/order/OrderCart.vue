@@ -166,9 +166,11 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
-    },orderItems :{
+    },
+    orderItems :{
       cache: false,
       get() {
+        console.log(this.$store.getters["marketDetail/getSelectmenu"])
         return this.$store.getters["marketDetail/getSelectmenu"]
       }
     },
@@ -248,11 +250,9 @@ export default {
   },
   methods: {
     submit(order){
-      console.log(this.$store.getters.user)
       this.$store.dispatch("marketDetail/actOrder",
         {'orderItem' : order, 'marketName' : this.$session.get('market_name')})
     },
-
     incrementItemQuantity(cartItem) {
       console.log('수량을 늘립니다 ')
       console.log(cartItem.name + " : "  + cartItem.quantity)
