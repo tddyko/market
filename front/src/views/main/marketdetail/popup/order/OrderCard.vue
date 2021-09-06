@@ -9,6 +9,7 @@
       <v-btn
         dark
         icon
+        @click="floating.orderDialog = false"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -76,7 +77,7 @@
           <v-radio
             v-for="m in 3"
             :key="m"
-            :label="`${m}`"
+            :label="`메뉴 ${m}`"
             :value="m"
           />
         </v-radio-group>

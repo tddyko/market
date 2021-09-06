@@ -52,7 +52,11 @@ export default {
   },
   methods: {
     update(){
-      this.$store.commit("market_modules/Reservation_Update_Menu")
+      console.log("update")
+      
+      console.log(this.$store.getters["market_modules/Reservation_Get_date"])
+      
+      this.$store.dispatch("reservation/actReserve_List_Items",this.$store.getters["market_modules/Reservation_Get_date"])
     }
   }
 }

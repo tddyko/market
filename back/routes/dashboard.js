@@ -29,7 +29,7 @@ router.get('/', isLoggedInMarket, async (req, res) => {
     datas.push({ value : await getValues(Reservation, daterange,'예약완료') });
     datas.push({ value : await getValues(Reservation, daterange,'예약취소') });
     res.json(datas)
-   
+
 });
 
 router.get('/:marketNm',async (req, res) => {
@@ -47,12 +47,13 @@ router.get('/:marketNm',async (req, res) => {
     for(let i=start_time ; i<=end_time; i++)
        daterange.push(dayjs().set('hour', i).set('minute',0).format('YYYY-MM-DD HH:mm'))
         console.log(daterange)
-    
+
     let datas = []
     daterange.forEach((data)=>{
         datas.push(data.substring(11))
         })
     res.json(datas)
+   
 });
 
 async function getValues(tableName,daterange,current_state){

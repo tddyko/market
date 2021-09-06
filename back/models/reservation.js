@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
       reserve_seat: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        comment: "좌석구분",
-      },
+        comment: "좌석구분"
+      }
     },
     {
       sequelize,

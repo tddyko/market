@@ -1,3 +1,5 @@
+  
+import axios from "axios"
 const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
   Tab_Headers: [
     {
@@ -12,148 +14,15 @@ const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
   ],
   Tab: null,
   Order_List_Headers: [
-    { text: "주문번호", align: "center", sortable: false, value: "orderNum" },
-    { text: "주문시각", value: "orderTime", align: "center" },
-    { text: "주문내역", value: "orderinfo", align: "center" },
-    { text: "주문건수", value: "orderset", align: "center" },
-    { text: "주문금액", value: "orderpay", align: "center" },
-    { text: "주문상태", value: "order", align: "center" },
+    {text: '주문번호', align: 'center', sortable: false, value: 'order_id',},
+    { text: '주문시각', value: 'createdAt', align: 'center'},
+    { text: '주문내역', value: 'Products.name', align: 'center'},
+    { text: '주문건수', value: 'order_count',  align: 'center'},
+    { text: '주문금액', value: 'price',  align: 'center'},
+    { text: '주문상태', value: 'current_state', align: 'center'},
   ],
-  Order_List_Items: [
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 취소",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 취소",
-    },
-    {
-      orderNum: "ABC-1fgasa-fadsf",
-      orderTime: "2021.01.01.(월) 오후3시 16분",
-      orderinfo: "허니콤보 외 1건",
-      orderset: 2,
-      orderpay: "33,000",
-      order: "주문 완료",
-    },
-  ],
-  Order_Review: [
-    {
-      Avatar_img: "블라블라블라",
-      Nickname: "문스윙스씨",
-      Rating: 5,
-      Date_issue: "2021년 8월 23일",
-      Review: "yo 지금 족발집 어려요. 나도 어려요. 근데 족발집 내 사회인생보다 엄청나게 어려요 우리 사장님 지금 하고잇는 일이 엄청 어려울 수 있다는 거 알고 분명히 여러가지 생각을 한적 있을거에요. Yo Sh*t 그거 다 그래 절대 포기하지마요 끝까지 가는 사장님이 다 이겨요 우사인 봁. 우사인 봁. 우사인 볼트가 세계에서 왜 제일 다달리기 빠른 사람인줄 알아요? 끝까지 갔기 떄문이에요. "
-    },
-    {
-      Avatar_img: "블라블라블라",
-      Nickname: "KMH",
-      Rating: 4,
-      Date_issue: "2021년 8월 22일",
-      Review: "마시쩡"
-    },
-    {
-      Avatar_img: "블라블라블라",
-      Nickname: "이범수",
-      Rating: 1,
-      Date_issue: "2021년 8월 22일",
-      Review: "어우 너무 달아 이빨 썩는맛"
-    },
-    {
-      Avatar_img: "블라블라블라",
-      Nickname: "권예나",
-      Rating: 1,
-      Date_issue: "2021년 8월 22일",
-      Review: "지금까지 이런 맛은 없었다. 이것은 갈비인가 통닭인가."
-    },
-    {
-      Avatar_img: "블라블라블라",
-      Nickname: "정민이",
-      Rating: 4,
-      Date_issue: "2021년 8월 24일",
-      Review: "노드 드럽게 어렵네 이거 사람이 쓰라고 만든건가 ㅋㅋㄹ삥뽕"
-    }
-  ],
+  Order_List_Items: [],
+  Order_Review: [],
   menu: null,
   menu2: false,
   dates: [],
@@ -162,12 +31,15 @@ const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
 
 const getters = { //getters가 컴포트?
   Get_Order_Review(state){
+    console.log("get_order_revie")
+    console.log(state.Order_Review)
     return state.Order_Review;
   },
   Get_Order_Tab_Headers(state){
     return state.Tab_Headers;
   },
   Get_Order_List_Headers(state){
+    console.log(state.Order_List_Headers)
     return state.Order_List_Headers;
   },
   Get_Order_List_Items(state){
@@ -187,7 +59,7 @@ const getters = { //getters가 컴포트?
   },
   Get_date(state){
     return state.date;
-  }
+  },
 };
 
 const mutations = {
@@ -215,8 +87,62 @@ const mutations = {
   Set_Menu2(state, value){
     state.menu2=value;
   },
+  //주문
+  Set_Order_List_Items(state, value){
+    state.Order_List_Items = value;
+  },
+  Set_Order_Review_Items(state, value){
+    state.Order_Review = null;
+    state.Order_Review = value;
+  }, 
+  
 };
-
-const actions = {};
+const actions = {
+  actOrder_List_Items({ commit },date){
+    console.log('update orderlist')
+    axios({
+      url : 'http://localhost/order/list',
+      method : 'get',
+      withCredentials : true,
+      params : {
+        dateValue : date,
+      }
+    }).then((response)=>{ 
+      commit("Set_Order_List_Items", response.data);
+    })
+  },
+  actOrder_Review_Items({commit},data){   
+    if(data.dates.length>1)
+    axios({
+      url : 'http://localhost/order_review/reviews/list',
+      method : 'get',
+      withCredentials : true,
+      params : { 
+        date1 : data.dates[0],
+        date2 : data.dates[1], 
+        tab : data.tabIndex
+      }
+    }).then((response)=>{
+      response.data.forEach((element)=>{
+        element.showRecoment = false;
+      })
+      console.log(response)
+      commit('Set_Order_Review_Items',response.data)
+    })
+  },
+  actOrder_Review_answers({commit},data){
+    axios({
+      url : `http://localhost/order_review/answer/${data.review_id}`,
+      method : 'get',
+      withCredentials : true,
+      params : {
+        answer : data.answer
+      }
+    }).then((response)=>{
+      console.log(response)
+    })
+  }, 
+  
+};
 
 export default { namespaced: true, state, getters, mutations, actions };

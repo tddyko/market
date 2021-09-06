@@ -1,16 +1,16 @@
 <template>
-  <v-container fluid>
+  <v-container fluid
+  >
     <v-row>
       <v-col
-        v-for="card in cards"
-        :key="card.title"
-        :cols="card.flex"
+        v-for="(card,index) in get"
+        :key="index"
+        :cols="get.flex"
       >
         <!-- 반복될 카드 -->
-        <v-card
-          to="/marketdetail"
-        >
+        <v-card>
           <v-img
+
             :src="imgSrc(card.profile_img)"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -25,14 +25,18 @@
             <v-icon color="red lighten-2">
               mdi-heart
             </v-icon>
+
+              {{card.ratingAvg}}
+
             <label
               class="mr-3"
             >
              {{ card.ratingAvg }}
             </label>
             <v-icon>mdi-comment-processing-outline</v-icon>
-            <label>
+
               {{card.reviewCount}}
+
             </label>
           </v-card-actions>
         </v-card>
@@ -45,7 +49,7 @@
 <script>
 export default {
   name: "ListCard",
-  data() {
+   data() {
      return {
       tabIndex : this.$store.getters['tab/getTab']
     }
@@ -56,10 +60,10 @@ export default {
         return this.$store.getters['marketList/getCards'];
       },
     },
-    
+
   },
   methods: {
-    test(card){  
+    test(card){
       this.$router.push('MarketDetail')
       this.$session.set('market_name', card.market_name)
       this.$store.dispatch("marketDetail/actMarketTitle",card.market_name)
@@ -67,11 +71,12 @@ export default {
       this.$store.dispatch("marketDetail/actCards",card.market_name)
       this.$store.dispatch("marketDetail/actReservation",card.market_name)
     },
-    imgSrc(name){ 
-      name = name.replaceAll("\\", "/"); 
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
       return require(`../../../../../back/${name}`);
     }
   }
+
 }
 </script>
 

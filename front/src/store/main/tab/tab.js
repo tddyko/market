@@ -1,3 +1,4 @@
+import axios from "axios";
 const state = () => ({
   tab: null,
   tabTitle: [
@@ -29,8 +30,13 @@ const actions = {
   actTab({ commit }, value) {
     commit("setTab", value);
   },
-  actTabTitle({ commit }, v) {
-    commit("setTabTitle", v);
+  actTabTitle({ commit }) {
+    axios({
+      url: "http://localhost/markets/categorys/list",
+      method: "get",
+    }).then((response) => {
+      commit("setTabTitle",  response.data.name);
+    })
   },
 };
 

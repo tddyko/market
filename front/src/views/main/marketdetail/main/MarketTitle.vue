@@ -67,7 +67,7 @@ export default {
   name: "MarketTitle",
   computed: {
      marketInfo : {
-      get() { 
+      get() {
         return this.$store.getters["marketDetail/getMarketTitle"]
          },
     },

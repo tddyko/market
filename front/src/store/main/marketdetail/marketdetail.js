@@ -2,6 +2,13 @@ import axios from 'axios';
 const state = () => ({
   reservations_number: 1,
   tabs: null,
+import axios from "axios";
+const state = () => ({
+  tabs: null,
+  select_items: [
+    "주문리뷰",
+    "예약리뷰"
+  ],
   tabTitles: [
     { title: "주문" },
     { title: "예약" },
@@ -62,7 +69,8 @@ const state = () => ({
   reservation:[],
   selectmenu:[],
   addmenu:[],
-  selectOptions: []
+  selectOptions: [],
+  reviews:[],
 });
 const getters = {
   getTabs: (state) => state.tabs,
@@ -85,6 +93,8 @@ const getters = {
   getSelectmenu: (state) => state.selectmenu,
   getAddmenu: (state) => state.addmenu,
   getSelectOptions : (state) =>state.selectOptions,
+  getSelect: (state) => state.select_items,
+  getReviews : (state) => state.reviews,
 };
 
 const mutations = {
@@ -151,6 +161,20 @@ const mutations = {
 
 const actions = {
   actSelectmenu({commit},value){commit("setSelectmenu",value)},
+  setRating : (state, data) => {
+    console.log("setRating : " + data);
+    state.rating = data.ratingAvg;
+    console.log(data.ratingsCount)
+    for(let i in state.valueDeterminate){
+      state.valueDeterminate[i].rating = data.ratingsCount[i]
+    }
+  },
+  setReviews : (state,data) => {
+    state.reviews = data
+  }
+};
+
+const actions = {
   actTabs({ commit }, value) {
     commit("setTabs", value);
   },
@@ -193,6 +217,34 @@ const actions = {
       commit("setMarketTitle", response.data);
     })
   },
+  actRating({ commit }, value) {
+        axios({
+          url: `http://localhost/market_preview/${value}/totalRating`,
+          method: 'get',
+        }).then((response)=>{
+          console.log(response.data)
+          commit("setRating", response.data);
+        })
+      },
+      actReviews({ commit }, value) {
+        console.log(value.switch);
+        if(value.switch == 0)
+          axios({
+            url: `http://localhost/order_review/reviews/list/${value.market_name}`,
+            method: 'get',
+          }).then((response)=>{
+            console.log(response.data)
+            commit("setReviews", response.data)
+          })
+        else
+          axios({
+            url: `http://localhost/reseve_review/reviews/list/${value.market_name}`,
+            method: 'get',
+          }).then((response)=>{
+            console.log(response.data)
+            commit("setReviews", response.data)
+          })
+      },
   actOptionGroup({ commit },value) {
     axios({
       url: `http://localhost/menu_option/addGroup/${value}`,

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Market,Member,Market_inform_img,Category,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
-,Market_inform_holiday,Product_img,Market_room,Reserve_review_img,Reservation} = require('../models');
+const {Market,Member,Market_inform_img,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
+,Market_inform_holiday,Reserve_review_img,Reservation,Category} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
 const { isLoggedInMarket } = require("./middlewares");
@@ -15,30 +15,24 @@ const upload = setMulter('./public/images/market_room/');
 
 router.get('/:marketNm/totalRating',async(req, res)=>{
     let ratringResult = new Object();
-    let sum ={};
-    let order_review = await Market.findAll({
-        where: {market_name: req.params.marketNm},
-        include :[
-            {
-                model : Order_review,
-                attributes : ['rating']
-            },
-            {
-                model : Reserve_review,
-                attributes : ['rating']
-            }
-        ],
-        attributes : [],raw : true  
-    }).then((res) => {
-      return res
-    })
-    var array = new Array();
+    let {market_id} = await Market.findOne({
+        attributes :['market_id'],
+        where:{market_name: req.params.marketNm},raw : true
+    });
+    let sum =
+    await Reserve_review.sum('rating',{where :{market_id}}) + await Order_review.sum('rating',{where :{market_id}})
+    if(sum==null) sum=0
+    let count = await Reserve_review.count({where:{market_id}}) +
+    await Order_review.count({where:{market_id}})
+    if(count==null) count=0
+
+    var array = new Array();  
     for(var i=1;i<=5; i++)
-       array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i)) 
+        array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i))
                     + (await countRating(Order_review,req.params.marketNm,i))
-    ratringResult.ratingAvg = order_review;
-    ratringResult.ratingsCount = array
-    res.json(ratringResult);
+    ratringResult.ratingAvg = sum/count;
+    ratringResult.ratingsCount = array.reverse()
+    res.json(ratringResult); 
 })
 
 async function countRating(tableName,where,rating){
@@ -176,8 +170,8 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         include : [{
             model : Market_inform,
             required: false,
-            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment','market_phone'],  
-           include : [ 
+            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment','market_phone'],
+           include : [
             {
                 model : Market_noti_img,
                 required: false,
@@ -187,16 +181,17 @@ router.get('/:marketNm/imformation',async(req, res)=>{
                 model : Market_inform_holiday,
                 required: false,
                 attributes : ['market_inform_week_holiday','market_inform_day_holiday']
+            }]
             }
-           ]
-        },{
-            model : Category,
-            attributes : ['name']
-        }],
+            ,{
+                model : Category,
+                attributes : ['name']
+            }
+        ],
         attributes : [
             'name','market_name','address','phonenumber','profile_img',[
                 sequelize.fn('concat',sequelize.col('address'),' ' ,sequelize.col('dt_address')),'market_address']
-        ] 
+        ]
     }).then(async(r)=>{
         r.Market_inform.start_time = dayjs('1 ' +r.Market_inform.start_time).format('a hh:mm')
         r.Market_inform.end_time = dayjs('1 ' +r.Market_inform.end_time).format('a hh:mm')
@@ -211,7 +206,7 @@ router.post('/room',upload.single('room_img'),isLoggedInMarket, async(req,res) =
     console.log(req.file.path);
     await Market_room.create({
         room_id:uuidv4(),room_name,room_comment,room_price,
-        room_images : req.file.path, 
+        room_images : req.file.path,
         market_id : req.user.market_id
     }).catch((err) => {
         console.log(err);

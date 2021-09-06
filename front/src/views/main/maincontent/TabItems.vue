@@ -21,9 +21,9 @@ export default {
     tab: {
       get() {
          let tabIndex = this.$store.getters['tab/getTab'];
-        console.log(tabIndex) 
-        this.$store.dispatch('marketList/actCards',tabIndex); 
-        return this.$store.getters['tab/getTab']; 
+        console.log(tabIndex)
+        this.$store.dispatch('marketList/actCards',tabIndex);
+        return this.$store.getters['tab/getTab'];
       },
       set(v) {
         return this.$store.dispatch('tab/actTab', v)
@@ -37,6 +37,14 @@ export default {
         return this.$store.dispatch('tab/actTabTitle', v)
       }
     },
+    tabItems: {
+      get() {
+        return this.$store.getters['items/getTabItems'];
+      },
+      set(v) {
+        return this.$store.dispatch('items/actTabItems', v)
+      }
+    }
   },
 }
 </script>

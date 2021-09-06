@@ -1,11 +1,13 @@
 <template>
   <v-card>
     <v-toolbar
+      dark
       color="white"
     >
       <v-toolbar-title>예약 확인 창</v-toolbar-title>
       <v-spacer />
       <v-btn
+        dark
         icon
         @click="floating.reserveDialog = false"
       >
@@ -65,7 +67,7 @@
         <div class="text-h6 font-weight-bold">
           {{ getDate }}
         </div>
-      </v-col> 
+      </v-col>
     </v-row>
     <v-divider />
 

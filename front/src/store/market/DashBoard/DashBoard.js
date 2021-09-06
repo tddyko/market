@@ -1,3 +1,4 @@
+import axios from "axios";
 const state = () => ({
   //첫번째 줄
   Order_DashBoard: [
@@ -7,82 +8,27 @@ const state = () => ({
       subtitle: "당일 총 주문건...",
       subContent: "당일 총 주문건수: ",
       subContentValue: 300,
-      labels: [
-        '9am',
-        '10am',
-        '11am',
-        '12pm',
-        '1pm',
-        '2pm',
-        '3pm',
-        '4pm',
-        '5pm',
-        '6pm',
-        '7pm',
-        '8pm',
-      ],
-      value: [
-        5,
-        10,
-        20,
-        10,
-        30,
-        80,
-        100,
-        10,
-        30,
-        80,
-        100,
-        100,
-      ],},
+      labels: [],
+      value: [],
+    },
     {
       color: "cyan lighten-2",
       title: "주문완료",
       subtitle: "당일 총 주문완료건...",
       subContent: "당일 총 주문완료수: ",
-      subContentValue: 297,
-      labels: [
-        '9am',
-        '11am',
-        '1pm',
-        '3pm',
-        '5pm',
-        '7pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-      ],},
+      subContentValue: 300,
+      labels: [],
+      value: [],
+    },
     {
       color: "orange accent-1",
       title: "주문취소",
       subtitle: "당일 총 주문취소건...",
       subContent: "당일 총 주문취소건수: ",
-      subContentValue: 3,
-      labels: [
-        '9am',
-        '11am',
-        '1pm',
-        '3pm',
-        '5pm',
-        '7pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-      ],}
+      subContentValue: 300,
+      labels: [],
+      value:[],
+    }
   ],
 
   //두번 쨰 줄
@@ -92,73 +38,28 @@ const state = () => ({
       title: "예약건수",
       subtitle: "당일 총 예약건...",
       subContent: "당일 총 예약건수: ",
-      subContentValue: 50,
-      labels: [
-        '9am',
-        '11am',
-        '1pm',
-        '3pm',
-        '5pm',
-        '7pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-      ],},
+      subContentValue: 300,
+      labels: [],
+      value: [],
+    },
     {
       color: "deep-orange accent-1",
       title: "예약완료",
       subtitle: "당일 총 예약완료건...",
       subContent: "당일 총 예약완료건수: ",
-      subContentValue: 31,
-      labels: [
-        '9am',
-        '11am',
-        '1pm',
-        '3pm',
-        '5pm',
-        '7pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-      ],},
+      subContentValue: 300,
+      labels: [],
+      value: [],
+    },
     {
       color: "brown darken-1",
       title: "예약취소",
       subtitle: "당일 총 예약취소건...",
       subContent: "당일 총 예약취소건수: ",
-      subContentValue: 19,
-      labels: [
-        '9am',
-        '11am',
-        '1pm',
-        '3pm',
-        '5pm',
-        '7pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-      ],}
+      subContentValue: 300,
+      labels: [], //시간
+      value: [], //시간마다 값
+    }
   ]
 });
 const getters = {
@@ -167,9 +68,37 @@ const getters = {
 
 };
 
-const mutations = {};
-
+const mutations = {
+  setValue(state,data) {
+    let i=1;
+    console.log(data[0].time);
+    state.Order_DashBoard.forEach((element)=>{
+      let sumValue=0;
+      data[0].time.forEach((data)=>{
+        element.labels.push(data.substring(11))
+      })
+        element.value = data[i].value;
+        i++
+    });
+    state.Reserve_DashBoard.forEach((element)=>{
+      data[0].time.forEach((data)=>{
+        element.labels.push(data.substring(11))
+      })
+        element.value = data[i].value;
+        i++
+    })
+  }
+};
 const actions = {
+  actOrder_DashBoard({ commit }, value){
+    axios({
+      url: 'http://localhost/dashboard',
+      method: 'get',
+      withCredentials : true,
+    }).then(async (response)=>{
+      await commit("setValue",response.data)
+    }).catch((error)=>{console.error(error);})
+  }
 };
 
 export default { namespaced:true, state, getters, mutations, actions};

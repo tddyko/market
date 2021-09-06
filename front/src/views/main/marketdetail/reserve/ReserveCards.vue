@@ -3,7 +3,7 @@
     <v-row class="my-10">
       <v-col>
         <h1 class="text-center">
-          예약 좌석
+          예약 날짜
         </h1>
       </v-col>
     </v-row>
@@ -43,7 +43,7 @@
                 size="130"
                 tile
               >
-                <img 
+                <img
                   :src="imgSrc(card.room_images)"
                   alt="ㅗ"
                 >
@@ -97,6 +97,25 @@
                   color="indigo"
                   outlined
                   @click="room(card.room_name)"
+              <div
+                v-if="$vuetify.breakpoint.name === 'xs'"
+                class="text-center"
+              >
+                <v-btn
+                  color="indigo"
+                  outlined
+                  class="text-center"
+                >
+                  담기
+                </v-btn>
+              </div>
+              <v-card-actions
+                v-else
+              >
+                <v-btn
+                  color="indigo"
+                  outlined
+                  class="text-center"
                 >
                   담기
                 </v-btn>
@@ -113,6 +132,9 @@
 <script>
 export default {
   name: "ReserveCards",
+  data: () => ({
+    card_text: 'text-center text-sm-left text-md-left '
+  }),
   computed: {
     cards: {
       get() {
