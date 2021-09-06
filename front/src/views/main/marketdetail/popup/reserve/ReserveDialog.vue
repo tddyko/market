@@ -3,6 +3,7 @@
     <v-dialog
       v-model="floating.reserveDialog"
       fullscreen
+      persistent
       hide-overlay
       transition="dialog-bottom-transition"
     >

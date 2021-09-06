@@ -3,6 +3,7 @@
     <v-dialog
       v-model="floating.reviewDialog"
       fullscreen
+      persistent
       hide-overlay
       transition="dialog-bottom-transition"
     >
