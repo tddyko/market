@@ -16,8 +16,13 @@
           width="450"
         >
           <v-card-text class="align-center">
-            <validation-observer>
-              <v-form>
+            <validation-observer
+              ref="observer"
+              v-slot="{ invalid }"
+            >
+              <v-form
+                @submit.prevent="login"
+              >
                 <validation-provider
                   v-slot="{ errors }"
                   :rules="{
@@ -88,11 +93,10 @@
                   </v-col>
                 </v-row>
                 <v-btn
+                  type="submit"
                   block
                   color="primary"
-                  dark
-                  x-large
-                  @click="login()"
+                  :disabled="invalid"
                 >
                   로그인
                 </v-btn>
