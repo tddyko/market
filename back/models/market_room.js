@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             comment: "룸 설명",
         },
         room_price: {
-            type: DataTypes.STRING(10),
+            type: DataTypes.INTEGER,
             allowNull: false,
             comment: "가격",
         },
