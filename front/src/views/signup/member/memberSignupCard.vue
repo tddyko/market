@@ -25,65 +25,6 @@
             class="mt-1"
           >
             <v-col
-              class="ml-0 mr-6"
-              cols="8"
-              lg="3"
-              md="3"
-              sm="8"
-              xl="3"
-            >
-              <v-row
-                class="mx-auto my-auto"
-                justify="center"
-              >
-                <v-avatar
-                  size="80"
-                >
-                  <img
-                    alt="John"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  >
-                </v-avatar>
-              </v-row>
-              <v-row
-                class="mx-auto text-body-2"
-                justify="center"
-              >
-                <span>스토어 이미지</span>
-              </v-row>
-            </v-col>
-            <v-col
-              cols="1"
-              lg="1"
-              md="1"
-              sm="1"
-              xl="1"
-            >
-              <input
-                ref="imageInput"
-                hidden
-                multiple
-                type="file"
-                @change="onChangeImages"
-              >
-              <v-btn
-                class="pa-0 ma-0"
-                color="primary"
-                outlined
-                rounded
-                type="button"
-                @click="onClickImgUpload"
-              >
-                <v-icon center>
-                  mdi-camera
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
               cols="9"
               lg="3"
               md="3"
@@ -235,41 +176,22 @@
               sm="12"
               xl="4"
             >
-              <v-select
-                :error-messages="errors"
-                :items="category"
-                dense
-                label="카테고리"
-                outlined
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            align="center"
-          >
-            <v-col
-              cols="12"
-              lg="4"
-              md="4"
-              sm="12"
-              xl="4"
-            >
               <validation-provider
                 v-slot="{ errors }"
                 :rules="{
                   required: true,
                 }"
-                name="가게이름"
+                name="닉네임"
               >
                 <v-text-field
-                  v-model="marketName"
+                  v-model="memberName"
                   :error-messages="errors"
                   class="ma-0 pa-0"
                   clearable
                   dense
-                  label="가게이름"
+                  label="닉네임"
                   outlined
-                  placeholder="가게이름을 입력해주세요."
+                  placeholder="닉네임을 입력해주세요."
                 />
               </validation-provider>
             </v-col>
@@ -436,7 +358,7 @@
 <script>
 
 export default {
-  name: "MarketSignupCard",
+  name: "MemberSignupCard",
   data: () => ({
     id: null,
     email: null,
@@ -444,8 +366,7 @@ export default {
     pwd_check1: null,
     pwd_check2: null,
     pwd_validate: null,
-    category: [],
-    marketName: null,
+    memberName: null,
     phoneNum: null,
     postNum: null,
     address: null,
@@ -455,10 +376,10 @@ export default {
   computed: {
     dialog: {
       get() {
-        return this.$store.getters["signUp/getSignUpDialog"]
+        return this.$store.getters["authentiCation/getSignUpDialog"]
       },
       set(value) {
-        this.$store.commit('signUp/getSignUpDialog', value)
+        this.$store.commit('authentiCation/setSignUpDialog', value)
       }
     },
   },
@@ -484,12 +405,12 @@ export default {
       this.passwd = null
       this.pwd_validate = null
       this.email = null
-      this.marketName = null
+      this.memberName = null
       this.phoneNum = null
       this.postNum = null
       this.address = null
       this.addressDetail = null
-      this.dialog = false
+      this.dialog.memberSignupDialog = false
       this.$refs.observer.reset()
     }
   }

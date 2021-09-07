@@ -68,7 +68,7 @@
                 <v-row class="mb-1 align-center">
                   <v-col>
                     <v-switch
-                      v-model="login_switch"
+                      v-model="loginSwitch"
                       inset
                     />
                   </v-col>
@@ -104,7 +104,8 @@
                   <v-col>
                     <div>
                       아직 노웨잇 회원이 아니세요?
-                      <sign-up />
+                      <member-signup v-if="loginSwitch === false" />
+                      <market-signup v-else />
                     </div>
                   </v-col>
                 </v-row>
@@ -120,19 +121,28 @@
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/signup/signupDialog')
+    MarketSignup: () => import('@/views/signup/market/marketSignupDialog'),
+    MemberSignup: () => import('@/views/signup/member/memberSignupDialog')
   },
   data: () => ({
     id: null,
     passwd: null,
     pwd_check: false,
-    login_switch: false,
   }),
   computed: {
-    user(){return this.$store.getters.user;}
+    user(){
+      return this.$store.getters.user;
+    },
+    loginSwitch: {
+      get() {
+        return this.$store.getters["authentiCation/getLoginSwitch"]
+      },
+      set(value) {
+        this.$store.commit('authentiCation/setLoginSwitch', value)
+      }
+    }
   },
   methods:  {
-
     async login() {
       console.log("ww")
       this.$Axios({
@@ -144,7 +154,7 @@ export default {
           // This is the body part
           id : this.id,
           passwd: this.passwd,
-          login_switch: this.login_switch
+          loginSwitch: this.loginSwitch
         }
       }).then((response) =>{
         console.log(response.data.market_id)
