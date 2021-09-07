@@ -71,8 +71,7 @@ const getters = {
   Get_information :(state)=> state.information,
   Get_notice:(state) => state.notice,
   Get_phonenumber:(state) => state.phonenumber,
-  Get_notice_img: (state) => state.Notice_Image,
-  }
+  Get_notice_img: (state) => state.Notice_Image
 };
 
 const mutations = {

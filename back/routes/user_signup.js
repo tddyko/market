@@ -36,6 +36,7 @@ router.post(
         zipcode,
         address,
         dt_address,
+        market_phone
       } = req.body;
       try {
         const exMarketID = await Market.findOne({
@@ -65,6 +66,7 @@ router.post(
           zipcode,
           address,
           dt_address,
+          market_phone
         });
       } catch (e) {
         console.error(e);

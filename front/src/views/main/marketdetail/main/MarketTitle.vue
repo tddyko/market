@@ -54,7 +54,7 @@
           <div
             :class="`text-${Font_size2}`"
           >
-            {{marketInfo.Market_inform.market_phone}}
+            {{marketInfo.market_phone}}
           </div>
         </v-col>
       </v-col>

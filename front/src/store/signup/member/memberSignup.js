@@ -1,30 +1,9 @@
-import axios from 'axios';
-const state = () => ({
+const state = () => ({});
 
-  memberInfo : null
-});
+const getters = {};
 
-const getters = {
+const mutations = {};
 
-  getMemberInfo: (state) =>state.memberInfo
-};
-
-const mutations = {
-
-  setMemberInfo :(state,data) => state.memberInfo = data
-};
-
-const actions = {
-
-
-  actMemberInfo : ({commit},value) =>{
-    axios({
-      url : 'http://localhost/users/memberInformation',
-      method : 'get',
-      headers: {},
-      withCredentials: true, //쿠키가 서로 저장
-    })
-  }
-};
+const actions = {};
 
 export default { namespaced: true, state, getters, mutations, actions };

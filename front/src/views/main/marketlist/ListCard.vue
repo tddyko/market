@@ -3,9 +3,9 @@
   >
     <v-row>
       <v-col
-        v-for="(card,index) in get"
+        v-for="(card,index) in cards"
         :key="index"
-        :cols="get.flex"
+        :cols="6"
       >
         <!-- 반복될 카드 -->
         <v-card>
@@ -25,18 +25,16 @@
             <v-icon color="red lighten-2">
               mdi-heart
             </v-icon>
-
-              {{card.ratingAvg}}
-
             <label
               class="mr-3"
             >
              {{ card.ratingAvg }}
             </label>
             <v-icon>mdi-comment-processing-outline</v-icon>
-
+            <label
+              class="mr-3"
+            >
               {{card.reviewCount}}
-
             </label>
           </v-card-actions>
         </v-card>
@@ -57,6 +55,7 @@ export default {
   computed: {
     cards: {
       get() {
+        console.log(this.$store.getters['marketList/getCards'])
         return this.$store.getters['marketList/getCards'];
       },
     },
@@ -64,12 +63,10 @@ export default {
   },
   methods: {
     test(card){
-      this.$router.push('MarketDetail')
       this.$session.set('market_name', card.market_name)
+      console.log("이동함")
       this.$store.dispatch("marketDetail/actMarketTitle",card.market_name)
-      this.$store.dispatch("marketDetail/actRoom",card.market_name)
-      this.$store.dispatch("marketDetail/actCards",card.market_name)
-      this.$store.dispatch("marketDetail/actReservation",card.market_name)
+      this.$router.push('MarketDetail')
     },
     imgSrc(name){
       name = name.replaceAll("\\", "/");

@@ -3,7 +3,6 @@ const router = express.Router();
 const {v4: uuidv4} = require('uuid'); 
 const {Order_review_answer,Member,Market,Order_review,Order_review_img} = require('../models');
 const { isLoggedInMember,isLoggedInMarket} = require('./middlewares');
-require('pg-safe-numbers');
 const sequelize = require('sequelize');
 const {Op} = require('sequelize')
 const dayjs = require('dayjs');

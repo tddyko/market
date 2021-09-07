@@ -15,7 +15,6 @@
             justify="center"
           >
             <v-col
-              lg="9"
               align="start"
               sm="10"
               md="10"

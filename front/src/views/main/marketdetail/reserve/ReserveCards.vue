@@ -45,7 +45,7 @@
               >
                 <img
                   :src="imgSrc(card.room_images)"
-                  alt="ㅗ"
+                  alt="noImages"
                 >
               </v-avatar>
             </v-col>
@@ -96,7 +96,7 @@
                 <v-btn
                   color="indigo"
                   outlined
-                  @click="room(card.room_name)"
+                  @click="room(card.room_name)"/>
               <div
                 v-if="$vuetify.breakpoint.name === 'xs'"
                 class="text-center"
@@ -109,16 +109,6 @@
                   담기
                 </v-btn>
               </div>
-              <v-card-actions
-                v-else
-              >
-                <v-btn
-                  color="indigo"
-                  outlined
-                  class="text-center"
-                >
-                  담기
-                </v-btn>
               </v-card-actions>
             </v-col>
           </v-row>

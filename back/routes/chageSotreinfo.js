@@ -11,6 +11,7 @@ const setMulter = require('../multer');
 const upload = setMulter('./public/images/market_inform_images/');
 router.post('/category',isLoggedInMarket, async (req,res)=>{
         await Market.findOne({where : {market_id : req.user.market_id}}).then(async(market)=>{
+            console.log(req.body)
             await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
             }).then( async(category)=>{  
                await market.setCategories([category]).then(async()=>{

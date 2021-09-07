@@ -348,7 +348,6 @@ export default {
     return{
       informfiles :[],
       previewImg :[],
-
     }
   },
   computed: {
@@ -410,7 +409,6 @@ export default {
       this.$refs.marketImageInput.click();
     },
     uploadInforImg(){
-
       for (let i = 0; i <this.$refs.marketImageInput.files.length; i++) {
           this.informfiles = [ ...this.informfiles,this.$refs.marketImageInput.files[i]];
           this.previewImg = [...this.previewImg, URL.createObjectURL(this.$refs.marketImageInput.files[i])]

@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { Market, Reserve_review, Order_review,Category} = require("../models");
 const sequelize = require("sequelize");
+let categorys = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리']
 router.get('/categorys/list', async (req, res)=>{
   let response = [];
   for(let i=0; i<categorys.length; i++){
-      let result = await Category.findAll({where : {name : categorys[i]}})
+      let result = await Category.findOne({attributes:['category_id','name'],where : {name : categorys[i]},raw:true})
       response.push(result)
   }
+
   res.json(response);
 })
 

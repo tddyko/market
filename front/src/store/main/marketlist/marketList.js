@@ -32,7 +32,6 @@ const actions = {
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
-      response.data.flex = 6;
       commit("setCards", response.data);
     })
   },

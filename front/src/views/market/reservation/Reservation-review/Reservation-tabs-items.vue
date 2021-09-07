@@ -98,7 +98,6 @@
                   md="12"
                   sm="12"
                   xl="12"
-                  class="ma-2"
                   @click="showRecoment(review_items)"
                 >
                   <v-textarea

@@ -29,7 +29,7 @@
       dark
       small
       color="green"
-      @click="updateMenu"
+      @click="setItem"
     >
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
@@ -47,7 +47,7 @@
       dark
       small
       color="red"
-      @click="setDeleteMenu"
+      @click="setMenu_Dialog"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -89,6 +89,12 @@ export default {
     },
     setDeleteMenu() {
       this.$store.commit("menu/setDelete")
+    },
+    setItem(){
+      this.$store.commit("menu/updateMenu")
+    },
+    setMenu_Dialog(){
+      this.$store.commit("menu/setMenu_Dialog")
     }
   },
 }

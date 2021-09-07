@@ -2,12 +2,27 @@
   <v-container class="fill-height">
     <v-row justify="center">
       <v-col cols="auto">
+        <v-col cols="auto">
+          <router-link to="/">
+            <v-img
+              :src="require('@/assets/logo.png')"
+              class="mx-auto mb-6"
+              contain
+              width="165px"
+            />
+          </router-link>
+        </v-col>
         <v-card
           width="450"
         >
           <v-card-text class="align-center">
-            <validation-observer>
-              <v-form>
+            <validation-observer
+              ref="observer"
+              v-slot="{ invalid }"
+            >
+              <v-form
+                @submit.prevent="login"
+              >
                 <validation-provider
                   v-slot="{ errors }"
                   :rules="{
@@ -78,11 +93,10 @@
                   </v-col>
                 </v-row>
                 <v-btn
+                  type="submit"
                   block
                   color="primary"
-                  dark
-                  x-large
-                  @click="login()"
+                  :disabled="invalid"
                 >
                   로그인
                 </v-btn>
@@ -106,7 +120,7 @@
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/login/market_signup')
+    SignUp: () => import('@/views/signup/market/market_signup')
   },
   data: () => ({
     id: null,
@@ -118,36 +132,29 @@ export default {
     user(){return this.$store.getters.user;}
   },
   methods:  {
-
     async login() {
-         this.$Axios({
-           method: 'post',
-              url: "http://localhost/login",
-
-              headers: {},
-              withCredentials: true, //쿠키가 서로 저장
-              data: {
-                // This is the body part
-                id : this.id, passwd: this.passwd, login_switch: this.login_switch
-              }
-         }).then((response) =>{
-           console.log(response)
-           if(response.status == 200)
-            this.$router.push('/market').catch((err)=>{
-                console.log(err)
-            })
-         }).catch((err)=>{
-           console.log("로그인 못함")
-           console.log(err)
-         })
-      }
-  },
-  computed: {
-    user(){return this.$store.getters.user;}
+      console.log("ww")
+      this.$Axios({
+        method: 'post',
+        url: "http://localhost/login",
+        headers: {},
+        withCredentials: true, //쿠키가 서로 저장
+        data: {
+          // This is the body part
+          id : this.id, passwd: this.passwd, login_switch: this.login_switch
+        }
+      }).then((response) =>{
+        console.log(response.data.market_id)
+        this.$router.push('/market').catch((err)=>{
+          console.log(err)
+        })
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

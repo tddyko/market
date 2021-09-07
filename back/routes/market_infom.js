@@ -170,7 +170,7 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         include : [{
             model : Market_inform,
             required: false,
-            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment','market_phone'],
+            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment'],
            include : [
             {
                 model : Market_noti_img,
@@ -189,12 +189,15 @@ router.get('/:marketNm/imformation',async(req, res)=>{
             }
         ],
         attributes : [
-            'name','market_name','address','phonenumber','profile_img',[
+            'name','market_name','address','phonenumber','profile_img','market_phone',
+            [
                 sequelize.fn('concat',sequelize.col('address'),' ' ,sequelize.col('dt_address')),'market_address']
         ]
     }).then(async(r)=>{
-        r.Market_inform.start_time = dayjs('1 ' +r.Market_inform.start_time).format('a hh:mm')
-        r.Market_inform.end_time = dayjs('1 ' +r.Market_inform.end_time).format('a hh:mm')
+        try{
+            r.Market_inform.start_time = dayjs('1 ' +r.Market_inform.start_time).format('a hh:mm')
+            r.Market_inform.end_time = dayjs('1 ' +r.Market_inform.end_time).format('a hh:mm')
+        }catch{}
         return r;
     });
     res.json(result) 

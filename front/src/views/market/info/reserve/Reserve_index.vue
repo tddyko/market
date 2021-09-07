@@ -1,6 +1,6 @@
 <template>
   <div>
-    <InfoMenucards />
+    <reserve-card />
     <option-button />
   </div>
 </template>
@@ -8,11 +8,10 @@
 
 <script>
 import OptionButton from "@/views/market/info/Option+Button";
-import InfoMenucards from "@/views/market/info/menu/Menu_cards";
-
+import ReserveCard from "@/views/market/info/reserve/Reserve_cards";
 export default {
-  name: "MenuIndex",
-  components: {InfoMenucards, OptionButton},
+  name: "Reserveindex",
+  components: {ReserveCard, OptionButton},
 }
 </script>
 

@@ -122,12 +122,10 @@ export default {
   computed: {
     marketInfo : {
       get() {
+        console.log("marketInfo get : " + this.$store.getters["marketDetail/getMarketTitle"])
         return this.$store.getters["marketDetail/getMarketTitle"]
-         },
-    },
-    beforeCreate(){
-    return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
-  },
+      },
+    }
   },
   methods: {
     imgSrc(name){
