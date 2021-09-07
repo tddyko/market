@@ -23,15 +23,15 @@
 export default {
   name: "Signup",
   components: {
-    MarketSignupCard: () => import('@/views/signup/market/marketSignupCard')
+    MarketSignupCard: () => import('@/views/signup/marketSignupCard')
   },
   computed: {
     dialog: {
       get() {
-        return this.$store.getters["marketSignup/getMarketSignupDialog"]
+        return this.$store.getters["signUp/getSignUpDialog"]
       },
       set(value) {
-        this.$store.commit('marketSignup/setMarketSignupDialog', value)
+        this.$store.commit('signUp/setSignUpDialog', value)
       }
     },
   },

@@ -93,10 +93,10 @@
                   </v-col>
                 </v-row>
                 <v-btn
-                  type="submit"
+                  :disabled="invalid"
                   block
                   color="primary"
-                  :disabled="invalid"
+                  type="submit"
                 >
                   로그인
                 </v-btn>
@@ -120,13 +120,13 @@
 export default {
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/signup/market/market_signup')
+    SignUp: () => import('@/views/signup/signupDialog')
   },
   data: () => ({
     id: null,
     passwd: null,
     pwd_check: false,
-    login_switch: null,
+    login_switch: false,
   }),
   computed: {
     user(){return this.$store.getters.user;}
@@ -142,7 +142,9 @@ export default {
         withCredentials: true, //쿠키가 서로 저장
         data: {
           // This is the body part
-          id : this.id, passwd: this.passwd, login_switch: this.login_switch
+          id : this.id,
+          passwd: this.passwd,
+          login_switch: this.login_switch
         }
       }).then((response) =>{
         console.log(response.data.market_id)

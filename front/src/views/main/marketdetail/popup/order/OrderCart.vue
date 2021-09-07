@@ -9,15 +9,38 @@
       <v-col
         cols="12"
       >
-        <div class="text-h5 mb-5">
-          치킨러버
-        </div>
-        <div class="text-subtitle-1">
-          경기도 김포시 장기동 000-000
-        </div>
-        <div class="text-subtitle-1">
-          010-0000-0000
-        </div>
+        <v-col cols="10">
+          <v-text-field
+            hide-details
+            label="주소"
+            outlined
+            placeholder="주소를 입력해주세요"
+          />
+        </v-col>
+      </v-col>
+      <v-col
+        cols="12"
+      >
+        <v-col cols="10">
+          <v-text-field
+            hide-details
+            label="상세주소"
+            outlined
+            placeholder="상세주소를 입력해주세요"
+          />
+        </v-col>
+      </v-col>
+      <v-col
+        cols="12"
+      >
+        <v-col cols="10">
+          <v-text-field
+            hide-details
+            label="전화번호"
+            outlined
+            placeholder="전화번호를 입력해주세요"
+          />
+        </v-col>
       </v-col>
     </v-row>
     <v-divider />
@@ -25,16 +48,14 @@
       <v-col
         cols="12"
       >
-        <div class="text-h5">
-          주문 상세 요청
-        </div>
-      </v-col>
-      <v-col cols="10">
-        <v-text-field
-          hide-details
-          label="주문 상세 요청 기입"
-          outlined
-        />
+        <v-col cols="10">
+          <v-text-field
+            hide-details
+            label="주문 상세요청"
+            outlined
+            placeholder="상세요청을 입력해주세요"
+          />
+        </v-col>
       </v-col>
     </v-row>
     <v-divider />

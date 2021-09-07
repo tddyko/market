@@ -11,8 +11,7 @@ import market_list from "@/store/main/marketlist";
 import market_detail from "@/store/main/marketdetail";
 import dashboard from "@/store/market/DashBoard";
 import menu from "@/store/market/menu";
-import marketSignup from "@/store/signup/market";
-import memberSignup from "@/store/signup/member";
+import authentiCation from "@/store/authentication";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -28,8 +27,7 @@ const store = new Vuex.Store({
     ...market_detail,
     ...dashboard,
     ...menu,
-    ...marketSignup,
-    ...memberSignup,
+    ...authentiCation,
   },
 });
 
