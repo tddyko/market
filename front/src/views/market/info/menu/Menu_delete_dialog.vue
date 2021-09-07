@@ -7,7 +7,7 @@
     >
       <v-card>
         <v-card-title class="text-h6">
-            외  건 정말로 삭제하시겠습니까?
+           {{get_dialog_menu_name}} 외 {{get_dialog_menu_count}} 건 정말로 삭제하시겠습니까?
         </v-card-title>
         <v-divider />
         <v-card-text
@@ -59,24 +59,17 @@ export default {
     },
     get_dialog_menu_count(){
       let count = 0;
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            count++;
-          }
-        }
-      }
+      count = this.$store.getters["menu/getMenu_Checkbox"].length
       return count-1;
     },
     get_dialog_menu_name(){
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            return this.$store.getters["menu/getMenu"][j].menu_name;
-          }
-        }
+      try{
+        let index = this.$store.getters["menu/getMenu_Checkbox"][0]
+        let data =  this.$store.getters["menu/getMenu"][index].name
+        return data
+      }catch{
+        return null
       }
-      return "에러";
     }
   },
   methods: {

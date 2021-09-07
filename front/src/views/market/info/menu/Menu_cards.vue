@@ -124,14 +124,6 @@
                 v-if="$vuetify.breakpoint.name === 'xs'"
                 class="text-center"
               >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
               </div>
               <v-card-actions
                 v-else

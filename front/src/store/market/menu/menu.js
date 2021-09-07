@@ -13,10 +13,8 @@ const getters = {
   getMenu:(state) => state.menu,
   getMenu_Checkbox:(state) => state.menu_checkbox,
   getNew_Menu:(state) => state.new_menu,
-  getMenu_Dialog: (state) => {
-      console.log('get')
-      return state.menu_card_dialog
-      },
+  getMenu_Dialog: (state) =>  state.menu_card_dialog,
+
   getMenu_option_name: (state) => {
           for (let i = 0; i < state.menu.length; i++) {
             state.menu_option[i] = state.menu[i].menu_name;
@@ -28,8 +26,8 @@ const getters = {
 
 const mutations = {
   setMenu_Dialog: (state) => {
-    state.menu_card_dialog = !state.menu_card_dialog
-    console.log(state.menu_card_dialog)
+    if(state.menu_checkbox.length>0)
+      state.menu_card_dialog = !state.menu_card_dialog
   },
   setMenu:(state,value) => state.menu = value,
    setMenu_option: (state, value) => {
@@ -37,7 +35,7 @@ const mutations = {
     },
   setMenu_Checkbox:(state,value) => state.menu_checkbox = value ,
   setNew_Menu:(state,data) => {
-    state.menu.push({name : '',price : '', product_info : ''});
+    state.menu.push({product_id : null ,name : '',price : '', product_info : ''});
   },
   setDelete:(state,event) => {
      for(let index of state.menu_checkbox){
@@ -61,7 +59,7 @@ const mutations = {
       try{
         formData.append("menuImg", selectMenu.menuImg);
       }catch{}
-      axios.put(`http://localhost/menu/update/${selectMenu.product_id}`,formData,
+      axios.post(`http://localhost/menu/update/${selectMenu.product_id}`,formData,
       {
         withCredentials: true,
         headers : {'Content-Type': 'multipart/form-data'}

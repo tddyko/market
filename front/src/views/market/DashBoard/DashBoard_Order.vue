@@ -1,4 +1,5 @@
 <template>
+  <v-container>
   <v-row
     justify="center"
     class="ma-10 mt-16"
@@ -7,8 +8,8 @@
       v-for="(Order,index) in get_Order_DashBoard"
       :key="index"
       xl="4"
-        lg="4"
-        md="4"
+      lg="4"
+      md="4"
     >
       <v-card
         class="mt-4 mx-auto"
