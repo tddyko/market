@@ -5,11 +5,11 @@
         <v-select
           v-model="Option_Select"
           :items="getMenu_name"
-          label="Menu"
+          label="메뉴 선택"
           outlined
           full-width
+          @change="setOption"
         />
-        {{ Option_Select }}
       </v-col>
     </v-row>
   </v-container>
@@ -21,14 +21,19 @@ export default {
   computed: {
     Option_Select:{
       set(value){
-        this.$store.commit('menu/setMenu_option',value)
+        this.$store.commit('menu/setOption_Select_Name',value)
       },
       get(){
-        return this.$store.getters['menu/getMenu_Option']
+        return this.$store.getters['menu/getOption_Select_Name']
       }
     },
     getMenu_name(){
       return this.$store.getters['menu/getMenu_option_name']
+    }
+  },
+  methods: {
+    setOption(){
+      this.$store.commit("menu/setMenu_Option")
     }
   }
 }

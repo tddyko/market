@@ -73,7 +73,7 @@
                   :disabled="isDisabled(card.menu_id)"
                   class="centered-input"
                   hide-details
-                  label="메뉴 이름"
+                  label="좌석 이름"
                   outlined
                   dense
                   :value="card.menu_name"
@@ -88,7 +88,7 @@
                   :disabled="isDisabled(card.menu_id)"
                   hide-details
                   outlined
-                  label="메뉴 설명"
+                  label="좌석 설명"
                   dense
                   :value="card.menu_info"
                 />
@@ -103,7 +103,7 @@
                   class="centered-input"
                   hide-details
                   outlined
-                  label="가격"
+                  label="좌석 가격"
                   dense
                   :value="card.menu_price"
                 />

@@ -8,8 +8,13 @@ const state = () => ({
       menu_info: "담백하고  맛있다.",
       Pd_option_groups: [
         {
+          Pd_option_groups_id: 1,
           name: "사이즈",
           Pd_options: [
+            {
+              name: "소",
+              price: "500"
+            },
             {
               name: "중",
               price: "1000"
@@ -18,10 +23,6 @@ const state = () => ({
               name: "대",
               price: "1500"
             },
-            {
-              name: "소",
-              price: "500"
-            }
           ]
         }
       ],
@@ -34,8 +35,13 @@ const state = () => ({
       menu_info: "느끼하고 준내 맛있다.",
       Pd_option_groups: [
         {
-          name: "사이즈", // 대분류
-          Pd_options: [ // 소분류 들
+          Pd_option_groups_id: 2,
+          name: "사이즈",
+          Pd_options: [
+            {
+              name: "소",
+              price: "500"
+            },
             {
               name: "중",
               price: "1000"
@@ -44,10 +50,6 @@ const state = () => ({
               name: "대",
               price: "1500"
             },
-            {
-              name: "소",
-              price: "500"
-            }
           ]
         }
       ],
@@ -60,8 +62,13 @@ const state = () => ({
       menu_info: "부드럽고 준내 맛있다.",
       Pd_option_groups: [
         {
+          Pd_option_groups_id: 3,
           name: "사이즈",
           Pd_options: [
+            {
+              name: "소",
+              price: "500"
+            },
             {
               name: "중",
               price: "1000"
@@ -70,10 +77,6 @@ const state = () => ({
               name: "대",
               price: "1500"
             },
-            {
-              name: "소",
-              price: "500"
-            }
           ]
         }
       ],
@@ -86,8 +89,13 @@ const state = () => ({
       menu_info: "먹고싶다.. 강추",
       Pd_option_groups: [
         {
+          Pd_option_groups_id: 4,
           name: "사이즈",
           Pd_options: [
+            {
+              name: "소",
+              price: "500"
+            },
             {
               name: "중",
               price: "1000"
@@ -96,10 +104,6 @@ const state = () => ({
               name: "대",
               price: "1500"
             },
-            {
-              name: "소",
-              price: "500"
-            }
           ]
         }
       ],
@@ -112,8 +116,13 @@ const state = () => ({
       menu_info: "담백하고 국물이 맛있다.",
       Pd_option_groups: [
         {
+          Pd_option_groups_id: 5,
           name: "사이즈",
           Pd_options: [
+            {
+              name: "소",
+              price: "500"
+            },
             {
               name: "중",
               price: "1000"
@@ -122,10 +131,6 @@ const state = () => ({
               name: "대",
               price: "1500"
             },
-            {
-              name: "소",
-              price: "500"
-            }
           ]
         }
       ],
@@ -135,48 +140,85 @@ const state = () => ({
   copy: [],
   updateMenu: [],
   menu_checkbox: [],
+  option_checkbox: [],
   menu_card_dialog: false,
-  pushmenu: {
+  insert_menu: {
     menu_id: null,
     menu_name: null,
     menu_img: null,
     menu_price: null,
     menu_info: null,
   },
-  menu_option: [],
-  option_name: ''
+  insert_option:{
+    Pd_option_groups_id: 0,
+    name: "",
+    Pd_options: [
+      {
+        name: "",
+        price: ""
+      }
+    ]
+  },
+  menu_option_name: [],
+  menu_option:[],
+  option_select_name: ''
 })
 
 const getters = {
-  getMenu: (state) => state.copy,
+  getCopy: (state) => state.copy,
+
+  getMenu_Option: (state) => state.menu_option,
+
   getMenu_Checkbox: (state) => state.menu_checkbox,
+
   getMenu_Dialog: (state) => state.menu_card_dialog,
+
+  getOption_Checkbox: (state) => state.option_checkbox,
+
+  getOption_Dialog: (state) => state.menu_card_dialog,
+
   getMenu_option_name: (state) => {
-    for (let i = 0; i < state.menu.length; i++) {
-      state.menu_option[i] = state.menu[i].menu_name;
-    }
-    return state.menu_option;
+    state.menu.forEach((item,index) => {
+      state.menu_option_name[index] = item.menu_name;
+    })
+    return state.menu_option_name;
   },
-  getMenu_Option:(state) => state.option_name
+
+  getOption_Select_Name: (state) => state.option_select_name
 
 }
 const mutations = {
   setMenu: (state, value) => state.copy = value,
-  setMenu_option: (state, value) => {
-    state.option_name = value
-  },
+
   setMenu_Checkbox: (state, value) => {
     state.menu_checkbox = value
   },
+
+  setOption_Select_Name: (state, value) => {
+    state.option_select_name = value
+  },
+
+  setOption_Checkbox: (state, value) => state.option_checkbox = value,
+
+  setMenu_Option: (state) => {
+    state.menu.forEach((item) => {
+      console.log(item)
+        if (state.option_select_name === item.menu_name)
+          state.menu_option = item.Pd_option_groups
+      }
+    )
+  },
+
   setMenu_Dialog: (state) => state.menu_card_dialog = !state.menu_card_dialog,
-  setNew_Menu: (state) => {
-    const pushmenu = state.pushmenu;
+
+  setInsert_Menu: (state) => {
+    const insert_menu = state.insert_menu;
     let num = null;
     for (let i = 0; i < state.copy.length; i++) {
       num = state.copy[i].menu_id;
     }
-    pushmenu.menu_id = num + 1
-    state.copy.push(pushmenu);
+    insert_menu.menu_id = num + 1
+    state.copy.push(insert_menu);
   },
 
   copymenu(state) {

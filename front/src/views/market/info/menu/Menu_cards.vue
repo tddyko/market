@@ -46,6 +46,7 @@
                 multiple
                 type="file"
               >
+
               <v-avatar
                 color="warning lighten-2"
                 size="130"
@@ -110,41 +111,6 @@
               </v-card-text>
             </v-col>
             <v-spacer />
-            <v-col
-              cols="12"
-              sm="3"
-              md="3"
-              lg="2"
-              xl="2"
-            >
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs'"
-                class="text-center"
-              >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  :disabled="isDisabled(card.menu_id)"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
-              </div>
-              <v-card-actions
-                v-else
-              >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  :disabled="isDisabled(card.menu_id)"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
-              </v-card-actions>
-            </v-col>
           </v-row>
         </v-card>
       </v-col>
@@ -164,7 +130,7 @@ export default {
   computed: {
     cards: {
       get() {
-        return this.$store.getters["menu/getMenu"]
+        return this.$store.getters["menu/getCopy"]
       },
       set(value){
         this.$store.commit("menu/setMenu",value)

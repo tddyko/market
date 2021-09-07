@@ -40,9 +40,6 @@ const state = () => ({
   ]
 })
 const getters = {
-  Get_Info_Tab(state) {
-    return state
-  },
   Get_Week(state) {
     return state.week;
   },
