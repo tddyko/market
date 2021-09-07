@@ -1,11 +1,13 @@
 <template>
   <v-card>
     <v-toolbar
+      dark
       color="white"
     >
       <v-toolbar-title>예약 확인 창</v-toolbar-title>
       <v-spacer />
       <v-btn
+        dark
         icon
         @click="floating.reserveDialog = false"
       >
@@ -21,6 +23,7 @@
         />
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <div class="text-h3">
@@ -40,16 +43,32 @@
     >
       <v-col>
         <div class="text-h6 font-weight-bold">
+          좌석
+        </div>
+      </v-col>
+      <v-col>
+        <div class="text-h6 font-weight-bold">
+          {{ getRoom }}
+        </div>
+      </v-col>
+    </v-row>
+    <v-divider />
+
+    <v-row
+      class="my-5"
+      justify="space-between"
+    >
+      <v-col>
+        <div class="text-h6 font-weight-bold">
           날짜
         </div>
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          2021년 9월 4일
+          {{ getDate }}
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -63,11 +82,10 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          오전 10:00
+          {{ getTime }}
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -81,7 +99,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          4명
+          {{getCount}}명
         </div>
       </v-col>
     </v-row>
@@ -90,6 +108,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="button"
         >
           예약 확인
         </v-btn>
@@ -106,6 +125,42 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
+    },
+    getCount : {
+      get() {
+        return this.$store.getters["marketDetail/getReservations_number"]
+      }
+    },
+    getDate : {
+      get() {
+        return this.$store.getters["market_modules/Reservation_Get_date"]
+      }
+    },
+    getTime : {
+      get() {
+        return this.$store.getters["marketDetail/getReserveTimeCh"]
+      }
+    },
+    getRoom : {
+      get() {
+        console.log(this.$store.getters["marketDetail/getRoom"]);
+        return this.$store.getters["marketDetail/getRoom"]
+      }
+    },
+  },
+  created(){
+    //console.log(this.$store.getters["marketDetail/getReserveTime"],this.$session.get('market_name'));
+
+  },
+  methods: {
+    button() {
+      let inputdata = new Object();
+      inputdata.room = this.$store.getters["marketDetail/getRoom"];
+      inputdata.time = this.$store.getters["marketDetail/getReserveTimeCh"];
+      inputdata.date = this.$store.getters["market_modules/Reservation_Get_date"];
+      inputdata.count = this.$store.getters["marketDetail/getReservations_number"];
+      inputdata.marketName = this.$session.get('market_name');
+      this.$store.dispatch('marketDetail/actReservation',inputdata);
     }
   }
 }

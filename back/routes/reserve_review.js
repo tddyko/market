@@ -125,7 +125,38 @@ router.get('/reviews/list',isLoggedInMarket, async(req,res)=>{
         return returnData;
     }).catch(err=>{console.error(err)}); 
     res.json(results); 
+})
 
+//가게가 손님들이 단 리뷰를 보는 라우터
+router.get('/reviews/list/:marketName', async(req,res)=>{
+    dayjs.locale('ko')   
+    let {market_id} = await Market.findOne({
+        attributes : ['market_id'],
+        where :{market_name : req.params.marketName}})
+    let results = await Reserve_review.findAll({
+        attributes : ['reserve_review_id','review','rating',
+        [sequelize.fn('date_format', 
+        sequelize.col('Reserve_review.created_at'), '%Y년 %m월 %d일'), 'created_date']
+        ],
+        include : [
+            {
+                model : Reserve_review_img,
+                attributes : ['reserve_review_img'],
+            },{
+                model : Reserve_review_answer,
+                attributes : ['answer'],
+            },{
+                model : Member,
+                attributes : ['nickname','profile_img']
+            }
+        ],
+        where : {
+            market_id,
+        } 
+    }).then(r=>{
+        return r;
+    }).catch(err=>{console.error(err)}); 
+    res.json(results); 
 })
 
 //localhost/reseve_review/:reseve_review_id uuid값  리뷰삭제페이지

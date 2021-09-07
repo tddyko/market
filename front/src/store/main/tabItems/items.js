@@ -1,5 +1,7 @@
 const state = () => ({
-  tabItems: [],
+  tabItems: [
+    
+  ],
 });
 
 const getters = {

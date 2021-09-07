@@ -24,10 +24,10 @@
     <v-row class="ma-1">
       <v-col>
         <div class="text-h3">
-          허니콤보
+          {{cards.name}}
         </div>
         <div class="text-subtitle-1 text--secondary my-4">
-          메뉴 소개
+          {{cards.product_info}}
         </div>
       </v-col>
     </v-row>
@@ -43,7 +43,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          29,000원
+          {{cards.price}}원
         </div>
       </v-col>
     </v-row>
@@ -53,17 +53,18 @@
       justify="start"
     >
       <v-col
-        v-for="n in 3"
-        :key="n"
+        v-for="(group,index) in cards.Pd_option_groups"
+        :key="index"
         cols="7"
       >
-        <label>{{ `옵션${n}` }}</label>
-        <v-radio-group v-model="floating.radioGroup">
+        <label>{{ `${group.name}` }}</label>
+        <v-radio-group :v-model="index">
           <v-radio
-            v-for="m in 3"
-            :key="m"
-            :label="`메뉴 ${m}`"
-            :value="m"
+            v-for="(option,index1) in group.Pd_options"
+            :key="index1"
+            :label="`${option.name}`"
+            :value="option.name"
+            @change="sumPrice(option.price,index,cards.price)"
           />
         </v-radio-group>
       </v-col>
@@ -76,7 +77,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold my-5">
-          29,000원
+          {{totalpriceis}}
         </div>
       </v-col>
     </v-row>
@@ -87,6 +88,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="payment(cards,floating)"
         >
           확인
         </v-btn>
@@ -97,12 +99,44 @@
 <script>
 export default {
   name: "OrderSelect",
+  data(){
+    return{
+      totalpriceis : this.$store.getters["marketDetail/getAddmenu"].price
+    }
+  },
   computed: {
     floating: {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
     },
+     cards: {
+       get() {
+        return this.$store.getters["marketDetail/getAddmenu"]
+       }
+    },
+
+  },
+  methods: {
+    sumPrice(e,index,price){
+      let inputdata = {'index' : index, 'value' : e}
+      this.$store.commit("marketDetail/setSelectOptions",inputdata)
+      let optionPirceSum = 0
+      let optionPrices = this.$store.getters["marketDetail/getSelectOptions"]
+      for(let i =0; i<optionPrices.length; i++ ){
+        optionPirceSum +=parseInt(optionPrices[i])
+      }
+      optionPirceSum+=parseInt(price)
+      this.totalpriceis = optionPirceSum
+    },
+    payment(food,ok){
+      food.totalprice = this.totalpriceis
+      food.quantity =1;
+      this.$store.dispatch("marketDetail/actSelectmenu",food)
+      ok.orderSelectDialog = false
+      this.totalpriceis = food.price
+      alert('선택 완료')
+    }
   }
 }
 </script>

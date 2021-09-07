@@ -12,8 +12,7 @@ router.post("/addGroup/:id", isLoggedInMarket, async (req, res) => {
     pd_option_group_id: uuidv4(),
     name: req.body.name,
     product_id: req.params.id,
-  })
-    .then((result) => {
+  }).then((result) => {
       if (result) console.log("성공");
     })
     .catch((err) => {

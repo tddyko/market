@@ -1,15 +1,11 @@
 <template>
   <v-toolbar
     color="white"
-    height="auto"
+    height="50px"
     class="rounded-t-xl"
     elevation="3"
   >
-    <v-row justify="start">
-      <v-col>
-        <InfoTabs />
-      </v-col>
-    </v-row>
+    <InfoTabs />
   </v-toolbar>
 </template>
 
@@ -23,5 +19,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

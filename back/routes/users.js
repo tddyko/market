@@ -6,7 +6,7 @@ const {isLoggedInMember, isLoggedInMarket} = require('./middlewares');
 
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
-const upload = setMulter('./public/images/user_images/');
+const upload = setMulter('./public/images/user_signup_images/');
  
 
 /*
@@ -21,7 +21,7 @@ router.get(
         res.json(req.user)
     }
 );
-
+router.get('/memberInformation',isLoggedInMember,async(req,res)=>{res.json(req.user)})
 router.put('/storeInformation/update',
     upload.single('userfile'),
     isLoggedInMarket,

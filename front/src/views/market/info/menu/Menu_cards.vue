@@ -11,10 +11,9 @@
         cols="auto"
         align-self="center"
       >
-        {{ checkbox }}
         <v-checkbox
           v-model="checkbox"
-          :value="card.menu_id"
+          :value="index"
         />
       </v-col>
       <v-col
@@ -41,11 +40,22 @@
               lg="3"
               xl="3"
             >
+              <input
+                ref="menuImageInput"
+                hidden
+                multiple
+                type="file"
+                :disabled="isDisabled(index)"
+                @change="uploadMenuImg(index)"
+              >
               <v-avatar
                 color="warning lighten-2"
                 size="130"
+                @click="onClickImgUpload(index)"
               >
-                <v-img :src="card.menu_img" />
+                <v-img
+                  v-if="card.Product_imgs != 0 && card.Product_imgs !=null"
+                  :src="imgSrc(card.Product_imgs[0].product_img)" />
               </v-avatar>
             </v-col>
             <v-col
@@ -67,7 +77,8 @@
                   label="메뉴 이름"
                   outlined
                   dense
-                  :value="card.menu_name"
+                  :value="card.name"
+                  @input="getName($event,index)"
                 />
               </v-card-title>
               <v-card-text
@@ -80,7 +91,8 @@
                   outlined
                   label="메뉴 설명"
                   dense
-                  :value="card.menu_info"
+                  :value="card.product_info"
+                  @input="getInfo($event,index)"
                 />
               </v-card-text>
               <v-card-text
@@ -94,7 +106,9 @@
                   outlined
                   label="가격"
                   dense
-                  :value="card.menu_price"
+                  :value="card.price"
+                  ref="priceInt"
+                  @input="getPrice($event,index)"
                 />
               </v-card-text>
             </v-col>
@@ -110,14 +124,6 @@
                 v-if="$vuetify.breakpoint.name === 'xs'"
                 class="text-center"
               >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
               </div>
               <v-card-actions
                 v-else
@@ -137,21 +143,30 @@
         </v-card>
       </v-col>
     </v-row>
+    <menucarddialog/>
   </v-container>
 </template>
 
 <script>
+import Menucarddialog from "@/views/market/info/menu/Menu_delete_dialog";
 export default {
   name: "InfoMenucards",
+  components: {Menucarddialog},
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),
+
   computed: {
     cards: {
       get() {
+        console.log(this.$store.getters["menu/getMenu"])
         return this.$store.getters["menu/getMenu"]
+      },
+      set(){
+        this.$store.dispatch("menu/actMenu")
       }
     },
+    //checkbox고른거
     checkbox: {
       set(value){
         this.$store.commit("menu/setMenu_Checkbox",value)
@@ -161,8 +176,8 @@ export default {
       }
     },
   },
-  created(){
-    this.copyMenu();
+  created() {
+    this.$store.dispatch("menu/actMenu")
   },
   methods: {
     isDisabled(test){
@@ -172,8 +187,34 @@ export default {
     deleteMenu(e){
       this.$store.commit("menu/setDelete",e)
     },
-    copyMenu(){
-      this.$store.commit("menu/copymenu")
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+    getPrice(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "price", value : value.toString()})
+    },
+    getInfo(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "product_info", value : value})
+    },
+    getName(value,index){
+      console.log(value)
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "name", value : value})
+    },
+    onClickImgUpload (value) {
+      console.log(value)
+      this.$refs.menuImageInput[value].click();
+
+    },
+    uploadMenuImg(index){
+      console.log(this.$refs.menuImageInput[index].files[0])
+      this.$store.dispatch("menu/actUpdate",
+        {index :index, property :  "menuImg", value : this.$refs.menuImageInput[index].files[0]})
     }
   }
   }

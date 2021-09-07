@@ -42,7 +42,12 @@
                 color="warning lighten-2"
                 size="130"
                 tile
-              />
+              >
+                <img
+                  v-if="card.Product_imgs!=0"
+                  :src="imgSrc(card.Product_imgs[0].product_img)"
+                     alt="ㅗ">
+              </v-avatar>
             </v-col>
             <v-col
               align="center"
@@ -56,24 +61,25 @@
                 :class="card_text"
                 class="text--secondary"
               >
-                메뉴 설명
+                {{card.name}}
               </v-card-text>
               <v-card-text
                 :class="card_text"
                 class="font-weight-bold price"
               >
-                9,900원
+                {{card.price}}
               </v-card-text>
-            </v-col>
-            <v-spacer />
-            <v-col
-              cols="12"
-              lg="2"
-              md="3"
-              sm="3"
-              xl="2"
-            >
-              <order-select-dialog />
+              <v-spacer />
+              <v-col
+                cols="12"
+                lg="2"
+                md="3"
+                sm="3"
+                xl="2"
+              >
+                <order-select-dialog v-bind:num='card'>
+                </order-select-dialog>
+              </v-col>
             </v-col>
           </v-row>
         </v-card>
@@ -101,7 +107,16 @@ export default {
         default : return 'center'
       }
     },
-  }
+  },
+  beforeCreate(){
+    return this.$store.dispatch("marketDetail/actCards",this.$session.get('market_name'))
+  },
+  methods: {
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+  },
 }
 </script>
 <style scoped>

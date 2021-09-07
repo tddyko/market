@@ -1,16 +1,17 @@
 <template>
   <div class="ma-0">
     <v-tabs-items
-      v-for="review_items in Get_Order_Review"
-      :key="review_items"
-      v-model="Get_Tab"
-    >
-      <v-tab-item>
+      v-model="Get_Tab">
+      <v-tab-item
+        v-for="a in 3"
+        :key="a"
+      >
         <v-divider />
         <v-card
           class="mt-0"
           elevation="3"
-        >
+         v-for="(review_items,index) in Get_Order_Review"
+        :key="index">
           <v-card-text>
             <v-container>
               <v-row
@@ -26,7 +27,7 @@
                 >
                   <v-avatar>
                     <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                      :src="imgSrc(review_items.Member.profile_img)"
                       alt="John"
                     >
                   </v-avatar>
@@ -40,7 +41,7 @@
                   class="font-weight-bold ml-7"
                   :class="`text-${Font_Size}`"
                 >
-                  {{ review_items.Nickname }}
+                  {{ review_items.Member.nickname }}
                 </v-col>
                 <v-col
                   sm="8"
@@ -50,15 +51,16 @@
                   class="font-weight-light"
                   :class="`text-${Date_Font_Size}`"
                   align="start"
+                  @click="showRecoment(review_items)"
                 >
                   <div class="mx-5">
                     <div class="ml-1">
-                      {{ review_items.Date_issue }}
+                      {{ review_items.created_date }}
                     </div>
                     <div>
                       <v-rating
                         id="Rating-Inline"
-                        :value="`${review_items.Rating}`"
+                        :value="`${review_items.rating}`"
                         background-color="warning lighten-1"
                         color="orange"
                         half-increments
@@ -66,22 +68,25 @@
                         readonly
                         :size="`${Rating_size}`"
                       />
-                      ({{ review_items.Rating }})
+                      ({{ review_items.rating }})
                     </div>
                   </div>
-                  <!--                  {{ $vuetify.breakpoint.name }}-->
                 </v-col>
                 <v-col
+                  v-if="review_items.Order_review_imgs.length>0"
                   lg="12"
                   md="12"
                   xl="12"
                   align="center"
                   class="mt-1"
+                  @click="showRecoment(review_items)"
                 >
                   <img
+                    v-for="(images,index) in review_items.Order_review_imgs"
+                    :key="index"
                     height="200"
                     width="200"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    :src="imgSrc(images.order_review_img)"
                     alt="John"
                     class="rounded-lg ma-2"
                   >
@@ -93,9 +98,11 @@
                   lg="12"
                   xl="12"
                   class="ma-2 mb-7"
+                  @click="showRecoment(review_items)"
                 >
                   <v-textarea
-                    :value="`${review_items.Review}`"
+                    v-model="review_items.review"
+                    placeholder="내용을 입력하세요."
                     no-resize
                     hide-details
                     readonly
@@ -111,8 +118,10 @@
                   xl="12"
                 >
                   <v-textarea
+                    v-if="review_items.showRecoment"
                     outlined
-                    value="감사합니다 더욱더 발전하는 저희 교촌치킨이 되겠습니다."
+                    :value="showValue(review_items.Order_review_answer)"
+                    @input="searchChangeFunc($event)"
                     dense
                     placeholder="내용을 입력하세요."
                     no-resize
@@ -121,17 +130,18 @@
                     rounded
                   />
                 </v-col>
-              </v-row>
+            </v-row>
             </v-container>
+
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="review_items.showRecoment">
             <v-spacer />
             <v-btn
               color="error"
             >
               취소
             </v-btn>
-            <v-btn color="primary">
+            <v-btn color="primary" @click="sendrecoment(review_items.order_review_id)">
               확인
             </v-btn>
           </v-card-actions>
@@ -146,6 +156,7 @@ export default {
   name: "OrderReviewTabsItems",
   data(){
     return{
+      recoment : ""
     }
   },
   computed: {
@@ -153,7 +164,7 @@ export default {
       return this.$store.getters["order/Get_Order_Review"]
     },
     Get_Tab() {
-      return this.$store.getters["market_modules/Order_Get_Tab"]
+       return this.$store.getters["market_modules/Order_Get_Tab"]
     },
     Font_Size() {
       switch (this.$vuetify.breakpoint.name) {
@@ -187,6 +198,33 @@ export default {
         case 'xl' : return '17'
         default : return '16.5'
       }
+    }
+  },
+
+  methods: {
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+    showRecoment(card){
+      card.showRecoment = !card.showRecoment;
+    },
+    showValue(findComent){
+      if(findComent !=null){
+        return findComent.answer;
+      }
+      else{
+        return ""
+      }
+    },
+    searchChangeFunc(event){
+      return this.recoment = event
+    },
+    sendrecoment(data){
+      let datas = {answer: this.recoment, review_id : data}
+      console.log(datas)
+      this.$store.dispatch('order/actOrder_Review_answers',datas)
+
     }
   }
 }

@@ -7,12 +7,14 @@
     <menu-tab-items />
     <order-popup v-if="get === 0" />
     <reserve-popup v-else-if="get === 1" />
+    <review-popup v-else-if="get === 2" />
   </v-container>
 </template>
 
 <script>
 export default {
   components: {
+    ReviewPopup: () => import('@/views/main/marketdetail/popup/review/ReviewPopup'),
     ReservePopup: () => import('@/views/main/marketdetail/popup/reserve/ReservePopup'),
     OrderPopup: () => import('@/views/main/marketdetail/popup/order/OrderPopup'),
     MenuTabItems: () => import('@/views/main/marketdetail/main/MenuTabItems'),

@@ -1,42 +1,43 @@
 <template>
   <v-container>
-    <v-row
-      justify="center"
+  <v-row
+    justify="center"
+    class="ma-10 mt-16"
+  >
+    <v-col
+      v-for="(Order,index) in get_Order_DashBoard"
+      :key="index"
+      xl="4"
+      lg="4"
+      md="4"
     >
-      <v-col
-        v-for="Order in get_Order_DashBoard"
-        :key="Order"
-        xl="4"
-        lg="4"
-        md="4"
+      <v-card
+        class="mt-4 mx-auto"
+        min-width="width"
       >
-        <v-card
-          class="mt-4 mx-auto"
-          :min-width="width"
+        <v-sheet
+          class="v-sheet--offset mx-auto"
+          :color="Order.color"
+          elevation="12"
+          max-width="calc(100% - 32px)"
         >
-          <v-sheet
-            class="v-sheet--offset mx-auto"
-            :color="Order.color"
-            elevation="12"
-            max-width="calc(100% - 32px)"
-          >
-            <v-sparkline
-              :labels="Order.labels"
-              :value="Order.value"
-              color="white"
-              line-width="2"
-              padding="16"
-            />
-          </v-sheet>
+          <v-sparkline
+            :labels="Order.labels"
+            :value="Order.value"
+            color="white"
+            line-width="2"
+            padding="16"
+          />
+        </v-sheet>
 
-          <v-card-text class="pt-0">
-            <div class="text-h6 font-weight-light mb-2">
-              {{ Order.title }}
-            </div>
-            <div class="subheading font-weight-light grey--text">
-              {{ Order.subtitle }}
-            </div>
-            <v-divider class="my-2" />
+        <v-card-text class="pt-0">
+          <div class="text-h6 font-weight-light mb-2">
+            {{ Order.title }}
+          </div>
+          <div class="subheading font-weight-light grey--text">
+            {{ Order.subtitle }}
+          </div>
+          <v-divider class="my-2" />
             <v-icon
               class="mr-2"
               small

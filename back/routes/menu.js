@@ -2,72 +2,50 @@ const express = require('express');
 const router = express.Router();
 const {v4: uuidv4} = require('uuid');
 const multer = require('multer');
-const {Product_img, Product, Pd_option_group, Pd_option} = require('../models');
+const {Market,Product_img, Product, Pd_option_group, Pd_option} = require('../models');
 const { isLoggedInMarket, isNotLoggedIn } = require('./middlewares');
 
-//이미지 파일 저장 관련 설정
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/images/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, new Date().valueOf() + '_' + file.originalname);
-    },
-});
-const upload = multer({storage: storage});
-
-//localhost/menu/addmenu
-//id 가 name , price인 곳에서 정보를 받음
-router.get('/addMenu',upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
-    const product_id = uuidv4();
-    Product.create({
-        product_id,
-        market_id : req.user.market_id,
-        name : req.body.name,
-        price : req.body.price,
-        product_info : req.body.product_info
-    }).then(() => {
-     
-    }).catch(err=>console.dir(err));
-    if(req.file)
-    Product_img.create({
-        product_img_id : uuidv4(),
-        product_img : req.file.path,
-        product_id
-    });
-});
+const setMulter = require('../multer');
+const upload = setMulter('./public/images/menu_images/');
 
 /* localhost/menu/update/:product_id 메뉴수정
 id 가 name , price인 곳에서 정보를 받음 */
-router.put('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
-    Product.update({
-        name : req.body.name,
-        price : req.body.price,
-        product_info : req.body.product_info
-    },
-    {
-        where : {
-            product_id : req.params.id,   
-        }
-    })
-    if(req.file.menuImg){
-        await Product_img.findOne({where : {product_id : req.params.id}})
-        .then(async(r)=>{
-            if(r){
-                Product_img.update({
-                    product_img : req.file.menuImg.path,
-                    where : {product_id : req.params.id}
-                })
-            }else{
-                Product_img.create({
-                    product_img_id : uuidv4(),
-                    product_img : req.file.menuImg.path,
-                    product_id : req.params.id
-                });
-            }
-        })
-    }
+router.post('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
+     let {name,price,product_info} =  req.body;
+     let inputData = {name,price,product_info};
+     inputData.market_id = req.user.market_id;
+         console.log(req.params.id)
+     let product_id = await updateOrCreate(Product,{product_id :  req.params.id}, inputData);
+     if(req.file){
+             if(req.params.id != null){
+                 console.log("null 아님")
+                 await Product_img.destroy({where : {product_id : req.params.id},force : true})
+             }
+             await Product_img.create({
+                 product_img_id : uuidv4(),
+                 product_img : req.file.path,
+                 product_id :  product_id
+                 }).then((r)=>{
+                     if(r)return true
+                     else return false
+                 })
+
+     }
 });
+async function updateOrCreate(tableName, where, inputData){
+    let findData = await tableName.findOne({where :where}).catch(error => console.log(error))
+    if(!findData){
+        inputData.product_id = uuidv4();
+        tableName.create(inputData)
+        return inputData.product_id
+    }else{
+        console.log(inputData);
+        return tableName.update(inputData,{where : where}).then(()=>{
+        return inputData.product_id})
+    }
+}
+
+
 /*  
 localhost/menu/delete/:product_id  메뉴 삭제부분 
 */
@@ -98,10 +76,34 @@ router.get('/list/:marketname', async(req,res) => {
             {
                 model : Product_img,
                 attributes : ['product_img']
+            },
+            {
+                model : Pd_option_group,
+                attributes : ['name'],
+                include :[{model : Pd_option, attributes : ['name','price']}]
+            }
+        ], 
+        attributes : ['product_id','name','price','product_info'],
+        where : {market_id}
+    });
+    res.json(menulist);
+});
+
+router.get('/myMarket/menuList', isLoggedInMarket, async(req,res) => {
+    let menulist = await Product.findAll({
+        include : [
+            {
+                model : Product_img,
+                attributes : ['product_img']
+            },
+            {
+                model : Pd_option_group,
+                attributes : ['name'],
+                include :[{model : Pd_option, attributes : ['name','price']}]
             }
         ],
         attributes : ['product_id','name','price','product_info'],
-        where : {market_id}
+        where : {market_id : req.user.market_id}
     });
     res.json(menulist);
 });
@@ -110,7 +112,7 @@ router.get('/list/:marketname', async(req,res) => {
 localhost/menu/option/:메뉴uuid 메뉴선택
 */
 router.get('/option/:product_id', async(req,res)=> {
-    let pd_option_group_id = await Pd_option_group.findAll({
+    let {pd_option_group_id} = await Pd_option_group.findAll({
         attributes : ['pd_option_group_id'],
         where : {product_id : req.params.product_id},
         raw : true

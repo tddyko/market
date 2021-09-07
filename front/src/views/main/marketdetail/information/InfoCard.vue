@@ -29,11 +29,11 @@
           </v-col>
           <v-col lg="2">
             <v-avatar size="100">
-              <img
-                alt="John"
-                src="https://cdn.vuetifyjs.com/images/john.jpg"
-              >
-            </v-avatar>
+                <img
+                  alt="매장이미지"
+                  :src="imgSrc(marketInfo.profile_img)"
+                >
+              </v-avatar>
           </v-col>
         </v-row>
         <v-row
@@ -47,8 +47,8 @@
             매장 소개
           </v-col>
           <v-col lg="6">
-            매장소개 매장소개 매장소개 매장소개 매장소개 매장소개
-          </v-col>
+              {{ marketInfo.Market_inform.market_coment }}
+            </v-col>
         </v-row>
         <v-row
           align="center"
@@ -61,10 +61,10 @@
             매장 전화번호
           </v-col>
           <v-col
-            lg="2"
-          >
-            031-2222-2222
-          </v-col>
+              lg="2"
+            >
+              {{ marketInfo.Market_inform.market_phone }}
+            </v-col>
         </v-row>
         <v-row
           align="center"
@@ -77,8 +77,8 @@
             영업시작 시간
           </v-col>
           <v-col lg="2">
-            09:00 am
-          </v-col>
+              {{ marketInfo.Market_inform.start_time }}
+            </v-col>
         </v-row>
         <v-row
           align="center"
@@ -90,9 +90,9 @@
           >
             영업종료 시간
           </v-col>
-          <v-col lg="2">
-            20:00 pm
-          </v-col>
+         <v-col lg="2">
+              {{ marketInfo.Market_inform.end_time }}
+            </v-col>
         </v-row>
         <v-row
           align="center"
@@ -106,21 +106,39 @@
             휴무일
           </v-col>
           <v-col
-            lg="2"
-          >
-            매주 월요일
-          </v-col>
+              lg="2"
+            >
+              {{ marketInfo.Market_inform.Market_inform_holidays[0].market_inform_week_holiday }} {{ marketInfo.Market_inform.Market_inform_holidays[0].market_inform_day_holiday }}
+            </v-col>
         </v-row>
       </v-col>
     </v-row>
   </v-card>
 </template>
+
 <script>
 export default {
-  name: "InfoCard"
+  name: "MenuInform",
+  computed: {
+    marketInfo : {
+      get() {
+        console.log("marketInfo get : " + this.$store.getters["marketDetail/getMarketTitle"])
+        return this.$store.getters["marketDetail/getMarketTitle"]
+      },
+    }
+  },
+  methods: {
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    }
+  },
 }
 </script>
 
 <style scoped>
-
 </style>
+
+
+

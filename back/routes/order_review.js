@@ -47,9 +47,7 @@ router.get('/reviews/list',isLoggedInMarket, async(req, res) => {
     dayjs.locale('ko')
     let tab = req.body.tab || req.query.tab;
     let date_start,date_end ;
-    console.log(tab);
-    console.log(req.query.date1);
-    console.log(req.query.date2);
+    console.log(req.query); 
     if(req.query.date1){
         if(req.query.date1 < req.query.date2){
             date_start = dayjs(req.query.date1).format('YYYY-MM-DD');
@@ -87,19 +85,55 @@ router.get('/reviews/list',isLoggedInMarket, async(req, res) => {
     }).then(r=>{
         const returnDatas = new Array();
         r.forEach(element=>{ 
-             if(tab==0)
-             returnDatas.push(element)
-             if(tab==1 && element.Order_review_answer ==null)
-             returnDatas.push(element)
-             
-             if(tab==2 && element.Order_review_answer!=null)
-             returnDatas.push(element)
+             if(tab=='0'){
+                returnDatas.push(element)
+                console.log('전체')
+             }
+             if(tab=='1' && element.Order_review_answer ==null){
+                 returnDatas.push(element)
+                 console.log('미답변')
+             }
+             if(tab=='2' && element.Order_review_answer!=null){
+                 returnDatas.push(element)
+                console.log('답변완료')
+             }
 
         })
         return returnDatas;
-    }).catch(err=> console.log(err));
+    }).catch(err=> console.log(err)); 
     res.json(reviews);
 });
+
+
+router.get('/reviews/list/:marketName', async(req, res) => {
+    dayjs.locale('ko') 
+    let {market_id} = await Market.findOne({where : {market_name: req.params.marketName}})
+    let reviews = await Order_review.findAll({
+        attributes : ['order_review_id','review','rating',
+        [sequelize.fn('date_format', 
+        sequelize.col('Order_review.created_at'), '%Y년 %m월 %d일'), 'created_date']
+        ],
+        include : [
+            {
+                model : Order_review_img,
+                attributes : ['order_review_img'],
+            },{
+                model : Order_review_answer,
+                attributes : ['answer'],
+            },{
+                model : Member,
+                attributes : ['nickname','profile_img']
+            }
+        ],
+        where : {
+            market_id
+        } 
+    }).then(r=>{return r}).catch(err=> console.log(err)); 
+    res.json(reviews);
+});
+
+
+
 
 /* 
 localhost/order_review/:order_review_id  리뷰수정페이지
@@ -153,7 +187,7 @@ router.delete('/:id',isLoggedInMember, async(req, res) => {
 
         //localhost/order_review/answer/:reseve_review_id uuid값  리뷰 답글 라우터
 router.get('/answer/:reviewId',isLoggedInMarket, async(req,res)=>{
-        let getAnswer = req.query.answer; 
+        let getAnswer = req.query.answer;
         console.log(getAnswer);
         let {member_id} = await Order_review.findOne({
             attributes : ['member_id'],

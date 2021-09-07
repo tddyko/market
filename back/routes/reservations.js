@@ -13,13 +13,13 @@ require('dayjs/locale/ko');
 //고객이 예약하는 라우터 localhost/reservation/in/teststore
 router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
     let {market_id} = await Market.findOne({attributes : ['market_id'], where :{market_name: req.params.marketname}, raw : true});    
-    var {current_state, order_count,date,time} = req.body;
+    var {current_state,reserve_seat, order_count,date,reserve_time} = req.body;
     var reserve_date = dayjs(date).format('YYYY-MM-DD');
     Reservation.create({
         reservation_id : uuidv4(),
-        current_state, order_count, 
+        current_state, order_count,reserve_seat, 
         reserve_date : reserve_date, 
-        reserve_time :time ,member_id : req.user.member_id,
+        reserve_time  ,member_id : req.user.member_id,
         market_id   
     }).then(r => {
         if(r)
@@ -42,7 +42,7 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
         }],
         attributes : ['reservation_id',
             [sequelize.fn('concat',sequelize.col('reserve_date'),sequelize.col('reserve_time')),'DateAndTime']
-            ,'current_state'
+            ,'current_state','reserve_seat'
         ],
         where : {member_id : req.user.member_id},
         order : [['createdAt', 'DESC']],raw : true,
@@ -69,7 +69,7 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
     let reservations = await Reservation.findAll({
         attributes : ['reservation_id',
            'reserve_date','reserve_time'
-            ,'order_count','current_state']
+            ,'order_count','current_state','reserve_seat']
         ,where : {
             market_id : req.user.market_id, 
             reserve_date : {[Op.eq]: date}

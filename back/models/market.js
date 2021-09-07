@@ -46,6 +46,11 @@ module.exports = (sequelize, DataTypes) => {
         phonenumber: {
             type: DataTypes.STRING(13),
             allowNull: false,
+            comment: "가입자 전화번호",
+        },
+        market_phone : {
+            type: DataTypes.STRING(13),
+            allowNull: false,
             comment: "마켓 전화번호",
         },
         zipcode: {
