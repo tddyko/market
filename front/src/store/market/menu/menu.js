@@ -12,6 +12,7 @@ const state = () => ({
   option_checkbox: [],
   option_item_checkbox :[],
   option_select_name: '',
+  selectMenuId :'',
   deleteOptions : []
 })
 
@@ -28,7 +29,8 @@ const getters = {
   },
   getMenu_Option:(state) => state.menu_option,
   getOption_Select_Name: (state) => state.option_select_name,
-  getDeleteOptions : (state) => state.deleteOptions
+  getDeleteOptions : (state) => state.deleteOptions,
+  getSelectMenuId : (state) =>state.selectMenuId
 }
 
 const mutations = {
@@ -55,7 +57,7 @@ const mutations = {
     state.menu.push({product_id : null ,name : '',price : '', product_info : ''});
   },
   setNewGroup:(state,data)=>{
-    state.menu_option.push({})
+    state.menu_option.push({Pd_options :[], name : '', pd_option_group_id : ''})
   },
   setDelete:(state,event) => {
      for(let index of state.menu_checkbox){
@@ -96,10 +98,13 @@ const mutations = {
       findOne[data.optionIndex][data.property] = data.value
       console.log(state.menu_option[data.index])
   },
+  tempOptionGroup(state,data){
+    state.menu_option[data.index].name = data.value
+  },
   setOption_Select_Name: (state, value) => {
      state.option_select_name = value
   },
-
+  setSelectedMenuId : (state,value) => state.selectMenuId = value
 }
 
 const actions = {
@@ -126,6 +131,21 @@ const actions = {
   },
   actOptionUpdate : ({commit},value)=>{
       commit("tempOption",value)
+  },
+  actUpdateOptionGroup:({commit},value)=>{
+    commit("tempOptionGroup",value)
+  },
+  actOptionGroup : ({getters},value)=>{
+     for(let index of getters.getOption_Checkbox){
+           axios({
+              url : `http://localhost/menu_option/updateOptionGroup/${getters.getSelectMenuId}`,
+              method : 'post',
+              withCredentials : true,
+                data : {
+                  name : getters.getMenu_Option[index].name
+                }
+           })
+     }
   },
   actOption_Select_Name :({commit},value)=>{
     axios({
@@ -171,17 +191,17 @@ const actions = {
     }
   },
   actDeleteOption({getters},value){
-    for(let pd_option_group_id of getters.getOption_Checkbox){
+    for(let index of getters.getOption_Checkbox){
          axios({
-             url :`http://localhost/menu_option/delete/option_group/${pd_option_group_id}`,
+             url :`http://localhost/menu_option/delete/option_group/${getters.getMenu_Option[index].pd_option_group_id}`,
              method : 'get',
-             withCredentials : 'true',
+             withCredentials : true,
            }).then(async(res)=>{
          }).catch((err)=>{console.log(err)})
     }
   },
-  setOption_Dialog({getters},value){
-
+  actSelectedMenuId({commit},value){
+    commit('setSelectedMenuId',value)
   }
 }
 

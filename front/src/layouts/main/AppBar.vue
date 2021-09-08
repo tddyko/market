@@ -39,11 +39,20 @@
         </v-card>
       </v-expand-x-transition>
       <v-btn
+        @click="logout"
+      ></v-btn>
+      <v-btn
+        v-if="findSession === null"
         icon
         to="/login"
       >
         <v-icon>mdi-login-variant</v-icon>
       </v-btn>
+      <v-avatar
+        v-else
+        color="primary"
+        size="56"
+      ></v-avatar>
       <template
         v-if="$route.name === 'Main'"
         #extension
@@ -54,6 +63,8 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "MainAppBar",
   components: {
@@ -62,6 +73,31 @@ export default {
   data: () => ({
     expand: false,
   }),
+  created() {
+    console.log(this.$session.get('id'))
+
+  },
+  computed:{
+    findSession:{
+      get(){
+        return  this.$store.getters["authentiCation/getSession"]
+      },
+      set(value){
+        this.$store.dispatch("authentiCation/actSession", this.$session.get('id'))
+      }
+    }
+  },
+  methods:{
+    logout(){
+      axios({
+        url : 'http://localhost/logout',
+        method : 'post'
+      }).then(()=>{
+        this.$session.destroy();
+        console.log(this.$session.get('id'))
+      })
+    }
+  }
 }
 </script>
 

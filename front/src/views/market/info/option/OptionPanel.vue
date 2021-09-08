@@ -12,7 +12,7 @@
       >
         <v-checkbox
           v-model="checkbox"
-          :value="option.pd_option_group_id"
+          :value="index"
         />
       </v-col>
       <v-col align-self="center">
@@ -27,6 +27,7 @@
                     hint="대분류 이름 예시) 음료, 주류 등"
                     label="대분류 이름"
                     :value="option.name"
+                    @input="setOptionGroupName($event,index)"
                   />
                 </v-col>
               </v-row>
@@ -154,16 +155,14 @@ export default {
       console.log('삭제')
       this.$store.dispatch("menu/actDeleteOption_items",value)
     },
-    // getInfo(value,index){
-    //   console.log(value)
-    //   this.$store.dispatch("menu/actUpdate",
-    //     {index :index, property :  "product_info", value : value})
-    // },
     getOptionName(value,index,optionIndex){
       this.$store.dispatch("menu/actOptionUpdate",{index :index,optionIndex:optionIndex, property : 'name', value : value})
     },
     getOptionPrice(value,index,optionIndex){
       this.$store.dispatch("menu/actOptionUpdate",{index :index,optionIndex:optionIndex, property : 'price', value : parseInt(value)})
+    },
+    setOptionGroupName(value,index){
+      this.$store.dispatch("menu/actUpdateOptionGroup",{index :index, property : 'name', value : value})
     }
   }
 }

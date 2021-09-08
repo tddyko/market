@@ -161,7 +161,6 @@ export default {
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
       return !test2.includes(test)
       },
-
     imgSrc(name){
       name = name.replaceAll("\\", "/");
       return require(`../../../../../../back/${name}`);

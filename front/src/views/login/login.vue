@@ -159,11 +159,12 @@ export default {
           login_switch: this.loginSwitch
         }
       }).then((response) =>{
-        console.log(response.data.market_id)
-        if(response.data.id!=undefined)
+        if(response.data.id!=undefined){
+          this.$session.set('id',response.data.id)
+          this.$store.dispatch("authentiCation/actSession",this.$session.get('id'))
           this.$router.push('/').catch((err)=>{
             console.log(err)
-          })
+          })}
         else
           alert('아이디와 비밀번호를 다시 확인해 주세요')
       }).catch((err)=>{

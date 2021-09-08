@@ -7,20 +7,7 @@ const { isLoggedInMarket } = require("./middlewares");
 /*
  localhost/menu_option/addGroup/:product_id 메뉴옵션그룹 추가
 */
-router.post("/addGroup/:id", isLoggedInMarket, async (req, res) => {
-  await Pd_option_group.create({
-    pd_option_group_id: uuidv4(),
-    name: req.body.name,
-    product_id: req.params.id,
-  }).then((result) => {
-      if (result) console.log("성공");
-    })
-    .catch((err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-});
+
 router.get('/list/optionGroup/:product_id', isLoggedInMarket, async(req,res)=>{
    let result =  await Pd_option_group.findOne({
        attributes : ['name','pd_option_group_id'],
@@ -49,12 +36,19 @@ router.post("/updateOption/:id/:opId", isLoggedInMarket, async (req, res) => {
   inputData.pd_option_group_id = req.params.id
   await updateOrCreate(Pd_option,{pd_option_id : req.params.opId}, inputData)
 });
+router.post("/updateOptionGroup/:id", isLoggedInMarket, async (req, res) => {
+  let inputData = {name} = req.body;
+  inputData.product_id = req.params.id
+  await updateOrCreate(Pd_option_group,{product_id : req.params.id}, inputData)
+});
 
 async function updateOrCreate(tableName, where, inputData){
     let findData = await tableName.findOne({where :where}).catch(error => console.log(error))
     if(!findData){
     if(tableName == 'Pd_option')
         inputData.pd_option_id = uuidv4();
+    if(tableName =='pd_option_group_id')
+        inputData.pd_option_group_id = uuidv4();
         tableName.create(inputData)
     }else{
         return tableName.update(inputData,{where : where})

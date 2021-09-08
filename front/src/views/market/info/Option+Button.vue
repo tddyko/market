@@ -179,7 +179,7 @@ export default {
     setInsert_Room(){
     },
     setOptionItem(){
-      this.$store.dispatch("menu/")
+      this.$store.dispatch("menu/actOptionGroup")
     }
   },
 }
