@@ -1,13 +1,13 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="menu_Dialog"
+      v-model="option_Dialog"
       max-width="500"
       persistent
     >
       <v-card>
         <v-card-title class="text-h6">
-          {{ get_dialog_menu_name }} 외 {{ get_dialog_menu_count }}건 정말로 삭제하시겠습니까?
+           {{get_dialog_menu_name}} 외 {{get_dialog_menu_count}} 건 정말로 삭제하시겠습니까?
         </v-card-title>
         <v-divider />
         <v-card-text
@@ -17,14 +17,13 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-
           <v-btn
             color="green darken-1"
             class="pa-0"
             text
             outlined
             min-width="70"
-            @click="setMenu_Dialog"
+            @click="setOption_Dialog"
           >
             아니요
           </v-btn>
@@ -35,7 +34,7 @@
             text
             outlined
             min-width="70"
-            @click="setDeleteMenu"
+            @click="setDeleteOptionGroup"
           >
             네
           </v-btn>
@@ -47,44 +46,39 @@
 
 <script>
 export default {
-  name: "Reservecarddialog",
+  name: "Optioncarddialog",
   data () {
     return {
     }
   },
   computed: {
-    menu_Dialog: {
+    option_Dialog: {
       get () {
-        return this.$store.getters["menu/getMenu_Dialog"]
+        return this.$store.getters["menu/getOption_Dialog"]
       }
     },
     get_dialog_menu_count(){
       let count = 0;
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            count++;
-          }
-        }
-      }
+      count = this.$store.getters["menu/getOption_Checkbox"].length
       return count-1;
     },
     get_dialog_menu_name(){
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            return this.$store.getters["menu/getMenu"][j].menu_name;
-          }
-        }
+      try{
+        let index = this.$store.getters["menu/getMenu_Checkbox"][0]
+        let data =  this.$store.getters["menu/getMenu"][index].name
+        return data
+      }catch{
+        return null
       }
-      return "에러";
     }
   },
   methods: {
-    setDeleteMenu() {
-      this.$store.commit("menu/setDelete")
+    setDeleteOptionGroup(e) {
+      this.$store.dispatch("menu/actDeleteOption")
       this.setOption_Dialog()
+      alert('삭제 되었습니다')
     },
+
     setOption_Dialog() {
       this.$store.commit("menu/setOption_Dialog")
     }

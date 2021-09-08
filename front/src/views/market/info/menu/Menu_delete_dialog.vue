@@ -73,10 +73,12 @@ export default {
     }
   },
   methods: {
-    setDeleteMenu() {
-      this.$store.commit("menu/setDelete")
+    setDeleteMenu(e) {
+      this.$store.commit("menu/setDelete",e)
       this.setMenu_Dialog()
+      alert('삭제 되었습니다')
     },
+
     setMenu_Dialog() {
       this.$store.commit("menu/setMenu_Dialog")
     }

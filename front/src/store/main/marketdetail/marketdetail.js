@@ -148,7 +148,6 @@ const mutations = {
   incrementItemQuantity(state, cartItem) {
     console.log(cartItem)
     cartItem.quantity++;
-
     state.selectmenu.push()
   },
   decrementItemQuantity(state, cartItem) {

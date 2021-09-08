@@ -118,7 +118,10 @@
   </v-container>
 </template>
 <script>
+
+import axios from 'axios'
 export default {
+
   name: 'Login',
   components: {
     MarketSignup: () => import('@/views/signup/market/marketSignupDialog'),
@@ -144,8 +147,7 @@ export default {
   },
   methods:  {
     async login() {
-      console.log("ww")
-      this.$Axios({
+      axios({
         method: 'post',
         url: "http://localhost/login",
         headers: {},
@@ -154,13 +156,16 @@ export default {
           // This is the body part
           id : this.id,
           passwd: this.passwd,
-          loginSwitch: this.loginSwitch
+          login_switch: this.loginSwitch
         }
       }).then((response) =>{
         console.log(response.data.market_id)
-        this.$router.push('/market').catch((err)=>{
-          console.log(err)
-        })
+        if(response.data.id!=undefined)
+          this.$router.push('/').catch((err)=>{
+            console.log(err)
+          })
+        else
+          alert('아이디와 비밀번호를 다시 확인해 주세요')
       }).catch((err)=>{
         console.log(err)
       })

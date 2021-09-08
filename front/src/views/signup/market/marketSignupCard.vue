@@ -444,7 +444,7 @@ export default {
     pwd_check1: null,
     pwd_check2: null,
     pwd_validate: null,
-    category: [],
+    category: ['1','2'],
     marketName: null,
     phoneNum: null,
     postNum: null,

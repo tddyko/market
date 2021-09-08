@@ -56,6 +56,10 @@
                 <v-img
                   v-if="card.Product_imgs != 0 && card.Product_imgs !=null"
                   :src="imgSrc(card.Product_imgs[0].product_img)" />
+                <v-img
+                  v-if="previewSrc(index)!=0 && card.Product_imgs == null "
+                  :src="previewSrc(index)"
+                  />
               </v-avatar>
             </v-col>
             <v-col
@@ -92,7 +96,7 @@
                   label="메뉴 설명"
                   dense
                   :value="card.product_info"
-                  @input="getInfo($event,index)"
+                    @input="getInfo($event,index)"
                 />
               </v-card-text>
               <v-card-text
@@ -112,33 +116,7 @@
                 />
               </v-card-text>
             </v-col>
-            <v-spacer />
-            <v-col
-              cols="12"
-              sm="3"
-              md="3"
-              lg="2"
-              xl="2"
-            >
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs'"
-                class="text-center"
-              >
-              </div>
-              <v-card-actions
-                v-else
-              >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  :index="index"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
-              </v-card-actions>
-            </v-col>
+
           </v-row>
         </v-card>
       </v-col>
@@ -158,8 +136,7 @@ export default {
 
   computed: {
     cards: {
-      get() {
-        console.log(this.$store.getters["menu/getMenu"])
+      get(){
         return this.$store.getters["menu/getMenu"]
       },
       set(){
@@ -184,9 +161,7 @@ export default {
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
       return !test2.includes(test)
       },
-    deleteMenu(e){
-      this.$store.commit("menu/setDelete",e)
-    },
+
     imgSrc(name){
       name = name.replaceAll("\\", "/");
       return require(`../../../../../../back/${name}`);
@@ -194,7 +169,7 @@ export default {
     getPrice(value,index){
       console.log(value)
       this.$store.dispatch("menu/actUpdate",
-        {index :index, property :  "price", value : value.toString()})
+        {index :index, property :  "price", value : parseInt(value)})
     },
     getInfo(value,index){
       console.log(value)
@@ -209,12 +184,18 @@ export default {
     onClickImgUpload (value) {
       console.log(value)
       this.$refs.menuImageInput[value].click();
-
     },
     uploadMenuImg(index){
       console.log(this.$refs.menuImageInput[index].files[0])
       this.$store.dispatch("menu/actUpdate",
         {index :index, property :  "menuImg", value : this.$refs.menuImageInput[index].files[0]})
+    },
+    previewSrc(index){
+      let URl=0;
+      try {
+        URl = URL.createObjectURL(this.$refs.menuImageInput[index].files[0])
+      }catch{}
+        return URl
     }
   }
   }

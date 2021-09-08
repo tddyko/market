@@ -25,6 +25,7 @@
       </v-btn>
     </template>
     <v-btn
+      v-show="getTab === 2"
       fab
       dark
       small
@@ -34,20 +35,86 @@
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
     <v-btn
+      v-show="getTab === 3"
+      fab
+      dark
+      small
+      color="green"
+      @click="setOptionItem"
+    >
+      <v-icon>mdi-check-all</v-icon>
+    </v-btn>
+    <v-btn
+      v-show="getTab === 4"
+      fab
+      dark
+      small
+      color="green"
+      @click="setItem"
+    >
+      <v-icon>mdi-check-all</v-icon>
+    </v-btn>
+
+    <!-- 추가버튼    -->
+    <v-btn
+      v-show="getTab === 2"
       fab
       dark
       small
       color="indigo"
-      @click="setNewItem"
+      @click="setInsert_Menu"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-btn
+      v-show="getTab === 3"
+      fab
+      dark
+      small
+      color="indigo"
+      @click="setInsert_OptionGroup"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+    <v-btn
+      v-show="getTab === 4"
+      fab
+      dark
+      small
+      color="indigo"
+      @click="setInsert_Room"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+
+    <!-- 삭제버튼    -->
+    <v-btn
+      v-show="getTab === 2"
       fab
       dark
       small
       color="red"
       @click="setMenu_Dialog"
+    >
+      <v-icon>mdi-delete-forever</v-icon>
+    </v-btn>
+    <v-btn
+      v-show="getTab === 3"
+      fab
+      dark
+      small
+      color="red"
+      @click="setOption_Dialog"
+    >
+      <v-icon>mdi-delete-forever</v-icon>
+    </v-btn>
+    <v-btn
+      v-show="getTab === 4"
+      fab
+      dark
+      small
+      color="red"
+      @click="setRoom_Dialog"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -65,7 +132,11 @@ export default {
     tabs: null,
     transition: 'slide-y-reverse-transition',
   }),
-  computed: {},
+  computed: {
+    getTab() {
+      return this.$store.getters['info/Get_Tab']
+    }
+  },
   watch: {
     top(val) {
       this.bottom = !val
@@ -81,7 +152,7 @@ export default {
     },
   },
   methods: {
-    setNewItem() {
+    setInsert_Menu() {
       this.$store.commit("menu/setNew_Menu")
     },
     updateMenu() {
@@ -95,6 +166,20 @@ export default {
     },
     setMenu_Dialog(){
       this.$store.commit("menu/setMenu_Dialog")
+    },
+    setRoom_Dialog(){
+      this.$store.commit("menu/setRoom_Dialog")
+    },
+    setOption_Dialog(){
+      this.$store.commit("menu/setOption_Dialog")
+    },
+    setInsert_OptionGroup(){
+      this.$store.commit("menu/setNewGroup")
+    },
+    setInsert_Room(){
+    },
+    setOptionItem(){
+      this.$store.dispatch("menu/")
     }
   },
 }

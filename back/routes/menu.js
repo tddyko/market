@@ -4,17 +4,34 @@ const {v4: uuidv4} = require('uuid');
 const multer = require('multer');
 const {Market,Product_img, Product, Pd_option_group, Pd_option} = require('../models');
 const { isLoggedInMarket, isNotLoggedIn } = require('./middlewares');
-
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/menu_images/');
 
+router.get('/addMenu',upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
+    const product_id = uuidv4();
+    Product.create({
+        product_id,
+        market_id : req.user.market_id,
+        name : req.body.name,
+        price : req.body.price,
+        product_info : req.body.product_info
+    }).then(() => {
+
+    }).catch(err=>console.dir(err));
+    if(req.file)
+    Product_img.create({
+        product_img_id : uuidv4(),
+        product_img : req.file.path,
+        product_id
+    });
+});
 /* localhost/menu/update/:product_id 메뉴수정
 id 가 name , price인 곳에서 정보를 받음 */
 router.post('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req,res)=>{
      let {name,price,product_info} =  req.body;
      let inputData = {name,price,product_info};
-     inputData.market_id = req.user.market_id;
-         console.log(req.params.id)
+         inputData.market_id = req.user.market_id;
+             console.log(req.params.id)
      let product_id = await updateOrCreate(Product,{product_id :  req.params.id}, inputData);
      if(req.file){
              if(req.params.id != null){
