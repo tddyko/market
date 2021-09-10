@@ -120,16 +120,18 @@
           align-self="center"
         >
           <v-text-field
-            v-model="userInfo.nickname"
+            v-model="changeData.nickname"
             dense
             hide-details
             outlined
             color="primary"
-            :value="userInfo.nickname"
+            placeholder="닉네임을 입력 해 주세요"
           />
         </v-col>
         <v-col cols="3">
-          <v-btn color="primary">
+          <v-btn color="primary"
+            @click="checkNickName"
+          >
             중복확인
           </v-btn>
         </v-col>
@@ -154,11 +156,13 @@
           align-self="center"
         >
           <v-text-field
+            v-model="changeData.password"
             dense
             hide-details
             outlined
             placeholder="최대 15자"
             color="primary"
+            :value="changeData.password"
           />
         </v-col>
         <v-col cols="3" />
@@ -167,9 +171,9 @@
     <!-- 수정버튼    -->
     <div class="text-center">
       <v-btn
-        type="submit"
         class="pa-0 ma-10"
         color="primary"
+        @click="submitChange"
       >
         수정
       </v-btn>
@@ -186,16 +190,35 @@ export default {
         return this.$store.getters["authentiCation/getUserInfo"]
       }
     },
+    changeData:{
+      get(){
+        return this.$store.getters["mypage/getChangeData"]
+      },
+      set(v){
+        this.$store.commit("mypage/setChangeData",v)
+      }
+    }
+  },
+  mounted() {
+    this.$store.getters["authentiCation/getUserInfo"]
   },
   methods:{
     Mypage_input_img_click(){
       this.$refs.mypage_img_input.click();
     },
     Mypage_img_privew(){
-       return  URL.createObjectURL(this.$refs.mypage_img_input.files[0])
-    },
-    nickNameCheck(){
+      // URL.createObjectURL(this.$refs.mypage_img_input.files[0])
+      this.$store.getters["mypage/getChangeData"].profile_img =this.$refs.mypage_img_input.files[0]
 
+    },
+    checkNickName(){
+      this.$store.dispatch("mypage/checkNickName",
+        this.$store.getters["mypage/getChangeData"].nickName)
+    },
+    submitChange(){
+      console.log('버튼')
+      console.log(this.$store.getters["mypage/getChangeData"])
+      this.$store.dispatch("mypage/actChangeMemberInfo",this.$store.getters["mypage/getChangeData"])
     }
   }
 }

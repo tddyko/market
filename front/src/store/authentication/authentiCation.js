@@ -50,7 +50,6 @@ const actions = {
           method : 'get',
            withCredentials : true,
           }).then(async(res)=>{
-            console.log(res.data)
             if(!res.data.message)
             commit("setUserInfo",res.data)
         })

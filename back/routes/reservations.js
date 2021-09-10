@@ -47,7 +47,6 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
         order : [['createdAt', 'DESC']]
     }).then(r=>{
         r.forEach(element => {
-        console.log(element)
              element.dataValues.DateAndTime = dayjs(element.DateAndTime).format('MM/DD (ddd) a hh:mm')
 
         });

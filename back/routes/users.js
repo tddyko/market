@@ -78,31 +78,6 @@ router.post('/storeInformation', upload.single('userfile'), isLoggedInMarket, as
                 res.send('추가 성공');
   }).catch(err => console.dir(err));
 });
-/* localhost/users/memberInformation 접속 */
-router.post('/memberInformation',isLoggedInMember, async(req,res)=>{ 
-  res.writeHead(200, { 'Content-Type': 'text/html' }); 
-  res.write(`
-             이미지 : ${req.user.profile_img}
-             ID :  ${req.user.id}
-             이메일 : ${req.user.email}
-             닉네임 : ${req.user.nickname}            
-  `);
-  res.end(); 
-});
-/* localhost/users/memberInformation/update 접속 */
-router.put('/memberInformation/update',upload.single('userfile'),isLoggedInMember, async(req,res)=>{ 
-  console.dir(req.user);
-      Member.update({ 
-        password : req.body.password,
-        nickname : req.body.nickname,
-        profile_img : req.file.path
-      },
-      {where : { member_id : req.user.member_id,}  
-      }).then(r => {
-        if(r)
-        res.redirect('memberInformation');
-    }).catch(err => console.dir(err)); 
-});
 
 /* localhost/users/marketsignout 접속 가게회원탈퇴 */
 router.delete('/marketsignout',isLoggedInMarket, async(req,res) => {
@@ -134,27 +109,42 @@ router.delete('/membersignout',isLoggedInMember, async(req,res) => {
 
 
 /* localhost/users/memberInformation/update 접속 손님정보수정 */
-router.put('/memberInformation/update',
-    upload.single('userfile'),
-    isLoggedInMember,
-    async (req, res) => {
-        Member
-            .update({
-                password: req.body.password,
-                nickname: req.body.nickname,
-            }, {
+router.post('/memberInformation/update', upload.single('userfile'),  isLoggedInMember, async (req, res) => {
+    console.log(req.body)
+    let {nickname,password} = req.body
+    let inputdata = {nickname,password}
+    for(let key in inputdata){
+        if(inputdata[key] === undefined ||inputdata[key] === 'null')
+        delete inputdata[key];
+    }
+    console.log(inputdata)
+    Member.update(inputdata, {
                 where: {
                     member_id: req.user.member_id
                 }
-            })
-            .then(r => {
-                if (r) 
-                    res.redirect('memberInformation');
-                }
-            )
-            .catch(err => console.dir(err));
+    }).catch(err => console.dir(err));
+    if(req.file){
+        Member.update({ profile_img : req.file.path}, {
+                            where: {
+                                member_id: req.user.member_id
+                            }
+        }).catch(err => console.dir(err));
     }
+    res.json({message : "성공"})
+  }
 );
+
+router.get('/checkNickName/:nickname',isLoggedInMember,async(req,res)=>{
+    let find = await Member.findOne({attributes : ['nickname'],
+        where : { nickname : req.params.nickname}
+    }).then((res)=>{
+        if(res)
+            return false
+        else
+            return true
+    })
+    res.json(find)
+})
 
 /* localhost/users/marketsignout 접속 가게회원탈퇴 */
 router.delete('/marketsignout', isLoggedInMarket, async (req, res) => {

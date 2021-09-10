@@ -19,7 +19,13 @@ const state = () => ({
     orderId : null,
     market_name : null
   },
-  reserveList : null
+  reserveList : null,
+  changeData : {
+    profile_img : null,
+    password : null,
+    nickname : null,
+    nicknameCheck : false
+  },
 });
 
 const getters = {
@@ -31,7 +37,8 @@ const getters = {
   getReviewImg : (state)=> state.reviewImg,
   getReviewRating : (state)=> state.reviewRating,
   getReview : (state)=> state.review,
-  getReserveList : (state)=>state.reserveList
+  getReserveList : (state)=>state.reserveList,
+  getChangeData : (state) => state.changeData
 };
 
 const mutations = {
@@ -57,7 +64,8 @@ const mutations = {
   },
   setReview : (state,value) => state.review = value,
   setMarket_name : (state,value) => state.market_name = value,
-  setReserveList : (state,value) => state.reserveList = value
+  setReserveList : (state,value) => state.reserveList = value,
+  setChangeData : (state,value)=> state.changeData = value
 };
 
 const actions = {
@@ -112,7 +120,35 @@ const actions = {
       })
   },
   actChangeMemberInfo({commit},value){
-
+  console.log('actChangeMemberInfo')
+  console.log(value)
+  if(value.checkNickName ===false && value.nickname!==null)
+    alert('닉네임 중복 확인을 해주세요')
+   let formData = new FormData()
+   try{
+    formData.append('userfile', value.profile_img)
+   }catch{}
+   formData.append('nickname', value.nickname)
+   formData.append('password',value.password)
+    axios.post('http://localhost/users/memberInformation/update',formData,{
+      withCredentials : true,
+      headers : {'Content-Type': 'multipart/form-data'}
+    }).catch((err)=>{console.log(err)})
+  },
+  checkNickName({getters},value){
+  if(getters.getChangeData.nickname!==null)
+    axios({
+      url : `http://localhost/users/checkNickName/${getters.getChangeData.nickname}`,
+      method : 'get',
+      withCredentials : true
+    }).then(async(res)=>{
+      getters.getChangeData.checkNickName = res.data
+        if(res.data === true)
+        alert('사용 가능한 닉네임 입니다')
+        else
+        alert('사용 불가능한 닉네임 입니다')
+      }
+    )
   }
 };
 
