@@ -24,9 +24,15 @@
           align="center"
         >
           <v-avatar size="100">
+            <v-img
+              v-if="previewImg!==null"
+              :src="profileImgPreview"
+            >
+            </v-img>
             <img
+              v-else-if="userInfo.profile_img"
               alt="John"
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src="imgSrc(userInfo.profile_img)"
             >
           </v-avatar>
         </v-col>
@@ -346,11 +352,18 @@ export default {
   name: "InfoItemOperational",
   data(){
     return{
+      profileImgPreview : null,
       informfiles :[],
       previewImg :[],
     }
   },
   computed: {
+    userInfo :{
+      get(){
+        console.log(this.$store.getters["authentiCation/getUserInfo"])
+        return this.$store.getters["authentiCation/getUserInfo"]
+      },
+    },
     Get_Image(){
       return this.$store.getters["info/Get_Info_Operrational_img"]
     },
@@ -393,6 +406,10 @@ export default {
       }
     },
   },
+  mounted() {
+    this.$store.dispatch("authentiCation/actUserInfo")
+
+  },
   methods: {
     setDay(e){
       console.log(e)
@@ -418,6 +435,7 @@ export default {
     },
     uploadProfileImg(){
       console.log(this.$refs.imageInput.files[0])
+      this.profileImgPreview = URL.createObjectURL(this.$refs.imageInput.files[0])
       this.$store.commit('info/Set_Profile_Image', this.$refs.imageInput.files[0]);
     },
     Update_Open_Time_Menu(){
@@ -443,6 +461,10 @@ export default {
     informationInput(event2){
       console.log("information input : " + event2)
       this.$store.dispatch("info/Info_Set_information",event2)
+    },
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../back/${name}`);
     }
   },
 

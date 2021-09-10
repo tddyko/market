@@ -26,6 +26,10 @@
             color="grey"
             size="120"
           >
+            <v-img
+            v-if="imgPreview!==null"
+            :src="imgPreview"
+            ></v-img>
           </v-avatar>
         </v-col>
         <v-col
@@ -184,6 +188,11 @@
 <script>
 export default {
   name: "Mypageform",
+  data(){
+    return{
+      imgPreview : null
+    }
+  },
   computed :{
     userInfo: {
       get(){
@@ -200,7 +209,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.getters["authentiCation/getUserInfo"]
+    this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods:{
     Mypage_input_img_click(){
@@ -209,7 +218,7 @@ export default {
     Mypage_img_privew(){
       // URL.createObjectURL(this.$refs.mypage_img_input.files[0])
       this.$store.getters["mypage/getChangeData"].profile_img =this.$refs.mypage_img_input.files[0]
-
+      this.imgPreview = URL.createObjectURL(this.$refs.mypage_img_input.files[0])
     },
     checkNickName(){
       this.$store.dispatch("mypage/checkNickName",
@@ -219,6 +228,7 @@ export default {
       console.log('버튼')
       console.log(this.$store.getters["mypage/getChangeData"])
       this.$store.dispatch("mypage/actChangeMemberInfo",this.$store.getters["mypage/getChangeData"])
+      location.reload()
     }
   }
 }

@@ -42,42 +42,6 @@ router.put('/storeInformation/update',
             .catch(err => console.dir(err));
     }
 )
-/*
-localhost/users/createCategory 접속
-*/ 
-router.post('/createCategory', isLoggedInMarket, function (req, res) {
-    Category.create({category_id: uuidv4(), name: req.body.name})
-        .then(r => {
-            res.send('추가 성공');
-        })
-        .catch(err => console.dir(err));
-    })
-router.post('/storeInformation', upload.single('userfile'), isLoggedInMarket, async(req,res)=>{ 
-  console.log('로그인 성공');
-  console.dir(req.user);
-       Market.update({ 
-       profile_img: req.file.filename},
-       {where : { market_id : req.user.market_id,}  
-       }).then(r => {
-       if(r)
-       console.log('수정 성공');
-       }).catch(err => console.dir(err)); 
-       res.writeHead(200, { 'Content-Type': 'text/html' }); 
-       res.write(`ID :  ${req.user.id}
-                  이메일 : ${req.user.email}          
-                  가게이름 : ${req.user.market_name}
-                 `);
-              res.end();
-              }); 
-            
-            router.post('/createCategory',isLoggedInMarket, function(req,res){
-              Category.create({
-                category_id : uuidv4(),
-                name : req.body.name,
-              }).then(r=>{
-                res.send('추가 성공');
-  }).catch(err => console.dir(err));
-});
 
 /* localhost/users/marketsignout 접속 가게회원탈퇴 */
 router.delete('/marketsignout',isLoggedInMarket, async(req,res) => {

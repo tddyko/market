@@ -122,7 +122,8 @@ export default {
   computed: {
     marketInfo : {
       get() {
-        console.log("marketInfo get : " + this.$store.getters["marketDetail/getMarketTitle"])
+        console.log("marketInfo get : ")
+        console.log(this.$store.getters["marketDetail/getMarketTitle"])
         return this.$store.getters["marketDetail/getMarketTitle"]
       },
     }
