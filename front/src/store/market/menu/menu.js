@@ -1,19 +1,22 @@
 import axios from 'axios'
 const state = () => ({
-  menu: [ ],
+  menu_card_dialog: false,
+  menu: [],
   updateMenu: [],
   menu_checkbox: [],
   new_menu: '',
-  menu_card_dialog: false,
-  option_card_dialog: false,
   menu_option: [],
+  option_card_dialog: false,
   option_name: '',
   menu_option_name: [],
   option_checkbox: [],
   option_item_checkbox :[],
   option_select_name: '',
   selectMenuId :'',
-  deleteOptions : []
+  deleteOptions : [],
+  room_card_dialog: false,
+  room_checkbox : [],
+  room : []
 })
 
 const getters = {
@@ -30,7 +33,10 @@ const getters = {
   getMenu_Option:(state) => state.menu_option,
   getOption_Select_Name: (state) => state.option_select_name,
   getDeleteOptions : (state) => state.deleteOptions,
-  getSelectMenuId : (state) =>state.selectMenuId
+  getSelectMenuId : (state) =>state.selectMenuId,
+  getRoom_Checkbox:(state) => state.room_checkbox,
+  getRoom :(state) => state.room,
+  getRoom_Dialog :(state)=> state.room_card_dialog
 }
 
 const mutations = {
@@ -48,7 +54,7 @@ const mutations = {
     state.option_checkbox=[]
   },
   setMenu_Option_items : (state,value)=>{
-    state.menu_option[value].Pd_options.push({name : '', price : ''})
+    state.menu_option[value].Pd_options.push({name : '', price : '',pd_option_group_id : ''})
   },
   setOption_Checkbox: (state, value) => state.option_checkbox = value,
   setOption_item_checkbox:(state,value) => state.option_item_checkbox = value,
@@ -57,7 +63,7 @@ const mutations = {
     state.menu.push({product_id : null ,name : '',price : '', product_info : ''});
   },
   setNewGroup:(state,data)=>{
-    state.menu_option.push({Pd_options :[], name : '', pd_option_group_id : ''})
+    state.menu_option.push({Pd_options :[], name : '', pd_option_group_id : null})
   },
   setDelete:(state,event) => {
      for(let index of state.menu_checkbox){
@@ -71,7 +77,6 @@ const mutations = {
      }
   },
   updateMenu:(state,payload) => {
-    console.log(state.menu)
     for(let index of state.menu_checkbox){
       let selectMenu = state.menu[index]
       let formData = new FormData();
@@ -89,24 +94,20 @@ const mutations = {
       .catch((err)=>console.log(err))
     }
   },
-  tempMenu(state,data){
-    let findOne = state.menu[data.index]
-    findOne[data.property] = data.value
-  },
-  tempOption(state,data){
-      let findOne = state.menu_option[data.index].Pd_options
-      findOne[data.optionIndex][data.property] = data.value
-      console.log(state.menu_option[data.index])
-  },
-  tempOptionGroup(state,data){
-    state.menu_option[data.index].name = data.value
-  },
   setOption_Select_Name: (state, value) => {
      state.option_select_name = value
   },
-  setSelectedMenuId : (state,value) => state.selectMenuId = value
+  setSelectedMenuId : (state,value) => state.selectMenuId = value,
+  setRoom_Dialog(state,value){
+    if(state.room_checkbox.length>0)
+      state.room_card_dialog =  !state.room_card_dialog
+  },
+  setNewRoom(state,value){
+    state.room.push({room_name : '' , room_price : '',room_comment:'',room_id : null})
+  },
+  setRoom_Checkbox:(state,value) => state.room_checkbox = value,
+  setRoom:(state,value) => state.room = value
 }
-
 const actions = {
   actDeleteOption_items({state},value){
       console.log("setDeleteOption : " + state.option_item_checkbox)
@@ -126,19 +127,12 @@ const actions = {
        commit("setMenu",res.data)
     })
   },
-  actUpdate : ({commit},value)=>{
-    commit("tempMenu",value)
-  },
-  actOptionUpdate : ({commit},value)=>{
-      commit("tempOption",value)
-  },
-  actUpdateOptionGroup:({commit},value)=>{
-    commit("tempOptionGroup",value)
-  },
   actOptionGroup : ({getters},value)=>{
      for(let index of getters.getOption_Checkbox){
+     console.log(getters.getSelectMenuId)
+     console.log(getters.getMenu_Option[index].name)
            axios({
-              url : `http://localhost/menu_option/updateOptionGroup/${getters.getSelectMenuId}`,
+              url : `http://localhost/menu_option/updateOptionGroup/${getters.getSelectMenuId}/${getters.getMenu_Option[index].pd_option_group_id}`,
               method : 'post',
               withCredentials : true,
                 data : {
@@ -167,7 +161,6 @@ const actions = {
       commit("setMenu_Option",res.data)
     })
   },
-
   actMenu_Options({getters},value){
     for(let id of getters.getOption_item_checkbox){
      let selectOption = getters.getMenu_Option[value]
@@ -185,7 +178,7 @@ const actions = {
       axios({
                url :`http://localhost/menu_option/delete/options/${item.pd_option_id}`,
                method : 'get',
-               withCredentials : 'true',
+               withCredentials : true,
       }).then(async(res)=>{
       }).catch((err)=>{console.log(err)})
     }
@@ -202,8 +195,60 @@ const actions = {
   },
   actSelectedMenuId({commit},value){
     commit('setSelectedMenuId',value)
-  }
-}
+  },
+  actRoom({commit},value){
+    axios({
+      url : 'http://localhost/market_preview/myMarket/roomlist',
+      method : 'get',
+      withCredentials : true
+    }).then(async(res)=>{
+      console.log('acRoom')
+      console.log(res.data)
+      commit("setRoom",res.data)
+    })
+  },
+  actRoomDelete({getters},value){
+    for(let index of getters.getRoom_Checkbox){
+            let selectRoom = getters.getRoom[index]
+            console.log(selectRoom)
+            axios({
+              url :`http://localhost/market_preview/myMarket/deleteRoom/${selectRoom.room_id}`,
+              method : 'delete',
+              withCredentials : true,
+            })
+    }
+  },
+  actUpdateRoomImg({getters},value){
+    let findOne = getters.getRoom[value.index]
+    findOne[value.property] = value.value
+    console.log(getters.getRoom[value.index] )
+  },
+  actUpdateMenuImg({getters},value){
+      let findOne = getters.getMenu[value.index]
+      findOne[value.property] = value.value
+      console.log(getters.getMenu[value.index] )
+  },
+  actSetRoom({getters},value){
+    for(let index of getters.getRoom_Checkbox){
+        let selectRoom = getters.getRoom[index]
+        let formData = new FormData();
+        formData.append("room_name",selectRoom.room_name)
+        formData.append("room_comment",selectRoom.room_comment)
+        formData.append("room_price",selectRoom.room_price)
+        if(selectRoom.room_img)
+          formData.append("room_img",selectRoom.room_img)
+        axios.post(`http://localhost/market_preview/room/${selectRoom.room_id}`,formData,
+           {
+              withCredentials: true,
+             headers : {'Content-Type': 'multipart/form-data'}
+           }).then((res)=>{})
+           .catch((err)=>console.log(err))
+
+        }
+
+    }
+    }
+
 
 export default {namespaced: true, state, getters, actions, mutations};
 

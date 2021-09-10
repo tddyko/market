@@ -23,18 +23,17 @@ router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
         market_id   
     }).then(r => {
         if(r)
-        console.log('예약 성공');
+        res.json({message: '성공'})
     })
 });
-router.get('/updateState/:reserveId',isLoggedInMember, async(req,res)=>{
-    Order.update({
-        current_state : '예약완료'},
-        {where : {reservation_id: req.params.reserveId,current_state : "예약"},
-    })
-})  
+
 //고객이 내가 예약한 목록을 보는라우터
 router.get('/myReserve',isLoggedInMember, async(req,res)=>{
     dayjs.locale('ko')
+    Reservation.update(
+      {current_state : "예약 완료"},
+      {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
+    )
     let myReserve = await Reservation.findAll({
         include :[{
             model : Market,
@@ -45,10 +44,12 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
             ,'current_state','reserve_seat'
         ],
         where : {member_id : req.user.member_id},
-        order : [['createdAt', 'DESC']],raw : true,
+        order : [['createdAt', 'DESC']]
     }).then(r=>{
         r.forEach(element => {
-            element.DateAndTime = dayjs(element.DateAndTime).format('MM/DD (ddd) a hh:mm')
+        console.log(element)
+             element.dataValues.DateAndTime = dayjs(element.DateAndTime).format('MM/DD (ddd) a hh:mm')
+
         });
         return r;
     })
@@ -58,8 +59,10 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
 //가게가 예약한 목록을 보는라우터 2020-10-20
 router.get('/list', isLoggedInMarket, async(req,res)=>{
     dayjs.locale('ko'); 
-    console.log(req.body);
-    console.log(req.query);  
+    Reservation.update(
+          {current_state : "예약 완료"},
+          {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
+    )
     var dateValue = req.query.dateValue; 
     if(dateValue)
         var date = dayjs(dateValue).format('YYYY-MM-DD');
@@ -73,7 +76,7 @@ router.get('/list', isLoggedInMarket, async(req,res)=>{
         ,where : {
             market_id : req.user.market_id, 
             reserve_date : {[Op.eq]: date}
-        },raw : true
+        },
         }).then(r=>{
         r.forEach(elements=>{
             elements.reserve_date = dayjs(elements.reserve_date + elements.reserve_time).format('YYYY.MM.DD.(ddd)')

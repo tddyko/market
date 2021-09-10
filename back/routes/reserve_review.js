@@ -32,7 +32,7 @@ router.post('/:marketname/:reservation_id',isLoggedInMember,upload.array('reserv
             }).then(r => {if(r){console.log('성공')}}).catch(err=>{console.error(err)});    
         })
     }
-    
+    res.json({message: '성공'})
 });
 
 //리뷰 수정 라우터

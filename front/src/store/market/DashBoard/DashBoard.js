@@ -71,20 +71,33 @@ const getters = {
 const mutations = {
   setValue(state,data) {
     let i=1;
-    console.log(data[0].time);
     state.Order_DashBoard.forEach((element)=>{
       let sumValue=0;
-      data[0].time.forEach((data)=>{
-        element.labels.push(data.substring(11))
-      })
+      try{
+        data[0].time.forEach((data,index)=>{
+          element.labels.push(data.substring(11))
+        })
         element.value = data[i].value;
-        i++
+
+      }catch{}
+      data[i].value.forEach((countValue)=>{
+        sumValue +=countValue
+      })
+      element.subContentValue = sumValue
+      sumValue=0
+      i++
     });
+    i=4;
     state.Reserve_DashBoard.forEach((element)=>{
+    let sumValue=0;
+      try{
       data[0].time.forEach((data)=>{
         element.labels.push(data.substring(11))
       })
         element.value = data[i].value;
+      }catch{}
+        element.subContentValue = sumValue
+        sumValue=0
         i++
     })
   }

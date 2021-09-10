@@ -22,12 +22,12 @@
               <v-row no-gutters>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="option.name"
                     :rules="rules"
                     hide-details="auto"
                     hint="대분류 이름 예시) 음료, 주류 등"
                     label="대분류 이름"
                     :value="option.name"
-                    @input="setOptionGroupName($event,index)"
                   />
                 </v-col>
               </v-row>
@@ -65,18 +65,18 @@
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="small_category.name"
                     outlined
                     placeholder="소분류 이름"
                     :value="small_category.name"
-                    @input="getOptionName($event,index,optionIndex)"
                   />
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="small_category.price"
                     outlined
                     placeholder="가격"
                     :value="small_category.price"
-                    @input="getOptionPrice($event,index,optionIndex)"
                   />
                 </v-col>
               </v-row>
@@ -138,7 +138,6 @@ export default {
     },
     Option:{
       get(){
-        console.log('옵션을 가져오는 중 ...')
         console.log(this.$store.getters['menu/getMenu_Option'])
         return this.$store.getters['menu/getMenu_Option']
       },
@@ -154,15 +153,6 @@ export default {
     deleteOptions(value){
       console.log('삭제')
       this.$store.dispatch("menu/actDeleteOption_items",value)
-    },
-    getOptionName(value,index,optionIndex){
-      this.$store.dispatch("menu/actOptionUpdate",{index :index,optionIndex:optionIndex, property : 'name', value : value})
-    },
-    getOptionPrice(value,index,optionIndex){
-      this.$store.dispatch("menu/actOptionUpdate",{index :index,optionIndex:optionIndex, property : 'price', value : parseInt(value)})
-    },
-    setOptionGroupName(value,index){
-      this.$store.dispatch("menu/actUpdateOptionGroup",{index :index, property : 'name', value : value})
     }
   }
 }

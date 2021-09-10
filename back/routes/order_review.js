@@ -15,7 +15,7 @@ const upload = setMulter('./public/images/order_review_images/');
 /* 
 localhost/order_review/가게이름  리뷰작성페이지
  */
-router.post('/:marketname/:order_id', upload.array('orderReiveImg',3),isLoggedInMember, async(req, res) => {
+router.post('/:marketname/:order_id', upload.array('orderReviewImg',3),isLoggedInMember, async(req, res) => {
     const order_id = req.params.order_id;
     let {market_id} = await Market.findOne({attributes : ['market_id'], where : {market_name : req.params.marketname}, raw : true})
     const order_review_id = uuidv4();
@@ -26,18 +26,18 @@ router.post('/:marketname/:order_id', upload.array('orderReiveImg',3),isLoggedIn
          member_id : req.user.member_id,
          market_id,
          order_id
-        }); 
+        }).catch((err)=>{console.log(err)});
         if(req.files){
             req.files.forEach(async(files)=> {
                 await Order_review_img.create({
                    Order_review_img_id : uuidv4(),
                    Order_review_img : files.path,
                    order_review_id
-                });
+                }).catch((err)=>{console.log(err)});
             });
         }
-     console.log('성공');
-    });
+    res.json({message: '성공'})
+});
     
 
 /* 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Market,Member,Market_inform_img,Order_review_img,Reserve_review,Order_review,Market_inform,Market_noti_img
-,Market_inform_holiday,Reserve_review_img,Reservation,Category} = require('../models');
+,Market_inform_holiday,Reserve_review_img,Reservation,Category,Market_room} = require('../models');
 const sequelize = require('sequelize'); 
 const {Op} = require('sequelize')
 const { isLoggedInMarket } = require("./middlewares");
@@ -170,7 +170,7 @@ router.get('/:marketNm/imformation',async(req, res)=>{
         include : [{
             model : Market_inform,
             required: false,
-            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment'],
+            attributes : ['market_inform_id','start_time','end_time','market_noti','market_coment',],
            include : [
             {
                 model : Market_noti_img,
@@ -204,18 +204,28 @@ router.get('/:marketNm/imformation',async(req, res)=>{
 })
 
 /*  localhost/market_preview/room */
-router.post('/room',upload.single('room_img'),isLoggedInMarket, async(req,res) => {
+router.post('/room/:room_id',upload.single('room_img'),isLoggedInMarket, async(req,res) => {
     let {room_name,room_comment,room_price} =req.body
-    console.log(req.file.path);
-    await Market_room.create({
-        room_id:uuidv4(),room_name,room_comment,room_price,
-        room_images : req.file.path,
-        market_id : req.user.market_id
-    }).catch((err) => {
-        console.log(err);
-    })
-})
+    console.log(req.file);
+    let inputData = {room_name,room_comment,room_price}
+    inputData.room_id = req.params.room_id
+    inputData.market_id = req.user.market_id
+    if(req.file)
+        inputData.room_images = req.file.path
+    updateOrCreate(Market_room,{room_id : req.params.room_id},inputData)
 
+})
+async function updateOrCreate(tableName, where, inputData){
+    let findData = await tableName.findOne({where :where}).catch(error => console.log(error))
+    if(!findData){
+        inputData.room_id = uuidv4();
+        tableName.create(inputData)
+    }
+    else{
+        return tableName.update(inputData,{where : where}).catch((err)=>console.log(err))
+    }
+
+}
 /*  localhost/market_preview/roomlist/:가게이름 */
 router.get('/roomlist/:marketNm', async(req, res) => {
    let{market_id} = await Market.findOne({
@@ -223,10 +233,27 @@ router.get('/roomlist/:marketNm', async(req, res) => {
     });
             console.log(market_id);
    let room =  await Market_room.findAll({
-        attributes : ['room_name','room_comment','room_price','room_images'], where : {market_id}
+        attributes : ['room_name','room_comment','room_price','room_images','room_id'], where : {market_id}
     }).catch((err) => {
         console.log(err);
     });
     res.json(room)
+})
+
+router.get('/myMarket/roomlist',isLoggedInMarket, async(req, res) => {
+   let room =  await Market_room.findAll({
+        attributes : ['room_name','room_comment','room_price','room_images','room_id'],
+        where : {market_id : req.user.market_id}
+    }).catch((err) => {
+        console.log(err);
+    });
+    res.json(room)
+})
+
+router.delete('/myMarket/deleteRoom/:room_id',isLoggedInMarket,async(req,res)=>{
+    await Market_room.destroy({
+        where :{room_id : req.params.room_id},
+        force : true
+    })
 })
 module.exports = router;

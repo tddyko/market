@@ -3,7 +3,7 @@ exports.isLoggedInMarket = (req, res, next) => {
   if (req.isAuthenticated() && req.user.market_id) {
     next();
   } else {
-    res.send("가게 로그인 필요");
+    res.json({message : "로그인 후 이용 가능한 서비스 입니다"});
   }
 };
 
@@ -11,7 +11,7 @@ exports.isLoggedInMember = (req, res, next) => {
   if (req.isAuthenticated() && req.user.member_id) {
     next();
   } else {
-    res.send("손님 로그인 필요");
+    res.json({message : "로그인 후 이용 가능한 서비스 입니다"});
   }
 };
 
@@ -20,6 +20,6 @@ exports.isNotLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     next();
   } else {
-    res.send("로그인한 상태입니다");
+    res.json({message : "로그인한 상태입니다"});
   }
 };

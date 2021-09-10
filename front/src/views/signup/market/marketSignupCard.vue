@@ -120,6 +120,7 @@
               <v-btn
                 class="pa-0 ma-0"
                 type="button"
+                @click="idCheck"
               >
                 중복확인
               </v-btn>
@@ -236,8 +237,11 @@
               xl="4"
             >
               <v-select
+                v-model="category"
                 :error-messages="errors"
-                :items="category"
+                :items="categories"
+                value="category_id"
+                item-text="name"
                 dense
                 label="카테고리"
                 outlined
@@ -300,6 +304,36 @@
                   label="전화번호"
                   outlined
                   placeholder="전화번호를 입력해주세요."
+                />
+              </validation-provider>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="12"
+              lg="4"
+              md="4"
+              sm="12"
+              xl="4"
+            >
+              <validation-provider
+                v-slot="{ errors }"
+                :rules="{
+                  required: true,
+                }"
+                name="가게 전화번호"
+              >
+                <v-text-field
+                  v-model="market_phone"
+                  :error-messages="errors"
+                  class="ma-0 pa-0"
+                  clearable
+                  dense
+                  label="가게 전화번호"
+                  outlined
+                  placeholder="가게 전화번호를 입력해주세요."
                 />
               </validation-provider>
             </v-col>
@@ -444,13 +478,14 @@ export default {
     pwd_check1: null,
     pwd_check2: null,
     pwd_validate: null,
-    category: ['1','2'],
+    category: null,
     marketName: null,
     phoneNum: null,
     postNum: null,
     address: null,
     addressDetail: null,
-    errors: null
+    errors: null,
+    market_phone : null
   }),
   computed: {
     dialog: {
@@ -461,22 +496,46 @@ export default {
         this.$store.commit('authentiCation/setSignUpDialog', value)
       }
     },
+    categories :{
+      get(){
+        return this.$store.getters["marketSignup/getCategories"]
+      }
+    },
+
+},
+  created() {
+    this.$store.dispatch("marketSignup/actCategories")
   },
   methods: {
+    idCheck(){
+      if(this.id!==null){
+        this.$store.dispatch("marketSignup/actIdCheck",this.id)
+      }
+    },
     onClickImgUpload () {
       this.$refs.imageInput.click();
     },
     onChangeImages (e) {
-      console.log(e.target.files);
-      const imgFormData = new FormData();
-      [].forEach.call(e.target.files, (f) => {
-        imgFormData.append('img', f);
-      });
+
     },
     async SignUp() {
       const result = await this.$refs.observer.validate()
-      if(result) {
-        alert('회원가입 로직')
+      if(result && this.$store.getters["marketSignup/getIdCheck"]) {
+        this.$store.dispatch("marketSignup/signUp",{
+          userfile: this.$refs.imageInput.files[0],
+          id : this.id,
+          password: this.passwd,
+          name : this.name,
+          birthday : this.birthday,
+          email : this.email,
+          market_name : this.marketName,
+          phonenumber : this.phoneNum,
+          zipcode : this.postNum,
+          address : this.address,
+          dt_address : this.addressDetail,
+          market_phone : this.market_phone,
+          state : 'market'
+        })
       }
     },
     resetForm() {
@@ -489,7 +548,8 @@ export default {
       this.postNum = null
       this.address = null
       this.addressDetail = null
-      this.dialog.marketSignupDialog = false,
+      this.dialog.marketSignupDialog = false
+      this.market_phone = null
       this.$refs.observer.reset()
     }
   }

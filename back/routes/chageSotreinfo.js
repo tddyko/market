@@ -1,4 +1,4 @@
-const express = require('express');
+    const express = require('express');
 const router = express.Router();
 const {Market,Category,Market_inform,Market_inform_img,Market_inform_holiday,Market_noti_img} = require('../models');
 const { isLoggedInMarket} = require('./middlewares');
@@ -9,8 +9,11 @@ const fs = require('fs');
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/market_inform_images/');
-router.post('/category',isLoggedInMarket, async (req,res)=>{
-        await Market.findOne({where : {market_id : req.user.market_id}}).then(async(market)=>{
+router.post('/category/:market_name', async (req,res)=>{
+    let {market_id} = await Market.findOne({
+    attributes : ['market_id'],
+    where : {market_name : req.params.market_name}})
+    await Market.findOne({where : {market_id}}).then(async(market)=>{
             console.log(req.body)
             await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
             }).then( async(category)=>{  
@@ -29,7 +32,8 @@ router.post('/inform',isLoggedInMarket,
     upload.fields(
         [{name : 'profile_img',maxCount : 1},{name : 'info_img',maxCount : 3}]),
     async(req,res)=>{
-    let {market_phone,start_time,end_time,market_coment} =  req.body; 
+    console.log(req.body)
+    let {market_phone,start_time,end_time,market_coment} =  req.body;
     let inputData = {market_phone,start_time,end_time,market_coment};
     inputData.market_id = req.user.market_id;
     await updateOrCreate(Market_inform,{market_id : req.user.market_id},inputData);
@@ -57,7 +61,7 @@ router.post('/inform',isLoggedInMarket,
                     market_infrom_img_id : uuidv4(),
                     market_inform_img : files.path,
                     market_inform_id : r.market_inform_id
-                }).then((r)=>{if(r)return true 
+                }).then((r)=>{if(r)return true
                 else return false})
         })
      }).catch((err)=>{

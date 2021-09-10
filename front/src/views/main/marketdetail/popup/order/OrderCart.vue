@@ -11,6 +11,7 @@
       >
         <v-col cols="10">
           <v-text-field
+            v-model="orderedInformation.address"
             hide-details
             label="주소"
             outlined
@@ -23,6 +24,7 @@
       >
         <v-col cols="10">
           <v-text-field
+            v-model="orderedInformation.dt_address"
             hide-details
             label="상세주소"
             outlined
@@ -35,6 +37,7 @@
       >
         <v-col cols="10">
           <v-text-field
+            v-model="orderedInformation.phoneNumber"
             hide-details
             label="전화번호"
             outlined
@@ -50,6 +53,7 @@
       >
         <v-col cols="10">
           <v-text-field
+            v-model="orderedInformation.requirement"
             hide-details
             label="주문 상세요청"
             outlined
@@ -189,10 +193,14 @@ export default {
       }
     },
     orderItems :{
-      cache: false,
       get() {
-        console.log(this.$store.getters["marketDetail/getSelectmenu"])
         return this.$store.getters["marketDetail/getSelectmenu"]
+      }
+    },
+    orderedInformation : {
+      get(){
+        console.log( this.$store.getters["marketDetail/getOrderedInformation"])
+        return this.$store.getters["marketDetail/getOrderedInformation"]
       }
     },
     btn_Width_Size() {
@@ -271,8 +279,11 @@ export default {
   },
   methods: {
     submit(order){
+      console.log( this.$store.getters["marketDetail/getOrderedInformation"])
       this.$store.dispatch("marketDetail/actOrder",
-        {'orderItem' : order, 'marketName' : this.$session.get('market_name')})
+        {'orderItem' : order,'orderInfo' : this.$store.getters["marketDetail/getOrderedInformation"],
+        'marketName' : this.$session.get('market_name')})
+
     },
     incrementItemQuantity(cartItem) {
       console.log('수량을 늘립니다 ')

@@ -50,7 +50,7 @@
       dark
       small
       color="green"
-      @click="setItem"
+      @click="setRoom"
     >
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
@@ -167,20 +167,24 @@ export default {
     setMenu_Dialog(){
       this.$store.commit("menu/setMenu_Dialog")
     },
-    setRoom_Dialog(){
-      this.$store.commit("menu/setRoom_Dialog")
-    },
     setOption_Dialog(){
       this.$store.commit("menu/setOption_Dialog")
     },
     setInsert_OptionGroup(){
       this.$store.commit("menu/setNewGroup")
     },
-    setInsert_Room(){
-    },
     setOptionItem(){
       this.$store.dispatch("menu/actOptionGroup")
-    }
+    },
+    setInsert_Room(){
+      this.$store.commit("menu/setNewRoom")
+    },
+    setRoom(){
+      this.$store.dispatch("menu/actSetRoom")
+    },
+    setRoom_Dialog(){
+      this.$store.commit("menu/setRoom_Dialog")
+    },
   },
 }
 </script>

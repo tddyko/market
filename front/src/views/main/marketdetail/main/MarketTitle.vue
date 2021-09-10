@@ -11,6 +11,7 @@
         cols="12"
       >
         <v-img
+          v-if="marketInfo.profile_img!==null"
           :src="imgSrc(marketInfo.profile_img)"
           :max-height="`${Img_size}`"
           :max-width="`${Img_size}`"

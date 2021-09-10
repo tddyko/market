@@ -74,7 +74,6 @@ export default {
     },
     ratingStar: {
       get() {
-        //평균
         console.log("getters : " + this.$store.getters["marketDetail/getRating"])
         return this.$store.getters["marketDetail/getRating"]
       }

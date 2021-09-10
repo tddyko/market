@@ -95,10 +95,7 @@ router.put('/memberInformation/update',upload.single('userfile'),isLoggedInMembe
       Member.update({ 
         password : req.body.password,
         nickname : req.body.nickname,
-        phonenumber : req.body.phonenumber,
-        zipcode : req.body.zipcode,
-        address : req.body.address,
-        dt_address : req.body.dt_address
+        profile_img : req.file.path
       },
       {where : { member_id : req.user.member_id,}  
       }).then(r => {
@@ -135,34 +132,16 @@ router.delete('/membersignout',isLoggedInMember, async(req,res) => {
   }) 
 });
 
-/* localhost/users/memberInformation 접속  손님정보보기*/
-router.post('/memberInformation', isLoggedInMember, async (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(
-        `
-             이미지 : ${req.user.profile_img}
-             ID :  ${req.user.id}
-             이메일 : ${req.user.email}
-             닉네임 : ${req.user.nickname}            
-  `
-    );
-    res.end();
-});
+
 /* localhost/users/memberInformation/update 접속 손님정보수정 */
-router.put(
-    '/memberInformation/update',
+router.put('/memberInformation/update',
     upload.single('userfile'),
     isLoggedInMember,
     async (req, res) => {
-        console.dir(req.user);
         Member
             .update({
                 password: req.body.password,
                 nickname: req.body.nickname,
-                phonenumber: req.body.phonenumber,
-                zipcode: req.body.zipcode,
-                address: req.body.address,
-                dt_address: req.body.dt_address
             }, {
                 where: {
                     member_id: req.user.member_id

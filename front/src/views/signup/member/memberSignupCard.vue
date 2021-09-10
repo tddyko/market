@@ -61,6 +61,7 @@
               <v-btn
                 class="pa-0 ma-0"
                 type="button"
+                @click="idCheck"
               >
                 중복확인
               </v-btn>
@@ -184,7 +185,67 @@
                 name="닉네임"
               >
                 <v-text-field
-                  v-model="memberName"
+                  v-model="name"
+                  :error-messages="errors"
+                  class="ma-0 pa-0"
+                  clearable
+                  dense
+                  label="이름"
+                  outlined
+                  placeholder="이름을 입력해주세요."
+                />
+              </validation-provider>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="12"
+              lg="4"
+              md="4"
+              sm="12"
+              xl="4"
+            >
+              <validation-provider
+                v-slot="{ errors }"
+                :rules="{
+                  required: true,
+                }"
+                name="생일"
+              >
+                <v-text-field
+                  v-model="birthday"
+                  :error-messages="errors"
+                  class="ma-0 pa-0"
+                  clearable
+                  dense
+                  label="생일"
+                  outlined
+                  placeholder="생일을 입력해주세요 (19000000)"
+                />
+              </validation-provider>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="12"
+              lg="4"
+              md="4"
+              sm="12"
+              xl="4"
+            >
+              <validation-provider
+                v-slot="{ errors }"
+                :rules="{
+                  required: true,
+                }"
+                name="닉네임"
+              >
+                <v-text-field
+                  v-model="nickName"
                   :error-messages="errors"
                   class="ma-0 pa-0"
                   clearable
@@ -363,6 +424,9 @@ export default {
     id: null,
     email: null,
     passwd: null,
+    nickName : null,
+    name : null,
+    birthday : null,
     pwd_check1: null,
     pwd_check2: null,
     pwd_validate: null,
@@ -384,6 +448,11 @@ export default {
     },
   },
   methods: {
+    idCheck(){
+      if(this.id!==null){
+        this.$store.dispatch("marketSignup/actIdCheck",this.id)
+      }
+    },
     onClickImgUpload () {
       this.$refs.imageInput.click();
     },
@@ -396,8 +465,21 @@ export default {
     },
     async SignUp() {
       const result = await this.$refs.observer.validate()
-      if(result) {
-        alert('회원가입 로직')
+      console.log('adsdsadsa')
+      if(result && this.$store.getters["marketSignup/getIdCheck"]) {
+        this.$store.dispatch("memberSignup/signUp",{
+          id : this.id,
+          password: this.passwd,
+          name : this.name,
+          birthday : this.birthday,
+          email : this.email,
+          nickname : this.nickName,
+          phonenumber : this.phoneNum,
+          zipcode : this.postNum,
+          address : this.address,
+          dt_address : this.addressDetail,
+          state : 'member'
+        })
       }
     },
     resetForm() {

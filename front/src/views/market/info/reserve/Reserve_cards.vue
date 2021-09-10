@@ -13,7 +13,7 @@
       >
         <v-checkbox
           v-model="checkbox"
-          :value="card.menu_id"
+          :value="index"
         />
       </v-col>
       <v-col
@@ -45,6 +45,7 @@
                 hidden
                 multiple
                 type="file"
+                @change="uploadRoomImg(index)"
               >
               <v-avatar
                 color="warning lighten-2"
@@ -52,7 +53,8 @@
                 @click="onClickImgUpload(index)"
               >
                 <v-img
-                  :src="card.menu_img"
+                  v-if="card.room_images != 0 && card.room_images !=null"
+                  :src="imgSrc(card.room_images)"
                 />
               </v-avatar>
             </v-col>
@@ -69,14 +71,14 @@
                 centered-input
               >
                 <v-text-field
-                  v-model="card.menu_name"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model="card.room_name"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
-                  label="메뉴 이름"
+                  label="좌석 이름"
                   outlined
                   dense
-                  :value="card.menu_name"
+                  :value="card.room_name"
                 />
               </v-card-title>
               <v-card-text
@@ -84,13 +86,13 @@
                 :class="card_text"
               >
                 <v-text-field
-                  v-model="card.menu_info"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model="card.room_comment"
+                  :disabled="isDisabled(index)"
                   hide-details
                   outlined
-                  label="메뉴 설명"
+                  label="좌석 설명"
                   dense
-                  :value="card.menu_info"
+                  :value="card.room_comment"
                 />
               </v-card-text>
               <v-card-text
@@ -98,14 +100,14 @@
                 :class="card_text"
               >
                 <v-text-field
-                  v-model="card.menu_price"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model="card.room_price"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
                   outlined
-                  label="가격"
+                  label="추가 가격"
                   dense
-                  :value="card.menu_price"
+                  :value="card.room_price"
                 />
               </v-card-text>
             </v-col>
@@ -117,85 +119,65 @@
               lg="2"
               xl="2"
             >
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs'"
-                class="text-center"
-              >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  :disabled="isDisabled(card.menu_id)"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
-              </div>
-              <v-card-actions
-                v-else
-              >
-                <v-btn
-                  color="error"
-                  outlined
-                  class="text-center"
-                  :disabled="isDisabled(card.menu_id)"
-                  @click="deleteMenu"
-                >
-                  삭제
-                </v-btn>
-              </v-card-actions>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
     </v-row>
-    <reservecarddialog />
+    <Roomcarddialog />
   </v-container>
 </template>
 
 <script>
-import Reservecarddialog from "@/views/market/info/reserve/Reserve_delete_dialog";
+import Roomcarddialog from "@/views/market/info/reserve/Reserve_delete_dialog";
 export default {
   name: "Reservecard",
-  components: {Reservecarddialog},
+  components: {Roomcarddialog},
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),
   computed: {
     cards: {
       get() {
-        return this.$store.getters["menu/getMenu"]
+        console.log('get')
+        console.log(this.$store.getters["menu/getRoom"])
+        return this.$store.getters["menu/getRoom"]
       },
       set(value){
-        this.$store.commit("menu/setMenu",value)
+        console.log('set')
+        this.$store.dispatch("menu/actRoom",value)
       }
     },
     checkbox: {
       set(value){
-        this.$store.commit("menu/setMenu_Checkbox",value)
+        this.$store.commit("menu/setRoom_Checkbox",value)
       },
       get(){
-        return this.$store.getters["menu/getMenu_Checkbox"]
+        return this.$store.getters["menu/getRoom_Checkbox"]
       }
     },
   },
-  created(){
-    this.copyMenu();
+  created() {
+    this.$store.dispatch("menu/actRoom")
   },
   methods: {
     isDisabled(value){
-      const Checkbox = this.$store.getters["menu/getMenu_Checkbox"];
+      const Checkbox = this.$store.getters["menu/getRoom_Checkbox"];
       return !Checkbox.includes(value)
-    },
-    deleteMenu(e){
-      this.$store.commit("menu/setDelete",e)
-    },
-    copyMenu(){
-      this.$store.commit("menu/copymenu")
     },
     onClickImgUpload (value) {
       this.$refs.menuImageInput[value].click();
     },
+    uploadRoomImg(index){
+      console.log(this.$refs.menuImageInput[index].files[0])
+      this.$store.dispatch("menu/actUpdateRoomImg",
+        {index :index, property :  "room_img", value : this.$refs.menuImageInput[index].files[0]})
+    },
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+
   }
 }
 </script>

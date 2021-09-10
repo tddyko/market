@@ -63,7 +63,7 @@
           <v-col
               lg="2"
             >
-              {{ marketInfo.Market_inform.market_phone }}
+              {{ marketInfo.market_phone }}
             </v-col>
         </v-row>
         <v-row
@@ -126,6 +126,9 @@ export default {
         return this.$store.getters["marketDetail/getMarketTitle"]
       },
     }
+  },
+  created() {
+    this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
   },
   methods: {
     imgSrc(name){

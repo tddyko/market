@@ -151,7 +151,7 @@ export default {
         method: 'post',
         url: "http://localhost/login",
         headers: {},
-        withCredentials: true, //쿠키가 서로 저장
+        withCredentials : true,
         data: {
           // This is the body part
           id : this.id,
@@ -159,12 +159,21 @@ export default {
           login_switch: this.loginSwitch
         }
       }).then((response) =>{
-        if(response.data.id!=undefined){
+        console.log(response.data)
+        if(response.data.message){
+          alert(response.data.message)
+          return
+        }
+        if(response.data.id!==undefined){
           this.$session.set('id',response.data.id)
           this.$store.dispatch("authentiCation/actSession",this.$session.get('id'))
-          this.$router.push('/').catch((err)=>{
+          if(response.data.market_id!==undefined)
+          this.$router.push('/market').catch((err)=>{
             console.log(err)
-          })}
+          })
+          else
+            this.$router.push('/')
+        }
         else
           alert('아이디와 비밀번호를 다시 확인해 주세요')
       }).catch((err)=>{

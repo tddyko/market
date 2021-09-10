@@ -22,7 +22,6 @@
           max-width="calc(100% - 32px)"
         >
           <v-sparkline
-            :labels="Order.labels"
             :value="Order.value"
             color="white"
             line-width="2"

@@ -1,3 +1,4 @@
+import axios from 'axios'
 const state = () => ({
   week: [
     "첫재 주", "둘째 주", "셋째 주", "넷째 주"
@@ -149,7 +150,6 @@ const actions = {
   Info_Set_phonenumber({commit}, value){
     commit("Set_phonenumber", value)
   },
-
   send_infor_values({state}){
     console.log("sendInforVlaues actions")
     let formData = new FormData();
@@ -164,7 +164,6 @@ const actions = {
     else
       formData.append("start_time",
       (parseInt(state.Open_Time.substring(3))+12)+state.Open_Time.substring(5));
-
     if(state.Close_Time.substring(0,2) == "오전")
       formData.append("end_time", state.Close_Time.substring(3));
     else

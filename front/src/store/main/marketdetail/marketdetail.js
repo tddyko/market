@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import router from '../../../router'
 const state = () => ({
   reservations_number: 1,
   tabs: null,
@@ -27,20 +27,8 @@ const state = () => ({
     "메뉴8",
     "메뉴9",
   ],
-  ratingPoint: [
-    { ratingPoint: "5점" },
-    { ratingPoint: "4점" },
-    { ratingPoint: "3점" },
-    { ratingPoint: "2점" },
-    { ratingPoint: "1점" },
-  ],
-  valueDeterminate: [
-    { rating: 33 },
-    { rating: 33 },
-    { rating: 45 },
-    { rating: 1532 },
-    { rating: 11 },
-  ],
+  ratingPoint: [],
+  valueDeterminate: [ ],
   reserveTime: [],
   reserveTimeCh: [],
   cards: [],
@@ -69,7 +57,14 @@ const state = () => ({
   selectmenu:[],
   addmenu:[],
   selectOptions: [],
+  selectRoom :[], //assdasds
   reviews:[],
+  orderedInformation : {
+    requirement : null,
+    phoneNumber : null,
+    dt_address : null,
+    address : null
+  }
 });
 const getters = {
   getTabs: (state) => state.tabs,
@@ -94,6 +89,9 @@ const getters = {
   getSelectOptions : (state) =>state.selectOptions,
   getSelect: (state) => state.select_items,
   getReviews : (state) => state.reviews,
+  getOrderedInformation : (state) => state.orderedInformation,
+  getSelectRoom : (state)=> state.selectRoom
+
 };
 
 const mutations = {
@@ -155,12 +153,24 @@ const mutations = {
     cartItem.quantity--;
     state.selectmenu.push()
   },
-  setReviews : (state,data) => {
-        state.reviews = data
-      }
+  setReviews : (state,data) => state.reviews = data,
+  setRating(state, data){
+        console.log("setRating : " + data);
+        state.rating = data.ratingAvg;
+        console.log(data.ratingsCount)
+        for(let i in state.valueDeterminate){
+          state.valueDeterminate[i].rating = data.ratingsCount[i]
+        }
+  },
+  setOrderedInformation(state,data){
+    console.log(data)
+    state.orderedInformation = data
+    console.log(state.orderedInformation)
+  },
+  setSelectRoom(state,value){
+    state.selectRoom = value
+  }
 };
-
-
 
 
 const actions = {
@@ -196,13 +206,13 @@ const actions = {
     })
   },
   actMarketTitle({ commit },value) {
-    console.log("actMarketTitle : " + value)
     axios({
       url: `http://localhost/market_preview/${value}/imformation`,
       method : 'get',
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
+      console.log('sesese')
       console.log(response.data);
       commit("setMarketTitle", response.data);
     })
@@ -265,8 +275,7 @@ const actions = {
       commit("setRoom", response.data)
     })
   },
-  actReservation({ commit },value) {
-    console.log(value);
+  actReservation({ getters },value) {
     axios({
       url: `http://localhost/reservation/in/${value.marketName}`,
       method : 'post',
@@ -274,10 +283,10 @@ const actions = {
       withCredentials: true,
       data: {
         current_state : "예약",
-        order_count : value.count,
-        reserve_date: value.date,
-        reserve_time: value.time,
-        reserve_seat: value.room
+        order_count : getters.getReservations_number,
+        reserve_date: getters.Reservation_Get_date,
+        reserve_time: getters.getReserveTimeCh,
+        reserve_seat: getters.getSelectRoom.room
       }
   }).then((response) => {
     console.log(response.data);
@@ -286,8 +295,7 @@ const actions = {
   },
   actOrder({getters}, value){
   console.log('주문합니다')
-  console.log(getters.getSelectmenu)
-  /*
+  console.log(value)
     for(let order of value.orderItem){
       axios({
         url : `http://localhost/reservation/in/${value.marketName}`,
@@ -298,13 +306,21 @@ const actions = {
           current_state : "주문",
           order_count : order.quantity,
           name : order.name,
-          phonenumber : ' ',
-          address : ' ',
-          dt_address : ' ',
-          requirements : ' '
+          phonenumber : value.orderInfo.phoneNumber,
+          address : value.orderInfo.address,
+          dt_address : value.orderInfo.dt_address,
+          requirements : value.orderInfo.requirement
+        }
+      }).then(async(res)=>{
+        if(res.data.message !== 0){
+          alert(res.data.message)
+          router.push({ name: 'login' });
+        }else{
+            alert('주문이 완료 되었습니다')
+            router.push({name : 'MarketDetail'})
         }
       })
-    }*/
+    }
   },
   actIncrementItemQuantity({commit}, value) {
     commit("incrementItemQuantity", value);
@@ -313,14 +329,7 @@ const actions = {
     commit("decrementItemQuantity", value);
   },
   actSelectmenu({commit},value){commit("setSelectmenu",value)},
-    setRating : (state, data) => {
-      console.log("setRating : " + data);
-      state.rating = data.ratingAvg;
-      console.log(data.ratingsCount)
-      for(let i in state.valueDeterminate){
-        state.valueDeterminate[i].rating = data.ratingsCount[i]
-      }
-  },
+
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

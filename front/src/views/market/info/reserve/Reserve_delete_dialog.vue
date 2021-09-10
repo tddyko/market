@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="menu_Dialog"
+      v-model="room_Dialog"
       max-width="500"
       persistent
     >
@@ -24,7 +24,7 @@
             text
             outlined
             min-width="70"
-            @click="setMenu_Dialog"
+            @click="setRoom_Dialog"
           >
             아니요
           </v-btn>
@@ -47,46 +47,40 @@
 
 <script>
 export default {
-  name: "Reservecarddialog",
+  name: "Roomcarddialog",
   data () {
     return {
     }
   },
   computed: {
-    menu_Dialog: {
+    room_Dialog: {
       get () {
-        return this.$store.getters["menu/getMenu_Dialog"]
+        return this.$store.getters["menu/getRoom_Dialog"]
       }
     },
     get_dialog_menu_count(){
       let count = 0;
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            count++;
-          }
-        }
-      }
+      count = this.$store.getters["menu/getRoom_Checkbox"].length
       return count-1;
     },
     get_dialog_menu_name(){
-      for (let i = 0; i < this.$store.getters["menu/getMenu_Checkbox"].length; i++) {
-        for (let j = 0; j < this.$store.getters["menu/getMenu"].length; j++) {
-          if (this.$store.getters["menu/getMenu"][j].menu_id === this.$store.getters["menu/getMenu_Checkbox"][i]) {
-            return this.$store.getters["menu/getMenu"][j].menu_name;
-          }
-        }
+      console.log(this.$store.getters["menu/getRoom_Checkbox"][0])
+      try{
+        let index = this.$store.getters["menu/getRoom_Checkbox"][0]
+        let data =  this.$store.getters["menu/getRoom"][index].room_name
+        return data
+      }catch{
+        return null
       }
-      return "에러";
     }
   },
   methods: {
     setDeleteMenu() {
-      this.$store.commit("menu/setDelete")
-      this.setOption_Dialog()
+      this.$store.dispatch("menu/actRoomDelete")
+      this.setRoom_Dialog()
     },
-    setOption_Dialog() {
-      this.$store.commit("menu/setOption_Dialog")
+    setRoom_Dialog() {
+      this.$store.commit("menu/setRoom_Dialog")
     }
   }
 }

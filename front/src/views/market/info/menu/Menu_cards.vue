@@ -57,7 +57,7 @@
                   v-if="card.Product_imgs != 0 && card.Product_imgs !=null"
                   :src="imgSrc(card.Product_imgs[0].product_img)" />
                 <v-img
-                  v-if="previewSrc(index)!=0 && card.Product_imgs == null "
+                  v-else-if="previewSrc(index)!=0"
                   :src="previewSrc(index)"
                   />
               </v-avatar>
@@ -75,6 +75,7 @@
                 centered-input
               >
                 <v-text-field
+                  v-model="card.name"
                   :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
@@ -82,7 +83,6 @@
                   outlined
                   dense
                   :value="card.name"
-                  @input="getName($event,index)"
                 />
               </v-card-title>
               <v-card-text
@@ -90,13 +90,13 @@
                 :class="card_text"
               >
                 <v-text-field
+                  v-model = "card.product_info"
                   :disabled="isDisabled(index)"
                   hide-details
                   outlined
                   label="메뉴 설명"
                   dense
                   :value="card.product_info"
-                    @input="getInfo($event,index)"
                 />
               </v-card-text>
               <v-card-text
@@ -104,6 +104,7 @@
                 :class="card_text"
               >
                 <v-text-field
+                  v-model ="card.price"
                   :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
@@ -111,8 +112,6 @@
                   label="가격"
                   dense
                   :value="card.price"
-                  ref="priceInt"
-                  @input="getPrice($event,index)"
                 />
               </v-card-text>
             </v-col>
@@ -160,25 +159,10 @@ export default {
     isDisabled(test){
       const test2 = this.$store.getters["menu/getMenu_Checkbox"];
       return !test2.includes(test)
-      },
+    },
     imgSrc(name){
       name = name.replaceAll("\\", "/");
       return require(`../../../../../../back/${name}`);
-    },
-    getPrice(value,index){
-      console.log(value)
-      this.$store.dispatch("menu/actUpdate",
-        {index :index, property :  "price", value : parseInt(value)})
-    },
-    getInfo(value,index){
-      console.log(value)
-      this.$store.dispatch("menu/actUpdate",
-        {index :index, property :  "product_info", value : value})
-    },
-    getName(value,index){
-      console.log(value)
-      this.$store.dispatch("menu/actUpdate",
-        {index :index, property :  "name", value : value})
     },
     onClickImgUpload (value) {
       console.log(value)
@@ -186,7 +170,7 @@ export default {
     },
     uploadMenuImg(index){
       console.log(this.$refs.menuImageInput[index].files[0])
-      this.$store.dispatch("menu/actUpdate",
+      this.$store.dispatch("menu/actUpdateMenuImg",
         {index :index, property :  "menuImg", value : this.$refs.menuImageInput[index].files[0]})
     },
     previewSrc(index){

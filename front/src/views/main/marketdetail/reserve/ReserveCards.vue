@@ -96,7 +96,9 @@
                 <v-btn
                   color="indigo"
                   outlined
-                  @click="room(card.room_name)"/>
+                  @click="room(card.room_name,card.room_images)">
+                  담기
+                </v-btn>
               <div
                 v-if="$vuetify.breakpoint.name === 'xs'"
                 class="text-center"
@@ -141,11 +143,12 @@ export default {
       name = name.replaceAll("\\", "/");
       return require(`../../../../../../back/${name}`);
     },
-    room(res){
-      this.$store.commit('marketDetail/setRoom',res)
+    room(room, img){
+      this.$store.commit('marketDetail/setSelectRoom', {room : room, img : img})
     }
   },
 }
 </script>
 <style scoped>
 </style>
+`

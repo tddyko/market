@@ -36,7 +36,7 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
-    }
+    },
   }
 }
 </script>

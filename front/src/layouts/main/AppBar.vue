@@ -8,9 +8,9 @@
         <router-link to="/">
           <v-img
             :src="require('@/assets/logo.png')"
-            max-width="165"
-            max-height="30"
             contain
+            max-height="30"
+            max-width="165"
           />
         </router-link>
       </v-toolbar-title>
@@ -39,68 +39,86 @@
         </v-card>
       </v-expand-x-transition>
       <v-btn
-        @click="logout"
-      ></v-btn>
-      <v-btn
-        v-if="findSession === null"
+        v-if="userInfo === null"
         icon
         to="/login"
       >
         <v-icon>mdi-login-variant</v-icon>
       </v-btn>
-      <v-avatar
-        v-else
-        color="primary"
-        size="56"
-      ></v-avatar>
+      <v-btn
+        v-if="userInfo !== null"
+        icon
+        @click="logout"
+      >
+        <v-icon>mdi-logout-variant</v-icon>
+      </v-btn>
+      <router-link to="/mypage">
+        <v-avatar
+          class="mx-2"
+          v-if="userInfo !== null"
+        >
+          <img
+            alt="John"
+            :src="imgSrc(userInfo.profile_img)"
+          >
+        </v-avatar>
+      </router-link>
       <template
         v-if="$route.name === 'Main'"
         #extension
       >
         <main-tab-bar />
       </template>
+      <template
+        v-else-if="$route.name === 'mypage'"
+        #extension
+      >
+        <mypagetab />
+      </template>
     </v-app-bar>
   </v-container>
 </template>
 <script>
+import Mypagetab from "@/views/main/mypage/my_page_tab";
 import axios from "axios";
-
 export default {
   name: "MainAppBar",
   components: {
+    Mypagetab,
     MainTabBar: () => import('@/layouts/main/Tab')
+  },
+  computed : {
+    userInfo :{
+      get(){
+        console.log(this.$store.getters["authentiCation/getUserInfo"])
+        return this.$store.getters["authentiCation/getUserInfo"]
+      },
+    }
+  },
+  created() {
+    this.$store.dispatch("authentiCation/actUserInfo")
   },
   data: () => ({
     expand: false,
   }),
-  created() {
-    console.log(this.$session.get('id'))
-
-  },
-  computed:{
-    findSession:{
-      get(){
-        return  this.$store.getters["authentiCation/getSession"]
-      },
-      set(value){
-        this.$store.dispatch("authentiCation/actSession", this.$session.get('id'))
-      }
-    }
-  },
-  methods:{
+  methods : {
     logout(){
       axios({
         url : 'http://localhost/logout',
-        method : 'post'
+        method : 'post',
+        withCredentials : true
       }).then(()=>{
-        this.$session.destroy();
-        console.log(this.$session.get('id'))
+        location.reload()
       })
+    },
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../back/${name}`);
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

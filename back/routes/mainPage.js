@@ -14,8 +14,8 @@ router.get('/categorys/list', async (req, res)=>{
 })
 
 router.get("/:category", async (req, res) => {
-
-  let categorys = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리']
+  console.log(req.params.category)
+  let categories = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리']
 
   let markets = await Market.findAll({
     include: [
@@ -30,7 +30,7 @@ router.get("/:category", async (req, res) => {
       {
         model : Category,
         where: {
-          name : categorys[req.params.category]
+          name : categories[req.params.category]
         }
       }
     ],

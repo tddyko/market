@@ -3,6 +3,7 @@ const localStrategy = require('passport-local').Strategy;
 const {Market, Member} = require('../models');
 const bcrypt = require('bcrypt');
 module.exports = () => {
+
     passport.use(new localStrategy({
         usernameField: 'id',
         passwordField: 'passwd',

@@ -2,7 +2,7 @@
 const { isLoggedInMarket, isLoggedInMember } = require('./middlewares');
 const express = require('express');
 const router = express.Router();
-const {Market,Order,Product} = require('../models');
+const {Market,Order,Product,Product_img} = require('../models');
 const {v4: uuidv4} = require('uuid'); 
 const {Op} = require('sequelize')
 const sequelize = require('sequelize');
@@ -29,16 +29,15 @@ router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
     await orders.addProduct(findProduct).then(r=>{if(r)console.log('성공'); else console.log('실패    ') })
 
 });
-router.get('/updateState/:orderId',isLoggedInMarket, async(req,res)=>{
-    Order.update({
-        current_state : '주문완료'},
-        {where : {order_id: req.params.orderId,current_state : "주문"},
-    })
-})  
 /*  
 localhost/order/list 가게주문내역
 */
 router.get('/list',isLoggedInMarket, async(req,res)=>{
+
+    Order.update(
+        {current_state : "주문 완료"},
+        {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
+    )
     dayjs.locale('ko');
     let dateValue = req.query.dateValue;
     let daterange ={};
@@ -79,64 +78,39 @@ router.get('/list',isLoggedInMarket, async(req,res)=>{
     res.json(result);
 });
 
-/*  
-localhost/order/member_list 손님주문내역
-*/
-router.get('/member_list',isLoggedInMember, async(req,res) => {
-    dayjs.locale('ko');
-    let {market_id} = await Order.findOne({
-        attributes : ['market_id'],
-        where : {member_id : req.user.member_id}
-    })
-    //orderTime: "2021.01.01.(월) 오후3시 16분"
-    let result = await Order.findAll({
-        attributes : ['order_id','created_at','order_count','price','current_state'],
-        include :[{
-             model : Market,
-             attributes : ['market_name']},
-            {
-                model : Product,
-                attributes: ['name'],
-                through : {attributes :[]} 
-            },
-    ],
-        where : {market_id,} ,
-        order : [['createdAt', 'DESC']]
-    }.then(r=>{
-        r.forEach(element => {  
-            element.created_at = dayjs(element.created_at).format('MM/DD (ddd)')
-        });
-        return r;
-    }));
-    res.json(result);
-});
-
- 
-/*  
+/*
+/*
 localhost/order/member_list 주문내역
 */
 router.get('/member_list',isLoggedInMember, async(req,res) => {
     dayjs.locale('ko');
-    let {market_id} = await Order.findOne({
-        attributes : ['market_id'],
-        where : {member_id : req.user.member_id}
-    })
-    let  result = await Order.findAll({
-        attributes : [[sequelize.fn('date_format', sequelize.col('Order.created_at'),dayjs().format('MM/DD (ddd)')),'created_at'],'order_count','price','current_state'],
-        
+    console.log(dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss'))
+    await Order.update(
+              {current_state : "주문 완료"},
+              {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
+        )
+    let result = await Order.findAll({
+        attributes : [[sequelize.fn('date_format',
+         sequelize.col('Order.created_at'),dayjs().format('MM/DD (ddd)')),'created_at'],'order_count','price','current_state','order_id'],
         include :[{
              model : Market,
              attributes : ['market_name']},
             {
                 model : Product,
                 attributes: ['name'],
-                through : {attributes :[]} 
+                include : [
+                                        {
+                                            model : Product_img,
+                                            attributes : ['product_img']
+                                            ,required: false
+                                     }
+                                ]
             },
     ],
-         where : {market_id,} ,
+         where : {member_id : req.user.member_id} ,
         order : [['createdAt', 'DESC']]
 
-});
+    });
     res.json(result);
 });
  

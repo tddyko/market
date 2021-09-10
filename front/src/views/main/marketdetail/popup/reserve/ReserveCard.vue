@@ -17,9 +17,10 @@
     <v-row>
       <v-col>
         <v-img
+          v-if="getRoom.img!==undefined"
           class="white--text align-end"
           height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          :src="imgSrc(getRoom.img)"
         />
       </v-col>
     </v-row>
@@ -48,7 +49,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          {{ getRoom }}
+          {{ getRoom.room }}
         </div>
       </v-col>
     </v-row>
@@ -143,24 +144,29 @@ export default {
     },
     getRoom : {
       get() {
-        console.log(this.$store.getters["marketDetail/getRoom"]);
-        return this.$store.getters["marketDetail/getRoom"]
+        console.log(this.$store.getters["marketDetail/getSelectRoom"]);
+        return this.$store.getters["marketDetail/getSelectRoom"]
       }
     },
   },
-  created(){
-    //console.log(this.$store.getters["marketDetail/getReserveTime"],this.$session.get('market_name'));
-
+  mounted(){
+    if(this.$store.getters["marketDetail/getSelectRoom"].img===undefined){
+      alert('좌석을 선택 해주세요')
+      this.$store.getters["marketDetail/getFloating"].reserveDialog = false
+    }
+    if(!this.$store.getters["marketDetail/getReserveTimeCh"].length>0){
+      alert('시간을 선택 해주세요')
+      this.$store.getters["marketDetail/getFloating"].reserveDialog = false
+    }
   },
   methods: {
     button() {
-      let inputdata = new Object();
-      inputdata.room = this.$store.getters["marketDetail/getRoom"];
-      inputdata.time = this.$store.getters["marketDetail/getReserveTimeCh"];
-      inputdata.date = this.$store.getters["market_modules/Reservation_Get_date"];
-      inputdata.count = this.$store.getters["marketDetail/getReservations_number"];
-      inputdata.marketName = this.$session.get('market_name');
-      this.$store.dispatch('marketDetail/actReservation',inputdata);
+      this.$store.dispatch('marketDetail/actReservation', {marketName : this.$session.get('market_name')});
+    },
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../../back/${name}`);
     }
   }
 }

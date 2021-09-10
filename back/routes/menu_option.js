@@ -36,10 +36,12 @@ router.post("/updateOption/:id/:opId", isLoggedInMarket, async (req, res) => {
   inputData.pd_option_group_id = req.params.id
   await updateOrCreate(Pd_option,{pd_option_id : req.params.opId}, inputData)
 });
-router.post("/updateOptionGroup/:id", isLoggedInMarket, async (req, res) => {
+router.post("/updateOptionGroup/:pdId/:id", isLoggedInMarket, async (req, res) => {
+console.log(req.body)
+console.log(req.params.id)
   let inputData = {name} = req.body;
-  inputData.product_id = req.params.id
-  await updateOrCreate(Pd_option_group,{product_id : req.params.id}, inputData)
+  inputData.product_id = req.params.pdId
+  await updateOrCreate(Pd_option_group,{pd_option_group_id : req.params.id}, inputData)
 });
 
 async function updateOrCreate(tableName, where, inputData){
@@ -47,7 +49,7 @@ async function updateOrCreate(tableName, where, inputData){
     if(!findData){
     if(tableName == 'Pd_option')
         inputData.pd_option_id = uuidv4();
-    if(tableName =='pd_option_group_id')
+    if(tableName =='Pd_option_group')
         inputData.pd_option_group_id = uuidv4();
         tableName.create(inputData)
     }else{
