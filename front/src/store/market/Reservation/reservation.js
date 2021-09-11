@@ -14,6 +14,7 @@ const state = () => ({
   Tab: null,
   Reservation_List_Headers: [
     {text: '예약번호', align: 'center', sortable: false, value: 'reservation_id',},
+    {text: '예약좌석명', value: 'reserve_seat', align: 'center'},
     {text: '예약날짜', value: 'reserve_date', align: 'center'},
     {text: '예약시간', value: 'reserve_time', align: 'center'},
     {text: '예약인원', value: 'order_count', align: 'center'},
@@ -27,7 +28,7 @@ const state = () => ({
 });
 
 const getters = {
-  Get_Reserve_Review(state){ 
+  Get_Reserve_Review(state){
     return state.Reservation_Review;
   },
   Get_Reserve_Tab_Headers(state){
@@ -89,15 +90,15 @@ const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메�
 };
 
 const actions = {
-  actReserve_Review_Items({commit},data){   
+  actReserve_Review_Items({commit},data){
     if(data.dates.length>1)
     axios({
       url : 'http://localhost/reseve_review/reviews/list',
       method : 'get',
       withCredentials : true,
-      params : { 
+      params : {
         date1 : data.dates[0],
-        date2 : data.dates[1], 
+        date2 : data.dates[1],
         tab : data.tabIndex
       }
     }).then((response)=>{
@@ -108,7 +109,7 @@ const actions = {
       commit('Set_Reserve_Review_Items',response.data)
     })
   },
-  actReserve_List_Items({ commit },date){ 
+  actReserve_List_Items({ commit },date){
     console.log("input date is " + date)
     axios({
       url : 'http://localhost/reservation/list',
@@ -117,7 +118,7 @@ const actions = {
       params : {
         dateValue : date,
       }
-    }).then((response)=>{ 
+    }).then((response)=>{
       console.log(response.data)
       commit("Set_Reserve_List_Items", response.data);
     })
@@ -133,7 +134,7 @@ const actions = {
     }).then((response)=>{
       console.log(response)
     })
-  }, 
+  },
 }; // 내가 변이를 할때! 확정을 지어줄때 커밋할때
 
 export default { namespaced: true, state, getters, mutations, actions };
