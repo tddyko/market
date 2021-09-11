@@ -30,11 +30,10 @@ router.post('/in/:marketname',isLoggedInMember, async(req,res)=>{
 //고객이 내가 예약한 목록을 보는라우터
 router.get('/myReserve',isLoggedInMember, async(req,res)=>{
     dayjs.locale('ko')
-    console.log(dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss'))
-//     Reservation.update(
-//       {current_state : "예약 완료"},
-//       {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
-//     )
+await Reservation.update(
+               {current_state : "예약 완료"},
+               {where : {reserve_date : {[Op.gte]: dayjs().format('YYYY-MM-DD') }}}
+    )
     let myReserve = await Reservation.findAll({
         include :[{
             model : Market,
@@ -58,12 +57,13 @@ router.get('/myReserve',isLoggedInMember, async(req,res)=>{
 
 //가게가 예약한 목록을 보는라우터 2020-10-20
 router.get('/list', isLoggedInMarket, async(req,res)=>{
-    dayjs.locale('ko'); 
-//     Reservation.update(
-//           {current_state : "예약 완료"},
-//           {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
-//     )
-    var dateValue = req.query.dateValue; 
+    dayjs.locale('ko');
+    console.log(req.query)
+    await Reservation.update(
+               {current_state : "예약 완료"},
+               {where : {reserve_date : {[Op.lte]: dayjs().format('YYYY-MM-DD') }}}
+    )
+    var dateValue = req.query.dateValue;
     if(dateValue)
         var date = dayjs(dateValue).format('YYYY-MM-DD');
     else

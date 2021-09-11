@@ -33,10 +33,10 @@ router.post('/:marketNm',isLoggedInMember, async(req,res)=>{
 localhost/order/list 가게주문내역
 */
 router.get('/list',isLoggedInMarket, async(req,res)=>{
-//     Order.update(
-//         {current_state : "주문 완료"},
-//         {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
-//     )
+await Order.update(
+              {current_state : "주문 완료"},
+              {where : {createdAt : {[Op.lte]: dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss') }}}
+        )
     dayjs.locale('ko');
     let dateValue = req.query.dateValue;
     let daterange ={};
@@ -84,10 +84,10 @@ localhost/order/member_list 주문내역
 router.get('/member_list',isLoggedInMember, async(req,res) => {
     dayjs.locale('ko');
     console.log(dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss'))
-//     await Order.update(
-//               {current_state : "주문 완료"},
-//               {where :{createdAt : {[Op.lte]: [dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss')] }}}
-//         )
+    await Order.update(
+              {current_state : "주문 완료"},
+              {where : {createdAt : {[Op.lte]: dayjs().subtract(1, 'hour').format('YYYY-MM-DD hh:mm:ss') }}}
+        )
     let result = await Order.findAll({
         attributes : [[sequelize.fn('date_format',
          sequelize.col('Order.created_at'),dayjs().format('MM/DD (ddd)')),'created_at'],'order_count','price','current_state','order_id'],
