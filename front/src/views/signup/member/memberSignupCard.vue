@@ -327,6 +327,7 @@
               <v-btn
                 class="pa-0 ma-0"
                 type="button"
+                @click="showApi"
               >
                 주소검색
               </v-btn>
@@ -390,6 +391,7 @@
                   placeholder="상세주소를 입력해주세요."
                 />
               </validation-provider>
+              <div ref="embed"></div>
             </v-col>
           </v-row>
           <v-row>
@@ -494,7 +496,36 @@ export default {
       this.addressDetail = null
       this.dialog.memberSignupDialog = false
       this.$refs.observer.reset()
+    },
+    showApi() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          var addr = '';
+          var extraAddr = '';
+          if (data.userSelectedType === 'R') {
+            addr = data.roadAddress;
+          } else {
+            addr = data.jibunAddress;
+          }
+          if(data.userSelectedType === 'R'){
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+              extraAddr += data.bname;
+            }
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+
+            if(extraAddr !== ''){
+              extraAddr = ' (' + extraAddr + ')';
+            }
+          }
+          this.postNum = data.zonecode;
+          this.address = addr;
+          // 커서를 상세주소 필드로 이동한다.
+          this.addressDetail = extraAddr
+
+      }}}).open()
     }
+
   }
 }
 </script>
