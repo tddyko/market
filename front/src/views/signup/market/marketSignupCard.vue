@@ -378,6 +378,7 @@
               <v-btn
                 class="pa-0 ma-0"
                 type="button"
+                @click="showApi"
               >
                 주소검색
               </v-btn>
@@ -516,7 +517,6 @@ export default {
       this.$refs.imageInput.click();
     },
     onChangeImages (e) {
-
     },
     async SignUp() {
       const result = await this.$refs.observer.validate()
@@ -551,9 +551,31 @@ export default {
       this.dialog.marketSignupDialog = false
       this.market_phone = null
       this.$refs.observer.reset()
+    },
+    showApi() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          let fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+          let extraRoadAddr = ''; // 도로명 조합형 주소 변수
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
+          }
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+          }
+          if (fullRoadAddr !== '') {
+            fullRoadAddr += extraRoadAddr;
+          }
+          this.zip = data.zonecode; //5자리 새우편번호 사용 this.addr1 = fullRoadAddr;
+        }
+      }).open()
     }
   }
 }
 </script>
+
 <style scoped>
 </style>
