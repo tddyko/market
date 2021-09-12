@@ -6,13 +6,13 @@
           class="mx-2 mb-2"
         >
           <img
-            alt="John"
-            src="https://cdn.vuetifyjs.com/images/john.jpg"
+            alt="마켓 로고"
+            :src="imgSrc(userInfo.profile_img)"
           >
         </v-avatar>
       </v-list-item-title>
       <v-list-item-subtitle>
-        <label class="text-h6">마켓이름</label>
+        <label class="text-h6">{{ userInfo.market_name }}</label>
       </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
@@ -20,7 +20,24 @@
 
 <script>
 export default {
-  name: "DrawerHeader"
+  name: "DrawerHeader",
+  computed: {
+    userInfo: {
+      get() {
+        return this.$store.getters["authentiCation/getMarketInfo"]
+      },
+    }
+  },
+  mounted() {
+    this.$store.dispatch("authentiCation/actUserInfo")
+  },
+  methods : {
+    imgSrc(name) {
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../back/${name}`);
+    }
+  }
 }
 </script>
 

@@ -20,7 +20,7 @@ router.post('/login',(req,res,next)=>{
       console.log(info.message);
       return res.redirect(`/loginError/${info.message}`);
     }
-    return req.Login(user,(loginError)=>{
+    return req.login(user,(loginError)=>{
       if(loginError){
         console.error(loginError);
         return next(loginError);

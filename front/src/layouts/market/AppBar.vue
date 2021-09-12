@@ -8,18 +8,27 @@
       <router-link to="/market">
         <v-img
           :src="require('@/assets/logo.png')"
-          contain
-          max-height="30"
           max-width="165"
+          max-height="30"
+          contain
         />
       </router-link>
     </v-toolbar-title>
     <v-spacer />
     <v-btn
+      v-if="userInfo === null"
       icon
       to="/login"
     >
       <v-icon>mdi-login-variant</v-icon>
+    </v-btn>
+    <v-btn
+      v-if="userInfo!==null"
+      icon
+      @click="logout"
+      to="/"
+    >
+      <v-icon>mdi-logout-variant</v-icon>
     </v-btn>
     <router-link to="/market/mypage">
       <v-avatar
@@ -27,7 +36,7 @@
       >
         <img
           alt="John"
-          src="https://cdn.vuetifyjs.com/images/john.jpg"
+          :src="imgSrc(userInfo.profile_img)"
         >
       </v-avatar>
     </router-link>
@@ -35,6 +44,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "MarketAppBar",
   computed: {
@@ -45,7 +56,28 @@ export default {
         set(v) {
           return this.$store.dispatch('app/toggleDrawer', v)
         }
-      }
+      },
+    userInfo :{
+      get(){
+        return this.$store.getters["authentiCation/getMarketInfo"]
+      },
+    }
+  },
+  methods : {
+    logout(){
+      axios({
+        url : 'http://localhost/logout',
+        method : 'post',
+        withCredentials : true
+      }).then(()=>{
+        location.reload()
+      })
+    },
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../back/${name}`);
+    }
   }
 }
 </script>

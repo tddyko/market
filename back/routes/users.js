@@ -7,13 +7,7 @@ const {isLoggedInMember, isLoggedInMarket} = require('./middlewares');
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/user_signup_images/');
- 
 
-/*
-localhost/users/storeInformation로 접속
-수정중 
-가게 테이블 정보 보는 용도
-*/                                                                                                                                                                                                                                                                                                                                  
 router.get(
     '/storeInformation', 
     isLoggedInMarket,
@@ -98,6 +92,22 @@ router.post('/memberInformation/update', upload.single('userfile'),  isLoggedInM
   }
 );
 
+router.post('/marketInformation/update', isLoggedInMarket, async (req, res) => {
+    console.log(req.body)
+    let {market_name,password} = req.body
+    let inputdata = {market_name,password}
+    for(let key in inputdata){
+        if(inputdata[key] === undefined ||inputdata[key] === null )
+        delete inputdata[key];
+    }
+    Market.update(inputdata, {
+                where: {
+                    market_id: req.user.market_id
+                }
+    }).catch(err => console.dir(err));
+});
+
+
 router.get('/checkNickName/:nickname',isLoggedInMember,async(req,res)=>{
     let find = await Member.findOne({attributes : ['nickname'],
         where : { nickname : req.params.nickname}
@@ -107,6 +117,18 @@ router.get('/checkNickName/:nickname',isLoggedInMember,async(req,res)=>{
         else
             return true
     })
+    res.json(find)
+})
+router.get('/checkMarketName/:market_name',isLoggedInMarket,async(req,res)=>{
+    let find = await Market.findOne({attributes : ['market_name'],
+        where : { market_name : req.params.market_name}
+    }).then((res)=>{
+        if(res)
+            return false
+        else
+            return true
+    })
+    console.log(find)
     res.json(find)
 })
 

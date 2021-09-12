@@ -120,8 +120,6 @@ const actions = {
       })
   },
   actChangeMemberInfo({commit},value){
-  console.log('actChangeMemberInfo')
-  console.log(value)
   if(value.checkNickName ===false && value.nickname!==null)
     alert('닉네임 중복 확인을 해주세요')
    let formData = new FormData()
@@ -149,7 +147,35 @@ const actions = {
         alert('사용 불가능한 닉네임 입니다')
       }
     )
-  }
+  },
+   checkMarketName({getters},value){
+    if(getters.getChangeData.nickname!==null)
+      axios({
+        url : `http://localhost/users/checkMarketName/${getters.getChangeData.nickname}`,
+        method : 'get',
+        withCredentials : true
+      }).then(async(res)=>{
+        getters.getChangeData.checkNickName = res.data
+          if(res.data === true)
+          alert('사용 가능한 닉네임 입니다')
+          else
+          alert('사용 불가능한 닉네임 입니다')
+        }
+      )
+    },
+   actChangeMarketInfo({commit},value){
+      if(value.checkNickName ===false && value.nickname!==null)
+        alert('닉네임 중복 확인을 해주세요')
+      axios({
+        method:'post',
+        url : 'http://localhost/users/marketInformation/update',
+        withCredentials : true,
+        data : {
+          market_name : value.nickname,
+          password : value.password
+        }
+      })
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };
