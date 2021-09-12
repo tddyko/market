@@ -42,7 +42,12 @@
                 color="warning lighten-2"
                 size="130"
                 tile
-              />
+              >
+                <img
+                  :src="imgSrc(card.room_images)"
+                  alt="noImages"
+                >
+              </v-avatar>
             </v-col>
             <v-col
               cols="12"
@@ -66,13 +71,16 @@
                 class="text--secondary"
                 :class="card_text"
               >
-                메뉴 설명
+                {{ card.room_name }}
+              </v-card-text>
+              <v-card-text class="text-left font-weight-bold price">
+                {{ card.room_comment }}
               </v-card-text>
               <v-card-text
                 class="font-weight-bold price"
                 :class="card_text"
               >
-                9,900원
+                {{ card.room_price }}원
               </v-card-text>
             </v-col>
             <v-spacer />
@@ -83,6 +91,14 @@
               lg="2"
               xl="2"
             >
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  color="indigo"
+                  outlined
+                  @click="room(card.room_name,card.room_images)">
+                  담기
+                </v-btn>
               <div
                 v-if="$vuetify.breakpoint.name === 'xs'"
                 class="text-center"
@@ -95,16 +111,6 @@
                   담기
                 </v-btn>
               </div>
-              <v-card-actions
-                v-else
-              >
-                <v-btn
-                  color="indigo"
-                  outlined
-                  class="text-center"
-                >
-                  담기
-                </v-btn>
               </v-card-actions>
             </v-col>
           </v-row>
@@ -124,14 +130,25 @@ export default {
   computed: {
     cards: {
       get() {
-        return this.$store.getters["marketDetail/getCards"]
+        console.log(this.$store.getters["marketDetail/getRoom"]);
+        return this.$store.getters["marketDetail/getRoom"]
       }
     },
   },
-
+  beforeCreate(){
+    return this.$store.dispatch("marketDetail/actRoom",this.$session.get('market_name'))
+  },
+  methods: {
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    },
+    room(room, img){
+      this.$store.commit('marketDetail/setSelectRoom', {room : room, img : img})
+    }
+  },
 }
 </script>
-
 <style scoped>
-
 </style>
+`

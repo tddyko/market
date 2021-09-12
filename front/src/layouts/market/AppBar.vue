@@ -7,7 +7,7 @@
     <v-toolbar-title>
       <router-link to="/market">
         <v-img
-          src="@/assets/logo.png"
+          :src="require('@/assets/logo.png')"
           max-width="165"
           max-height="30"
           contain

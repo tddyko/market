@@ -2,12 +2,27 @@
   <v-container class="fill-height">
     <v-row justify="center">
       <v-col cols="auto">
+        <v-col cols="auto">
+          <router-link to="/">
+            <v-img
+              :src="require('@/assets/logo.png')"
+              class="mx-auto mb-6"
+              contain
+              width="165px"
+            />
+          </router-link>
+        </v-col>
         <v-card
           width="450"
         >
           <v-card-text class="align-center">
-            <validation-observer>
-              <v-form>
+            <validation-observer
+              ref="observer"
+              v-slot="{ invalid }"
+            >
+              <v-form
+                @submit.prevent="login"
+              >
                 <validation-provider
                   v-slot="{ errors }"
                   :rules="{
@@ -53,7 +68,7 @@
                 <v-row class="mb-1 align-center">
                   <v-col>
                     <v-switch
-                      v-model="login_switch"
+                      v-model="loginSwitch"
                       inset
                     />
                   </v-col>
@@ -78,11 +93,10 @@
                   </v-col>
                 </v-row>
                 <v-btn
+                  :disabled="invalid"
                   block
                   color="primary"
-                  dark
-                  x-large
-                  @click="login()"
+                  type="submit"
                 >
                   로그인
                 </v-btn>
@@ -90,7 +104,8 @@
                   <v-col>
                     <div>
                       아직 노웨잇 회원이 아니세요?
-                      <sign-up />
+                      <member-signup v-if="loginSwitch === false" />
+                      <market-signup v-else />
                     </div>
                   </v-col>
                 </v-row>
@@ -103,38 +118,64 @@
   </v-container>
 </template>
 <script>
+
+import axios from 'axios'
 export default {
+
   name: 'Login',
   components: {
-    SignUp: () => import('@/views/login/market_signup')
+    MarketSignup: () => import('@/views/signup/market/marketSignupDialog'),
+    MemberSignup: () => import('@/views/signup/member/memberSignupDialog')
   },
   data: () => ({
     id: null,
     passwd: null,
     pwd_check: false,
-    login_switch: null,
   }),
   computed: {
-    user(){return this.$store.getters.user;}
+    user(){
+      return this.$store.getters.user;
+    },
+    loginSwitch: {
+      get() {
+        return this.$store.getters["authentiCation/getLoginSwitch"]
+      },
+      set(value) {
+        this.$store.commit('authentiCation/setLoginSwitch', value)
+      }
+    }
   },
   methods:  {
-
     async login() {
-      console.log("ww")
-      this.$Axios({
+      axios({
         method: 'post',
         url: "http://localhost/login",
         headers: {},
-        withCredentials: true, //쿠키가 서로 저장
+        withCredentials : true,
         data: {
           // This is the body part
-          id : this.id, passwd: this.passwd, login_switch: this.login_switch
+          id : this.id,
+          passwd: this.passwd,
+          login_switch: this.loginSwitch
         }
       }).then((response) =>{
-        console.log(response.data.market_id)
-        this.$router.push('/market').catch((err)=>{
-          console.log(err)
-        })
+        console.log(response.data)
+        if(response.data.message){
+          alert(response.data.message)
+          return
+        }
+        if(response.data.id!==undefined){
+          this.$session.set('id',response.data.id)
+          this.$store.dispatch("authentiCation/actSession",this.$session.get('id'))
+          if(response.data.market_id!==undefined)
+          this.$router.push('/market').catch((err)=>{
+            console.log(err)
+          })
+          else
+            this.$router.push('/')
+        }
+        else
+          alert('아이디와 비밀번호를 다시 확인해 주세요')
       }).catch((err)=>{
         console.log(err)
       })

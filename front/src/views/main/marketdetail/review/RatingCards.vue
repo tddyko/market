@@ -43,8 +43,8 @@
         cols="3"
       >
         <v-progress-linear
-          v-for="value in valueDeterminate"
-          :key="value"
+          v-for="(value,index) in valueDeterminate"
+          :key="index"
           :value="value.rating"
           class="my-8"
           color="indigo darken-2"
@@ -61,16 +61,20 @@ export default {
   computed: {
     valueDeterminate: {
       get() {
+        //개별 별 개수
+        console.log(this.$store.getters["marketDetail/getValueDeterminate"])
         return this.$store.getters["marketDetail/getValueDeterminate"]
       }
     },
     ratingPoint: {
       get() {
+        //5점 , 4점 ,3점 ,2점 1점
         return this.$store.getters['marketDetail/getRatingPoint']
       }
     },
     ratingStar: {
       get() {
+        console.log("getters : " + this.$store.getters["marketDetail/getRating"])
         return this.$store.getters["marketDetail/getRating"]
       }
     },
@@ -83,6 +87,11 @@ export default {
         default : return '18'
       }
     },
+
+  },
+  created(){
+    this.$store.dispatch("marketDetail/actRating",
+        this.$session.get('market_name'))
   }
 }
 </script>

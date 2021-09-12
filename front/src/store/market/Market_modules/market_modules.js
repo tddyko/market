@@ -3,14 +3,14 @@ const state = () => ({
   Order_menu: null,
   Order_menu2: false,
   Order_tab: null,
-  Order_dates: [],
+  Order_dates: [],//달력으로 날짜 고르는 것
   Order_date: new Date().toISOString().substring(0,10),
 
   //예약 내역, 예약 리뷰
   Reservation_tab: null,
   Reservation_menu: null,
   Reservation_menu2: false,
-  Reservation_dates: [],
+  Reservation_dates: [], //달력으로 날짜 고르는 것
   Reservation_date: new Date().toISOString().substring(0,10),
 });
 
@@ -25,7 +25,7 @@ const mutations = {
   Order_Set_Menu2(state, value) {
     state.Order_menu2 = value;
   },
-  Order_Set_Dates(state, value){
+  Order_Set_Dates(state, value){ 
     state.Order_dates = value;
   },
   Order_Update_Menu(state) {

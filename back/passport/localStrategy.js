@@ -3,13 +3,16 @@ const localStrategy = require('passport-local').Strategy;
 const {Market, Member} = require('../models');
 const bcrypt = require('bcrypt');
 module.exports = () => {
+
     passport.use(new localStrategy({
         usernameField: 'id',
         passwordField: 'passwd',
         passReqToCallback: true,
     }, async (req, userId, password, done) => {
         try {
+
             let login_switch = req.query.login_switch ||req.body.login_switch
+             console.log("login_switch : " + login_switch)
             if (login_switch === true) {
                 exUser = await Market.findOne({where: {id: userId}});
             } else {

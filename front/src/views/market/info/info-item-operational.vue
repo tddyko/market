@@ -24,9 +24,15 @@
           align="center"
         >
           <v-avatar size="100">
+            <v-img
+              v-if="previewImg!==null"
+              :src="profileImgPreview"
+            >
+            </v-img>
             <img
+              v-else-if="userInfo.profile_img"
               alt="John"
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src="imgSrc(userInfo.profile_img)"
             >
           </v-avatar>
         </v-col>
@@ -43,6 +49,7 @@
             hidden
             multiple
             type="file"
+            @change="uploadProfileImg"
           >
           <v-btn
             color="success"
@@ -77,6 +84,7 @@
             hide-details
             no-resize
             outlined
+            @input="informationInput($event)"
           />
         </v-col>
       </v-row>
@@ -105,12 +113,13 @@
             hidden
             multiple
             type="file"
+            @change="uploadInforImg"
           >
           <v-btn
             id="image-box"
             color="success"
             outlined
-            class="rounded-lg d-inline"
+            class="rounded-xl d-inline"
             type="button"
             width="60"
             height="60"
@@ -121,10 +130,11 @@
             </v-icon>
           </v-btn>
         </v-col>
+        <!--프리뷰 이미지-->
         <v-col
-          v-for="imageInput in Get_Image"
+          v-for="(imageInput,index) in previewImg"
           v-show="Get_Image != null"
-          :key="imageInput"
+          :key="index"
           cols="auto"
           sm="auto"
           md="auto"
@@ -132,10 +142,8 @@
           xl="auto"
         >
           <v-img
-            class="rounded-lg"
-            :src="imageInput.image"
-            width="60"
-            height="60"
+            :src="imageInput"
+            max-width="35"
           />
         </v-col>
       </v-row>
@@ -165,6 +173,7 @@
             dense
             hide-details
             outlined
+             @input="phonnumberInput($event)"
           />
         </v-col>
       </v-row>
@@ -300,6 +309,7 @@
             hide-details
             label="주"
             solo
+            @change="setWeek"
           />
         </v-col>
         <v-col
@@ -316,6 +326,7 @@
             hide-details
             label="일"
             solo
+            @change="setDay"
           />
         </v-col>
       </v-row>
@@ -326,9 +337,11 @@
           height="40"
           type="submit"
           width="80"
+          @click="sendInfo"
         >
           저장
         </v-btn>
+        {{ $vuetify.breakpoint.name }}
       </div>
     </v-container>
   </v-form>
@@ -337,8 +350,20 @@
 <script>
 export default {
   name: "InfoItemOperational",
-
+  data(){
+    return{
+      profileImgPreview : null,
+      informfiles :[],
+      previewImg :[],
+    }
+  },
   computed: {
+    userInfo :{
+      get(){
+        console.log(this.$store.getters["authentiCation/getUserInfo"])
+        return this.$store.getters["authentiCation/getUserInfo"]
+      },
+    },
     Get_Image(){
       return this.$store.getters["info/Get_Info_Operrational_img"]
     },
@@ -381,27 +406,69 @@ export default {
       }
     },
   },
+  mounted() {
+    this.$store.dispatch("authentiCation/actUserInfo")
+
+  },
   methods: {
+    setDay(e){
+      console.log(e)
+      this.$store.commit("info/Set_day_holiday",e)
+      },
+    setWeek(e){
+      console.log(e)
+      this.$store.commit("info/Set_week_holiday",e)
+      },
     onClickImgUpload () {
       this.$refs.imageInput.click();
     },
     onClickMarketImgUpload () {
       this.$refs.marketImageInput.click();
     },
+    uploadInforImg(){
+      for (let i = 0; i <this.$refs.marketImageInput.files.length; i++) {
+          this.informfiles = [ ...this.informfiles,this.$refs.marketImageInput.files[i]];
+          this.previewImg = [...this.previewImg, URL.createObjectURL(this.$refs.marketImageInput.files[i])]
+      }
+      console.log(this.informfiles)
+      this.$store.commit('info/Set_Info_Image',this.informfiles);
+    },
+    uploadProfileImg(){
+      console.log(this.$refs.imageInput.files[0])
+      this.profileImgPreview = URL.createObjectURL(this.$refs.imageInput.files[0])
+      this.$store.commit('info/Set_Profile_Image', this.$refs.imageInput.files[0]);
+    },
     Update_Open_Time_Menu(){
       this.$store.commit("info/Update_Open_Time_Menu")
     },
     Update_Close_Time_Menu(){
       this.$store.commit("info/Update_Close_Time_Menu")
-
     },
     Close_Time_AMPM(){
         this.$store.dispatch("info/Info_Set_Close_Time_Actions", null)
     },
     Open_Time_AMPM(){
         this.$store.dispatch("info/Info_Set_Open_Time_Actions", null)
+    },
+    sendInfo(){
+      console.log("sendInfo button")
+      this.$store.dispatch("info/send_infor_values")
+    },
+    phonnumberInput(event){
+      console.log("phonnumber input : " + event)
+      this.$store.dispatch("info/Info_Set_phonenumber",event)
+    },
+    informationInput(event2){
+      console.log("information input : " + event2)
+      this.$store.dispatch("info/Info_Set_information",event2)
+    },
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../back/${name}`);
     }
   },
+
+
  }
 </script>
 

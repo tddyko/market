@@ -5,11 +5,10 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
-
 //이미지 파일 저장 관련 설정
 const setMulter = require("../multer");
 const upload = setMulter("./public/images/user_signup_images/");
-
+const sequelize = require('sequelize');
 /*
   localhost/signup/:market or memeber
   가입 하는 라우터
@@ -22,9 +21,8 @@ router.post(
   "/signup/:singUpState",
   upload.single("userfile"),
   async (req, res, next) => {
+  console.log(req.body)
     if (req.params.singUpState === "market") {
-      req.body.email += req.body.email2;
-      delete req.body.email2; //필요없는 값 삭제
       const {
         id,
         password,
@@ -36,6 +34,7 @@ router.post(
         zipcode,
         address,
         dt_address,
+        market_phone
       } = req.body;
       try {
         const exMarketID = await Market.findOne({
@@ -65,14 +64,13 @@ router.post(
           zipcode,
           address,
           dt_address,
+          market_phone
         });
       } catch (e) {
         console.error(e);
         return next(e);
       }
     } else {
-      req.body.email += req.body.email2;
-      delete req.body.email2; //필요없는 값 삭제
       const {
         id,
         password,
@@ -115,4 +113,23 @@ router.post(
   }
 );
 
+router.get('/idCheck/:id',async(req,res)=>{
+    let isIdOk = await Market.findOne({
+        attribute : ['id'],
+        where : {id : req.params.id}
+    }).then(async(res)=> {if(!res){
+        return true
+    }else
+        return false
+    })
+    isIdOk = isIdOk &&  await Member.findOne({
+        attribute : ['id'],
+        where : {id : req.params.id}
+                            }).then(async(res)=> {if(!res){
+                                return true
+                            }else
+                                return false
+        })
+    res.json(isIdOk)
+})
 module.exports = router;

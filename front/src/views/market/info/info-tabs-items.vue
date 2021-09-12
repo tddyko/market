@@ -26,7 +26,6 @@
 import OptionIndex from "@/views/market/info/option/Option_index";
 import MenuIndex from "@/views/market/info/menu/Menu_index";
 import Reserveindex from "@/views/market/info/reserve/Reserve_index";
-
 export default {
   name: "InfoTabsItems",
   components: {
@@ -45,5 +44,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

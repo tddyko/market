@@ -37,9 +37,16 @@ passportConfing(); //페스포트 설정
         console.error(err);
     });*/
 // async await 버전
+const {Category} = require("./models");
+const { v4: uuidv4 } = require("uuid");
 const connDB = async () => {
     try {
         await sequelize.sync({force: false});
+        let categorys = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리']
+        for(let i=0; i<categorys.length; i++){
+            await Category.findOrCreate({where: {name : categorys[i]},
+            defaults: {category_id: uuidv4()}})
+        }
     } catch (e) {
         console.error(e);
     }

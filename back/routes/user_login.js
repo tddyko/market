@@ -10,7 +10,7 @@ const {isNotLoggedIn} = require('./middlewares');
   id의 id는 id
   비밀번호의 id 는 password
 */ 
-router.post('/login',isNotLoggedIn,(req,res,next)=>{
+router.post('/login',(req,res,next)=>{
   passport.authenticate('local',(authError,user, info)=>{
     if(authError){
       console.error(authError);
@@ -37,8 +37,10 @@ router.post('/logout', function(req,res){
     req.logOut();
     req.session.destroy(function(err){ //세션을 제거
       res.redirect('/'); //메인 화면으로 이동
+      console.log(req.session)
       return;
    });
+
 });
  
 router.get('/loginError/:eMessage', (req,res)=>{

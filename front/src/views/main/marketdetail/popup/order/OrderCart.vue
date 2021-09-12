@@ -9,15 +9,41 @@
       <v-col
         cols="12"
       >
-        <div class="text-h5 mb-5">
-          치킨러버
-        </div>
-        <div class="text-subtitle-1">
-          경기도 김포시 장기동 000-000
-        </div>
-        <div class="text-subtitle-1">
-          010-0000-0000
-        </div>
+        <v-col cols="10">
+          <v-text-field
+            v-model="orderedInformation.address"
+            hide-details
+            label="주소"
+            outlined
+            placeholder="주소를 입력해주세요"
+          />
+        </v-col>
+      </v-col>
+      <v-col
+        cols="12"
+      >
+        <v-col cols="10">
+          <v-text-field
+            v-model="orderedInformation.dt_address"
+            hide-details
+            label="상세주소"
+            outlined
+            placeholder="상세주소를 입력해주세요"
+          />
+        </v-col>
+      </v-col>
+      <v-col
+        cols="12"
+      >
+        <v-col cols="10">
+          <v-text-field
+            v-model="orderedInformation.phoneNumber"
+            hide-details
+            label="전화번호"
+            outlined
+            placeholder="전화번호를 입력해주세요"
+          />
+        </v-col>
       </v-col>
     </v-row>
     <v-divider />
@@ -25,16 +51,15 @@
       <v-col
         cols="12"
       >
-        <div class="text-h5">
-          주문 상세 요청
-        </div>
-      </v-col>
-      <v-col cols="10">
-        <v-text-field
-          hide-details
-          label="주문 상세 요청 기입"
-          outlined
-        />
+        <v-col cols="10">
+          <v-text-field
+            v-model="orderedInformation.requirement"
+            hide-details
+            label="주문 상세요청"
+            outlined
+            placeholder="상세요청을 입력해주세요"
+          />
+        </v-col>
       </v-col>
     </v-row>
     <v-divider />
@@ -56,6 +81,8 @@
             align="center"
             class="mx-1"
             justify="center"
+            v-for="(order,index) in orderItems"
+            :key="index"
           >
             <v-col
               class="pa-0 ma-0"
@@ -73,13 +100,13 @@
               cols="5"
             >
               <v-card-title :class="`text-${menuFont1} pa-0 my-3`">
-                허니콤보
+                {{order.name}}
               </v-card-title>
               <v-card-text :class="`text-${menuFont2} text-left text--secondary pa-0 my-3`">
-                메뉴 설명
+                {{order.product_info}}
               </v-card-text>
               <v-card-text :class="`text-${menuFont1} text-left font-weight-bold price pa-0 my-3`">
-                9,900원
+                {{order.totalprice}}
               </v-card-text>
             </v-col>
             <v-col
@@ -87,13 +114,12 @@
               cols="5"
             >
               <v-btn
-                v-if="reservations_Number === 0"
+                v-if="order.quantity == 0"
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 disabled
                 outlined
-                @click="setReservations_number_minus"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -105,7 +131,7 @@
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"
                 outlined
-                @click="setReservations_number_minus"
+                @click="decrementItemQuantity(order)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -113,13 +139,13 @@
               </v-btn>
               <label
                 :class="`text-${countSize}`"
-              >{{ reservations_Number }}</label>
+              >{{ order.quantity }}</label>
               <v-btn
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 ml-4 mr-0"
                 outlined
-                @click="setReservations_number_plus"
+                @click="incrementItemQuantity(order)"
               >
                 <label
                   :class="`text-${countSize}`"
@@ -147,6 +173,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="submit(orderItems)"
         >
           결제하기
         </v-btn>
@@ -158,15 +185,22 @@
 <script>
 export default {
   name: "OrderCart",
+
   computed: {
     floating: {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
     },
-    reservations_Number:{
+    orderItems :{
       get() {
-        return this.$store.getters["marketDetail/getReservations_number"]
+        return this.$store.getters["marketDetail/getSelectmenu"]
+      }
+    },
+    orderedInformation : {
+      get(){
+        console.log( this.$store.getters["marketDetail/getOrderedInformation"])
+        return this.$store.getters["marketDetail/getOrderedInformation"]
       }
     },
     btn_Width_Size() {
@@ -244,11 +278,23 @@ export default {
     },
   },
   methods: {
-    setReservations_number_plus(){
-      this.$store.dispatch('marketDetail/actReservations_number_plus')
+    submit(order){
+      console.log( this.$store.getters["marketDetail/getOrderedInformation"])
+      this.$store.dispatch("marketDetail/actOrder",
+        {'orderItem' : order,'orderInfo' : this.$store.getters["marketDetail/getOrderedInformation"],
+        'marketName' : this.$session.get('market_name')})
+
     },
-    setReservations_number_minus(){
-      this.$store.dispatch('marketDetail/actReservations_number_minus')
+    incrementItemQuantity(cartItem) {
+      console.log('수량을 늘립니다 ')
+      console.log(cartItem.name + " : "  + cartItem.quantity)
+      this.$store.dispatch("marketDetail/actIncrementItemQuantity",cartItem)
+    },
+    //쇼핑 카트의 아이템 수량 감소
+    decrementItemQuantity(cartItem) {
+      console.log('수량을 줄입니다')
+      console.log(cartItem.name + " : "  + cartItem.quantity)
+      this.$store.dispatch("marketDetail/actDecrementItemQuantity",cartItem)
     },
   }
 }

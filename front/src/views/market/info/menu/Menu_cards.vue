@@ -13,7 +13,7 @@
       >
         <v-checkbox
           v-model="checkbox"
-          :value="card.menu_id"
+          :value="index"
         />
       </v-col>
       <v-col
@@ -45,16 +45,21 @@
                 hidden
                 multiple
                 type="file"
+                :disabled="isDisabled(index)"
+                @change="uploadMenuImg(index)"
               >
-
               <v-avatar
                 color="warning lighten-2"
                 size="130"
                 @click="onClickImgUpload(index)"
               >
                 <v-img
-                  :src="card.menu_img"
-                />
+                  v-if="card.Product_imgs != 0 && card.Product_imgs !=null"
+                  :src="imgSrc(card.Product_imgs[0].product_img)" />
+                <v-img
+                  v-else-if="previewSrc(index)!=0"
+                  :src="previewSrc(index)"
+                  />
               </v-avatar>
             </v-col>
             <v-col
@@ -70,14 +75,14 @@
                 centered-input
               >
                 <v-text-field
-                  v-model="card.menu_name"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model="card.name"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
                   label="메뉴 이름"
                   outlined
                   dense
-                  :value="card.menu_name"
+                  :value="card.name"
                 />
               </v-card-title>
               <v-card-text
@@ -85,13 +90,13 @@
                 :class="card_text"
               >
                 <v-text-field
-                  v-model="card.menu_info"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model = "card.product_info"
+                  :disabled="isDisabled(index)"
                   hide-details
                   outlined
                   label="메뉴 설명"
                   dense
-                  :value="card.menu_info"
+                  :value="card.product_info"
                 />
               </v-card-text>
               <v-card-text
@@ -99,23 +104,23 @@
                 :class="card_text"
               >
                 <v-text-field
-                  v-model="card.menu_price"
-                  :disabled="isDisabled(card.menu_id)"
+                  v-model ="card.price"
+                  :disabled="isDisabled(index)"
                   class="centered-input"
                   hide-details
                   outlined
                   label="가격"
                   dense
-                  :value="card.menu_price"
+                  :value="card.price"
                 />
               </v-card-text>
             </v-col>
-            <v-spacer />
+
           </v-row>
         </v-card>
       </v-col>
     </v-row>
-    <menucarddialog />
+    <menucarddialog/>
   </v-container>
 </template>
 
@@ -127,15 +132,17 @@ export default {
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),
+
   computed: {
     cards: {
-      get() {
-        return this.$store.getters["menu/getCopy"]
+      get(){
+        return this.$store.getters["menu/getMenu"]
       },
-      set(value){
-        this.$store.commit("menu/setMenu",value)
+      set(){
+        this.$store.dispatch("menu/actMenu")
       }
     },
+    //checkbox고른거
     checkbox: {
       set(value){
         this.$store.commit("menu/setMenu_Checkbox",value)
@@ -145,23 +152,34 @@ export default {
       }
     },
   },
-  created(){
-    this.copyMenu();
+  created() {
+    this.$store.dispatch("menu/actMenu")
   },
   methods: {
-    isDisabled(value){
-      const Checkbox = this.$store.getters["menu/getMenu_Checkbox"];
-      return !Checkbox.includes(value)
-      },
-    deleteMenu(e){
-      this.$store.commit("menu/setDelete",e)
+    isDisabled(test){
+      const test2 = this.$store.getters["menu/getMenu_Checkbox"];
+      return !test2.includes(test)
     },
-    copyMenu(){
-      this.$store.commit("menu/copymenu")
+    imgSrc(name){
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
     },
     onClickImgUpload (value) {
+      console.log(value)
       this.$refs.menuImageInput[value].click();
     },
+    uploadMenuImg(index){
+      console.log(this.$refs.menuImageInput[index].files[0])
+      this.$store.dispatch("menu/actUpdateMenuImg",
+        {index :index, property :  "menuImg", value : this.$refs.menuImageInput[index].files[0]})
+    },
+    previewSrc(index){
+      let URl=0;
+      try {
+        URl = URL.createObjectURL(this.$refs.menuImageInput[index].files[0])
+      }catch{}
+        return URl
+    }
   }
   }
 

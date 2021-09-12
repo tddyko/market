@@ -1,258 +1,254 @@
+import axios from 'axios'
 const state = () => ({
-  menu: [
-    {
-      menu_id: 1,
-      menu_name: "등심 가츠",
-      menu_img: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-      menu_price: '20,000원',
-      menu_info: "담백하고  맛있다.",
-      Pd_option_groups: [
-        {
-          Pd_option_groups_id: 1,
-          name: "사이즈",
-          Pd_options: [
-            {
-              name: "소",
-              price: "500"
-            },
-            {
-              name: "중",
-              price: "1000"
-            },
-            {
-              name: "대",
-              price: "1500"
-            },
-          ]
-        }
-      ],
-    },
-    {
-      menu_id: 2,
-      menu_name: "치즈 가츠",
-      menu_img: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-      menu_price: '20,000원',
-      menu_info: "느끼하고 준내 맛있다.",
-      Pd_option_groups: [
-        {
-          Pd_option_groups_id: 2,
-          name: "사이즈",
-          Pd_options: [
-            {
-              name: "소",
-              price: "500"
-            },
-            {
-              name: "중",
-              price: "1000"
-            },
-            {
-              name: "대",
-              price: "1500"
-            },
-          ]
-        }
-      ],
-    },
-    {
-      menu_id: 3,
-      menu_name: "안심 가츠",
-      menu_img: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-      menu_price: '20,000원',
-      menu_info: "부드럽고 준내 맛있다.",
-      Pd_option_groups: [
-        {
-          Pd_option_groups_id: 3,
-          name: "사이즈",
-          Pd_options: [
-            {
-              name: "소",
-              price: "500"
-            },
-            {
-              name: "중",
-              price: "1000"
-            },
-            {
-              name: "대",
-              price: "1500"
-            },
-          ]
-        }
-      ],
-    },
-    {
-      menu_id: 4,
-      menu_name: "츠케맨",
-      menu_img: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-      menu_price: '20,000원',
-      menu_info: "먹고싶다.. 강추",
-      Pd_option_groups: [
-        {
-          Pd_option_groups_id: 4,
-          name: "사이즈",
-          Pd_options: [
-            {
-              name: "소",
-              price: "500"
-            },
-            {
-              name: "중",
-              price: "1000"
-            },
-            {
-              name: "대",
-              price: "1500"
-            },
-          ]
-        }
-      ],
-    },
-    {
-      menu_id: 5,
-      menu_name: "돈코츠 라멘",
-      menu_img: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-      menu_price: '20,000원',
-      menu_info: "담백하고 국물이 맛있다.",
-      Pd_option_groups: [
-        {
-          Pd_option_groups_id: 5,
-          name: "사이즈",
-          Pd_options: [
-            {
-              name: "소",
-              price: "500"
-            },
-            {
-              name: "중",
-              price: "1000"
-            },
-            {
-              name: "대",
-              price: "1500"
-            },
-          ]
-        }
-      ],
-    }
-    //id 값을 판단하여 옵션 관리에서 카드 클릭후 옵션 추가/삭제
-  ],
-  copy: [],
+  menu_card_dialog: false,
+  menu: [],
   updateMenu: [],
   menu_checkbox: [],
-  option_checkbox: [],
-  menu_card_dialog: false,
-  insert_menu: {
-    menu_id: null,
-    menu_name: null,
-    menu_img: null,
-    menu_price: null,
-    menu_info: null,
-  },
-  insert_option:{
-    Pd_option_groups_id: 0,
-    name: "",
-    Pd_options: [
-      {
-        name: "",
-        price: ""
-      }
-    ]
-  },
+  new_menu: '',
+  menu_option: [],
+  option_card_dialog: false,
+  option_name: '',
   menu_option_name: [],
-  menu_option:[],
-  option_select_name: ''
+  option_checkbox: [],
+  option_item_checkbox :[],
+  option_select_name: '',
+  selectMenuId :'',
+  deleteOptions : [],
+  room_card_dialog: false,
+  room_checkbox : [],
+  room : []
 })
 
 const getters = {
-  getCopy: (state) => state.copy,
-
-  getMenu_Option: (state) => state.menu_option,
-
-  getMenu_Checkbox: (state) => state.menu_checkbox,
-
-  getMenu_Dialog: (state) => state.menu_card_dialog,
-
+  getMenu:(state) => state.menu,
+  getMenu_Checkbox:(state) => state.menu_checkbox,
   getOption_Checkbox: (state) => state.option_checkbox,
-
-  getOption_Dialog: (state) => state.menu_card_dialog,
-
+  getOption_item_checkbox: (state) => state.option_item_checkbox,
+  getNew_Menu:(state) => state.new_menu,
+  getMenu_Dialog: (state) =>  state.menu_card_dialog,
+  getOption_Dialog: (state) =>  state.option_card_dialog,
   getMenu_option_name: (state) => {
-    state.menu.forEach((item,index) => {
-      state.menu_option_name[index] = item.menu_name;
-    })
-    return state.menu_option_name;
+      return state.menu_option_name;
   },
-
-  getOption_Select_Name: (state) => state.option_select_name
-
+  getMenu_Option:(state) => state.menu_option,
+  getOption_Select_Name: (state) => state.option_select_name,
+  getDeleteOptions : (state) => state.deleteOptions,
+  getSelectMenuId : (state) =>state.selectMenuId,
+  getRoom_Checkbox:(state) => state.room_checkbox,
+  getRoom :(state) => state.room,
+  getRoom_Dialog :(state)=> state.room_card_dialog
 }
+
 const mutations = {
-  setMenu: (state, value) => state.copy = value,
-
-  setMenu_Checkbox: (state, value) => {
-    state.menu_checkbox = value
+  setMenu_Dialog: (state) => {
+     if(state.menu_checkbox.length>0)
+      state.menu_card_dialog = !state.menu_card_dialog
   },
-
-  setOption_Select_Name: (state, value) => {
-    state.option_select_name = value
+  setOption_Dialog: (state) => {
+       if(state.option_checkbox.length>0)
+        state.option_card_dialog = !state.option_card_dialog
   },
-
+  setMenu:(state,value) => state.menu = value,
+  setMenu_Option: (state,value) =>  {
+    state.menu_option = value
+    state.option_checkbox=[]
+  },
+  setMenu_Option_items : (state,value)=>{
+    state.menu_option[value].Pd_options.push({name : '', price : '',pd_option_group_id : ''})
+  },
   setOption_Checkbox: (state, value) => state.option_checkbox = value,
-
-  setMenu_Option: (state) => {
-    state.menu.forEach((item) => {
-      console.log(item)
-        if (state.option_select_name === item.menu_name)
-          state.menu_option = item.Pd_option_groups
-      }
-    )
+  setOption_item_checkbox:(state,value) => state.option_item_checkbox = value,
+  setMenu_Checkbox:(state,value) => state.menu_checkbox = value ,
+  setNew_Menu:(state,data) => {
+    state.menu.push({product_id : null ,name : '',price : '', product_info : ''});
   },
-
-  setMenu_Dialog: (state) => state.menu_card_dialog = !state.menu_card_dialog,
-
-  setInsert_Menu: (state) => {
-    const insert_menu = state.insert_menu;
-    let num = null;
-    for (let i = 0; i < state.copy.length; i++) {
-      num = state.copy[i].menu_id;
+  setNewGroup:(state,data)=>{
+    state.menu_option.push({Pd_options :[], name : '', pd_option_group_id : null})
+  },
+  setDelete:(state,event) => {
+     for(let index of state.menu_checkbox){
+        let selectMenu = state.menu[index]
+        console.log(selectMenu)
+        axios({
+          url :`http://localhost/menu/delete/${selectMenu.product_id}`,
+          method : 'delete',
+          withCredentials : 'true',
+        })
+     }
+  },
+  updateMenu:(state,payload) => {
+    for(let index of state.menu_checkbox){
+      let selectMenu = state.menu[index]
+      let formData = new FormData();
+      formData.append("name",selectMenu.name)
+      formData.append("price",selectMenu.price)
+      formData.append("product_info",selectMenu.product_info)
+      try{
+        formData.append("menuImg", selectMenu.menuImg);
+      }catch{}
+      axios.post(`http://localhost/menu/update/${selectMenu.product_id}`,formData,
+      {
+        withCredentials: true,
+        headers : {'Content-Type': 'multipart/form-data'}
+      }).then((res)=>{})
+      .catch((err)=>console.log(err))
     }
-    insert_menu.menu_id = num + 1
-    state.copy.push(insert_menu);
   },
-
-  copymenu(state) {
-    state.copy = state.menu
+  setOption_Select_Name: (state, value) => {
+     state.option_select_name = value
   },
-
-  setDelete: (state) => {
-    for (let i = 0; i < state.menu_checkbox.length; i++) {
-      for (let j = 0; j < state.copy.length; j++) {
-        if (state.copy[j].menu_id === state.menu_checkbox[i]) {
-          state.copy.splice(j, 1);
-        }
-      }
-    }
-    state.menu = state.copy;
-    console.log('menu:')
-    console.log(state.menu)
-    state.menu_checkbox = []
+  setSelectedMenuId : (state,value) => state.selectMenuId = value,
+  setRoom_Dialog(state,value){
+    if(state.room_checkbox.length>0)
+      state.room_card_dialog =  !state.room_card_dialog
   },
-
-  updateMenu: (state) => {
-    for (let i = 0; i < state.menu_checkbox.length; i++) {
-      for (let j = 0; j < state.copy.length; j++) {
-        if (state.copy[j].menu_id === state.menu_checkbox[i]) {
-          console.log(state.copy[j]);
-          state.menu[j] = state.copy[j]
-        }
-      }
-    }
-  }
-
+  setNewRoom(state,value){
+    state.room.push({room_name : '' , room_price : '',room_comment:'',room_id : null})
+  },
+  setRoom_Checkbox:(state,value) => state.room_checkbox = value,
+  setRoom:(state,value) => state.room = value
 }
+const actions = {
+  actDeleteOption_items({state},value){
+      console.log("setDeleteOption : " + state.option_item_checkbox)
+      state.deleteOptions =[]
+      for(let index of state.option_item_checkbox){
+        state.deleteOptions.push(state.menu_option[value].Pd_options[index])
+        state.menu_option[value].Pd_options.splice(index,1)
+      }
+      state.option_item_checkbox = []
+  },
+  actMenu:({commit},value)=>{
+    axios({
+      url:'http://localhost/menu/myMarket/menuList',
+      method :'get',
+      withCredentials : 'true'
+    }).then(async(res)=>{
+       commit("setMenu",res.data)
+    })
+  },
+  actOptionGroup : ({getters},value)=>{
+     for(let index of getters.getOption_Checkbox){
+     console.log(getters.getSelectMenuId)
+     console.log(getters.getMenu_Option[index].name)
+           axios({
+              url : `http://localhost/menu_option/updateOptionGroup/${getters.getSelectMenuId}/${getters.getMenu_Option[index].pd_option_group_id}`,
+              method : 'post',
+              withCredentials : true,
+                data : {
+                  name : getters.getMenu_Option[index].name
+                }
+           })
+     }
+  },
+  actOption_Select_Name :({commit},value)=>{
+    axios({
+      url : `http://localhost/menu_option/list/optionGroup/${value}`,
+      method : 'get',
+      withCredentials : true
+    }).then(async(res)=>{
+      if(res.data)
+      commit("setOption_Select_Name",res.data)
+    })
+  },
+  actMenu_Option :({commit},value)=>{
+    axios({
+      url : `http://localhost/menu_option/list/GroupAndOptions/${value}`,
+      method : 'get',
+      withCredentials : true
+    }).then(async(res)=>{
+      if(res.data)
+      commit("setMenu_Option",res.data)
+    })
+  },
+  actMenu_Options({getters},value){
+    for(let id of getters.getOption_item_checkbox){
+     let selectOption = getters.getMenu_Option[value]
+        axios({
+           url :`http://localhost/menu_option/updateOption/${selectOption.pd_option_group_id}/${selectOption.Pd_options[id].pd_option_id}`,
+           method : 'post',
+           withCredentials : true,
+           data :{
+              name : selectOption.Pd_options[id].name,
+              price : selectOption.Pd_options[id].price,
+           }
+        })
+    }
+    for(let item of getters.getDeleteOptions){
+      axios({
+               url :`http://localhost/menu_option/delete/options/${item.pd_option_id}`,
+               method : 'get',
+               withCredentials : true,
+      }).then(async(res)=>{
+      }).catch((err)=>{console.log(err)})
+    }
+  },
+  actDeleteOption({getters},value){
+    for(let index of getters.getOption_Checkbox){
+         axios({
+             url :`http://localhost/menu_option/delete/option_group/${getters.getMenu_Option[index].pd_option_group_id}`,
+             method : 'get',
+             withCredentials : true,
+           }).then(async(res)=>{
+         }).catch((err)=>{console.log(err)})
+    }
+  },
+  actSelectedMenuId({commit},value){
+    commit('setSelectedMenuId',value)
+  },
+  actRoom({commit},value){
+    axios({
+      url : 'http://localhost/market_preview/myMarket/roomlist',
+      method : 'get',
+      withCredentials : true
+    }).then(async(res)=>{
+      console.log('acRoom')
+      console.log(res.data)
+      commit("setRoom",res.data)
+    })
+  },
+  actRoomDelete({getters},value){
+    for(let index of getters.getRoom_Checkbox){
+            let selectRoom = getters.getRoom[index]
+            console.log(selectRoom)
+            axios({
+              url :`http://localhost/market_preview/myMarket/deleteRoom/${selectRoom.room_id}`,
+              method : 'delete',
+              withCredentials : true,
+            })
+    }
+  },
+  actUpdateRoomImg({getters},value){
+    let findOne = getters.getRoom[value.index]
+    findOne[value.property] = value.value
+    console.log(getters.getRoom[value.index] )
+  },
+  actUpdateMenuImg({getters},value){
+      let findOne = getters.getMenu[value.index]
+      findOne[value.property] = value.value
+      console.log(getters.getMenu[value.index] )
+  },
+  actSetRoom({getters},value){
+    for(let index of getters.getRoom_Checkbox){
+        let selectRoom = getters.getRoom[index]
+        let formData = new FormData();
+        formData.append("room_name",selectRoom.room_name)
+        formData.append("room_comment",selectRoom.room_comment)
+        formData.append("room_price",selectRoom.room_price)
+        if(selectRoom.room_img)
+          formData.append("room_img",selectRoom.room_img)
+        axios.post(`http://localhost/market_preview/room/${selectRoom.room_id}`,formData,
+           {
+              withCredentials: true,
+             headers : {'Content-Type': 'multipart/form-data'}
+           }).then((res)=>{})
+           .catch((err)=>console.log(err))
 
-const actions = {}
+        }
+
+    }
+    }
+
 
 export default {namespaced: true, state, getters, actions, mutations};
 

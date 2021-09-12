@@ -24,7 +24,6 @@
         </v-icon>
       </v-btn>
     </template>
-    <!-- 적용버튼    -->
     <v-btn
       v-show="getTab === 2"
       fab
@@ -41,7 +40,7 @@
       dark
       small
       color="green"
-      @click="setItem"
+      @click="setOptionItem"
     >
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
@@ -51,7 +50,7 @@
       dark
       small
       color="green"
-      @click="setItem"
+      @click="setRoom"
     >
       <v-icon>mdi-check-all</v-icon>
     </v-btn>
@@ -73,7 +72,7 @@
       dark
       small
       color="indigo"
-      @click="setInsert_Menu"
+      @click="setInsert_OptionGroup"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -83,7 +82,7 @@
       dark
       small
       color="indigo"
-      @click="setInsert_Menu"
+      @click="setInsert_Room"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -105,7 +104,7 @@
       dark
       small
       color="red"
-      @click="setMenu_Dialog"
+      @click="setOption_Dialog"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -115,7 +114,7 @@
       dark
       small
       color="red"
-      @click="setMenu_Dialog"
+      @click="setRoom_Dialog"
     >
       <v-icon>mdi-delete-forever</v-icon>
     </v-btn>
@@ -154,7 +153,7 @@ export default {
   },
   methods: {
     setInsert_Menu() {
-      this.$store.commit("menu/setInsert_Menu")
+      this.$store.commit("menu/setNew_Menu")
     },
     updateMenu() {
       this.$store.commit("menu/updateMenu")
@@ -162,14 +161,30 @@ export default {
     setDeleteMenu() {
       this.$store.commit("menu/setDelete")
     },
-    setItem() {
+    setItem(){
       this.$store.commit("menu/updateMenu")
-      const test = this.$store.getters["menu/getMenu"]
-      console.log(test)
     },
-    setMenu_Dialog() {
+    setMenu_Dialog(){
       this.$store.commit("menu/setMenu_Dialog")
-    }
+    },
+    setOption_Dialog(){
+      this.$store.commit("menu/setOption_Dialog")
+    },
+    setInsert_OptionGroup(){
+      this.$store.commit("menu/setNewGroup")
+    },
+    setOptionItem(){
+      this.$store.dispatch("menu/actOptionGroup")
+    },
+    setInsert_Room(){
+      this.$store.commit("menu/setNewRoom")
+    },
+    setRoom(){
+      this.$store.dispatch("menu/actSetRoom")
+    },
+    setRoom_Dialog(){
+      this.$store.commit("menu/setRoom_Dialog")
+    },
   },
 }
 </script>

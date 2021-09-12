@@ -11,8 +11,8 @@
         cols="12"
       >
         <v-img
-          lazy-src="https://picsum.photos"
-          src="https://picsum.photos/700"
+          v-if="marketInfo.profile_img!==null"
+          :src="imgSrc(marketInfo.profile_img)"
           :max-height="`${Img_size}`"
           :max-width="`${Img_size}`"
         />
@@ -25,9 +25,10 @@
       >
         <v-col>
           <div
-            :class="`text-${Font_size} text-h3 font-weight-bold`"
+            class="text-h3 text-left font-weight-bold my-16"
+            :class="`text-${Font_size}`"
           >
-            백종원이 인정한 연돈 <small>일식</small>
+            {{marketInfo.market_name}} <small>{{marketInfo.Categories[0].name}}</small>
           </div>
         </v-col>
         <v-col>
@@ -48,13 +49,13 @@
             class="mb-3"
             :class="`text-${Font_size2}`"
           >
-            경기도 김포시 00동 000-00
+            {{marketInfo.address}}
           </div>
 
           <div
             :class="`text-${Font_size2}`"
           >
-            031-000-0000
+            {{marketInfo.market_phone}}
           </div>
         </v-col>
       </v-col>
@@ -66,6 +67,11 @@
 export default {
   name: "MarketTitle",
   computed: {
+     marketInfo : {
+      get() {
+        return this.$store.getters["marketDetail/getMarketTitle"]
+         },
+    },
     ratingStar: {
       get() {
         return this.$store.getters["marketDetail/getRating"]
@@ -107,6 +113,16 @@ export default {
         default : return 'body-1'
       }
     },
+  },
+  beforeCreate(){
+    return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
+  },
+  methods: {
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../back/${name}`);
+    }
   }
 }
 </script>

@@ -16,12 +16,13 @@
             <v-expansion-panel-header>날짜 선택</v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-date-picker
-                v-model="picker"
+                v-model="date"
                 :first-day-of-week="0"
                 class="mt-10"
                 color="warning"
                 full-width
                 locale="ko"
+                @change="update"
               />
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -34,8 +35,9 @@
                 column
               >
                 <v-chip
-                  v-for="time in reserveTime"
-                  :key="time"
+                  v-for="(time,index) in reserveTime"
+                  :key="index"
+                  @click="setReserveTimes(index)"
                 >
                   {{ time }}
                 </v-chip>
@@ -116,7 +118,18 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getReservations_number"]
       }
+    },
+    date: {
+      get(){
+      return this.$store.getters["market_modules/Reservation_Get_date"];
+      },
+      set(value){
+        this.$store.dispatch("market_modules/Reservation_Set_Date_Actions", value)
+      }
     }
+  },
+  created(){
+    this.$store.dispatch("marketDetail/actReserveTime",this.$session.get('market_name'))
   },
   methods: {
     setReservations_number_plus() {
@@ -125,8 +138,15 @@ export default {
     setReservations_number_minus() {
       this.$store.dispatch('marketDetail/actReservations_number_minus')
     },
+    setReserveTimes(index){
+      this.$store.commit('marketDetail/setReserveTimeCh',index)
+    },
+     update(){
+      console.log(this.$store.getters["market_modules/Reservation_Get_date"]);
+    },
   }
 }
+
 </script>
 
 <style scoped>

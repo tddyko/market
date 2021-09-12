@@ -1,11 +1,13 @@
 <template>
   <v-card>
     <v-toolbar
+      dark
       color="white"
     >
       <v-toolbar-title>예약 확인 창</v-toolbar-title>
       <v-spacer />
       <v-btn
+        dark
         icon
         @click="floating.reserveDialog = false"
       >
@@ -15,12 +17,14 @@
     <v-row>
       <v-col>
         <v-img
+          v-if="getRoom.img!==undefined"
           class="white--text align-end"
           height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          :src="imgSrc(getRoom.img)"
         />
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <div class="text-h3">
@@ -40,16 +44,32 @@
     >
       <v-col>
         <div class="text-h6 font-weight-bold">
+          좌석
+        </div>
+      </v-col>
+      <v-col>
+        <div class="text-h6 font-weight-bold">
+          {{ getRoom.room }}
+        </div>
+      </v-col>
+    </v-row>
+    <v-divider />
+
+    <v-row
+      class="my-5"
+      justify="space-between"
+    >
+      <v-col>
+        <div class="text-h6 font-weight-bold">
           날짜
         </div>
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          2021년 9월 4일
+          {{ getDate }}
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -63,11 +83,10 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          오전 10:00
+          {{ getTime }}
         </div>
       </v-col>
     </v-row>
-
     <v-divider />
 
     <v-row
@@ -81,7 +100,7 @@
       </v-col>
       <v-col>
         <div class="text-h6 font-weight-bold">
-          4명
+          {{getCount}}명
         </div>
       </v-col>
     </v-row>
@@ -90,6 +109,7 @@
         <v-btn
           color="primary"
           depressed
+          @click="button"
         >
           예약 확인
         </v-btn>
@@ -106,6 +126,47 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
+    },
+    getCount : {
+      get() {
+        return this.$store.getters["marketDetail/getReservations_number"]
+      }
+    },
+    getDate : {
+      get() {
+        return this.$store.getters["market_modules/Reservation_Get_date"]
+      }
+    },
+    getTime : {
+      get() {
+        return this.$store.getters["marketDetail/getReserveTimeCh"]
+      }
+    },
+    getRoom : {
+      get() {
+        console.log(this.$store.getters["marketDetail/getSelectRoom"]);
+        return this.$store.getters["marketDetail/getSelectRoom"]
+      }
+    },
+  },
+  mounted(){
+    if(this.$store.getters["marketDetail/getSelectRoom"].img===undefined){
+      alert('좌석을 선택 해주세요')
+      this.$store.getters["marketDetail/getFloating"].reserveDialog = false
+    }
+    if(!this.$store.getters["marketDetail/getReserveTimeCh"].length>0){
+      alert('시간을 선택 해주세요')
+      this.$store.getters["marketDetail/getFloating"].reserveDialog = false
+    }
+  },
+  methods: {
+    button() {
+      this.$store.dispatch('marketDetail/actReservation', {marketName : this.$session.get('market_name')});
+    },
+    imgSrc(name){
+      console.log(name)
+      name = name.replaceAll("\\", "/");
+      return require(`../../../../../../../back/${name}`);
     }
   }
 }

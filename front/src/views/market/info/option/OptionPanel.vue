@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row
-      v-for="option in Option"
-      :key="option"
+      v-for="(option,index) in Option"
+      :key="index"
       class="mt-5"
       justify="start"
     >
@@ -12,7 +12,7 @@
       >
         <v-checkbox
           v-model="checkbox"
-          :value="option.Pd_option_groups_id"
+          :value="index"
         />
       </v-col>
       <v-col align-self="center">
@@ -22,6 +22,7 @@
               <v-row no-gutters>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="option.name"
                     :rules="rules"
                     hide-details="auto"
                     hint="대분류 이름 예시) 음료, 주류 등"
@@ -37,29 +38,34 @@
                 <v-btn
                   color="error"
                   outlined
+                  @click="deleteOptions(index)"
                 >
                   삭제
                 </v-btn>
                 <v-btn
                   color="primary"
                   outlined
+                  @click="addMenu_Option_items(index)"
                 >
                   추가
                 </v-btn>
               </v-card-actions>
               <!--  생성되어야할 소분류 영역      -->
               <v-row
-                v-for="small_category in option.Pd_options"
-                :key="small_category"
+                v-for="(small_category,optionIndex) in option.Pd_options"
+                :key="optionIndex"
                 justify="start"
                 class="mt-5"
               >
                 <v-col cols="1">
-                  <!-- 체크박스 Vuetify Model in array 스크립트 작업 요망.-->
-                  <v-checkbox />
+                  <v-checkbox
+                    v-model="optionCheckbox"
+                    :value="optionIndex"
+                  />
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="small_category.name"
                     outlined
                     placeholder="소분류 이름"
                     :value="small_category.name"
@@ -67,6 +73,7 @@
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
+                    v-model ="small_category.price"
                     outlined
                     placeholder="가격"
                     :value="small_category.price"
@@ -84,6 +91,7 @@
                 <v-btn
                   color="primary"
                   text
+                  @click="submitOptions(index)"
                 >
                   저장
                 </v-btn>
@@ -93,11 +101,16 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
+
+    <Optioncarddialog/>
   </v-container>
 </template>
 
 <script>
+
+import Optioncarddialog from "@/views/market/info/option/Option_delete_dialog";
 export default {
+  components: {Optioncarddialog},
   data: () => ({
     rules: [
       value => !!value || '대분류를 입력하세요.',
@@ -110,16 +123,38 @@ export default {
         this.$store.commit("menu/setOption_Checkbox",value)
       },
       get(){
+        console.log(this.$store.getters["menu/getOption_Checkbox"])
         return this.$store.getters["menu/getOption_Checkbox"]
       }
     },
-  Option:{
-    get(){
-      return this.$store.getters['menu/getMenu_Option']
+    optionCheckbox : {
+      set(value){
+        this.$store.commit("menu/setOption_item_checkbox",value)
+      },
+      get(){
+        console.log(this.$store.getters["menu/getOption_item_checkbox"])
+        return this.$store.getters["menu/getOption_item_checkbox"]
+      }
+    },
+    Option:{
+      get(){
+        console.log(this.$store.getters['menu/getMenu_Option'])
+        return this.$store.getters['menu/getMenu_Option']
+      },
     },
   },
-  },
-
+  methods : {
+    addMenu_Option_items(value){
+      this.$store.commit("menu/setMenu_Option_items",value)
+    },
+    submitOptions(index){
+      this.$store.dispatch("menu/actMenu_Options",index)
+    },
+    deleteOptions(value){
+      console.log('삭제')
+      this.$store.dispatch("menu/actDeleteOption_items",value)
+    }
+  }
 }
 </script>
 <style>
@@ -128,4 +163,3 @@ export default {
   justify-content: flex-end;
 }
 </style>
-

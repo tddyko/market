@@ -12,6 +12,7 @@
       :key="index"
       class="font-weight-regular text--white"
       :class="`text-${tap_size}`"
+
     >
       {{ tab.Header }}
     </v-tab>

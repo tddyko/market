@@ -10,12 +10,13 @@
       </v-col>
     </v-row>
     <v-row
+      v-if="marketInfo.Market_inform.Market_noti_imgs"
       dense
       justify="center"
     >
       <v-col
-        v-for="n in 6"
-        :key="n"
+        v-for="(a, index) in marketInfo.Market_inform.Market_noti_imgs"
+        :key="index"
         align="center"
         cols="2"
       >
@@ -23,8 +24,7 @@
           :height="`${Img_size}`"
           :width="`${Img_size}`"
           class="my-10 rounded-xl"
-          lazy-src="https://picsum.photos"
-          src="https://picsum.photos/150"
+          :src="imgSrc(a.market_noti_img)"
         />
       </v-col>
     </v-row>
@@ -41,7 +41,7 @@
           outlined
           readonly
           rounded
-          value="매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내 매장안내"
+          :value="marketInfo.Market_inform.market_noti"
         />
       </v-col>
     </v-row>
@@ -61,7 +61,22 @@ export default {
         default : return '64'
       }
     },
+    marketInfo : {
+      get() {
+        return this.$store.getters["marketDetail/getMarketTitle"]
+      },
+    },
+    beforeCreate(){
+      return this.$store.dispatch("marketDetail/actMarketTitle",this.$session.get('market_name'))
+    },
+  },
+methods: {
+  imgSrc(name){
+    console.log(name)
+    name = name.replaceAll("\\", "/");
+    return require(`../../../../../../back/${name}`);
   }
+}
 }
 </script>
 

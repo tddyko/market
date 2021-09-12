@@ -3,8 +3,10 @@
     <v-row>
       <v-col cols="12">
         <v-select
-          v-model="Option_Select"
+          v-model="name"
           :items="getMenu_name"
+          item-text="name"
+          item-value="product_id"
           label="메뉴 선택"
           outlined
           full-width
@@ -21,19 +23,24 @@ export default {
   computed: {
     Option_Select:{
       set(value){
-        this.$store.commit('menu/setOption_Select_Name',value)
+        this.$store.dispatch('menu/actOption_Select_Name',value)
       },
       get(){
         return this.$store.getters['menu/getOption_Select_Name']
       }
     },
     getMenu_name(){
-      return this.$store.getters['menu/getMenu_option_name']
+      return this.$store.getters['menu/getMenu']
     }
   },
+  created() {
+    this.$store.dispatch("menu/actMenu")
+  },
   methods: {
-    setOption(){
-      this.$store.commit("menu/setMenu_Option")
+    setOption(value){
+      console.log(value)
+      this.$store.dispatch("menu/actSelectedMenuId",value)
+      this.$store.dispatch("menu/actMenu_Option",value)
     }
   }
 }

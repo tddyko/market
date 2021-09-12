@@ -9,9 +9,12 @@ import info from "@/store/market/Info";
 import market_modules from "@/store/market/Market_modules";
 import market_list from "@/store/main/marketlist";
 import market_detail from "@/store/main/marketdetail";
-import DashBoard from "@/store/market/DashBoard";
+import dashboard from "@/store/market/DashBoard";
 import menu from "@/store/market/menu";
-
+import authentiCation from "@/store/authentication";
+import marketSignup from "@/store/signup/market";
+import memberSignup from "@/store/signup/member";
+import mypage from "@/store/main/mypage";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -25,8 +28,12 @@ const store = new Vuex.Store({
     ...info,
     ...market_list,
     ...market_detail,
-    ...DashBoard,
-      ...menu
+    ...dashboard,
+    ...menu,
+    ...authentiCation,
+    ...marketSignup,
+    ...memberSignup,
+    ...mypage
   },
 });
 

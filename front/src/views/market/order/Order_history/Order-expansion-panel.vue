@@ -41,7 +41,7 @@ export default {
       get(){
         return this.$store.getters["market_modules/Order_Get_Menu"]
       },
-      set(value){
+      set(value){ 
         this.$store.dispatch("market_modules/Order_Set_Menu_Actions", value)
       },
     },
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     update(){
-      this.$store.commit("market_modules/Order_Update_Menu");
+      this.$store.dispatch("order/actOrder_List_Items",this.$store.getters["market_modules/Order_Get_Date"])
     }
   }
 }

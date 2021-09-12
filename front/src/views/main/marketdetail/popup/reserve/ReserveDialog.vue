@@ -3,6 +3,7 @@
     <v-dialog
       v-model="floating.reserveDialog"
       fullscreen
+      persistent
       hide-overlay
       transition="dialog-bottom-transition"
     >
@@ -35,7 +36,7 @@ export default {
       get() {
         return this.$store.getters["marketDetail/getFloating"]
       }
-    }
+    },
   }
 }
 </script>
