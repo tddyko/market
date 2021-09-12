@@ -12,10 +12,14 @@ router.get(
     '/storeInformation', 
     isLoggedInMarket,
     async (req, res) => {
-        res.json(req.user)
+        let find = await Market.findOne({where : {market_id : req.user.market_id}})
+        res.json(find)
     }
 );
-router.get('/memberInformation',isLoggedInMember,async(req,res)=>{res.json(req.user)})
+router.get('/memberInformation',isLoggedInMember,async(req,res)=>{
+    let find = await Market.findOne({where : {market_id : req.user.market_id}})
+    res.json(find)
+})
 router.put('/storeInformation/update',
     upload.single('userfile'),
     isLoggedInMarket,
@@ -117,6 +121,7 @@ router.get('/checkNickName/:nickname',isLoggedInMember,async(req,res)=>{
         else
             return true
     })
+    console.log(find)
     res.json(find)
 })
 router.get('/checkMarketName/:market_name',isLoggedInMarket,async(req,res)=>{

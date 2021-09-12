@@ -68,7 +68,7 @@
         >
           <v-text-field
             v-model="changeData.nickname"
-            :value="changeData.nickname"
+            placeholder="가게 이름을 입력 해 주세요"
             color="primary"
             dense
             hide-details
@@ -135,6 +135,9 @@ export default {
       get() {
         return this.$store.getters["authentiCation/getMarketInfo"]
       },
+      set(){
+        this.$store.dispatch("authentiCation/actUserInfo")
+      }
     },
     changeData:{
       get(){
@@ -145,7 +148,9 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
+    console.log('정보를 가져오는 중...')
+    console.log(this.$store.getters["authentiCation/getMarketInfo"])
     this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods:{
@@ -155,10 +160,8 @@ export default {
         this.$store.getters["mypage/getChangeData"].nickname)
     },
     submitChange(){
-      console.log('버튼')
       console.log(this.$store.getters["mypage/getChangeData"])
       this.$store.dispatch("mypage/actChangeMarketInfo",this.$store.getters["mypage/getChangeData"])
-      location.reload()
     }
   }
 }

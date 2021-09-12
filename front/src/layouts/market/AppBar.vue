@@ -35,6 +35,7 @@
         class="mx-2"
       >
         <img
+          v-if="userInfo!==null"
           alt="John"
           :src="imgSrc(userInfo.profile_img)"
         >
@@ -62,6 +63,9 @@ export default {
         return this.$store.getters["authentiCation/getMarketInfo"]
       },
     }
+  },
+  mounted() {
+    this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods : {
     logout(){

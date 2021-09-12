@@ -120,8 +120,11 @@ const actions = {
       })
   },
   actChangeMemberInfo({commit},value){
-  if(value.checkNickName ===false && value.nickname!==null)
-    alert('닉네임 중복 확인을 해주세요')
+   if(value.nicknameCheck ===false && value.nickname!==null)
+          alert('닉네임 중복 확인을 해주세요')
+   else if(value.nickname ==="")
+          alert('닉네임을 적어주세요')
+   else{
    let formData = new FormData()
    try{
     formData.append('userfile', value.profile_img)
@@ -131,7 +134,7 @@ const actions = {
     axios.post('http://localhost/users/memberInformation/update',formData,{
       withCredentials : true,
       headers : {'Content-Type': 'multipart/form-data'}
-    }).catch((err)=>{console.log(err)})
+    }).then(()=>{value.nicknameCheck = false}).catch((err)=>{console.log(err)})}
   },
   checkNickName({getters},value){
   if(getters.getChangeData.nickname!==null)
@@ -140,11 +143,11 @@ const actions = {
       method : 'get',
       withCredentials : true
     }).then(async(res)=>{
-      getters.getChangeData.checkNickName = res.data
+      getters.getChangeData.nicknameCheck = res.data
         if(res.data === true)
-        alert('사용 가능한 닉네임 입니다')
+          alert('사용 가능한 닉네임 입니다')
         else
-        alert('사용 불가능한 닉네임 입니다')
+          alert('사용 불가능한 닉네임 입니다')
       }
     )
   },
@@ -155,7 +158,7 @@ const actions = {
         method : 'get',
         withCredentials : true
       }).then(async(res)=>{
-        getters.getChangeData.checkNickName = res.data
+        getters.getChangeData.nicknameCheck = res.data
           if(res.data === true)
           alert('사용 가능한 닉네임 입니다')
           else
@@ -164,8 +167,11 @@ const actions = {
       )
     },
    actChangeMarketInfo({commit},value){
-      if(value.checkNickName ===false && value.nickname!==null)
-        alert('닉네임 중복 확인을 해주세요')
+      if(value.nicknameCheck ===false && value.nickname!==null)
+        alert('가게 이름중복 확인을 해주세요')
+      else if(value.nickname ==="")
+        alert('가게 이름을 적어주세요')
+      else {
       axios({
         method:'post',
         url : 'http://localhost/users/marketInformation/update',
@@ -174,7 +180,8 @@ const actions = {
           market_name : value.nickname,
           password : value.password
         }
-      })
+      }).then(()=>{value.nicknameCheck = false})
+      }
   },
 };
 

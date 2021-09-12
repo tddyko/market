@@ -44,11 +44,10 @@ const actions = {
     axios({
       url : 'http://localhost/users/storeInformation',
       method : 'get',
-      withCredentials : 'true',
+      withCredentials : true,
     }).then(async(res)=>{
-    console.log(res.data)
       if(!res.data.message)
-        commit("setMarketInfo",res.data)
+        await commit("setMarketInfo",res.data)
       else{
         axios({
           url : 'http://localhost/users/memberInformation',

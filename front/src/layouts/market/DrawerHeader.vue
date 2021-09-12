@@ -6,6 +6,7 @@
           class="mx-2 mb-2"
         >
           <img
+            v-if="userInfo.profile_img"
             alt="마켓 로고"
             :src="imgSrc(userInfo.profile_img)"
           >
@@ -29,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    console.log('정보를 가져오는 중...')
     this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods : {
