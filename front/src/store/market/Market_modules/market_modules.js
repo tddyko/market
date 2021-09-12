@@ -1,22 +1,20 @@
 const state = () => ({
-  //주문 내역, 주문 리뷰
   Order_menu: null,
   Order_menu2: false,
   Order_tab: null,
-  Order_dates: [],//달력으로 날짜 고르는 것
+  Order_dates: [],
   Order_date: new Date().toISOString().substring(0,10),
 
   //예약 내역, 예약 리뷰
   Reservation_tab: null,
   Reservation_menu: null,
   Reservation_menu2: false,
-  Reservation_dates: [], //달력으로 날짜 고르는 것
+  Reservation_dates: [],
   Reservation_date: new Date().toISOString().substring(0,10),
 });
 
 const mutations = {
-  //주문 내역, 주문 리뷰
-  Order_Set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+  Order_Set_Tab(state, tab) {
     state.Order_tab = tab;
   },
   Order_Set_Menu(state, value) {
@@ -25,7 +23,7 @@ const mutations = {
   Order_Set_Menu2(state, value) {
     state.Order_menu2 = value;
   },
-  Order_Set_Dates(state, value){ 
+  Order_Set_Dates(state, value){
     state.Order_dates = value;
   },
   Order_Update_Menu(state) {
@@ -39,8 +37,7 @@ const mutations = {
   Order_Set_Date(state, value){
     state.Order_date = value;
   },
-  //예약 내역, 예약 리뷰 관리
-  Reservation_Set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+  Reservation_Set_Tab(state, tab) {
     state.Reservation_tab = tab;
   },
   Reservation_Set_Menu(state, value) {
@@ -64,7 +61,6 @@ const mutations = {
     state.Reservation_date = value;
   }
 };
-
 const getters = {
   //주문 내역, 주문 리뷰
   Order_Get_Tab(state){
@@ -100,7 +96,6 @@ const getters = {
     return state.Reservation_date;
   }
 };
-
 const actions = {
   Order_Set_Tab_Actions ({ commit }, value) {
     commit('Order_Set_Tab', value)
@@ -117,8 +112,6 @@ const actions = {
   Order_Set_Menu2_Actions ({ commit }, value) {
     commit('Order_Set_Menu2', value)
   },
-
-  //예약 내역, 예약 리뷰
   Reservation_Set_Tab_Actions ({ commit }, value) {
     commit('Reservation_Set_Tab', value)
   },
@@ -135,7 +128,4 @@ const actions = {
     commit('Reservation_Set_Menu2', value)
   },
 };
-
-
-
 export default {namespaced: true, state, getters, mutations, actions};

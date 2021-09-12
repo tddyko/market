@@ -46,7 +46,7 @@
                 <img
                   v-if="card.Product_imgs!=0"
                   :src="imgSrc(card.Product_imgs[0].product_img)"
-                     alt="ㅗ">
+                >
               </v-avatar>
             </v-col>
             <v-col
@@ -61,13 +61,13 @@
                 :class="card_text"
                 class="text--secondary"
               >
-                {{card.name}}
+                {{ card.name }}
               </v-card-text>
               <v-card-text
                 :class="card_text"
                 class="font-weight-bold price"
               >
-                {{card.price}}
+                {{ card.price }}
               </v-card-text>
               <v-spacer />
               <v-col
@@ -77,8 +77,7 @@
                 sm="3"
                 xl="2"
               >
-                <order-select-dialog v-bind:num='card'>
-                </order-select-dialog>
+                <order-select-dialog :num="card" />
               </v-col>
             </v-col>
           </v-row>

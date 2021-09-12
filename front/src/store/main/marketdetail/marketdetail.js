@@ -3,7 +3,6 @@ import router from '../../../router'
 const state = () => ({
   reservations_number: 1,
   tabs: null,
-  tabs: null,
   select_items: [
     "주문리뷰",
     "예약리뷰"
@@ -16,17 +15,7 @@ const state = () => ({
   ],
   panel: [],
   rating: null,
-  orderMenus: [
-    "메뉴1",
-    "메뉴2",
-    "메뉴3",
-    "메뉴4",
-    "메뉴5",
-    "메뉴6",
-    "메뉴7",
-    "메뉴8",
-    "메뉴9",
-  ],
+  orderMenus: [],
   ratingPoint: [],
   valueDeterminate: [ ],
   reserveTime: [],
@@ -57,7 +46,7 @@ const state = () => ({
   selectmenu:[],
   addmenu:[],
   selectOptions: [],
-  selectRoom :[], //assdasds
+  selectRoom :[],
   reviews:[],
   orderedInformation : {
     requirement : null,
@@ -314,7 +303,7 @@ const actions = {
       }).then(async(res)=>{
         if(res.data.message !== 0){
           alert(res.data.message)
-          router.push({ name: 'login' });
+          router.push({ name: 'Login.vue' });
         }else{
             alert('주문이 완료 되었습니다')
             router.push({name : 'MarketDetail'})

@@ -7,12 +7,13 @@
 </template>
 
 <script>
-import Mypagecard from "@/views/main/mypage/info/my_page_card";
-import MyPageOrderCard from "@/views/main/mypage/order/my_page_order_card";
-import MyPageReserveCard from "@/views/main/mypage/reserve/my_page_reserve_card";
 export default {
   name: "MyPageTabItems",
-  components: {MyPageReserveCard, MyPageOrderCard, Mypagecard},
+  components: {
+    MyPageReserveCard: () => import('@/views/main/mypage/reserve/MyPageReserveCard'),
+    MyPageOrderCard: () => import('@/views/main/mypage/order/MyPageOrderCard'),
+    Mypagecard: () => import('@/views/main/mypage/info/MyPageCard')
+  },
   computed: {
     tab:{
       get(){

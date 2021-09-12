@@ -4,16 +4,17 @@
       내 정보
     </div>
     <div>
-      <mypageform />
+      <my-page-info />
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import Mypageform from "@/views/main/mypage/info/my_page_info";
 export default {
   name: "Mypagecard",
-  components: {Mypageform},
+  components: {
+    MyPageInfo: () => import('@/views/main/mypage/info/MyPageInfo')
+},
 }
 </script>
 

@@ -7,8 +7,8 @@
       justify="start"
     >
       <v-col
-        cols="auto"
         align-self="center"
+        cols="auto"
       >
         <v-checkbox
           v-model="checkbox"
@@ -22,12 +22,12 @@
               <v-row no-gutters>
                 <v-col cols="5">
                   <v-text-field
-                    v-model ="option.name"
+                    v-model="option.name"
                     :rules="rules"
+                    :value="option.name"
                     hide-details="auto"
                     hint="대분류 이름 예시) 음료, 주류 등"
                     label="대분류 이름"
-                    :value="option.name"
                   />
                 </v-col>
               </v-row>
@@ -54,8 +54,8 @@
               <v-row
                 v-for="(small_category,optionIndex) in option.Pd_options"
                 :key="optionIndex"
-                justify="start"
                 class="mt-5"
+                justify="start"
               >
                 <v-col cols="1">
                   <v-checkbox
@@ -65,18 +65,18 @@
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
-                    v-model ="small_category.name"
+                    v-model="small_category.name"
+                    :value="small_category.name"
                     outlined
                     placeholder="소분류 이름"
-                    :value="small_category.name"
                   />
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
-                    v-model ="small_category.price"
+                    v-model="small_category.price"
+                    :value="small_category.price"
                     outlined
                     placeholder="가격"
-                    :value="small_category.price"
                   />
                 </v-col>
               </v-row>
@@ -102,15 +102,16 @@
       </v-col>
     </v-row>
 
-    <Optioncarddialog/>
+    <Optioncarddialog />
   </v-container>
 </template>
 
 <script>
 
-import Optioncarddialog from "@/views/market/info/option/Option_delete_dialog";
 export default {
-  components: {Optioncarddialog},
+  components: {
+    Optioncarddialog: () => import('@/views/market/info/option/Option_delete_dialog')
+  },
   data: () => ({
     rules: [
       value => !!value || '대분류를 입력하세요.',

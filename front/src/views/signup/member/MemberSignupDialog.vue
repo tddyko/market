@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="dialog.marketSignupDialog"
+    v-model="dialog.memberSignupDialog"
     fullscreen
     hide-overlay
     persistent
@@ -16,14 +16,14 @@
         회원가입하기
       </v-btn>
     </template>
-    <market-signup-card />
+    <member-signup-card />
   </v-dialog>
 </template>
 <script>
 export default {
-  name: "MarketSignup",
+  name: "MemberSignup",
   components: {
-    MarketSignupCard: () => import('@/views/signup/market/marketSignupCard'),
+    MemberSignupCard: () => import('@/views/signup/member/MemberSignupCard'),
   },
   computed: {
     dialog: {

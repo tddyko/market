@@ -9,8 +9,8 @@
   export default {
     name: "Dashboard",
     components: {
-      DashBoardOrder : () => import('@/views/market/DashBoard/DashBoard_Order'),
-      DashBoardReserve : () => import('@/views/market/DashBoard/DashBoard_Reserve'),
+      DashBoardOrder : () => import('@/views/market/dashboard/DashBoard_Order'),
+      DashBoardReserve : () => import('@/views/market/dashboard/DashBoard_Reserve'),
     },
    mounted() {
     this.$Axios({

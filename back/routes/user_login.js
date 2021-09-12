@@ -1,15 +1,15 @@
 //로그인 관련 라우터 모음
 const passport = require('passport');
 const express = require('express');
-const router = express.Router(); 
-const {isNotLoggedIn} = require('./middlewares');  
-//로그인 
+const router = express.Router();
+const {isNotLoggedIn} = require('./middlewares');
+//로그인
 /*
   로그인 하는 부분
   localhost/login로 접속
   id의 id는 id
   비밀번호의 id 는 password
-*/ 
+*/
 router.post('/login',(req,res,next)=>{
   passport.authenticate('local',(authError,user, info)=>{
     if(authError){
@@ -20,12 +20,12 @@ router.post('/login',(req,res,next)=>{
       console.log(info.message);
       return res.redirect(`/loginError/${info.message}`);
     }
-    return req.login(user,(loginError)=>{
+    return req.Login(user,(loginError)=>{
       if(loginError){
         console.error(loginError);
         return next(loginError);
       }
-      return res.json(user);  
+      return res.json(user);
     })
   })(req,res,next);
 });
@@ -38,14 +38,13 @@ router.post('/logout', function(req,res){
     req.session.destroy(function(err){ //세션을 제거
       res.redirect('/'); //메인 화면으로 이동
       console.log(req.session)
-      return;
+
    });
 
 });
- 
+
 router.get('/loginError/:eMessage', (req,res)=>{
   res.send(req.params.eMessage);
 })
 
 module.exports = router;
-  

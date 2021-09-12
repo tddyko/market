@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "Mypagetab",
+  name: "MyPageTab",
   computed: {
     tab: {
       get (){

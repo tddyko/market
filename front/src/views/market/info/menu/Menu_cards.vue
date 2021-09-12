@@ -8,8 +8,8 @@
     >
       <!-- 반복될 카드 -->
       <v-col
-        cols="auto"
         align-self="center"
+        cols="auto"
       >
         <v-checkbox
           v-model="checkbox"
@@ -18,34 +18,34 @@
       </v-col>
       <v-col
         cols="9"
-        sm="11"
-        md="9"
         lg="10"
+        md="9"
+        sm="11"
         xl="9"
       >
         <v-card
-          height="auto"
           class="pa-5"
+          height="auto"
         >
           <v-row
             align="center"
             justify="center"
           >
             <v-col
-              class="mx-4"
               align="center"
+              class="mx-4"
               cols="12"
-              sm="4"
-              md="3"
               lg="3"
+              md="3"
+              sm="4"
               xl="3"
             >
               <input
                 ref="menuImageInput"
+                :disabled="isDisabled(index)"
                 hidden
                 multiple
                 type="file"
-                :disabled="isDisabled(index)"
                 @change="uploadMenuImg(index)"
               >
               <v-avatar
@@ -55,20 +55,21 @@
               >
                 <v-img
                   v-if="card.Product_imgs != 0 && card.Product_imgs !=null"
-                  :src="imgSrc(card.Product_imgs[0].product_img)" />
+                  :src="imgSrc(card.Product_imgs[0].product_img)"
+                />
                 <v-img
                   v-else-if="previewSrc(index)!=0"
                   :src="previewSrc(index)"
-                  />
+                />
               </v-avatar>
             </v-col>
             <v-col
-              cols="12"
-              sm="4"
-              md="5"
-              lg="5"
-              xl="5"
               align="start"
+              cols="12"
+              lg="5"
+              md="5"
+              sm="4"
+              xl="5"
             >
               <v-card-title
                 :class="card_text"
@@ -77,58 +78,58 @@
                 <v-text-field
                   v-model="card.name"
                   :disabled="isDisabled(index)"
+                  :value="card.name"
                   class="centered-input"
+                  dense
                   hide-details
                   label="메뉴 이름"
                   outlined
-                  dense
-                  :value="card.name"
                 />
               </v-card-title>
               <v-card-text
-                class="text--secondary"
                 :class="card_text"
+                class="text--secondary"
               >
                 <v-text-field
-                  v-model = "card.product_info"
+                  v-model="card.product_info"
                   :disabled="isDisabled(index)"
-                  hide-details
-                  outlined
-                  label="메뉴 설명"
-                  dense
                   :value="card.product_info"
+                  dense
+                  hide-details
+                  label="메뉴 설명"
+                  outlined
                 />
               </v-card-text>
               <v-card-text
-                class="font-weight-bold"
                 :class="card_text"
+                class="font-weight-bold"
               >
                 <v-text-field
-                  v-model ="card.price"
+                  v-model="card.price"
                   :disabled="isDisabled(index)"
-                  class="centered-input"
-                  hide-details
-                  outlined
-                  label="가격"
-                  dense
                   :value="card.price"
+                  class="centered-input"
+                  dense
+                  hide-details
+                  label="가격"
+                  outlined
                 />
               </v-card-text>
             </v-col>
-
           </v-row>
         </v-card>
       </v-col>
     </v-row>
-    <menucarddialog/>
+    <menucarddialog />
   </v-container>
 </template>
 
 <script>
-import Menucarddialog from "@/views/market/info/menu/Menu_delete_dialog";
 export default {
   name: "InfoMenucards",
-  components: {Menucarddialog},
+  components: {
+    Menucarddialog: () => import('@/views/market/info/menu/Menu_delete_dialog')
+  },
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),

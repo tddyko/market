@@ -15,21 +15,21 @@
       </v-btn>
     </v-toolbar>
     <v-row
-      justify="center"
       class="mt-5"
+      justify="center"
     >
       <v-col
         align="center"
         cols="10"
-        xl="10"
         lg="10"
         md="10"
         sm="10"
+        xl="10"
       >
         <div
           :class="`text-${Font_Size}`"
         >
-         {{MarketInfo.market_name}}
+          {{ MarketInfo.market_name }}
         </div>
       </v-col>
       <v-col
@@ -104,15 +104,15 @@
         sm="auto"
       >
         <div class="d-inline-flex">
-        <v-img
-          v-for="(img,index) in orderReviewImgPreview"
-          v-show="orderReviewImgPreview != null"
-          :key="index"
-          :height="`${Button_Img_size}`"
-          :width="`${Button_Img_size}`"
-          class="white--text align-end rounded-xl"
-          :src="img"
-        />
+          <v-img
+            v-for="(img,index) in orderReviewImgPreview"
+            v-show="orderReviewImgPreview != null"
+            :key="index"
+            :height="`${Button_Img_size}`"
+            :src="img"
+            :width="`${Button_Img_size}`"
+            class="white--text align-end rounded-xl"
+          />
         </div>
       </v-col>
     </v-row>

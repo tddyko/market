@@ -7,12 +7,13 @@
 
 
 <script>
-import OptionButton from "@/views/market/info/Option+Button";
-import InfoMenucards from "@/views/market/info/menu/Menu_cards";
 
 export default {
   name: "MenuIndex",
-  components: {InfoMenucards, OptionButton},
+  components: {
+    InfoMenucards: () => import('@/views/market/info/menu/Menu_cards'),
+    OptionButton: () => import('@/views/market/info/Option+Button')
+  },
 }
 </script>
 

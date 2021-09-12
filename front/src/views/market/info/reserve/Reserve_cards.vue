@@ -8,8 +8,8 @@
     >
       <!-- 반복될 카드 -->
       <v-col
-        cols="auto"
         align-self="center"
+        cols="auto"
       >
         <v-checkbox
           v-model="checkbox"
@@ -18,26 +18,26 @@
       </v-col>
       <v-col
         cols="9"
-        sm="11"
-        md="9"
         lg="10"
+        md="9"
+        sm="11"
         xl="9"
       >
         <v-card
-          height="auto"
           class="pa-5"
+          height="auto"
         >
           <v-row
             align="center"
             justify="center"
           >
             <v-col
-              class="mx-4"
               align="center"
+              class="mx-4"
               cols="12"
-              sm="4"
-              md="3"
               lg="3"
+              md="3"
+              sm="4"
               xl="3"
             >
               <input
@@ -59,12 +59,12 @@
               </v-avatar>
             </v-col>
             <v-col
-              cols="12"
-              sm="4"
-              md="5"
-              lg="5"
-              xl="5"
               align="start"
+              cols="12"
+              lg="5"
+              md="5"
+              sm="4"
+              xl="5"
             >
               <v-card-title
                 :class="card_text"
@@ -73,53 +73,52 @@
                 <v-text-field
                   v-model="card.room_name"
                   :disabled="isDisabled(index)"
+                  :value="card.room_name"
                   class="centered-input"
+                  dense
                   hide-details
                   label="좌석 이름"
                   outlined
-                  dense
-                  :value="card.room_name"
                 />
               </v-card-title>
               <v-card-text
-                class="text--secondary"
                 :class="card_text"
+                class="text--secondary"
               >
                 <v-text-field
                   v-model="card.room_comment"
                   :disabled="isDisabled(index)"
-                  hide-details
-                  outlined
-                  label="좌석 설명"
-                  dense
                   :value="card.room_comment"
+                  dense
+                  hide-details
+                  label="좌석 설명"
+                  outlined
                 />
               </v-card-text>
               <v-card-text
-                class="font-weight-bold"
                 :class="card_text"
+                class="font-weight-bold"
               >
                 <v-text-field
                   v-model="card.room_price"
                   :disabled="isDisabled(index)"
-                  class="centered-input"
-                  hide-details
-                  outlined
-                  label="추가 가격"
-                  dense
                   :value="card.room_price"
+                  class="centered-input"
+                  dense
+                  hide-details
+                  label="추가 가격"
+                  outlined
                 />
               </v-card-text>
             </v-col>
             <v-spacer />
             <v-col
               cols="12"
-              sm="3"
-              md="3"
               lg="2"
+              md="3"
+              sm="3"
               xl="2"
-            >
-            </v-col>
+            />
           </v-row>
         </v-card>
       </v-col>
@@ -129,10 +128,11 @@
 </template>
 
 <script>
-import Roomcarddialog from "@/views/market/info/reserve/Reserve_delete_dialog";
 export default {
   name: "Reservecard",
-  components: {Roomcarddialog},
+  components: {
+    Roomcarddialog: () => import('@/views/market/info/reserve/Reserve_delete_dialog')
+  },
   data: () => ({
     card_text: 'text-center text-sm-left text-md-left ',
   }),

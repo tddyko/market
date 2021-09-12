@@ -21,7 +21,7 @@
               v-slot="{ invalid }"
             >
               <v-form
-                @submit.prevent="login"
+                @submit.prevent="Login"
               >
                 <validation-provider
                   v-slot="{ errors }"
@@ -124,8 +124,8 @@ export default {
 
   name: 'Login',
   components: {
-    MarketSignup: () => import('@/views/signup/market/marketSignupDialog'),
-    MemberSignup: () => import('@/views/signup/member/memberSignupDialog')
+    MarketSignup: () => import('@/views/signup/market/MarketSignupDialog'),
+    MemberSignup: () => import('@/views/signup/member/MemberSignupDialog')
   },
   data: () => ({
     id: null,

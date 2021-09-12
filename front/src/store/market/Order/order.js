@@ -1,4 +1,4 @@
-  
+
 import axios from "axios"
 const state = () => ({ //스테이츠가 data랑 비슷한 맥락이고
   Tab_Headers: [
@@ -61,9 +61,8 @@ const getters = { //getters가 컴포트?
     return state.date;
   },
 };
-
 const mutations = {
-  set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+  set_Tab(state, tab) {
     state.Tab = tab;
   },
   Set_Menu(state, value){
@@ -87,15 +86,13 @@ const mutations = {
   Set_Menu2(state, value){
     state.menu2=value;
   },
-  //주문
   Set_Order_List_Items(state, value){
     state.Order_List_Items = value;
   },
   Set_Order_Review_Items(state, value){
     state.Order_Review = null;
     state.Order_Review = value;
-  }, 
-  
+  },
 };
 const actions = {
   actOrder_List_Items({ commit },date){
@@ -107,19 +104,19 @@ const actions = {
       params : {
         dateValue : date,
       }
-    }).then((response)=>{ 
+    }).then((response)=>{
       commit("Set_Order_List_Items", response.data);
     })
   },
-  actOrder_Review_Items({commit},data){   
+  actOrder_Review_Items({commit},data){
     if(data.dates.length>1)
     axios({
       url : 'http://localhost/order_review/reviews/list',
       method : 'get',
       withCredentials : true,
-      params : { 
+      params : {
         date1 : data.dates[0],
-        date2 : data.dates[1], 
+        date2 : data.dates[1],
         tab : data.tabIndex
       }
     }).then((response)=>{
@@ -141,8 +138,6 @@ const actions = {
     }).then((response)=>{
       console.log(response)
     })
-  }, 
-  
+  },
 };
-
 export default { namespaced: true, state, getters, mutations, actions };

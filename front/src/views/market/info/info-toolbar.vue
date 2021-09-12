@@ -1,9 +1,9 @@
 <template>
   <v-toolbar
-    color="white"
-    height="50px"
     class="rounded-t-xl"
+    color="white"
     elevation="3"
+    height="50px"
   >
     <InfoTabs />
   </v-toolbar>
@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "InfoToolbar",
-  components:{
+  components: {
     InfoTabs : () => import ("@/views/market/info/info-tabs")
   }
 }

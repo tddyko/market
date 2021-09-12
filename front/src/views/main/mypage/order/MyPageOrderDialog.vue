@@ -1,18 +1,19 @@
 <template>
   <v-dialog
-    v-model="getFloating.reserve_floationg"
+    v-model="getFloating.order_floationg"
     fullscreen
     transition="dialog-bottom-transition"
   >
-    <MypageReserveDialogCard />
+    <mypageorderdialogcard />
   </v-dialog>
 </template>
 
 <script>
-import MypageReserveDialogCard from "@/views/main/mypage/reserve/my_page_reserve_dialog_card";
 export default {
-  name: "MyPageReserveDialog",
-  components: {MypageReserveDialogCard},
+  name: "MyPageOrderDialog",
+  components: {
+    Mypageorderdialogcard : () => import('@/views/main/mypage/order/MyPageOrderDialogCard')
+  },
   computed: {
     getFloating() {
       return this.$store.getters["mypage/getFloating"]

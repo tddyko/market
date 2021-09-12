@@ -2,14 +2,14 @@
   <form>
     <v-container>
       <v-row
-        justify="center"
         align="center"
         class="mb-5"
+        justify="center"
       >
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           프로필 이미지
         </v-col>
@@ -17,41 +17,41 @@
           <div class="test" />
         </v-col>
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           <v-avatar
-            rounded="fill"
             color="grey"
+            rounded="fill"
             size="120"
           >
             <v-img
-            v-if="imgPreview!==null"
-            :src="imgPreview"
-            ></v-img>
+              v-if="imgPreview!==null"
+              :src="imgPreview"
+            />
           </v-avatar>
         </v-col>
         <v-col
-          cols="3"
-          align-self="center"
           align="center"
+          align-self="center"
+          cols="3"
         >
           <input
             ref="mypage_img_input"
-            type="file"
             hidden
+            type="file"
             @change="Mypage_img_privew"
           >
           <v-btn
-            rounded
             outlined
+            rounded
             @click="Mypage_input_img_click"
           >
             바꾸기
             <v-icon
-              right
               bottom
+              right
             >
               mdi-camera
             </v-icon>
@@ -59,13 +59,13 @@
         </v-col>
       </v-row>
       <v-row
-        justify="center"
         align="center"
+        justify="center"
       >
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           ID
         </v-col>
@@ -73,22 +73,22 @@
           <div class="test" />
         </v-col>
         <v-col
-          cols="2"
           align="start"
           align-self="center"
+          cols="2"
         >
           {{ userInfo.id }}
         </v-col>
         <v-col cols="3" />
       </v-row>
       <v-row
-        justify="center"
         align="center"
+        justify="center"
       >
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           e-mail
         </v-col>
@@ -96,22 +96,22 @@
           <div class="test" />
         </v-col>
         <v-col
-          cols="2"
           align="start"
           align-self="center"
+          cols="2"
         >
           {{ userInfo.email }}
         </v-col>
         <v-col cols="3" />
       </v-row>
       <v-row
-        justify="center"
         align="center"
+        justify="center"
       >
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           닉네임
         </v-col>
@@ -119,21 +119,22 @@
           <div class="test" />
         </v-col>
         <v-col
-          cols="2"
           align="start"
           align-self="center"
+          cols="2"
         >
           <v-text-field
             v-model="changeData.nickname"
+            color="primary"
             dense
             hide-details
             outlined
-            color="primary"
             placeholder="닉네임을 입력 해 주세요"
           />
         </v-col>
         <v-col cols="3">
-          <v-btn color="primary"
+          <v-btn
+            color="primary"
             @click="checkNickName"
           >
             중복확인
@@ -141,13 +142,13 @@
         </v-col>
       </v-row>
       <v-row
-        justify="center"
         align="center"
+        justify="center"
       >
         <v-col
-          cols="2"
           align="center"
           align-self="center"
+          cols="2"
         >
           비밀번호
         </v-col>
@@ -155,18 +156,18 @@
           <div class="test" />
         </v-col>
         <v-col
-          cols="2"
           align="start"
           align-self="center"
+          cols="2"
         >
           <v-text-field
             v-model="changeData.password"
+            :value="changeData.password"
+            color="primary"
             dense
             hide-details
             outlined
             placeholder="최대 15자"
-            color="primary"
-            :value="changeData.password"
           />
         </v-col>
         <v-col cols="3" />
@@ -187,7 +188,7 @@
 
 <script>
 export default {
-  name: "Mypageform",
+  name: "MyPageInfo",
   data(){
     return{
       imgPreview : null

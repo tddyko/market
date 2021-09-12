@@ -79,7 +79,7 @@
   </v-container>
 </template>
 <script>
-import Mypagetab from "@/views/main/mypage/my_page_tab";
+import Mypagetab from "@/views/main/mypage/MyPageTab";
 import axios from "axios";
 export default {
   name: "MainAppBar",

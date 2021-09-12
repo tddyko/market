@@ -55,8 +55,8 @@ const getters = {
   },
 };
 
-const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메소드 정의!
-  set_Tab(state, tab) {//엑시오스 통신 해서 값을 빼오지 않을까? 교촌의 운양점 사장인데, 교촌 장기점이 나온다. 관계형 db 니까 참조를 사용해서 외래키값으로 판단해서 가지고 오는거죠!!
+const mutations = {
+  set_Tab(state, tab) {
     state.Tab = tab;
   },
   Set_Menu(state, value){
@@ -69,7 +69,6 @@ const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메�
     if (state.dates.length === 2){
       state.menu2 = null;
     }
-
   },
   set_dates(state, value){
     state.dates = value;
@@ -88,7 +87,6 @@ const mutations = { //변이!(데이터가 바꾸어야할때의 구현부) 메�
     state.Reservation_Review = value;
   },
 };
-
 const actions = {
   actReserve_Review_Items({commit},data){
     if(data.dates.length>1)
@@ -135,6 +133,5 @@ const actions = {
       console.log(response)
     })
   },
-}; // 내가 변이를 할때! 확정을 지어줄때 커밋할때
-
+};
 export default { namespaced: true, state, getters, mutations, actions };

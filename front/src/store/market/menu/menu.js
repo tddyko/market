@@ -4,15 +4,15 @@ const state = () => ({
   menu: [],
   updateMenu: [],
   menu_checkbox: [],
-  new_menu: '',
+  new_menu: null,
   menu_option: [],
   option_card_dialog: false,
-  option_name: '',
+  option_name: null,
   menu_option_name: [],
   option_checkbox: [],
   option_item_checkbox :[],
-  option_select_name: '',
-  selectMenuId :'',
+  option_select_name: null,
+  selectMenuId :null,
   deleteOptions : [],
   room_card_dialog: false,
   room_checkbox : [],
@@ -54,16 +54,16 @@ const mutations = {
     state.option_checkbox=[]
   },
   setMenu_Option_items : (state,value)=>{
-    state.menu_option[value].Pd_options.push({name : '', price : '',pd_option_group_id : ''})
+    state.menu_option[value].Pd_options.push({name : null, price : null,pd_option_group_id : null})
   },
   setOption_Checkbox: (state, value) => state.option_checkbox = value,
   setOption_item_checkbox:(state,value) => state.option_item_checkbox = value,
   setMenu_Checkbox:(state,value) => state.menu_checkbox = value ,
   setNew_Menu:(state,data) => {
-    state.menu.push({product_id : null ,name : '',price : '', product_info : ''});
+    state.menu.push({product_id : null ,name : null,price : null, product_info : null});
   },
   setNewGroup:(state,data)=>{
-    state.menu_option.push({Pd_options :[], name : '', pd_option_group_id : null})
+    state.menu_option.push({Pd_options :[], name : null, pd_option_group_id : null})
   },
   setDelete:(state,event) => {
      for(let index of state.menu_checkbox){
@@ -103,7 +103,7 @@ const mutations = {
       state.room_card_dialog =  !state.room_card_dialog
   },
   setNewRoom(state,value){
-    state.room.push({room_name : '' , room_price : '',room_comment:'',room_id : null})
+    state.room.push({room_name : null , room_price : null,room_comment:null,room_id : null})
   },
   setRoom_Checkbox:(state,value) => state.room_checkbox = value,
   setRoom:(state,value) => state.room = value

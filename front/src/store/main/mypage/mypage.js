@@ -12,7 +12,7 @@ const state = () => ({
     reserve_floationg : false
   },
   orderList : null,
-  review : '',
+  review : null,
   reviewRating : 0,
   reviewImg : [],
   orderInfo : {

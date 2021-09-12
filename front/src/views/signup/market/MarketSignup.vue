@@ -23,7 +23,7 @@
 export default {
   name: "Signup",
   components: {
-    MarketSignupCard: () => import('@/views/signup/market/marketSignupCard')
+    MarketSignupCard: () => import('@/views/signup/market/MarketSignupCard')
   },
   computed: {
     dialog: {
