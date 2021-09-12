@@ -6,14 +6,16 @@ const state = () => ({
   ],
   login_switch: false,
   isHaveSession : null,
-  userInfo : null
+  userInfo : null,
+  marketInfo : null
 });
 
 const getters = {
   getSignUpDialog: (state) => state.signUp,
   getLoginSwitch: (state) => state.login_switch,
   getSession : (state) =>state.isHaveSession,
-  getUserInfo : (state) => state.userInfo
+  getUserInfo : (state) => state.userInfo,
+  getMarketInfo : (state) => state.marketInfo,
 };
 
 const mutations = {
@@ -28,6 +30,9 @@ const mutations = {
   },
   setUserInfo(state,data){
     state.userInfo = data
+  },
+  setMarketInfo(state,data){
+    state.marketInfo = data
   }
 };
 
@@ -39,11 +44,10 @@ const actions = {
     axios({
       url : 'http://localhost/users/storeInformation',
       method : 'get',
-      withCredentials : 'true',
+      withCredentials : true,
     }).then(async(res)=>{
-    console.log(res.data)
       if(!res.data.message)
-        commit("setUserInfo",res.data)
+        await commit("setMarketInfo",res.data)
       else{
         axios({
           url : 'http://localhost/users/memberInformation',

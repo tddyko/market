@@ -20,7 +20,7 @@
           align-self="center"
           cols="2"
         >
-          @social_loginid
+          {{ userInfo.id }}
         </v-col>
         <v-col cols="3" />
       </v-row>
@@ -43,7 +43,7 @@
           align-self="center"
           cols="2"
         >
-          testemail@itheca.com
+          {{ userInfo.email }}
         </v-col>
         <v-col cols="3" />
       </v-row>
@@ -56,7 +56,7 @@
           align-self="center"
           cols="2"
         >
-          스토어 이름
+          {{ userInfo.market_name }}
         </v-col>
         <v-col cols="1">
           <div class="test" />
@@ -67,6 +67,8 @@
           cols="2"
         >
           <v-text-field
+            v-model="changeData.nickname"
+            placeholder="가게 이름을 입력 해 주세요"
             color="primary"
             dense
             hide-details
@@ -74,7 +76,9 @@
           />
         </v-col>
         <v-col cols="3">
-          <v-btn color="primary">
+          <v-btn color="primary"
+            @click="checkNickName"
+          >
             중복확인
           </v-btn>
         </v-col>
@@ -84,6 +88,7 @@
         justify="center"
       >
         <v-col
+          v-model="changeData.password"
           align="center"
           align-self="center"
           cols="2"
@@ -114,6 +119,7 @@
         class="pa-0 ma-10"
         color="primary"
         type="submit"
+        @click="submitChange"
       >
         수정
       </v-btn>
@@ -124,9 +130,38 @@
 <script>
 export default {
   name: "MyPageInfo",
+  computed: {
+    userInfo: {
+      get() {
+        return this.$store.getters["authentiCation/getMarketInfo"]
+      },
+      set(){
+        this.$store.dispatch("authentiCation/actUserInfo")
+      }
+    },
+    changeData:{
+      get(){
+        return this.$store.getters["mypage/getChangeData"]
+      },
+      set(v){
+        this.$store.commit("mypage/setChangeData",v)
+      }
+    }
+  },
+  mounted() {
+    console.log('정보를 가져오는 중...')
+    console.log(this.$store.getters["authentiCation/getMarketInfo"])
+    this.$store.dispatch("authentiCation/actUserInfo")
+  },
   methods:{
-    Mypage_input_img_click(){
-      this.$refs.mypage_img_input.click();
+    checkNickName(){
+      console.log('asads')
+      this.$store.dispatch("mypage/checkMarketName",
+        this.$store.getters["mypage/getChangeData"].nickname)
+    },
+    submitChange(){
+      console.log(this.$store.getters["mypage/getChangeData"])
+      this.$store.dispatch("mypage/actChangeMarketInfo",this.$store.getters["mypage/getChangeData"])
     }
   }
 }

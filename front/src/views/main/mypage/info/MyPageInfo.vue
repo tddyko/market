@@ -209,7 +209,7 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods:{
