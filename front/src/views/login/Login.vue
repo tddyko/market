@@ -146,7 +146,7 @@ export default {
     }
   },
   methods:  {
-    async login() {
+    async Login() {
       axios({
         method: 'post',
         url: "http://localhost/login",

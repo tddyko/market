@@ -141,7 +141,7 @@ const routes = [
     children: [
       {
         path: "/login",
-        name: "Login.vue",
+        name: "Login",
         component: () => import("@/views/login/Login"),
       },
     ],
