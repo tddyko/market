@@ -18,13 +18,13 @@ const menuRouter = require('./routes/menu'); //메뉴 관련 라우터
 const reservationRouter = require('./routes/reservations'); //예약 관련 라우터
 const reseve_reviewRouter = require('./routes/reserve_review'); //예약 리뷰 관련 라우터
 const orderRouter = require('./routes/orders'); //주문
-const dashboardRouter = require('./routes/dashboard');// 대시보드 
+const dashboardRouter = require('./routes/dashboard');// 대시보드
 const order_reviewRouter = require('./routes/order_review');//주문리뷰
 const order_review_answerRouter = require('./routes/order_review_answer');//주문리뷰답글
 const menu_optionRouter = require('./routes/menu_option');//메뉴옵션
 const market_inforomRouter = require('./routes/market_infom');//가게 정보
 const main_page = require('./routes/mainPage'); //들어가자마자 나오는 화면
- 
+
 const app = express();
 app.use(require('connect-history-api-fallback')());
 app.use(express.static('public'));
@@ -56,7 +56,7 @@ const connDB = async () => {
 };
 
 app.use(cors({
-  origin : "http://localhost:8080",
+  origin : "http://localhost",
   credentials : true
 }));
 // dotenv setting
