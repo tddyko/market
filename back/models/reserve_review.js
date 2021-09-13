@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         comment: "리뷰내용",
       },
       rating: {
-        type: DataTypes.INTEGER(5),
+        type: DataTypes.INTEGER,
         comment: "평가점수",
       },
     },

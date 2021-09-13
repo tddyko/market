@@ -7,7 +7,7 @@ const state = () => ({
       title: "주문건수",
       subtitle: "당일 총 주문건...",
       subContent: "당일 총 주문건수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [],
       value: [],
     },
@@ -16,7 +16,7 @@ const state = () => ({
       title: "주문완료",
       subtitle: "당일 총 주문완료건...",
       subContent: "당일 총 주문완료수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [],
       value: [],
     },
@@ -25,7 +25,7 @@ const state = () => ({
       title: "주문취소",
       subtitle: "당일 총 주문취소건...",
       subContent: "당일 총 주문취소건수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [],
       value:[],
     }
@@ -38,7 +38,7 @@ const state = () => ({
       title: "예약건수",
       subtitle: "당일 총 예약건...",
       subContent: "당일 총 예약건수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [],
       value: [],
     },
@@ -47,7 +47,7 @@ const state = () => ({
       title: "예약완료",
       subtitle: "당일 총 예약완료건...",
       subContent: "당일 총 예약완료건수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [],
       value: [],
     },
@@ -56,7 +56,7 @@ const state = () => ({
       title: "예약취소",
       subtitle: "당일 총 예약취소건...",
       subContent: "당일 총 예약취소건수: ",
-      subContentValue: 300,
+      subContentValue: 0,
       labels: [], //시간
       value: [], //시간마다 값
     }

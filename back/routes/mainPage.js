@@ -9,14 +9,12 @@ router.get('/categorys/list', async (req, res)=>{
       let result = await Category.findOne({attributes:['category_id','name'],where : {name : categorys[i]},raw:true})
       response.push(result)
   }
-
   res.json(response);
 })
 
 router.get("/:category", async (req, res) => {
   console.log(req.params.category)
   let categories = ['치킨', '피자', '한식', '중식' ,'일식' ,'양식' ,'베이커리']
-
   let markets = await Market.findAll({
     include: [
       {
@@ -39,16 +37,16 @@ router.get("/:category", async (req, res) => {
       "profile_img",
       "market_name",
       [
-        sequelize.literal(`
-              (
-                SUM(IFNULL(Reserve_reviews.rating,0))
-                +SUM(IFNULL(Order_reviews.rating,0))
-              )
-              /(
-                COUNT(IFNULL(Reserve_reviews.review,0)) + COUNT(IFNULL(Order_reviews.review,0))
-              )`
-              ),
-        "ratingAvg",
+              sequelize.literal(`
+                    (
+                      SUM(IFNULL(Reserve_reviews.rating,0))
+                      +SUM(IFNULL(Order_reviews.rating,0))
+                    )
+                    /(
+                      COUNT(IFNULL(Reserve_reviews.review,0)) + COUNT(IFNULL(Order_reviews.review,0))
+                    )`
+                    ),
+              "ratingAvg",
       ],
       [
         sequelize.literal(
@@ -59,7 +57,7 @@ router.get("/:category", async (req, res) => {
     ],
     group: ["Market.market_id"],
     raw: true,
-  });
+  }) 
   res.json(markets);
 });
 
