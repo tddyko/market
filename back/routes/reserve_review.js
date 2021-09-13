@@ -27,7 +27,7 @@ router.post('/:marketname/:reservation_id',isLoggedInMember,upload.array('reserv
         req.files.forEach(async(files)=> {
             Reserve_review_img.create({
                 reserve_review_img_id : uuidv4(),
-                reserve_review_img : files.path,
+                reserve_review_img : files.path.substring(7),
                 reserve_review_id
             }).then(r => {if(r){console.log('성공')}}).catch(err=>{console.error(err)});    
         })
@@ -58,7 +58,7 @@ router.get('/:id',isLoggedInMember,upload.array('reviewImg',3), async(req, res) 
             req.files.forEach(async(file) => {
                 await Reserve_review_img.create({
                     reserve_review_img_id : uuidv4(),
-                    reserve_review_img : file.path,
+                    reserve_review_img : file.path.substring(7),
                     reserve_review_id : req.params.id
                 })
             })        

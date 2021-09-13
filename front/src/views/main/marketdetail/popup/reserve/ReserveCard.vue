@@ -164,9 +164,8 @@ export default {
       this.$store.dispatch('marketDetail/actReservation', {marketName : this.$session.get('market_name')});
     },
     imgSrc(name){
-      console.log(name)
       name = name.replaceAll("\\", "/");
-      return require(`../../../../../../../back/${name}`);
+      return this.$routerPort + name;
     }
   }
 }

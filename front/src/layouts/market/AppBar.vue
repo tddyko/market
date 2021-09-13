@@ -37,7 +37,7 @@
         <img
           v-if="userInfo!==null"
           alt="John"
-          :src="imgSrc(userInfo.profile_img)"
+          :src="userInfo.profile_img"
         >
       </v-avatar>
     </router-link>
@@ -77,11 +77,7 @@ export default {
         location.reload()
       })
     },
-    imgSrc(name){
-      console.log(name)
-      name = name.replaceAll("\\", "/");
-      return require(`../../../../back/${name}`);
-    }
+
   }
 }
 </script>

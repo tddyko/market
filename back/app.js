@@ -26,6 +26,8 @@ const market_inforomRouter = require('./routes/market_infom');//가게 정보
 const main_page = require('./routes/mainPage'); //들어가자마자 나오는 화면
  
 const app = express();
+app.use(require('connect-history-api-fallback')());
+app.use(express.static('public'));
 
 passportConfing(); //페스포트 설정
 // promise 버전
@@ -98,7 +100,6 @@ app.use('/order_review',order_reviewRouter)
 app.use('/order_review_answer',order_review_answerRouter);
 app.use('/menu_option',menu_optionRouter);
 app.use('/market_preview', market_inforomRouter);
-
 app.use( (req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;

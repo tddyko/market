@@ -9,24 +9,6 @@ const fs = require('fs');
 //이미지 파일 저장 관련 설정
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/market_inform_images/');
-router.post('/category/:market_name', async (req,res)=>{
-    let {market_id} = await Market.findOne({
-    attributes : ['market_id'],
-    where : {market_name : req.params.market_name}})
-    await Market.findOne({where : {market_id}}).then(async(market)=>{
-            console.log(req.body)
-            await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
-            }).then( async(category)=>{  
-               await market.setCategories([category]).then(async()=>{
-                     await market.getCategories().then((r)=>{
-                         console.log(r[0].dataValues.name);
-                     }); 
-                     res.json({message:'Succeed'})
-               })
-            });
-        });
-});
-
 /* localhost//mymarket/update/infrom */
 router.post('/inform',isLoggedInMarket,
     upload.fields(
@@ -39,9 +21,8 @@ router.post('/inform',isLoggedInMarket,
     await updateOrCreate(Market_inform,{market_id : req.user.market_id},inputData);
     if(req.files.profile_img){
         req.files.profile_img.forEach(async(files)=>{
-            console.log(files.filename)
             Market.update(
-            {profile_img : 'public\\images\\user_signup_images\\' + files.filename},
+            {profile_img : files.path.substring(7)},
             {where : {market_id : req.user.market_id}}
             ).then(
                 r => {
@@ -59,7 +40,7 @@ router.post('/inform',isLoggedInMarket,
             req.files.info_img.forEach(async(files)=>{
                 await Market_inform_img.create({
                     market_infrom_img_id : uuidv4(),
-                    market_inform_img : files.path,
+                    market_inform_img : files.path.substring(7),
                     market_inform_id : r.market_inform_id
                 }).then((r)=>{if(r)return true
                 else return false})
@@ -86,7 +67,6 @@ router.post('/notice',isLoggedInMarket,upload.array('noti_img',3), async(req,res
     let {market_noti} =  req.body; 
     let inputData = {market_noti};
     await updateOrCreate(Market_inform,{market_id : req.user.market_id}, inputData);
-    console.log(req.files)
     if(req.files){
         await Market_inform.findOne({where : {market_id : req.user.market_id},raw : true})
         .then(async(r) => {
@@ -94,7 +74,7 @@ router.post('/notice',isLoggedInMarket,upload.array('noti_img',3), async(req,res
             req.files.forEach(async(files)=>{
                 await Market_noti_img.create({
                     market_noti_img_id : uuidv4(),
-                    market_noti_img : files.path,
+                    market_noti_img : files.path.substring(7),
                     market_inform_id : r.market_inform_id
                 })
         })

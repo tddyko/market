@@ -9,6 +9,8 @@ module.exports = {
         },
       },
     },
+      compress: true,
+      disableHostCheck: true,
   },
   outputDir: "../back/public",
   transpileDependencies: ["vuetify"],

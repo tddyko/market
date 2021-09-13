@@ -482,6 +482,8 @@ export default {
           dt_address : this.addressDetail,
           state : 'member'
         })
+        alert('회원 가입이 완료 되었습니다')
+        this.$store.commit('authentiCation/setSignUpDialog',{memberSignupDialog: null})
       }
     },
     resetForm() {

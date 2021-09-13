@@ -31,7 +31,7 @@ router.post('/:marketname/:order_id', upload.array('orderReviewImg',3),isLoggedI
             req.files.forEach(async(files)=> {
                 await Order_review_img.create({
                    Order_review_img_id : uuidv4(),
-                   Order_review_img : files.path,
+                   Order_review_img : req.file.path.substring(7),
                    order_review_id
                 }).catch((err)=>{console.log(err)});
             });

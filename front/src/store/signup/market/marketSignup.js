@@ -47,11 +47,12 @@ const actions = {
   },
   signUp({commit},value){
     let formData = new FormData();
-    formData.append("userfile",value.userfile)
+    try{
+      formData.append("userfile", value.userfile)
+    }catch{}
     formData.append("id",value.id)
     formData.append("password",value.password )
     formData.append("name",value.name)
-    formData.append("birthday",value.birthday)
     formData.append("email",value.email)
     formData.append("market_name",value.market_name)
     formData.append("phonenumber",value.phonenumber)
@@ -59,19 +60,14 @@ const actions = {
     formData.append("address",value.address)
     formData.append("dt_address",value.dt_address)
     formData.append("market_phone",value.market_phone)
+    formData.append("category",value.category)
     axios.post(`http://localhost/signup/${value.state}`,formData,{
           withCredentials: true,
           headers : {'Content-Type': 'multipart/form-data'}
-        }).then((res)=>
-          {
-            axios({
-                url : `http://localhost/mymarket/update/category/ `,
-
-            })
-          }
+        }).then(async(res)=>{
+        }
     ).catch((err)=>console.log(err))
-
-  }
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

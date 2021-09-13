@@ -1,5 +1,4 @@
 <template>
-  <v-form>
     <v-container>
       <v-row
         align="center"
@@ -335,7 +334,6 @@
           class="mt-10 rounded-lg text-center"
           color="primary"
           height="40"
-          type="submit"
           width="80"
           @click="sendInfo"
         >
@@ -344,7 +342,6 @@
         {{ $vuetify.breakpoint.name }}
       </div>
     </v-container>
-  </v-form>
 </template>
 
 <script>
@@ -453,6 +450,7 @@ export default {
     sendInfo(){
       console.log("sendInfo button")
       this.$store.dispatch("info/send_infor_values")
+      location.reload()
     },
     phonnumberInput(event){
       console.log("phonnumber input : " + event)
@@ -464,7 +462,7 @@ export default {
     },
     imgSrc(name){
       name = name.replaceAll("\\", "/");
-      return require(`../../../../../back/${name}`);
+      return this.$routerPort + name;
     }
   },
 

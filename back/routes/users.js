@@ -8,16 +8,16 @@ const {isLoggedInMember, isLoggedInMarket} = require('./middlewares');
 const setMulter = require('../multer');
 const upload = setMulter('./public/images/user_signup_images/');
 
-router.get(
-    '/storeInformation', 
+router.get( '/storeInformation',
     isLoggedInMarket,
     async (req, res) => {
         let find = await Market.findOne({where : {market_id : req.user.market_id}})
+        console.log(find)
         res.json(find)
     }
 );
 router.get('/memberInformation',isLoggedInMember,async(req,res)=>{
-    let find = await Market.findOne({where : {market_id : req.user.market_id}})
+    let find = await Member.findOne({where : {member_id : req.user.member_id}})
     res.json(find)
 })
 router.put('/storeInformation/update',
@@ -26,7 +26,7 @@ router.put('/storeInformation/update',
     async (req, res) => {
         Market
             .update({
-                profile_img: req.file.path
+                profile_img: req.file.path.substring(7),
             }, {
                 where: {
                     market_id: req.user.market_id
@@ -86,7 +86,7 @@ router.post('/memberInformation/update', upload.single('userfile'),  isLoggedInM
                 }
     }).catch(err => console.dir(err));
     if(req.file){
-        Member.update({ profile_img : req.file.path}, {
+        Member.update({ profile_img : req.file.path.substring(7)}, {
                             where: {
                                 member_id: req.user.member_id
                             }

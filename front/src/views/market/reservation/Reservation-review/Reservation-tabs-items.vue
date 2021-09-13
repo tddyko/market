@@ -203,7 +203,7 @@ export default {
   methods: {
     imgSrc(name){
       name = name.replaceAll("\\", "/");
-      return require(`../../../../../../back/${name}`);
+      return this.$routerPort + name;
     },
     showRecoment(card){
       card.showRecoment = !card.showRecoment;

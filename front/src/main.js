@@ -7,6 +7,7 @@ import './plugins'
 import VueSession from 'vue-session'
 import axios from 'axios'
 Vue.prototype.$Axios = axios;
+Vue.prototype.$routerPort = "http://localhost/"
 Vue.config.productionTip = false;
 
 var sessionOptions = {

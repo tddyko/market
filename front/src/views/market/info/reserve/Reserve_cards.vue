@@ -175,7 +175,7 @@ export default {
     },
     imgSrc(name){
       name = name.replaceAll("\\", "/");
-      return require(`../../../../../../back/${name}`);
+      return this.$routerPort + name;
     },
 
   }

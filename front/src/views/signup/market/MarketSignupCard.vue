@@ -39,10 +39,10 @@
                 <v-avatar
                   size="80"
                 >
-                  <img
-                    alt="John"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  >
+                  <v-img
+                    v-if="imgPreview!==null"
+                    :src="imgPreview"
+                  />
                 </v-avatar>
               </v-row>
               <v-row
@@ -62,7 +62,6 @@
               <input
                 ref="imageInput"
                 hidden
-                multiple
                 type="file"
                 @change="onChangeImages"
               >
@@ -222,6 +221,36 @@
                   label="이메일"
                   outlined
                   placeholder="이메일을 입력해주세요."
+                />
+              </validation-provider>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+          >
+            <v-col
+              cols="12"
+              lg="4"
+              md="4"
+              sm="12"
+              xl="4"
+            >
+              <validation-provider
+                v-slot="{ errors }"
+                :rules="{
+                  required: true,
+                }"
+                name="이름"
+              >
+                <v-text-field
+                  v-model="name"
+                  :error-messages="errors"
+                  class="ma-0 pa-0"
+                  clearable
+                  dense
+                  label="이름"
+                  outlined
+                  placeholder="이름을 입력해주세요."
                 />
               </validation-provider>
             </v-col>
@@ -473,7 +502,9 @@
 export default {
   name: "MarketSignupCard",
   data: () => ({
+    imgPreview : null,
     id: null,
+    name : null,
     email: null,
     passwd: null,
     pwd_check1: null,
@@ -517,6 +548,7 @@ export default {
       this.$refs.imageInput.click();
     },
     onChangeImages (e) {
+      this.imgPreview = URL.createObjectURL(this.$refs.imageInput.files[0])
     },
     async SignUp() {
       const result = await this.$refs.observer.validate()
@@ -534,13 +566,17 @@ export default {
           address : this.address,
           dt_address : this.addressDetail,
           market_phone : this.market_phone,
-          state : 'market'
+          category : this.category,
+          state : 'market',
         })
+        alert('회원 가입이 완료 되었습니다')
+        this.$store.commit('authentiCation/setSignUpDialog',{marketSignupDialog: null})
       }
     },
     resetForm() {
       this.id = null
       this.passwd = null
+      this.name = null
       this.pwd_validate = null
       this.email = null
       this.marketName = null

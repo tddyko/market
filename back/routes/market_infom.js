@@ -206,12 +206,11 @@ router.get('/:marketNm/imformation',async(req, res)=>{
 /*  localhost/market_preview/room */
 router.post('/room/:room_id',upload.single('room_img'),isLoggedInMarket, async(req,res) => {
     let {room_name,room_comment,room_price} =req.body
-    console.log(req.file);
     let inputData = {room_name,room_comment,room_price}
     inputData.room_id = req.params.room_id
     inputData.market_id = req.user.market_id
     if(req.file)
-        inputData.room_images = req.file.path
+        inputData.room_images = req.file.path.substring(7)
     updateOrCreate(Market_room,{room_id : req.params.room_id},inputData)
 
 })

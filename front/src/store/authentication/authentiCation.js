@@ -46,6 +46,7 @@ const actions = {
       method : 'get',
       withCredentials : true,
     }).then(async(res)=>{
+
       if(!res.data.message)
         await commit("setMarketInfo",res.data)
       else{

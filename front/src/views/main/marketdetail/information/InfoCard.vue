@@ -133,9 +133,8 @@ export default {
   },
   methods: {
     imgSrc(name){
-      console.log(name)
       name = name.replaceAll("\\", "/");
-      return require(`../../../../../../back/${name}`);
+      return this.$routerPort + name;
     }
   },
 }

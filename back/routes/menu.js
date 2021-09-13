@@ -22,7 +22,7 @@ router.post('/update/:id' ,upload.single('menuImg'), isLoggedInMarket, async(req
              }
              await Product_img.create({
                  product_img_id : uuidv4(),
-                 product_img : req.file.path,
+                 product_img : req.file.path.substring(7),
                  product_id :  product_id
                  }).then((r)=>{
                      if(r)return true

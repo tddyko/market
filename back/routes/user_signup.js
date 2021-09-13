@@ -1,5 +1,5 @@
 const passport = require("passport");
-const { Market, Member } = require("../models");
+const { Market, Member,Category } = require("../models");
 const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
@@ -9,18 +9,8 @@ const bcrypt = require("bcrypt");
 const setMulter = require("../multer");
 const upload = setMulter("./public/images/user_signup_images/");
 const sequelize = require('sequelize');
-/*
-  localhost/signup/:market or memeber
-  가입 하는 라우터
-  이미지는 userfile
-  이메일 앞 부분(test)은 email
-  이메일 뒷 부분(@naver.com)은 email2
-  나머지는 db에 있는 이름이랑 동일
- */
-router.post(
-  "/signup/:singUpState",
-  upload.single("userfile"),
-  async (req, res, next) => {
+
+router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, res, next) => {
   console.log(req.body)
     if (req.params.singUpState === "market") {
       const {
@@ -46,14 +36,12 @@ router.post(
           },
         });
         if (exMarketID) return res.redirect("/signup?error=exist");
-        console.dir(req.file);
         console.log("가게 가입");
         const hash = await bcrypt.hash(password, 12);
-        console.log(req.file.path);
         await Market.create({
           market_id: uuidv4(),
           category: null,
-          profile_img: req.file.path,
+          profile_img:  req.file.path.substring(7),
           id,
           password: hash,
           name,
@@ -65,6 +53,21 @@ router.post(
           address,
           dt_address,
           market_phone
+        });
+        let {market_id} = await Market.findOne({
+            attributes : ['market_id'],
+            where : {market_name : req.body.market_name}})
+            await Market.findOne({where : {market_id}}).then(async(market)=>{
+                    console.log(req.body)
+                    await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
+                    }).then( async(category)=>{
+                       await market.setCategories([category]).then(async()=>{
+                             await market.getCategories().then((r)=>{
+                                 console.log(r[0].dataValues.name);
+                             });
+                             res.json({message:'Succeed'})
+                    })
+            });
         });
       } catch (e) {
         console.error(e);
@@ -93,7 +96,7 @@ router.post(
         const hash = await bcrypt.hash(password, 12);
         await Member.create({
           member_id: uuidv4(),
-          profile_img: "public\\images\\user_signup_images\\defaultProfile.jpg",
+          profile_img: "images/user_signup_images/defaultProfile.jpg",
           id,
           password: hash,
           name,
@@ -109,7 +112,7 @@ router.post(
         console.error(e);
         return next(e);
       }
-    }
+   }
   }
 );
 

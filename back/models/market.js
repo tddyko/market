@@ -28,11 +28,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             comment: "마켓 가입자 이름",
         },
-        birthday: {
-            type: DataTypes.STRING(14),
-            allowNull: false,
-            comment: "마켓 가입자 생년월일",
-        },
         email: {
             type: DataTypes.STRING(20),
             allowNull: false,
