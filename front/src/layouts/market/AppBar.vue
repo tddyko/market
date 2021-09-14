@@ -8,9 +8,9 @@
       <router-link to="/market">
         <v-img
           :src="require('@/assets/logo.png')"
-          contain
-          max-height="30"
           max-width="165"
+          max-height="30"
+          contain
         />
       </router-link>
     </v-toolbar-title>
@@ -25,8 +25,8 @@
     <v-btn
       v-if="userInfo!==null"
       icon
-      to="/"
       @click="logout"
+      to="/"
     >
       <v-icon>mdi-logout-variant</v-icon>
     </v-btn>
@@ -36,8 +36,8 @@
       >
         <img
           v-if="userInfo!==null"
-          :src="userInfo.profile_img"
           alt="John"
+          :src="userInfo.profile_img"
         >
       </v-avatar>
     </router-link>
@@ -70,7 +70,7 @@ export default {
   methods : {
     logout(){
       axios({
-        url : 'http://localhost:6666/logout',
+        url : 'http://localhost/logout',
         method : 'post',
         withCredentials : true
       }).then(()=>{
