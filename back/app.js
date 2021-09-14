@@ -70,7 +70,7 @@ const connDB = async () => {
 
 app.use(
   cors({
-    origin: "http://localhost",
+    origin: "http://localhost:6666",
     credentials: true,
   })
 );
