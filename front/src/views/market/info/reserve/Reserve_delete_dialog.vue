@@ -64,7 +64,6 @@ export default {
       return count-1;
     },
     get_dialog_menu_name(){
-      console.log(this.$store.getters["menu/getRoom_Checkbox"][0])
       try{
         let index = this.$store.getters["menu/getRoom_Checkbox"][0]
         let data =  this.$store.getters["menu/getRoom"][index].room_name

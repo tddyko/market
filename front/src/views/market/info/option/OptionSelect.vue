@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     setOption(value){
-      console.log(value)
       this.$store.dispatch("menu/actSelectedMenuId",value)
       this.$store.dispatch("menu/actMenu_Option",value)
     }

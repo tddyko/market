@@ -52,7 +52,6 @@ const connDB = async () => {
     } catch (e) {
         console.error(e);
     }
-    console.log('데이터베이스 연결성공');
 };
 
 app.use(cors({

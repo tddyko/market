@@ -124,7 +124,6 @@ export default {
         this.$store.commit("menu/setOption_Checkbox",value)
       },
       get(){
-        console.log(this.$store.getters["menu/getOption_Checkbox"])
         return this.$store.getters["menu/getOption_Checkbox"]
       }
     },
@@ -133,13 +132,11 @@ export default {
         this.$store.commit("menu/setOption_item_checkbox",value)
       },
       get(){
-        console.log(this.$store.getters["menu/getOption_item_checkbox"])
         return this.$store.getters["menu/getOption_item_checkbox"]
       }
     },
     Option:{
       get(){
-        console.log(this.$store.getters['menu/getMenu_Option'])
         return this.$store.getters['menu/getMenu_Option']
       },
     },
@@ -152,7 +149,6 @@ export default {
       this.$store.dispatch("menu/actMenu_Options",index)
     },
     deleteOptions(value){
-      console.log('삭제')
       this.$store.dispatch("menu/actDeleteOption_items",value)
     }
   }

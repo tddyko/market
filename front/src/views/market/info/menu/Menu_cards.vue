@@ -166,11 +166,9 @@ export default {
       return this.$routerPort + name;
     },
     onClickImgUpload (value) {
-      console.log(value)
       this.$refs.menuImageInput[value].click();
     },
     uploadMenuImg(index){
-      console.log(this.$refs.menuImageInput[index].files[0])
       this.$store.dispatch("menu/actUpdateMenuImg",
         {index :index, property :  "menuImg", value : this.$refs.menuImageInput[index].files[0]})
     },

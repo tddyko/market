@@ -459,7 +459,6 @@ export default {
       this.$refs.imageInput.click();
     },
     onChangeImages (e) {
-      console.log(e.target.files);
       const imgFormData = new FormData();
       [].forEach.call(e.target.files, (f) => {
         imgFormData.append('img', f);
@@ -467,7 +466,6 @@ export default {
     },
     async SignUp() {
       const result = await this.$refs.observer.validate()
-      console.log('adsdsadsa')
       if(result && this.$store.getters["marketSignup/getIdCheck"]) {
         this.$store.dispatch("memberSignup/signUp",{
           id : this.id,

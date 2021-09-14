@@ -148,8 +148,6 @@ export default {
   computed: {
     MarketInfo : {
       get(){
-        console.log('getMarketINfo')
-        console.log(this.$store.getters["mypage/getOrderInfo"])
         return this.$store.getters["mypage/getOrderInfo"]
       }
     },
@@ -158,7 +156,6 @@ export default {
         return this.$store.getters["mypage/getReview"]
       },
       set(v){
-        console.log(v)
         this.$store.commit('mypage/setReview',v)
       }
     },
@@ -167,7 +164,6 @@ export default {
         return this.$store.getters["mypage/getReviewRating"]
       },
       set(v){
-        console.log(v)
         this.$store.commit("mypage/setReviewRating",v)
       }
     },

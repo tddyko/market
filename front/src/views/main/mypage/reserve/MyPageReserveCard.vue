@@ -86,8 +86,6 @@ export default {
   computed : {
     my_reserve : {
       get(){
-        console.log('get')
-        console.log(this.$store.getters["mypage/getReserveList"])
         return this.$store.getters["mypage/getReserveList"]
       },
       set(v){
@@ -96,7 +94,6 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted')
     this.$store.dispatch("mypage/actReserveList")
   },
   methods: {

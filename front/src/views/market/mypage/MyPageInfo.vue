@@ -149,18 +149,14 @@ export default {
     }
   },
   mounted() {
-    console.log('정보를 가져오는 중...')
-    console.log(this.$store.getters["authentiCation/getMarketInfo"])
     this.$store.dispatch("authentiCation/actUserInfo")
   },
   methods:{
     checkNickName(){
-      console.log('asads')
       this.$store.dispatch("mypage/checkMarketName",
         this.$store.getters["mypage/getChangeData"].nickname)
     },
     submitChange(){
-      console.log(this.$store.getters["mypage/getChangeData"])
       this.$store.dispatch("mypage/actChangeMarketInfo",this.$store.getters["mypage/getChangeData"])
     }
   }

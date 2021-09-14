@@ -226,8 +226,6 @@ export default {
         this.$store.getters["mypage/getChangeData"].nickName)
     },
     submitChange(){
-      console.log('버튼')
-      console.log(this.$store.getters["mypage/getChangeData"])
       this.$store.dispatch("mypage/actChangeMemberInfo",this.$store.getters["mypage/getChangeData"])
       location.reload()
     }

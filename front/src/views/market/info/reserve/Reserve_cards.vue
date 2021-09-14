@@ -139,8 +139,6 @@ export default {
   computed: {
     cards: {
       get() {
-        console.log('get')
-        console.log(this.$store.getters["menu/getRoom"])
         return this.$store.getters["menu/getRoom"]
       },
       set(value){

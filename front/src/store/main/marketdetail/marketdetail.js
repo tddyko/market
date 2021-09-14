@@ -17,13 +17,13 @@ const state = () => ({
   rating: null,
   orderMenus: [],
   ratingPoint: [
-   { ratingPoint: "5점" },
-      { ratingPoint: "4점" },
-      { ratingPoint: "3점" },
-      { ratingPoint: "2점" },
-      { ratingPoint: "1점" },
-    ],
-  valueDeterminate: [],
+     { ratingPoint: "5점" },
+     { ratingPoint: "4점" },
+     { ratingPoint: "3점" },
+     { ratingPoint: "2점" },
+     { ratingPoint: "1점" },
+  ],
+  valueDeterminate: [0,0,0,0,0],
   reserveTime: [],
   reserveTimeCh: [],
   cards: [],
@@ -151,11 +151,14 @@ const mutations = {
   setReviews : (state,data) => state.reviews = data,
   setRating(state, data){
         console.log("setRating : " + data);
+        state.valueDeterminate  = []
         state.rating = data.ratingAvg;
-        console.log(data.ratingsCount)
-        for(let i in state.valueDeterminate){
-          state.valueDeterminate[i].rating = data.ratingsCount[i]
+        for(let i in data.ratingsCount){
+          console.log(i)
+          state.valueDeterminate[i] = data.ratingsCount[i]
         }
+        console.log('iiiiiiiii')
+        console.log(state.valueDeterminate)
   },
   setOrderedInformation(state,data){
     console.log(data)
@@ -217,7 +220,6 @@ const actions = {
           url: `http://localhost/market_preview/${value}/totalRating`,
           method: 'get',
         }).then((response)=>{
-          console.log(response.data)
           commit("setRating", response.data);
         })
   },

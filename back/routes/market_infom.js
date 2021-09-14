@@ -20,18 +20,16 @@ router.get('/:marketNm/totalRating',async(req, res)=>{
         where:{market_name: req.params.marketNm},raw : true
     });
     let sum =
-    await Reserve_review.sum('rating',{where :{market_id}}) + await Order_review.sum('rating',{where :{market_id}})
-    if(sum==null) sum=0
-    let count = await Reserve_review.count({where:{market_id}}) +
-    await Order_review.count({where:{market_id}})
-    if(count==null) count=0
-
+    (await Reserve_review.sum('rating',{where :{market_id}}) + await Order_review.sum('rating',{where :{market_id}}))||0
+    let count = (await Reserve_review.count({where:{market_id}}) +
+    await Order_review.count({where:{market_id}}) ) || 0
     var array = new Array();  
     for(var i=1;i<=5; i++)
-        array[i-1] =(await countRating(Reserve_review,req.params.marketNm,i))
-                    + (await countRating(Order_review,req.params.marketNm,i))
-    ratringResult.ratingAvg = sum/count;
+        array[i-1] = (((await countRating(Reserve_review,req.params.marketNm,i)||0))
+                   + ( (await countRating(Order_review,req.params.marketNm,i))||0)) / (count) * 100
+    ratringResult.ratingAvg = sum/count || 0;
     ratringResult.ratingsCount = array.reverse()
+    console.log(ratringResult)
     res.json(ratringResult); 
 })
 
