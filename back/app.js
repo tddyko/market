@@ -55,7 +55,7 @@ const connDB = async () => {
 };
 
 app.use(cors({
-  origin : "http://localhost",
+  origin : "http://localhost:3000",
   credentials : true
 }));
 // dotenv setting
