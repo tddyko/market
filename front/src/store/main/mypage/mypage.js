@@ -82,7 +82,7 @@ const actions = {
   },
   actOrderList({commit},value){
     axios({
-      url : 'http://localhost/order/member_list',
+      url : 'http://localhost:3000/order/member_list',
       method : 'get',
       withCredentials: true,
     }).then(async(res)=>{
@@ -101,7 +101,7 @@ const actions = {
         formData.append("reserve_reviewImg", getters.getReviewImg[index])
     formData.append('review',getters.getReview)
     formData.append('rating',getters.getReviewRating)
-    axios.post(`http://localhost/${value}/${orderInfo.market_name}/${orderInfo.orderId}`,formData,{
+    axios.post(`http://localhost:3000/${value}/${orderInfo.market_name}/${orderInfo.orderId}`,formData,{
           withCredentials: true,
           headers : {'Content-Type': 'multipart/form-data'}
         }).then((res)=>{
@@ -112,7 +112,7 @@ const actions = {
   },
   actReserveList({commit},value){
       axios({
-        url : 'http://localhost/reservation/myReserve',
+        url : 'http://localhost:3000/reservation/myReserve',
         method : 'get',
         withCredentials: true,
       }).then(async(res)=>{
@@ -131,7 +131,7 @@ const actions = {
    }catch{}
    formData.append('nickname', value.nickname)
    formData.append('password',value.password)
-    axios.post('http://localhost/users/memberInformation/update',formData,{
+    axios.post('http://localhost:3000/users/memberInformation/update',formData,{
       withCredentials : true,
       headers : {'Content-Type': 'multipart/form-data'}
     }).then(()=>{value.nicknameCheck = false}).catch((err)=>{console.log(err)})}
@@ -139,7 +139,7 @@ const actions = {
   checkNickName({getters},value){
   if(getters.getChangeData.nickname!==null)
     axios({
-      url : `http://localhost/users/checkNickName/${getters.getChangeData.nickname}`,
+      url : `http://localhost:3000/users/checkNickName/${getters.getChangeData.nickname}`,
       method : 'get',
       withCredentials : true
     }).then(async(res)=>{
@@ -154,7 +154,7 @@ const actions = {
    checkMarketName({getters},value){
     if(getters.getChangeData.nickname!==null)
       axios({
-        url : `http://localhost/users/checkMarketName/${getters.getChangeData.nickname}`,
+        url : `http://localhost:3000/users/checkMarketName/${getters.getChangeData.nickname}`,
         method : 'get',
         withCredentials : true
       }).then(async(res)=>{
@@ -174,7 +174,7 @@ const actions = {
       else {
       axios({
         method:'post',
-        url : 'http://localhost/users/marketInformation/update',
+        url : 'http://localhost:3000/users/marketInformation/update',
         withCredentials : true,
         data : {
           market_name : value.nickname,

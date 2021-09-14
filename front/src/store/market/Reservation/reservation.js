@@ -91,7 +91,7 @@ const actions = {
   actReserve_Review_Items({commit},data){
     if(data.dates.length>1)
     axios({
-      url : 'http://localhost/reseve_review/reviews/list',
+      url : 'http://localhost:3000/reseve_review/reviews/list',
       method : 'get',
       withCredentials : true,
       params : {
@@ -110,7 +110,7 @@ const actions = {
   actReserve_List_Items({ commit },date){
     console.log("input date is " + date)
     axios({
-      url : 'http://localhost/reservation/list',
+      url : 'http://localhost:3000/reservation/list',
       method : 'get',
       withCredentials : true,
       params : {
@@ -123,7 +123,7 @@ const actions = {
   },
   actReserve_Review_answers({commit},data){
     axios({
-      url : `http://localhost/reseve_review/recoment/${data.review_id}`,
+      url : `http://localhost:3000/reseve_review/recoment/${data.review_id}`,
       method : 'get',
       withCredentials : true,
       params : {

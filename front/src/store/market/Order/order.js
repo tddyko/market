@@ -98,7 +98,7 @@ const actions = {
   actOrder_List_Items({ commit },date){
     console.log('update orderlist')
     axios({
-      url : 'http://localhost/order/list',
+      url : 'http://localhost:3000/order/list',
       method : 'get',
       withCredentials : true,
       params : {
@@ -111,7 +111,7 @@ const actions = {
   actOrder_Review_Items({commit},data){
     if(data.dates.length>1)
     axios({
-      url : 'http://localhost/order_review/reviews/list',
+      url : 'http://localhost:3000/order_review/reviews/list',
       method : 'get',
       withCredentials : true,
       params : {
@@ -129,7 +129,7 @@ const actions = {
   },
   actOrder_Review_answers({commit},data){
     axios({
-      url : `http://localhost/order_review/answer/${data.review_id}`,
+      url : `http://localhost:3000/order_review/answer/${data.review_id}`,
       method : 'get',
       withCredentials : true,
       params : {

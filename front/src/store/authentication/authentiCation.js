@@ -42,7 +42,7 @@ const actions = {
   },
   actUserInfo({commit},value){
     axios({
-      url : 'http://localhost/users/storeInformation',
+      url : 'http://localhost:3000/users/storeInformation',
       method : 'get',
       withCredentials : true,
     }).then(async(res)=>{
@@ -51,7 +51,7 @@ const actions = {
         await commit("setMarketInfo",res.data)
       else{
         axios({
-          url : 'http://localhost/users/memberInformation',
+          url : 'http://localhost:3000/users/memberInformation',
           method : 'get',
            withCredentials : true,
           }).then(async(res)=>{
