@@ -27,12 +27,12 @@ const state = () => ({
       subContent: "당일 총 주문취소건수: ",
       subContentValue: 0,
       labels: [],
-      value:[],
-    }
+      value: [],
+    },
   ],
 
   //두번 쨰 줄
-  Reserve_DashBoard:[
+  Reserve_DashBoard: [
     {
       color: "black",
       title: "예약건수",
@@ -59,59 +59,61 @@ const state = () => ({
       subContentValue: 0,
       labels: [], //시간
       value: [], //시간마다 값
-    }
-  ]
+    },
+  ],
 });
 const getters = {
-  get_Order_DashBoard : (state) => state.Order_DashBoard,
-  get_Reserve_DashBoard : (state) => state.Reserve_DashBoard,
-
+  get_Order_DashBoard: (state) => state.Order_DashBoard,
+  get_Reserve_DashBoard: (state) => state.Reserve_DashBoard,
 };
 
 const mutations = {
-  setValue(state,data) {
-    let i=1;
-    state.Order_DashBoard.forEach((element)=>{
-      let sumValue=0;
-      try{
-        data[0].time.forEach((data,index)=>{
-          element.labels.push(data.substring(11))
-        })
+  setValue(state, data) {
+    let i = 1;
+    state.Order_DashBoard.forEach((element) => {
+      let sumValue = 0;
+      try {
+        data[0].time.forEach((data, index) => {
+          element.labels.push(data.substring(11));
+        });
         element.value = data[i].value;
-
-      }catch{}
-      data[i].value.forEach((countValue)=>{
-        sumValue +=countValue
-      })
-      element.subContentValue = sumValue
-      sumValue=0
-      i++
+      } catch {}
+      data[i].value.forEach((countValue) => {
+        sumValue += countValue;
+      });
+      element.subContentValue = sumValue;
+      sumValue = 0;
+      i++;
     });
-    i=4;
-    state.Reserve_DashBoard.forEach((element)=>{
-    let sumValue=0;
-      try{
-      data[0].time.forEach((data)=>{
-        element.labels.push(data.substring(11))
-      })
+    i = 4;
+    state.Reserve_DashBoard.forEach((element) => {
+      let sumValue = 0;
+      try {
+        data[0].time.forEach((data) => {
+          element.labels.push(data.substring(11));
+        });
         element.value = data[i].value;
-      }catch{}
-        element.subContentValue = sumValue
-        sumValue=0
-        i++
-    })
-  }
+      } catch {}
+      element.subContentValue = sumValue;
+      sumValue = 0;
+      i++;
+    });
+  },
 };
 const actions = {
-  actOrder_DashBoard({ commit }, value){
+  actOrder_DashBoard({ commit }, value) {
     axios({
-      url: '/dashboard',
-      method: 'get',
-      withCredentials : true,
-    }).then(async (response)=>{
-      await commit("setValue",response.data)
-    }).catch((error)=>{console.error(error);})
-  }
+      url: "http://localhost:6666/dashboard",
+      method: "get",
+      withCredentials: true,
+    })
+      .then(async (response) => {
+        await commit("setValue", response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
 };
 
-export default { namespaced:true, state, getters, mutations, actions};
+export default { namespaced: true, state, getters, mutations, actions };

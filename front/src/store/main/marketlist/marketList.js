@@ -19,16 +19,16 @@ const mutations = {
 };
 
 const actions = {
-  actCards({ commit },value) {
-    console.log('actCards가 호출됨')
+  actCards({ commit }, value) {
+    console.log("actCards가 호출됨");
     axios({
-      url: `/markets/${value}`,
-      method : 'get',
+      url: `http://localhost:6666/markets/${value}`,
+      method: "get",
       headers: {},
       withCredentials: true,
     }).then((response) => {
       commit("setCards", response.data);
-    })
+    });
   },
   actSelect({ commit }, value) {
     commit("setSelect", value);

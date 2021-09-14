@@ -70,7 +70,7 @@ export default {
   methods : {
     logout(){
       axios({
-        url : '/logout',
+        url : 'http://localhost:6666/logout',
         method : 'post',
         withCredentials : true
       }).then(()=>{

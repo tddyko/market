@@ -32,11 +32,11 @@ const actions = {
   },
   actTabTitle({ commit }) {
     axios({
-      url: "/markets/categorys/list",
+      url: "http://localhost:6666/markets/categorys/list",
       method: "get",
     }).then((response) => {
-      commit("setTabTitle",  response.data.name);
-    })
+      commit("setTabTitle", response.data.name);
+    });
   },
 };
 
