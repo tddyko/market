@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
   actIdCheck({commit},value){
     axios({
-      url : `/api/idCheck/${value}`,
+      url : `/idCheck/${value}`,
       method : 'get'
     }).then(async(res)=>{
       if(res.data === true)
@@ -38,7 +38,7 @@ const actions = {
   },
   actCategories({commit},value){
     axios({
-      url : '/api/markets/categorys/list',
+      url : '/markets/categorys/list',
       method : 'get'
     }).then(async(res)=>{
       commit("setCategories",res.data)
@@ -61,7 +61,7 @@ const actions = {
     formData.append("dt_address",value.dt_address)
     formData.append("market_phone",value.market_phone)
     formData.append("category",value.category)
-    axios.post(`/api/signup/${value.state}`,formData,{
+    axios.post(`/signup/${value.state}`,formData,{
           withCredentials: true,
           headers : {'Content-Type': 'multipart/form-data'}
         }).then(async(res)=>{

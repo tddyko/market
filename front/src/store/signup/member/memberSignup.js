@@ -10,7 +10,7 @@ const actions = {
   console.log('signUp')
 
     axios({
-      url : `/api/signup/member${value.state}`,
+      url : `/signup/member${value.state}`,
       method :'post',
       data : {
         'id':value.id,

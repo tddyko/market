@@ -180,7 +180,7 @@ const actions = {
   },
   actCards({ commit }, value) {
     axios({
-      url: `/api/menu/list/${value}`,
+      url: `/menu/list/${value}`,
       method : 'get',
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
@@ -194,7 +194,7 @@ const actions = {
   },
   actReserveTime({ commit }, value) {
     axios({
-      url: `/api/dashboard/${value}`,
+      url: `/dashboard/${value}`,
       method: "get",
       headers:{},
       withCredentials: true,
@@ -205,7 +205,7 @@ const actions = {
   },
   actMarketTitle({ commit },value) {
     axios({
-      url: `/api/market_preview/${value}/imformation`,
+      url: `/market_preview/${value}/imformation`,
       method : 'get',
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
@@ -217,7 +217,7 @@ const actions = {
   },
   actRating({ commit }, value) {
         axios({
-          url: `/api/market_preview/${value}/totalRating`,
+          url: `/market_preview/${value}/totalRating`,
           method: 'get',
         }).then((response)=>{
           commit("setRating", response.data);
@@ -227,7 +227,7 @@ const actions = {
     console.log(value.switch);
     if(value.switch == 0){
       axios({
-            url: `/api/order_review/reviews/list/${value.market_name}`,
+            url: `/order_review/reviews/list/${value.market_name}`,
             method: 'get',
       }).then((response)=>{
             console.log(response.data)
@@ -236,7 +236,7 @@ const actions = {
     }
     else{
       axios({
-         url: `/api/reseve_review/reviews/list/${value.market_name}`,
+         url: `/reseve_review/reviews/list/${value.market_name}`,
          method: 'get',
       }).then((response)=>{
             console.log(response.data)
@@ -246,7 +246,7 @@ const actions = {
   },
   actOptionGroup({ commit },value) {
     axios({
-      url: `/api/menu_option/addGroup/${value}`,
+      url: `/menu_option/addGroup/${value}`,
       method : 'get',
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
@@ -263,7 +263,7 @@ const actions = {
   },
   actRoom({ commit },value) {
     axios({
-      url: `/api/market_preview/roomlist/${value}`,
+      url: `/market_preview/roomlist/${value}`,
       method : 'get',
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
@@ -274,7 +274,7 @@ const actions = {
   },
   actReservation({ getters },value) {
     axios({
-      url: `/api/reservation/in/${value.marketName}`,
+      url: `/reservation/in/${value.marketName}`,
       method : 'post',
       headers: {},
       withCredentials: true,
@@ -295,7 +295,7 @@ const actions = {
   console.log(value)
     for(let order of value.orderItem){
       axios({
-        url : `/api/reservation/in/${value.marketName}`,
+        url : `/reservation/in/${value.marketName}`,
         method : 'post',
         headers :{},
         withCredentials : true,

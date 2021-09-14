@@ -14,7 +14,7 @@
     },
    mounted() {
     this.$Axios({
-        url : "/api/dashboard",
+        url : "/dashboard",
         method : "GET",
         withCredentials : true,
         }).then((res) => {

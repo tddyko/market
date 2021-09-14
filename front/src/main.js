@@ -7,7 +7,7 @@ import './plugins'
 import VueSession from 'vue-session'
 import axios from 'axios'
 Vue.prototype.$Axios = axios;
-Vue.prototype.$routerPort = "/api/"
+Vue.prototype.$routerPort = "/"
 Vue.config.productionTip = false;
 
 var sessionOptions = {
