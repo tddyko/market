@@ -57,7 +57,12 @@ router.get("/:category", async (req, res) => {
     ],
     group: ["Market.market_id"],
     raw: true,
-  }) 
+  }).then(async(res)=>{
+    res.forEach(async(el)=>{
+        el.ratingAvg = parseFloat(el.ratingAvg)
+    })
+    return res
+  })
   res.json(markets);
 });
 
