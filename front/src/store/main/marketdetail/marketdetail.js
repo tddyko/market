@@ -1,12 +1,9 @@
-import axios from 'axios';
-import router from '../../../router'
+import axios from "axios";
+import router from "../../../router";
 const state = () => ({
   reservations_number: 1,
   tabs: null,
-  select_items: [
-    "주문리뷰",
-    "예약리뷰"
-  ],
+  select_items: ["주문리뷰", "예약리뷰"],
   tabTitles: [
     { title: "주문" },
     { title: "예약" },
@@ -17,13 +14,13 @@ const state = () => ({
   rating: null,
   orderMenus: [],
   ratingPoint: [
-     { ratingPoint: "5점" },
-     { ratingPoint: "4점" },
-     { ratingPoint: "3점" },
-     { ratingPoint: "2점" },
-     { ratingPoint: "1점" },
+    { ratingPoint: "5점" },
+    { ratingPoint: "4점" },
+    { ratingPoint: "3점" },
+    { ratingPoint: "2점" },
+    { ratingPoint: "1점" },
   ],
-  valueDeterminate: [0,0,0,0,0],
+  valueDeterminate: [0, 0, 0, 0, 0],
   reserveTime: [],
   reserveTimeCh: [],
   cards: [],
@@ -44,22 +41,22 @@ const state = () => ({
     { widgets: false },
     { radioGroup: 1 },
   ],
-  marketTitle:null,
+  marketTitle: null,
   product: [],
-  optionGroup : [],
-  room:[],
-  reservation:[],
-  selectmenu:[],
-  addmenu:[],
+  optionGroup: [],
+  room: [],
+  reservation: [],
+  selectmenu: [],
+  addmenu: [],
   selectOptions: [],
-  selectRoom :[],
-  reviews:[],
-  orderedInformation : {
-    requirement : null,
-    phoneNumber : null,
-    dt_address : null,
-    address : null
-  }
+  selectRoom: [],
+  reviews: [],
+  orderedInformation: {
+    requirement: null,
+    phoneNumber: null,
+    dt_address: null,
+    address: null,
+  },
 });
 const getters = {
   getTabs: (state) => state.tabs,
@@ -81,12 +78,11 @@ const getters = {
   getReservations_number: (state) => state.reservations_number,
   getSelectmenu: (state) => state.selectmenu,
   getAddmenu: (state) => state.addmenu,
-  getSelectOptions : (state) =>state.selectOptions,
+  getSelectOptions: (state) => state.selectOptions,
   getSelect: (state) => state.select_items,
-  getReviews : (state) => state.reviews,
-  getOrderedInformation : (state) => state.orderedInformation,
-  getSelectRoom : (state)=> state.selectRoom
-
+  getReviews: (state) => state.reviews,
+  getOrderedInformation: (state) => state.orderedInformation,
+  getSelectRoom: (state) => state.selectRoom,
 };
 
 const mutations = {
@@ -105,19 +101,19 @@ const mutations = {
   setReserveTime(state, data) {
     state.reserveTime = data;
   },
-  setMarketTitle(state, data){
+  setMarketTitle(state, data) {
     state.marketTitle = data;
   },
-  setOptionGroup(state, data){
+  setOptionGroup(state, data) {
     state.optionGroup = data;
   },
-  setReservations_number(state, data){
+  setReservations_number(state, data) {
     state.reservations_number = data;
   },
-  setReserveTimeCh(state, data){
-    state.reserveTimeCh = state.reserveTime[data]
+  setReserveTimeCh(state, data) {
+    state.reserveTimeCh = state.reserveTime[data];
   },
-  setRoom(state, data){
+  setRoom(state, data) {
     state.room = data;
   },
   setReservations_number_plus(state) {
@@ -126,50 +122,49 @@ const mutations = {
   setReservations_number_minus(state) {
     state.reservations_number -= 1;
   },
-  setReservation(state, data){
+  setReservation(state, data) {
     state.reservation = data;
   },
-  setSelectmenu(state, data){
+  setSelectmenu(state, data) {
     state.selectmenu.push(data);
   },
-  setAddmenu(state, data){
+  setAddmenu(state, data) {
     state.addmenu = data;
   },
-  setSelectOptions(state, data){
-    state.selectOptions[data.index] = data.value
+  setSelectOptions(state, data) {
+    state.selectOptions[data.index] = data.value;
   },
   incrementItemQuantity(state, cartItem) {
-    console.log(cartItem)
+    console.log(cartItem);
     cartItem.quantity++;
-    state.selectmenu.push()
+    state.selectmenu.push();
   },
   decrementItemQuantity(state, cartItem) {
-    console.log(cartItem)
+    console.log(cartItem);
     cartItem.quantity--;
-    state.selectmenu.push()
+    state.selectmenu.push();
   },
-  setReviews : (state,data) => state.reviews = data,
-  setRating(state, data){
-        console.log("setRating : " + data);
-        state.valueDeterminate  = []
-        state.rating = data.ratingAvg;
-        for(let i in data.ratingsCount){
-          console.log(i)
-          state.valueDeterminate[i] = data.ratingsCount[i]
-        }
-        console.log('iiiiiiiii')
-        console.log(state.valueDeterminate)
+  setReviews: (state, data) => (state.reviews = data),
+  setRating(state, data) {
+    console.log("setRating : " + data);
+    state.valueDeterminate = [];
+    state.rating = data.ratingAvg;
+    for (let i in data.ratingsCount) {
+      console.log(i);
+      state.valueDeterminate[i] = data.ratingsCount[i];
+    }
+    console.log("iiiiiiiii");
+    console.log(state.valueDeterminate);
   },
-  setOrderedInformation(state,data){
-    console.log(data)
-    state.orderedInformation = data
-    console.log(state.orderedInformation)
+  setOrderedInformation(state, data) {
+    console.log(data);
+    state.orderedInformation = data;
+    console.log(state.orderedInformation);
   },
-  setSelectRoom(state,value){
-    state.selectRoom = value
-  }
+  setSelectRoom(state, value) {
+    state.selectRoom = value;
+  },
 };
-
 
 const actions = {
   actTabs({ commit }, value) {
@@ -180,80 +175,79 @@ const actions = {
   },
   actCards({ commit }, value) {
     axios({
-      url: `http://localhost/menu/list/${value}`,
-      method : 'get',
+      url: `/menu/list/${value}`,
+      method: "get",
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
       console.log(response.data);
       commit("setCards", response.data);
-    })
+    });
   },
   actOrderMenus({ commit }, value) {
     commit("setOrderMenus", value);
   },
   actReserveTime({ commit }, value) {
     axios({
-      url: `http://localhost/dashboard/${value}`,
+      url: `/dashboard/${value}`,
       method: "get",
-      headers:{},
+      headers: {},
       withCredentials: true,
     }).then(async (response) => {
       console.log(response.data);
       await commit("setReserveTime", response.data);
-    })
+    });
   },
-  actMarketTitle({ commit },value) {
+  actMarketTitle({ commit }, value) {
     axios({
-      url: `http://localhost/market_preview/${value}/imformation`,
-      method : 'get',
+      url: `/market_preview/${value}/imformation`,
+      method: "get",
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
-      console.log('sesese')
+      console.log("sesese");
       console.log(response.data);
       commit("setMarketTitle", response.data);
-    })
+    });
   },
   actRating({ commit }, value) {
-        axios({
-          url: `http://localhost/market_preview/${value}/totalRating`,
-          method: 'get',
-        }).then((response)=>{
-          commit("setRating", response.data);
-        })
+    axios({
+      url: `/market_preview/${value}/totalRating`,
+      method: "get",
+    }).then((response) => {
+      commit("setRating", response.data);
+    });
   },
   actReviews({ commit }, value) {
     console.log(value.switch);
-    if(value.switch == 0){
+    if (value.switch === 0) {
       axios({
-            url: `http://localhost/order_review/reviews/list/${value.market_name}`,
-            method: 'get',
-      }).then((response)=>{
-            console.log(response.data)
-            commit("setReviews", response.data)
-      })
-    }
-    else{
+        url: `/order_review/reviews/list/${value.market_name}`,
+        method: "get",
+      }).then((response) => {
+        console.log(response.data);
+        commit("setReviews", response.data);
+      });
+    } else {
       axios({
-         url: `http://localhost/reseve_review/reviews/list/${value.market_name}`,
-         method: 'get',
-      }).then((response)=>{
-            console.log(response.data)
-            commit("setReviews", response.data)
-      })
+        url: `/reseve_review/reviews/list/${value.market_name}`,
+        method: "get",
+      }).then((response) => {
+        console.log(response.data);
+        commit("setReviews", response.data);
+      });
     }
   },
-  actOptionGroup({ commit },value) {
+  actOptionGroup({ commit }, value) {
     axios({
-      url: `http://localhost/menu_option/addGroup/${value}`,
-      method : 'get',
+      url: `/menu_option/addGroup/${value}`,
+      method: "get",
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
       console.log(response.data);
       commit("setOptionGroup", response.data);
-    })
+    });
   },
   actReservations_number_plus({ commit }) {
     commit("setReservations_number_plus");
@@ -261,72 +255,73 @@ const actions = {
   actReservations_number_minus({ commit }) {
     commit("setReservations_number_minus");
   },
-  actRoom({ commit },value) {
+  actRoom({ commit }, value) {
     axios({
-      url: `http://localhost/market_preview/roomlist/${value}`,
-      method : 'get',
+      url: `/market_preview/roomlist/${value}`,
+      method: "get",
       headers: {},
       withCredentials: true, //쿠키가 서로 저장
     }).then((response) => {
       console.log(response.data);
-      commit("setRoom", response.data)
-    })
+      commit("setRoom", response.data);
+    });
   },
-  actReservation({ getters },value) {
+  actReservation({ getters }, value) {
     axios({
-      url: `http://localhost/reservation/in/${value.marketName}`,
-      method : 'post',
+      url: `/reservation/in/${value.marketName}`,
+      method: "post",
       headers: {},
       withCredentials: true,
       data: {
-        current_state : "예약",
-        order_count : getters.getReservations_number,
+        current_state: "예약",
+        order_count: getters.getReservations_number,
         reserve_date: getters.Reservation_Get_date,
         reserve_time: getters.getReserveTimeCh,
-        reserve_seat: getters.getSelectRoom.room
-      }
-  }).then((response) => {
-    console.log(response.data);
-    commit("setReserveTime", value);
-    })
+        reserve_seat: getters.getSelectRoom.room,
+      },
+    }).then((response) => {
+      console.log(response.data);
+      commit("setReserveTime", value);
+    });
   },
-  actOrder({getters}, value){
-  console.log('주문합니다')
-  console.log(value)
-    for(let order of value.orderItem){
+  actOrder({ getters }, value) {
+    console.log("주문합니다");
+    console.log(value);
+    for (let order of value.orderItem) {
       axios({
-        url : `http://localhost/reservation/in/${value.marketName}`,
-        method : 'post',
-        headers :{},
-        withCredentials : true,
-        data :{
-          current_state : "주문",
-          order_count : order.quantity,
-          name : order.name,
-          phonenumber : value.orderInfo.phoneNumber,
-          address : value.orderInfo.address,
-          dt_address : value.orderInfo.dt_address,
-          requirements : value.orderInfo.requirement
+        url: `/reservation/in/${value.marketName}`,
+        method: "post",
+        headers: {},
+        withCredentials: true,
+        data: {
+          current_state: "주문",
+          order_count: order.quantity,
+          name: order.name,
+          phonenumber: value.orderInfo.phoneNumber,
+          address: value.orderInfo.address,
+          dt_address: value.orderInfo.dt_address,
+          requirements: value.orderInfo.requirement,
+        },
+      }).then(async (res) => {
+        if (res.data.message !== 0) {
+          alert(res.data.message);
+          router.push({ name: "Login.vue" });
+        } else {
+          alert("주문이 완료 되었습니다");
+          router.push({ name: "MarketDetail" });
         }
-      }).then(async(res)=>{
-        if(res.data.message !== 0){
-          alert(res.data.message)
-          router.push({ name: 'Login.vue' });
-        }else{
-            alert('주문이 완료 되었습니다')
-            router.push({name : 'MarketDetail'})
-        }
-      })
+      });
     }
   },
-  actIncrementItemQuantity({commit}, value) {
+  actIncrementItemQuantity({ commit }, value) {
     commit("incrementItemQuantity", value);
   },
-  actDecrementItemQuantity({commit}, value) {
+  actDecrementItemQuantity({ commit }, value) {
     commit("decrementItemQuantity", value);
   },
-  actSelectmenu({commit},value){commit("setSelectmenu",value)},
-
+  actSelectmenu({ commit }, value) {
+    commit("setSelectmenu", value);
+  },
 };
 
 export default { namespaced: true, state, getters, mutations, actions };

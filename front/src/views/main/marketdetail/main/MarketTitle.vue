@@ -29,7 +29,7 @@
             class="text-h3 text-left font-weight-bold my-16"
             :class="`text-${Font_size}`"
           >
-            {{marketInfo.market_name}} <small>{{marketInfo.Categories[0].name}}</small>
+            {{ marketInfo.market_name }} <small>{{ marketInfo.Categories[0].name }}</small>
           </div>
         </v-col>
         <v-col>
@@ -50,13 +50,13 @@
             class="mb-3"
             :class="`text-${Font_size2}`"
           >
-            {{marketInfo.address}}
+            {{ marketInfo.address }}
           </div>
 
           <div
             :class="`text-${Font_size2}`"
           >
-            {{marketInfo.market_phone}}
+            {{ marketInfo.market_phone }}
           </div>
         </v-col>
       </v-col>

@@ -96,21 +96,22 @@
                 <v-btn
                   color="indigo"
                   outlined
-                  @click="room(card.room_name,card.room_images)">
-                  담기
-                </v-btn>
-              <div
-                v-if="$vuetify.breakpoint.name === 'xs'"
-                class="text-center"
-              >
-                <v-btn
-                  color="indigo"
-                  outlined
-                  class="text-center"
+                  @click="room(card.room_name,card.room_images)"
                 >
                   담기
                 </v-btn>
-              </div>
+                <div
+                  v-if="$vuetify.breakpoint.name === 'xs'"
+                  class="text-center"
+                >
+                  <v-btn
+                    color="indigo"
+                    outlined
+                    class="text-center"
+                  >
+                    담기
+                  </v-btn>
+                </div>
               </v-card-actions>
             </v-col>
           </v-row>

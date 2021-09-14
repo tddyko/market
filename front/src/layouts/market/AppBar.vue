@@ -25,8 +25,8 @@
     <v-btn
       v-if="userInfo!==null"
       icon
-      @click="logout"
       to="/"
+      @click="logout"
     >
       <v-icon>mdi-logout-variant</v-icon>
     </v-btn>

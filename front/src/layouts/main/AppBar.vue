@@ -54,8 +54,8 @@
       </v-btn>
       <router-link to="/mypage">
         <v-avatar
-          class="mx-2"
           v-if="userInfo !== null"
+          class="mx-2"
         >
           <img
             alt="John"
@@ -87,6 +87,9 @@ export default {
     Mypagetab,
     MainTabBar: () => import('@/layouts/main/Tab')
   },
+  data: () => ({
+    expand: false,
+  }),
   computed : {
     userInfo :{
       get(){
@@ -98,9 +101,6 @@ export default {
   created() {
     this.$store.dispatch("authentiCation/actUserInfo")
   },
-  data: () => ({
-    expand: false,
-  }),
   methods : {
     logout(){
       axios({

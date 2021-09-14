@@ -28,10 +28,10 @@
         </v-col>
       </v-row>
       <v-row
-        align="center"
-        justify="start"
         v-for="(review,index) in getReviewCard"
         :key="index"
+        align="center"
+        justify="start"
         no-gutters
       >
         <v-col
@@ -52,7 +52,7 @@
           md="1"
           xl="1"
         >
-          {{review.Member.nickname}}
+          {{ review.Member.nickname }}
         </v-col>
         <v-col
           align="start"
@@ -61,7 +61,7 @@
           md="9"
           xl="9"
         >
-          {{review.created_date}}
+          {{ review.created_date }}
           <v-rating
             :size="`${Rating_size}`"
             background-color="warning lighten-1"
@@ -175,9 +175,13 @@ export default {
       }
     }
   },
+  created(){
+   this.$store.dispatch('marketDetail/actReviews',{market_name : this.$session.get('market_name'),
+        switch :0})
+  },
   methods : {
     getReview(e){
-      if(e=="주문리뷰"){
+      if(e==="주문리뷰"){
         this.$store.dispatch('marketDetail/actReviews',{market_name : this.$session.get('market_name'),
         switch :0
         })
@@ -192,10 +196,6 @@ export default {
       name = name.replaceAll("\\", "/");
       return this.$routerPort + name;
     }
-  },
-  created(){
-   this.$store.dispatch('marketDetail/actReviews',{market_name : this.$session.get('market_name'),
-        switch :0})
   }
 }
 </script>

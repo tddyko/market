@@ -78,11 +78,11 @@
           outlined
         >
           <v-row
+            v-for="(order,index) in orderItems"
+            :key="index"
             align="center"
             class="mx-1"
             justify="center"
-            v-for="(order,index) in orderItems"
-            :key="index"
           >
             <v-col
               class="pa-0 ma-0"
@@ -100,13 +100,13 @@
               cols="5"
             >
               <v-card-title :class="`text-${menuFont1} pa-0 my-3`">
-                {{order.name}}
+                {{ order.name }}
               </v-card-title>
               <v-card-text :class="`text-${menuFont2} text-left text--secondary pa-0 my-3`">
-                {{order.product_info}}
+                {{ order.product_info }}
               </v-card-text>
               <v-card-text :class="`text-${menuFont1} text-left font-weight-bold price pa-0 my-3`">
-                {{order.totalprice}}
+                {{ order.totalprice }}
               </v-card-text>
             </v-col>
             <v-col
@@ -114,7 +114,7 @@
               cols="5"
             >
               <v-btn
-                v-if="order.quantity == 0"
+                v-if="order.quantity === 0"
                 :min-height="`${btn_Height_Size}`"
                 :min-width="`${btn_Width_Size}`"
                 class="btn-people pa-0 mr-4 ml-0"

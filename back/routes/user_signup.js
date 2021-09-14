@@ -1,5 +1,5 @@
-const passport = require("passport");
-const { Market, Member,Category } = require("../models");
+require("passport");
+const { Market, Member, Category } = require("../models");
 const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
@@ -8,10 +8,12 @@ const bcrypt = require("bcrypt");
 //이미지 파일 저장 관련 설정
 const setMulter = require("../multer");
 const upload = setMulter("./public/images/user_signup_images/");
-const sequelize = require('sequelize');
-
-router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, res, next) => {
-  console.log(req.body)
+require("sequelize");
+router.post(
+  "/signup/:singUpState",
+  upload.single("userfile"),
+  async (req, res, next) => {
+    console.log(req.body);
     if (req.params.singUpState === "market") {
       const {
         id,
@@ -24,7 +26,7 @@ router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, re
         zipcode,
         address,
         dt_address,
-        market_phone
+        market_phone,
       } = req.body;
       try {
         const exMarketID = await Market.findOne({
@@ -41,7 +43,7 @@ router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, re
         await Market.create({
           market_id: uuidv4(),
           category: null,
-          profile_img:  req.file.path.substring(7),
+          profile_img: req.file.path.substring(7),
           id,
           password: hash,
           name,
@@ -52,22 +54,25 @@ router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, re
           zipcode,
           address,
           dt_address,
-          market_phone
+          market_phone,
         });
-        let {market_id} = await Market.findOne({
-            attributes : ['market_id'],
-            where : {market_name : req.body.market_name}})
-            await Market.findOne({where : {market_id}}).then(async(market)=>{
-                    console.log(req.body)
-                    await Category.findOne({attributes : ['category_id'], where : {name : req.body.category}
-                    }).then( async(category)=>{
-                       await market.setCategories([category]).then(async()=>{
-                             await market.getCategories().then((r)=>{
-                                 console.log(r[0].dataValues.name);
-                             });
-                             res.json({message:'Succeed'})
-                    })
+        let { market_id } = await Market.findOne({
+          attributes: ["market_id"],
+          where: { market_name: req.body.market_name },
+        });
+        await Market.findOne({ where: { market_id } }).then(async (market) => {
+          console.log(req.body);
+          await Category.findOne({
+            attributes: ["category_id"],
+            where: { name: req.body.category },
+          }).then(async (category) => {
+            await market.setCategories([category]).then(async () => {
+              await market.getCategories().then((r) => {
+                console.log(r[0].dataValues.name);
+              });
+              res.json({ message: "Succeed" });
             });
+          });
         });
       } catch (e) {
         console.error(e);
@@ -112,27 +117,25 @@ router.post(  "/signup/:singUpState",  upload.single("userfile"), async (req, re
         console.error(e);
         return next(e);
       }
-   }
+    }
   }
 );
 
-router.get('/idCheck/:id',async(req,res)=>{
-    let isIdOk = await Market.findOne({
-        attribute : ['id'],
-        where : {id : req.params.id}
-    }).then(async(res)=> {if(!res){
-        return true
-    }else
-        return false
-    })
-    isIdOk = isIdOk &&  await Member.findOne({
-        attribute : ['id'],
-        where : {id : req.params.id}
-                            }).then(async(res)=> {if(!res){
-                                return true
-                            }else
-                                return false
-        })
-    res.json(isIdOk)
-})
+router.get("/idCheck/:id", async (req, res) => {
+  let isIdOk = await Market.findOne({
+    attribute: ["id"],
+    where: { id: req.params.id },
+  }).then(async (res) => {
+    return !res;
+  });
+  isIdOk =
+    isIdOk &&
+    (await Member.findOne({
+      attribute: ["id"],
+      where: { id: req.params.id },
+    }).then(async (res) => {
+      return !res;
+    }));
+  res.json(isIdOk);
+});
 module.exports = router;
