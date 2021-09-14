@@ -39,14 +39,14 @@ const actions = {
   },
   actUserInfo({ commit }, value) {
     axios({
-      url: "/users/storeInformation",
+      url: "http://localhost/users/storeInformation",
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
       if (!res.data.message) await commit("setMarketInfo", res.data);
       else {
         axios({
-          url: "/users/memberInformation",
+          url: "http://localhost/users/memberInformation",
           method: "get",
           withCredentials: true,
         }).then(async (res) => {

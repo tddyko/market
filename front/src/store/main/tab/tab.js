@@ -32,7 +32,7 @@ const actions = {
   },
   actTabTitle({ commit }) {
     axios({
-      url: "/markets/categorys/list",
+      url: "http://localhost/markets/categorys/list",
       method: "get",
     }).then((response) => {
       commit("setTabTitle", response.data.name);

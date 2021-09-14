@@ -140,7 +140,7 @@ const actions = {
   },
   actMenu: ({ commit }, value) => {
     axios({
-      url: "/menu/myMarket/menuList",
+      url: "http://localhost/menu/myMarket/menuList",
       method: "get",
       withCredentials: "true",
     }).then(async (res) => {
@@ -152,7 +152,7 @@ const actions = {
       console.log(getters.getSelectMenuId);
       console.log(getters.getMenu_Option[index].name);
       axios({
-        url: `/menu_option/updateOptionGroup/${getters.getSelectMenuId}/${getters.getMenu_Option[index].pd_option_group_id}`,
+        url: `http://localhost/menu_option/updateOptionGroup/${getters.getSelectMenuId}/${getters.getMenu_Option[index].pd_option_group_id}`,
         method: "post",
         withCredentials: true,
         data: {
@@ -163,7 +163,7 @@ const actions = {
   },
   actOption_Select_Name: ({ commit }, value) => {
     axios({
-      url: `/menu_option/list/optionGroup/${value}`,
+      url: `http://localhost/menu_option/list/optionGroup/${value}`,
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
@@ -172,7 +172,7 @@ const actions = {
   },
   actMenu_Option: ({ commit }, value) => {
     axios({
-      url: `/menu_option/list/GroupAndOptions/${value}`,
+      url: `http://localhost/menu_option/list/GroupAndOptions/${value}`,
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
@@ -183,7 +183,7 @@ const actions = {
     for (let id of getters.getOption_item_checkbox) {
       let selectOption = getters.getMenu_Option[value];
       axios({
-        url: `/menu_option/updateOption/${selectOption.pd_option_group_id}/${selectOption.Pd_options[id].pd_option_id}`,
+        url: `http://localhost/menu_option/updateOption/${selectOption.pd_option_group_id}/${selectOption.Pd_options[id].pd_option_id}`,
         method: "post",
         withCredentials: true,
         data: {
@@ -194,7 +194,7 @@ const actions = {
     }
     for (let item of getters.getDeleteOptions) {
       axios({
-        url: `/menu_option/delete/options/${item.pd_option_id}`,
+        url: `http://localhost/menu_option/delete/options/${item.pd_option_id}`,
         method: "get",
         withCredentials: true,
       })
@@ -207,7 +207,7 @@ const actions = {
   actDeleteOption({ getters }, value) {
     for (let index of getters.getOption_Checkbox) {
       axios({
-        url: `/menu_option/delete/option_group/${getters.getMenu_Option[index].pd_option_group_id}`,
+        url: `http://localhost/menu_option/delete/option_group/${getters.getMenu_Option[index].pd_option_group_id}`,
         method: "get",
         withCredentials: true,
       })
@@ -222,7 +222,7 @@ const actions = {
   },
   actRoom({ commit }, value) {
     axios({
-      url: "/market_preview/myMarket/roomlist",
+      url: "http://localhost/market_preview/myMarket/roomlist",
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
@@ -236,7 +236,7 @@ const actions = {
       let selectRoom = getters.getRoom[index];
       console.log(selectRoom);
       axios({
-        url: `/market_preview/myMarket/deleteRoom/${selectRoom.room_id}`,
+        url: `http://localhost/market_preview/myMarket/deleteRoom/${selectRoom.room_id}`,
         method: "delete",
         withCredentials: true,
       });
@@ -261,10 +261,14 @@ const actions = {
       formData.append("room_price", selectRoom.room_price);
       if (selectRoom.room_img) formData.append("room_img", selectRoom.room_img);
       axios
-        .post(`/market_preview/room/${selectRoom.room_id}`, formData, {
-          withCredentials: true,
-          headers: { "Content-Type": "multipart/form-data" },
-        })
+        .post(
+          `http://localhost/market_preview/room/${selectRoom.room_id}`,
+          formData,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
         .then((res) => {})
         .catch((err) => console.log(err));
     }

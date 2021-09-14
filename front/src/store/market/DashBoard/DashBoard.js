@@ -103,7 +103,7 @@ const mutations = {
 const actions = {
   actOrder_DashBoard({ commit }, value) {
     axios({
-      url: "/dashboard",
+      url: "http://localhost/dashboard",
       method: "get",
       withCredentials: true,
     })
