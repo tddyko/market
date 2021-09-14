@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "cross-env NODE_ENV=producation PORT=80 pm2 start server",
+    "dev": "nodemon server"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
