@@ -9,7 +9,7 @@ const passport = require("passport"); //페스포트
 const passportConfing = require("./passport"); //페스포트 설정
 const flash = require("connect-flash");
 const cors = require("cors");
-/* 라우터부분 */
+/* 라우터 설정 */
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const user_loginRouter = require("./routes/user_login"); //로그인, 로그아웃
@@ -70,7 +70,7 @@ const connDB = async () => {
 
 app.use(
   cors({
-    origin: "http://localhost:6666:6666",
+    origin: "http://localhost",
     credentials: true,
   })
 );
