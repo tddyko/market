@@ -149,7 +149,7 @@ export default {
     async Login() {
       axios({
         method: 'post',
-        url: "http://localhost:3000/login",
+        url: "/api/login",
         headers: {},
         withCredentials : true,
         data: {

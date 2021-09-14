@@ -22,7 +22,7 @@ const actions = {
   actCards({ commit },value) {
     console.log('actCards가 호출됨')
     axios({
-      url: `http://localhost:3000/markets/${value}`,
+      url: `/api/markets/${value}`,
       method : 'get',
       headers: {},
       withCredentials: true,

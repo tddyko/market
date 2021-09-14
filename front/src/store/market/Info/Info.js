@@ -170,7 +170,7 @@ const actions = {
     formData.append("market_coment",state.information);
     formData.append("market_inform_week_holiday",state.week_holiday);
     formData.append("market_inform_day_holiday",state.day_holiday);
-    axios.post('http://localhost:3000/mymarket/update/inform',formData,{
+    axios.post('/api/mymarket/update/inform',formData,{
       withCredentials: true,
       headers : {'Content-Type': 'multipart/form-data'}
     }).then((res)=>
@@ -183,7 +183,7 @@ const actions = {
       formData.append("noti_img", state.Notice_Image[key]);
     }
     formData.append("market_noti", state.notice);
-    axios.post('http://localhost:3000/mymarket/update/notice',formData,{
+    axios.post('/api/mymarket/update/notice',formData,{
       withCredentials: true,
       headers : {'Content-Type': 'multipart/form-data'}
     }).then((res)=>
