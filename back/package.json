@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=producation PORT=80 pm2 start app.js",
+    "start": "cross-env NODE_ENV=producation PORT=80 pm2 start server.js",
     "dev": "nodemon server"
   },
   "dependencies": {
