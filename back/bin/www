@@ -19,7 +19,7 @@ app.app.set('port', port);
  * Create http2 server.
  */
 
-const server = http2.createServer(app.app);
+const server = http2.createServer(app.app, app.sslServer);
 
 /**
  * Listen on provided port, on all network interfaces.

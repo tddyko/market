@@ -1,9 +1,12 @@
 const express = require("express");
 const path = require("path");
 const { sequelize } = require("./models");
+const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const morgan = require("morgan");
+const hpp = require("hpp");
+const helmet = require("helmet");
 const dotenv = require("dotenv");
 const passport = require("passport"); //페스포트
 const passportConfing = require("./passport"); //페스포트 설정
@@ -12,6 +15,7 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 /* 라우터 설정 */
+const prod = process.env.NODE_ENV === "production";
 const user_loginRouter = require("./routes/user_login"); //로그인, 로그아웃
 const user_signupRouter = require("./routes/user_signup"); //회원가입
 const chageSotreinfoRouter = require("./routes/chageSotreinfo"); //가게 카테고리 업데이트
@@ -67,18 +71,33 @@ const connDB = async () => {
     console.error(e);
   }
 };
-
-app.use(
-  cors({
-    origin: "http://localhost:6666",
-    credentials: true,
-  })
-);
+const sslServer = {
+  ca: fs.readFileSync(path.join(__dirname, "bin", "nowait_ca.pem")),
+  key: fs.readFileSync(path.join(__dirname, "bin", "nowait_key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "bin", "nowait_origin.pem")),
+};
 
 // view engine setup
 app.set("view engine", "pug");
-
-app.use(morgan("dev"));
+if (prod) {
+  app.use(helmet());
+  app.use(hpp());
+  app.use(morgan("combined"));
+  app.use(
+    cors({
+      origin: "https://nowait.pw",
+      credentials: true,
+    })
+  );
+} else {
+  app.use(morgan("dev"));
+  app.use(
+    cors({
+      origin: "http://localhost:6666",
+      credentials: true,
+    })
+  );
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -91,6 +110,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
+      domain: prod && ".nowait.pw",
     },
   })
 );
@@ -98,7 +118,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 app.use("/", indexRouter);
 app.use("/", user_loginRouter);
 app.use("/", user_signupRouter);
@@ -120,6 +139,12 @@ app.use((req, res, next) => {
   next(error);
 });
 
+app.listen(prod ? process.env.PORT : 6666, () => {
+  console.log(
+    `백엔드 서버 ${prod ? process.env.PORT : 6666}번 포트에서 작동중.`
+  );
+});
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -128,4 +153,4 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-module.exports = { app, connDB };
+module.exports = { app, connDB, sslServer };
