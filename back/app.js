@@ -72,9 +72,9 @@ const connDB = async () => {
   }
 };
 const sslServer = {
-  ca: fs.readFileSync(path.join(__dirname, "bin", "nowait_ca.pem")),
-  key: fs.readFileSync(path.join(__dirname, "bin", "nowait_key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "bin", "nowait_origin.pem")),
+  ca: fs.readFileSync(path.join(__dirname, "ssl", "nowait_ca.pem")),
+  key: fs.readFileSync(path.join(__dirname, "ssl", "nowait_key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "ssl", "nowait_origin.pem")),
 };
 
 // view engine setup
