@@ -58,9 +58,7 @@ function onError(error) {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -76,7 +74,6 @@ function onError(error) {
       throw error;
   }
 }
-
 /**
  * Event listener for http2 server "listening" event.
  */

@@ -12,10 +12,10 @@ const passport = require("passport"); //페스포트
 const passportConfing = require("./passport"); //페스포트 설정
 const flash = require("connect-flash");
 const cors = require("cors");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 /* 라우터 설정 */
 const prod = process.env.NODE_ENV === "production";
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const user_loginRouter = require("./routes/user_login"); //로그인, 로그아웃
 const user_signupRouter = require("./routes/user_signup"); //회원가입
 const chageSotreinfoRouter = require("./routes/chageSotreinfo"); //가게 카테고리 업데이트
