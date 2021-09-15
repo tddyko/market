@@ -84,7 +84,7 @@ const actions = {
   },
   actOrderList({ commit }, value) {
     axios({
-      url: "http://localhost/order/member_list",
+      url: "/order/member_list",
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
@@ -105,7 +105,7 @@ const actions = {
     formData.append("rating", getters.getReviewRating);
     axios
       .post(
-        `http://localhost/${value}/${orderInfo.market_name}/${orderInfo.orderId}`,
+        `/${value}/${orderInfo.market_name}/${orderInfo.orderId}`,
         formData,
         {
           withCredentials: true,
@@ -119,7 +119,7 @@ const actions = {
   },
   actReserveList({ commit }, value) {
     axios({
-      url: "http://localhost/reservation/myReserve",
+      url: "/reservation/myReserve",
       method: "get",
       withCredentials: true,
     }).then(async (res) => {
@@ -138,7 +138,7 @@ const actions = {
       formData.append("nickname", value.nickname);
       formData.append("password", value.password);
       axios
-        .post("http://localhost/users/memberInformation/update", formData, {
+        .post("/users/memberInformation/update", formData, {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
         })
@@ -153,7 +153,7 @@ const actions = {
   checkNickName({ getters }, value) {
     if (getters.getChangeData.nickname !== null)
       axios({
-        url: `http://localhost/users/checkNickName/${getters.getChangeData.nickname}`,
+        url: `/users/checkNickName/${getters.getChangeData.nickname}`,
         method: "get",
         withCredentials: true,
       }).then(async (res) => {
@@ -165,7 +165,7 @@ const actions = {
   checkMarketName({ getters }, value) {
     if (getters.getChangeData.nickname !== null)
       axios({
-        url: `http://localhost/users/checkMarketName/${getters.getChangeData.nickname}`,
+        url: `/users/checkMarketName/${getters.getChangeData.nickname}`,
         method: "get",
         withCredentials: true,
       }).then(async (res) => {
@@ -181,7 +181,7 @@ const actions = {
     else {
       axios({
         method: "post",
-        url: "http://localhost/users/marketInformation/update",
+        url: "/users/marketInformation/update",
         withCredentials: true,
         data: {
           market_name: value.nickname,

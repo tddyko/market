@@ -6,7 +6,7 @@
 
 const app = require('../app');
 const debug = require('debug')('back:server');
-const http = require('http');
+const http2 = require('http2');
 
 /**
  * Get port from environment and store in Express.
@@ -16,10 +16,10 @@ const port = normalizePort(process.env.PORT || 3000);
 app.app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create http2 server.
  */
 
-const server = http.createServer(app.app);
+const server = http2.createServer(app.app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -50,7 +50,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for http2 server "error" event.
  */
 
 function onError(error) {
@@ -78,7 +78,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for http2 server "listening" event.
  */
 
 function onListening() {

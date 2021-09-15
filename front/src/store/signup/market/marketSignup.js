@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
   actIdCheck({ commit }, value) {
     axios({
-      url: `http://localhost/idCheck/${value}`,
+      url: `/idCheck/${value}`,
       method: "get",
     }).then(async (res) => {
       if (res.data === true) alert("사용 가능한 아이디 입니다");
@@ -36,7 +36,7 @@ const actions = {
   },
   actCategories({ commit }, value) {
     axios({
-      url: "http://localhost/markets/categorys/list",
+      url: "/markets/categorys/list",
       method: "get",
     }).then(async (res) => {
       commit("setCategories", res.data);
@@ -60,7 +60,7 @@ const actions = {
     formData.append("market_phone", value.market_phone);
     formData.append("category", value.category);
     axios
-      .post(`http://localhost/signup/${value.state}`, formData, {
+      .post(`/signup/${value.state}`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       })

@@ -14,7 +14,7 @@
     },
    mounted() {
     this.$Axios({
-        url : "http://localhost/dashboard",
+        url : "/dashboard",
         method : "GET",
         withCredentials : true,
         }).then((res) => {
@@ -39,11 +39,5 @@
 </script>
 
 <style>
-.v-sheet--offset {
-  top: -30px;
-  right: -17px;
-  position: relative;
-}
-
 </style>
 

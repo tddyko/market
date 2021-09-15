@@ -104,7 +104,7 @@ export default {
   methods : {
     logout(){
       axios({
-        url : 'http://localhost/logout',
+        url : '/logout',
         method : 'post',
         withCredentials : true
       }).then(()=>{
