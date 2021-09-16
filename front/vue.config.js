@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/": {
-        target: "http://localhost:6666",
+        target: "https://nowait.pw",
         changeOrigin: true,
         pathRewrite: {
           "^/": "",
