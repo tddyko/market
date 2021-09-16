@@ -71,11 +71,11 @@ const connDB = async () => {
     console.error(e);
   }
 };
-const sslServer = {
-  ca: fs.readFileSync(path.join(__dirname, "ssl", "nowait_ca.pem")),
-  key: fs.readFileSync(path.join(__dirname, "ssl", "nowait_key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "ssl", "nowait_origin.pem")),
-};
+// const sslServer = {
+//   ca: fs.readFileSync('./ssl/nowait.pw_nowait'),
+//   key: fs.readFileSync(''),
+//   cert: fs.readFileSync(''),
+// };
 
 // view engine setup
 app.set("view engine", "pug");
@@ -93,7 +93,7 @@ if (prod) {
   app.use(morgan("dev"));
   app.use(
     cors({
-      origin: "http://localhost:6666",
+      origin: "http://localhost",
       credentials: true,
     })
   );
@@ -147,4 +147,4 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-module.exports = { app, connDB, sslServer };
+module.exports = { app, connDB, /*sslServer*/ };
