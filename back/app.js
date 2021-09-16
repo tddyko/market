@@ -139,12 +139,6 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.listen(prod ? process.env.PORT : 6666, () => {
-  console.log(
-    `백엔드 서버 ${prod ? process.env.PORT : 6666}번 포트에서 작동중.`
-  );
-});
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
