@@ -7,6 +7,7 @@
 <h1 align="center">
   Use Tech
 </h1>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Vue.js 1.2-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/>
   <img src="https://img.shields.io/badge/Vuetify.js 2.5.8-1867C0?style=flat-square&logo=Vuetify&logoColor=white"/>
@@ -18,4 +19,17 @@
 <p align="center">
   <img src="https://img.shields.io/badge/MySQL 8.0-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
   <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white"/>
+  <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=Express&logoColor=white"/>
 </p>
+
+<h1 align="center">
+  목차
+</h1>
+<ul>
+  <li>디자인</li>
+  <li>DB설계</li>
+  <li>백엔드</li>
+  <li>프론트엔드</li>
+  <li>퍼블리싱</li>
+</ul>
