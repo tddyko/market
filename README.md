@@ -23,13 +23,19 @@
   <img src="https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=Express&logoColor=white"/>
 </p>
 
-<h1 align="center">
+<!-- <h1 align="center">
   목차
-</h1>
-<ul>
+</h1> -->
+<!-- <ul>
   <li>디자인</li>
   <li>DB설계</li>
   <li>백엔드</li>
   <li>프론트엔드</li>
   <li>퍼블리싱</li>
-</ul>
+</ul> -->
+*
+- 디자인
+- 퍼블리싱
+- 프론트엔드
+- DB설계
+- 백엔드
