@@ -4,11 +4,9 @@
 </br>
 </br>
 
-<!-- <h1 align="center">
+<h1 align="center">
   Use Tech
 </h1>
- -->
- # Use Tech
 <p align="center">
   <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/>
   <img src="https://img.shields.io/badge/Vuetify.js 2.5.8-1867C0?style=flat-square&logo=Vuetify&logoColor=white"/>
@@ -24,9 +22,9 @@
   <img src="https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=Express&logoColor=white"/>
 </p>
 
-<!-- <h1 align="center">
+<h1 align="center">
   목차
-</h1> -->
+</h1>
 <!-- <ul>
   <li>디자인</li>
   <li>DB설계</li>
@@ -34,8 +32,6 @@
   <li>프론트엔드</li>
   <li>퍼블리싱</li>
 </ul> -->
-# 목차
-
 - 디자인
 - 퍼블리싱
 - 프론트엔드
