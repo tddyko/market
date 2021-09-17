@@ -9,7 +9,7 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Vue.js 1.2-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/>
   <img src="https://img.shields.io/badge/Vuetify.js 2.5.8-1867C0?style=flat-square&logo=Vuetify&logoColor=white"/>
   <img src="https://img.shields.io/badge/Node.js 14.17-339933?style=flat-square&logo=Node.js&logoColor=white"/>
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/>
