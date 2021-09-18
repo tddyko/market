@@ -1,19 +1,13 @@
 const express = require("express");
 const path = require("path");
 const { sequelize } = require("./models");
-const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const morgan = require("morgan");
-const hpp = require("hpp");
-const helmet = require("helmet");
 const dotenv = require("dotenv");
 const passport = require("passport"); //페스포트
 const passportConfing = require("./passport"); //페스포트 설정
 const flash = require("connect-flash");
-const cors = require("cors");
 /* 라우터 설정 */
-const prod = process.env.NODE_ENV === "production";
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const user_loginRouter = require("./routes/user_login"); //로그인, 로그아웃
@@ -36,7 +30,6 @@ dotenv.config();
 const app = express();
 app.use(require("connect-history-api-fallback")());
 app.use(express.static("public"));
-
 passportConfing(); //페스포트 설정
 // promise 버전
 /*sequelize.sync( {force: false} )
@@ -71,33 +64,8 @@ const connDB = async () => {
     console.error(e);
   }
 };
-// const sslServer = {
-//   ca: fs.readFileSync('./ssl/nowait.pw_nowait'),
-//   key: fs.readFileSync(''),
-//   cert: fs.readFileSync(''),
-// };
-
 // view engine setup
 app.set("view engine", "pug");
-if (prod) {
-  app.use(helmet());
-  app.use(hpp());
-  app.use(morgan("combined"));
-  app.use(
-    cors({
-      origin: "https://nowait.pw",
-      credentials: true,
-    })
-  );
-} else {
-  app.use(morgan("dev"));
-  app.use(
-    cors({
-      origin: "http://localhost",
-      credentials: true,
-    })
-  );
-}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -147,4 +115,4 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-module.exports = { app, connDB, /*sslServer*/ };
+module.exports = { app, connDB };

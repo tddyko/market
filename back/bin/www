@@ -7,7 +7,37 @@
 const app = require('../app');
 const debug = require('debug')('back:server');
 const http = require('http');
+const helmet = require("helmet");
+const prod = process.env.NODE_ENV === "production";
+const hpp = require("hpp");
+const morgan = require("morgan");
+const cors = require("cors");
+const fs = require("fs");
 
+if (prod) {
+  const sslServer = {
+    ca: fs.readFileSync('./ssl/nowait.pw_nowait'),
+    key: fs.readFileSync(''),
+    cert: fs.readFileSync(''),
+  };
+  app.app.use(helmet());
+  app.app.use(hpp());
+  app.app.use(morgan("combined"));
+  app.app.use(
+      cors({
+        origin: "https://nowait.pw",
+        credentials: true,
+      })
+  );
+} else {
+  app.app(morgan("dev"));
+  app.app(
+      cors({
+        origin: "http://localhost",
+        credentials: true,
+      })
+  );
+}
 /**
  * Get port from environment and store in Express.
  */
