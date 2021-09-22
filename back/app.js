@@ -3,11 +3,13 @@ const path = require("path");
 const { sequelize } = require("./models");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
 const passport = require("passport"); //페스포트
 const passportConfing = require("./passport"); //페스포트 설정
 const flash = require("connect-flash");
-/* 라우터 설정 */
+const cors = require("cors");
+// 라우터 설정
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const user_loginRouter = require("./routes/user_login"); //로그인, 로그아웃
@@ -24,12 +26,8 @@ const menu_optionRouter = require("./routes/menu_option"); //메뉴옵션
 const market_inforomRouter = require("./routes/market_infom"); //가게 정보
 const main_page = require("./routes/mainPage"); //들어가자마자 나오는 화면
 
-// dotenv setting
-dotenv.config();
-
 const app = express();
-app.use(require("connect-history-api-fallback")());
-app.use(express.static("public"));
+
 passportConfing(); //페스포트 설정
 // promise 버전
 /*sequelize.sync( {force: false} )
@@ -63,9 +61,19 @@ const connDB = async () => {
   } catch (e) {
     console.error(e);
   }
+  console.log("데이터베이스 연결성공");
 };
+app.use(
+  cors({
+    origin: "http://localhost:8080",
+    credentials: true,
+  })
+);
+// dotenv setting
+dotenv.config();
 // view engine setup
 app.set("view engine", "pug");
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -78,7 +86,6 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
-      domain: prod && ".nowait.pw",
     },
   })
 );
@@ -106,7 +113,6 @@ app.use((req, res, next) => {
   error.status = 404;
   next(error);
 });
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
