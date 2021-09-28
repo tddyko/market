@@ -67,6 +67,25 @@ __어드민 화면__
  
   -  각 페이지들을 Router의 path에 맞춰 컴포넌트 모듈화
 
+  ```java
+    {
+    path: "/",
+    component: () =>
+      import(/* webpackChunkName: "market_layout" */ "@/layouts/main/Index"),
+    children: [
+      {
+        path: "/",
+        name: "Main",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(
+            /* webpackChunkName: "Dashboard" */ "@/views/main/maincontent/TabItems"
+          ),
+      },
+  ```
+
 3. #### Vuetify.js 프레임워크를 활용한 모던웹 퍼블리싱
 
   - 웹 디자인 당시 Vuetify 공식 문서 를 참조하여 화면 구현
