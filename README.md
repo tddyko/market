@@ -26,7 +26,7 @@
   목차
 </h1>
  <ol>
-  <a href="/hello"><li>디자인</li></a>
+  <li><a href="/hello">디자인</a></li>
   <li>DB설계</li>
   <li>백엔드</li>
   <li>프론트엔드</li>
