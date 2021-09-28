@@ -26,12 +26,13 @@
   목차
 </h1>
  <ol>
-  <li><a href="/hello">디자인</a></li>
+  <li><a href="#design">디자인</a></li>
   <li>DB설계</li>
   <li>백엔드</li>
   <li>프론트엔드</li>
   <li>퍼블리싱</li>
 </ol>
 
+<h1 id="design">디자인</h1>
 
 
