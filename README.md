@@ -26,8 +26,9 @@
 
 <ol>
   <li><a href="#design">디자인</a></li>
-  <li><a href="#DB">DB설계</a></li>
+ <!-- <li><a href="#DB">DB설계</a></li>
   <li><a href="#backend">백엔드</a></li>
+-->
   <li><a href="#frontend">프론트엔드</a></li>
 </ol>
 
