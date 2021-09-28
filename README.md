@@ -25,13 +25,13 @@
 <h1 align="center">
   목차
 </h1>
-<!-- <ul>
+ <ul>
   <a href="/hello"><li>디자인</li></a>
   <li>DB설계</li>
   <li>백엔드</li>
   <li>프론트엔드</li>
   <li>퍼블리싱</li>
-</ul> -->
+</ul>
 
 1. 디자인
 2. DB 설계
