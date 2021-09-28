@@ -67,7 +67,7 @@ __어드민 화면__
  
   -  각 페이지들을 Router의 path에 맞춰 컴포넌트 모듈화
 
-  ```java
+  ```kotlin
     {
     path: "/",
     component: () =>
