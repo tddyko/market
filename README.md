@@ -33,7 +33,7 @@
 </ol>
 
 <h1 id="design">디자인</h1>
-![메인 페이지_손님](https://user-images.githubusercontent.com/85723094/135088887-209b8720-ec92-412f-8d24-ffa95ea35110.png)
+![메인 페이지 손님](https://user-images.githubusercontent.com/85723094/135088887-209b8720-ec92-412f-8d24-ffa95ea35110.png)
 <h1 id="DB">DB설계</h1>
 쓸내용 이지롱
 <h1 id="backend">백엔드</h1>
