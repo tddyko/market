@@ -9,7 +9,8 @@
 
 
 ![](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white)
-![](https://img.shields.io/badge/Vuetify.js%202.5.8-1867C0?style=flat-square&logo=Vuetify&logoColor=white) 
+![](https://img.shields.io/badge/Vuetify.js%202.5.8-1867C0?style=flat-square&logo=Vuetify&logoColor=white)
+![](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white)
 ![](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white)
 ![](https://img.shields.io/badge/IntelliJ%20IDEA-000000?style=flat-square&logo=IntelliJ%20IDEA&logoColor=white)
 ![](https://img.shields.io/badge/MySQL%208.0-4479A1?style=flat-square&logo=MySQL&logoColor=white)
