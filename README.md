@@ -33,7 +33,7 @@
 </ol>
 
 <h1 id="design">디자인</h1>
-쓸내용 이지롱
+![](https://i.esdrop.com/d/ZklKfna5T3.jpg)
 <h1 id="DB">DB설계</h1>
 쓸내용 이지롱
 <h1 id="backend">백엔드</h1>
