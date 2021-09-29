@@ -26,10 +26,10 @@
 
 <ol>
   <li><a href="#design">디자인</a></li>
- <!-- <li><a href="#DB">DB설계</a></li>
-  <li><a href="#backend">백엔드</a></li>
--->
   <li><a href="#frontend">프론트엔드</a></li>
+  <li><a href="#DB">DB설계</a></li>
+  <li><a href="#backend">백엔드</a></li>
+
 </ol>
 
 <h1 id="design">디자인</h1>
@@ -99,3 +99,28 @@ __어드민 화면__
   - Store 모듈화 구현
 
   - DB에 저장된 정보들을 axios 통신하여 state에 반영
+
+<h1 id="DB">DB 설계</h1>
+
+
+#### 1. Sequelize
+
+- 기존의 SQL문법 대신 JavaScript 문법을 사용해서 데이터베이스를 쉽게 사용
+- /back/models 폴더에 각 테이블을 모듈화 후 index.js에서 exports 함
+- /back/app.js 폴더의 index.js를 require 해서 데이터 베이스 생성
+- /back/config 폴더의 index.js에서 데이터베이스 종류와 이름 사용자 등을 설정
+
+```javascript
+require("dotenv").config();
+module.exports = {
+  development: {
+    username: "root",
+    password: process.env.SEQUELIZE_PASSWD,
+    database: "market",
+    host: "127.0.0.1",
+    dialect: "mysql",
+    timezone: "+09:00",
+  },
+  ...
+};
+```
