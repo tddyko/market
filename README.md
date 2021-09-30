@@ -73,25 +73,6 @@ __어드민 화면__
  
   -  각 페이지들을 Router의 path에 맞춰 컴포넌트 모듈화
 
-  ```kotlin
-    {
-    path: "/",
-    component: () =>
-      import(/* webpackChunkName: "market_layout" */ "@/layouts/main/Index"),
-    children: [
-      {
-        path: "/",
-        name: "Main",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(
-            /* webpackChunkName: "Dashboard" */ "@/views/main/maincontent/TabItems"
-          ),
-      },
-  ```
-
 #### 3. Vuex 상태 관리 구현
 
   - Vuex를 이용하여 비동기 처리 구현
