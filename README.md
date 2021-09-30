@@ -104,6 +104,8 @@ __어드민 화면__
 
 <img src="https://user-images.githubusercontent.com/87686258/135237298-fa61681e-3afa-4ad2-95f0-bc7e09b21762.png" alt = "DB 설계도">
 
+DB 설계 시 작성한 워크플로우입니다.
+
 #### 1. Sequelize
 
 - 기존의 SQL문법 대신 JavaScript 문법을 사용해서 데이터베이스를 쉽게 사용
@@ -125,3 +127,76 @@ module.exports = {
   ...
 };
 ```
+
+
+<h1 id="backend">백엔드</h1>
+
+#### 1. Morgan
+
+- 로그를 위해 클라이언트와 서버의 응답 사이에 존재하는 미들웨어
+
+
+#### 2. dotenv
+
+- .env 파일을 읽어서 환경변수를 설정하기 위한 모듈
+
+
+#### 3. 포트 설정
+
+- .env 파일에 포트 설정 후 서버의 포트를 설정함
+
+#### 4. cors
+
+- 프론트엔드와 백엔드의 포트가 다르기 때문에 외부에서 접근이 가능하도록 설정
+- 프로젝트 진행 시에는 프론트엔드 쪽 포트 번호가 8080이기 때문에 8080 포트를 허용하는 설정을 함
+
+#### 5. Passport
+
+- 로그인 구현을 위해서 사용하였고, passport의 기능 중 이 프로젝트에서는 passport-local을 사용함
+- Passport와 함께 비밀번호를 데이터베이스에 저장할 때 암호화를 위해서 bcrypt를 사용함
+- 로그인 성공 여부를 알리기 위해 connect-flash 모듈 사용
+
+#### 6. Express
+
+- Node.js의 웹 프레임워크인 Express를 사용하였고, 효율적인 통신을 위해서 Request API 사용함
+- 보안성과 확장성을 확보할 수 있고, Node.js를 간결하게 사용할 수 있다는 점에서 프로젝트에 활용
+- 세션에 로그인 정보를 저장하기 위해 express-session 사용
+- 쿠키 파싱을 위해 cookie-parser 사용하였고 .env 파일에서 COOKIE_SECRET 설정함
+- express.urlencoded({ extended: ture })를 설정해 Object를 상속받게 하였음
+
+#### 7. MUITER
+
+- 이미지 업로드를 위한 모듈
+- FS모듈로 해당 폴더의 유무를 확인하고 없으면 각 폴더를 생성함
+- 각 기능에 맞게 이미지 저장 위치를 정할 수 있도록 설정
+
+```javascript
+const multer = require("multer");
+const fs = require("fs");
+fs.readdir ("./public/images", (err, data) => {
+  if(err){
+    fs.mkdirSync("./public/images");
+  }
+});
+module.exports = function(filepath) {
+  fs.readdir(filepath, (err, data) => {
+    if (err)
+      try{
+        fs.mkdirSync(filepath);
+      }catch(){}
+  });
+  let storage = multer.diskStorage({
+    destination: function (req, file, cb){
+      cb(null, filepath);
+    },
+    filename: function (req, file, cb){
+      let newFileName = new Date().valueOf() + "_" + file.originalname
+      cb(null, newFileName);
+    },
+  });
+  return (upload = multer ({ storage: storage });
+};
+```
+
+
+
