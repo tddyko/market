@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=producation PORT=80 pm2 start bin/www",
-    "dev": "nodemon server"
+    "dev": "nodemon bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
